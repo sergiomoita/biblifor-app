@@ -64,9 +64,17 @@
         <activity
             android:name=".LoginAdministradorActivity"
             android:exported="false" />
+
+        <!-- 🚀 Agora esta é a tela inicial do app -->
         <activity
             android:name=".RenovacaoConfirmadaUsuarioActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".RenovacaoEmprestimoUsuarioActivity"
             android:exported="false" />
@@ -163,24 +171,13 @@
         <activity
             android:name=".EsqueceuSenhaUsuarioActivity"
             android:exported="false" />
-
-        <!-- LAUNCHER AGORA É A LOGIN DO USUÁRIO -->
         <activity
             android:name=".LoginUsuarioActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- Removida a MainActivity lançável -->
-        <!-- Caso ainda exista o arquivo MainActivity.kt no projeto e
-             queira mantê-lo sem ser launchable, poderia ficar assim:
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
-        -->
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

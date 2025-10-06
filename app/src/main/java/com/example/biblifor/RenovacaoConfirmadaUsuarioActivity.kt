@@ -1,6 +1,9 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +19,24 @@ class RenovacaoConfirmadaUsuarioActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val botaoHistorico = findViewById<Button>(R.id.lopesBtnHistorico2)
+        botaoHistorico.setOnClickListener {
+            val navegarHistorico = Intent(this, HistoricoEmprestimosUsuarioActivity::class.java)
+            startActivity(navegarHistorico)
+        }
+
+        val imgChatBot = findViewById<ImageView>(R.id.lopesChatBot1)
+        imgChatBot.setOnClickListener {
+            val navegarChatBot = Intent(this, ChatbotUsuarioActivity::class.java)
+            startActivity(navegarChatBot)
+        }
+
+        val imgNotificacao = findViewById<ImageView>(R.id.lopesNotificacao1)
+        imgNotificacao.setOnClickListener {
+            val navegarNotificacao = Intent(this, AvisosUsuarioActivity::class.java)
+            startActivity(navegarNotificacao)
+        }
+
     }
 }
