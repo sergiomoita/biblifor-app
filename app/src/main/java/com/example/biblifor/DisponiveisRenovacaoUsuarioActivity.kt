@@ -1,6 +1,9 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +19,14 @@ class DisponiveisRenovacaoUsuarioActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val imagemLivro = findViewById<ImageView>(R.id.lopesRomeuJulietaTeste)
+        imagemLivro.setOnClickListener {
+
+            val navegarLivrosRenovaveis = Intent(this, RenovacaoEmprestimoUsuarioActivity::class.java)
+            startActivity(navegarLivrosRenovaveis)
+
+        }
+
     }
 }
