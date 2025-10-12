@@ -5,6 +5,233 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#004AF7"
     tools:context=".CadastrarLivroAdministradorActivity">
+
+
+    <ImageView
+        android:id="@+id/lopesLogoUnifor38"
+        android:layout_width="83dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_unifor" />
+
+    <ImageView
+        android:id="@+id/lopesSetaVoltar38"
+        android:layout_width="44dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta" />
+
+    <TextView
+        android:id="@+id/lopesNomeUnifor38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Unifor Biblifor"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/lopesBtnImagem38"
+        android:layout_width="144dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="120dp"
+        android:backgroundTint="#47D3C2C2"
+        android:text="Inserir Imagem"
+        android:textColor="#05056D"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lopesCadastrar38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Cadastrar"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lopesPreencha38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Preencha as informações abaixo"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesCadastrar38" />
+
+    <EditText
+        android:id="@+id/lopesNome39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Nome"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesBtnImagem38" />
+
+    <EditText
+        android:id="@+id/lopesAutor40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Autor"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesNome39" />
+
+    <EditText
+        android:id="@+id/lopesTopicos40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Tópicos"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesAutor40" />
+
+    <EditText
+        android:id="@+id/lopesQtd40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Quantidade de exemplares"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos40" />
+
+    <EditText
+        android:id="@+id/lopesLocaliza40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Localização no acervo"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesQtd40" />
+
+    <EditText
+        android:id="@+id/lopesDispo40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Disponibilidade:"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesLocaliza40" />
+
+    <EditText
+        android:id="@+id/lopesEmprestar40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:hint="Emprestar:"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="#C92C2929"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesDispo40" />
+
+    <Button
+        android:id="@+id/lopesBtnCadastrar38"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Cadastrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/lopesEscrever38"
+        android:layout_width="29dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="199dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lopesNomeUnifor38"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/escrever_mensagem" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -52,9 +52,17 @@
         <activity
             android:name=".LivroCadastrandoAdministradorActivity"
             android:exported="false" />
+
+        <!-- === CADASTRAR LIVRO É O LAUNCHER === -->
         <activity
             android:name=".CadastrarLivroAdministradorActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".MenuPrincipalAdministradorActivity"
             android:exported="false" />
@@ -64,22 +72,17 @@
         <activity
             android:name=".LoginAdministradorActivity"
             android:exported="false" />
-
-        <!-- 🚀 Agora esta é a tela inicial do app -->
         <activity
-            android:name=".RenovacaoConfirmadaUsuarioActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:name=".EmprestimoUsuarioActivity"
+            android:exported="false" />
         <activity
             android:name=".RenovacaoEmprestimoUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".DisponiveisRenovacaoUsuarioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RenovacaoConfirmadaUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".PerguntasFrequentesUsuarioActivity"
@@ -104,9 +107,6 @@
             android:exported="false" />
         <activity
             android:name=".ConfirmacaoEmprestimoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EmprestimoUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".AvaliacaoUsuarioActivity"

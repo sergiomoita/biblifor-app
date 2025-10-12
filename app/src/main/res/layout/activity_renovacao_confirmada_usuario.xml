@@ -9,7 +9,7 @@
     tools:context=".RenovacaoConfirmadaUsuarioActivity">
 
     <TextView
-        android:id="@+id/lopesRenovacaoEmprestimoConfirmado"
+        android:id="@+id/lopesRenovacaoEmprestimoConfirmado34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/lopesRomeuJulieta1"
+        android:id="@+id/lopesRomeuJulieta34"
         android:layout_width="199dp"
         android:layout_height="287dp"
         android:layout_marginBottom="328dp"
@@ -34,20 +34,20 @@
         app:srcCompat="@drawable/livro_romeu2" />
 
     <TextView
-        android:id="@+id/lopesLocalizacaoNoAcervo2"
+        android:id="@+id/lopesLocalizacaoNoAcervo34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="304dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Localização no acervo: "
-        android:textColor="#FBFBFB"
+        android:textColor="#FFFFFF"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/lopesQC91_2"
+        android:id="@+id/lopesQC9134"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="272dp"
@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/lopesBtnHistorico2"
+        android:id="@+id/lopesBtnHistorico34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="188dp"
@@ -75,31 +75,31 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/lopesChatBot1"
-        android:layout_width="52dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="24dp"
+        android:id="@+id/lopesChatBot34"
+        android:layout_width="34dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chatbot_ema" />
 
     <ImageView
-        android:id="@+id/lopesNotificacao1"
-        android:layout_width="45dp"
-        android:layout_height="28dp"
+        android:id="@+id/lopesNotificacao34"
+        android:layout_width="23dp"
+        android:layout_height="27dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/lopesChatBot1"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/notificacao" />
 
     <ImageView
-        android:id="@+id/lopesLogoUnifor"
-        android:layout_width="89dp"
-        android:layout_height="69dp"
+        android:id="@+id/lopesLogoUnifor34"
+        android:layout_width="83dp"
+        android:layout_height="74dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -108,7 +108,7 @@
         app:srcCompat="@drawable/logo_unifor" />
 
     <TextView
-        android:id="@+id/lopesNameUnifor"
+        android:id="@+id/lopesNomeUnifor34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -116,8 +116,8 @@
         android:text="Unifor Biblifor"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
-        app:layout_constraintStart_toStartOf="@+id/lopesLogoUnifor"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

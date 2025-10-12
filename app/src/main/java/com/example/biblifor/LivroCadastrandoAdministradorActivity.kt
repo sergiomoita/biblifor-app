@@ -1,6 +1,9 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +19,19 @@ class LivroCadastrandoAdministradorActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val imgSeta = findViewById<ImageView>(R.id.lopesSetaVoltar39)
+        imgSeta.setOnClickListener {
+            val navegarSeta = Intent(this, CadastrarLivroAdministradorActivity::class.java)
+            startActivity(navegarSeta)
+        }
+
+        val btnCadastrar = findViewById<Button>(R.id.lopesBtnCadastrar39)
+        btnCadastrar.setOnClickListener {
+            val navegarExcecoes = Intent(this, ConfirmacaoCadastroAdministradorActivity::class.java)
+            startActivity(navegarExcecoes)
+        }
+
+
     }
 }

@@ -8,54 +8,196 @@
     android:background="#004AF7"
     tools:context=".DisponiveisRenovacaoUsuarioActivity">
 
-    <TextView
-        android:id="@+id/lopesTextoRenovacao5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Reenovação de empréstimo"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lopesDisponiveisTest"
+        android:id="@+id/lopesRenovacaoEmprestimo32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="156dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Disponíveis para RENOVAÇÃO:"
+        android:text="Renovação de empréstimo"
         android:textColor="#FFFFFF"
-        android:textSize="12sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/lopesRomeuJulietaTeste"
-        android:layout_width="95dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="192dp"
+        android:id="@+id/lopesChatBot32"
+        android:layout_width="34dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesNotificacao32"
+        android:layout_width="23dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notificacao" />
+
+    <ImageView
+        android:id="@+id/lopesLogoUnifor32"
+        android:layout_width="83dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_unifor" />
+
+    <TextView
+        android:id="@+id/lopesNomeUnifor32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Unifor Biblifor"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/lopesSetaVoltar32"
+        android:layout_width="44dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta" />
+
+    <TextView
+        android:id="@+id/lopesDisponiveisRenovacao32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Disponíveis para RENOVAÇÃO"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesRenovacaoEmprestimo32" />
+
+    <ImageView
+        android:id="@+id/lopesLivroRomeuJulieta32"
+        android:layout_width="87dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesDisponiveisRenovacao32"
         app:srcCompat="@drawable/livro_romeu2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/lopesNomeRomeuJulieta32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="224dp"
-        android:layout_marginEnd="144dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Romeu e Julieta"
         android:textColor="#FFFFFF"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintStart_toEndOf="@+id/lopesLivroRomeuJulieta32"
+        app:layout_constraintTop_toBottomOf="@+id/lopesDisponiveisRenovacao32" />
+
+    <TextView
+        android:id="@+id/lopesWilliamShakespeare32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_light"
+        android:text=" W. Shakespeare"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toEndOf="@+id/lopesLivroRomeuJulieta32"
+        app:layout_constraintTop_toBottomOf="@+id/lopesNomeRomeuJulieta32" />
+
+    <ImageView
+        android:id="@+id/lopesImagemAutor32"
+        android:layout_width="16dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lopesWilliamShakespeare32"
+        app:layout_constraintTop_toBottomOf="@+id/lopesNomeRomeuJulieta32"
+        app:srcCompat="@drawable/autor" />
+
+    <TextView
+        android:id="@+id/lopesDisponivel32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Disponível: "
+        android:textColor="#32E60B"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintStart_toEndOf="@+id/lopesLivroRomeuJulieta32"
+        app:layout_constraintTop_toBottomOf="@+id/lopesWilliamShakespeare32" />
+
+    <TextView
+        android:id="@+id/lopesFisicoDigital32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="360dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="físico + digital"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/lopesData32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="332dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="13/09/2025"
+        android:textColor="#FFFFFF"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.376"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesDisponivel32" />
+
+    <ImageView
+        android:id="@+id/lopesRelogio32"
+        android:layout_width="25dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="332dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesFisicoDigital32"
+        app:srcCompat="@drawable/tempo_azul" />
 </androidx.constraintlayout.widget.ConstraintLayout>

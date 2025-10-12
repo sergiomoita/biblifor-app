@@ -20,23 +20,22 @@ class RenovacaoConfirmadaUsuarioActivity : AppCompatActivity() {
             insets
         }
 
-        val botaoHistorico = findViewById<Button>(R.id.lopesBtnHistorico2)
+        val botaoHistorico = findViewById<Button>(R.id.lopesBtnHistorico34)
         botaoHistorico.setOnClickListener {
             val navegarHistorico = Intent(this, HistoricoEmprestimosUsuarioActivity::class.java)
             startActivity(navegarHistorico)
         }
 
-        val imgChatBot = findViewById<ImageView>(R.id.lopesChatBot1)
+        val imgChatBot = findViewById<ImageView>(R.id.lopesChatBot34)
         imgChatBot.setOnClickListener {
             val navegarChatBot = Intent(this, ChatbotUsuarioActivity::class.java)
             startActivity(navegarChatBot)
         }
 
-        val imgNotificacao = findViewById<ImageView>(R.id.lopesNotificacao1)
+        val imgNotificacao = findViewById<ImageView>(R.id.lopesNotificacao34)
         imgNotificacao.setOnClickListener {
             val navegarNotificacao = Intent(this, AvisosUsuarioActivity::class.java)
             startActivity(navegarNotificacao)
         }
-
     }
 }

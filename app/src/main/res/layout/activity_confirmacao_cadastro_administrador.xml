@@ -7,4 +7,57 @@
     android:layout_height="match_parent"
     tools:context=".ConfirmacaoCadastroAdministradorActivity">
 
+    <ImageView
+        android:id="@+id/lopesEdipoRei41"
+        android:layout_width="188dp"
+        android:layout_height="298dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/livro_edipo_rei" />
+
+    <TextView
+        android:id="@+id/lopesDeseja41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text=" Você realmente deseja cadastrar &quot;Édipo Rei&quot;?"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesEdipoRei41" />
+
+    <Button
+        android:id="@+id/lopesNao41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="236dp"
+        android:background="#9E7F7F"
+        android:backgroundTint="#BCAEAE"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Não"
+        android:textColor="#CC1313"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#282424" />
+
+    <Button
+        android:id="@+id/lopesSim41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="240dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Sim"
+        android:textColor="#62AF11"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#1D1A1A" />
 </androidx.constraintlayout.widget.ConstraintLayout>
