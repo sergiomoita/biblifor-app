@@ -1,23 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginUsuarioActivity"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="63dp">
+    android:background="#005BFF"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".LoginUsuarioActivity">
 
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logoLoginUsuarioSergio"
+        android:layout_width="154dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="Logo Biblifor"
+        android:src="@drawable/logo_unifor" />
+
+    <!-- Título -->
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="TELA INICIAL LOGIN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Acesso ao Biblifor"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"
+        android:gravity="center" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Subtítulo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aqui você encontra funcionalidades da biblioteca da Universidade de Fortaleza."
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="16dp" />
+
+    <!-- Campo Matrícula -->
+    <EditText
+        android:id="@+id/inputMatriculaLoginUsuarioSergio"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:hint="Matrícula"
+        android:background="@drawable/rounded_edittext"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:inputType="number" />
+
+    <!-- Campo Senha -->
+    <EditText
+        android:id="@+id/inputSenhaLoginUsuarioSergio"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:hint="Senha"
+        android:background="@drawable/rounded_edittext"
+        android:paddingHorizontal="16dp"
+        android:textColor="#000000"
+        android:inputType="textPassword" />
+
+    <!-- Esqueceu a senha -->
+    <TextView
+        android:id="@+id/tvEsqueceuSenhaLoginUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esqueceu sua senha?"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Botão Acessar -->
+    <Button
+        android:id="@+id/btnAcessarLoginUsuarioSergio"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#004070"
+        android:text="Acessar"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium" />
+
+    <!-- Texto inferior -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BIBLIFOR"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginTop="60dp"
+        android:gravity="center" />
+
+</LinearLayout>

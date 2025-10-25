@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_toast_sucesso"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <!-- Ícone de sucesso -->
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/check_verde" />  <!-- coloque um ícone tipo check ou ok -->
+
+
+    <!-- Texto do toast -->
+    <TextView
+        android:id="@+id/tvMensagemToastSucesso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cápsula de estudo reservada com sucesso!"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium" />
+</LinearLayout>

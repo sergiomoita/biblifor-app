@@ -2,9 +2,12 @@ package com.example.biblifor
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,21 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
             throw IllegalArgumentException("$label não pode conter 'mateus'")
         }
     }
+
+    // ---- Toast customizado de ERRO (usa o único layout e bg_toast_erro) ----
+    private fun showErrorToast(message: String) {
+        val inflater: LayoutInflater = layoutInflater
+        val view = inflater.inflate(R.layout.toast_excecao_cadastro, null)
+        view.findViewById<TextView>(R.id.toast_message).text = message
+
+        Toast(this).apply {
+            duration = Toast.LENGTH_LONG
+            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 120)
+            this.view = view
+            show()
+        }
+    }
+    // -----------------------------------------------------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +61,6 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
             startActivity(navegarEscreverMensagem)
         }
 
-        val inserirImagem = findViewById<Button>(R.id.lopesBtnImagem38)
-        inserirImagem.setOnClickListener {
-            val navegarCadastrando =
-                Intent(this, LivroCadastrandoAdministradorActivity::class.java)
-            startActivity(navegarCadastrando)
-        }
 
         // EditTexts
         val etNome = findViewById<EditText>(R.id.lopesNome38)
@@ -70,15 +82,15 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
                 validarCampo(etDispo, "Disponibilidade")
                 validarCampo(etEmprestar, "Emprestar")
 
-                // Se tudo ok, segue o fluxo normal
-                Toast.makeText(this, "Cadastro validado com sucesso.", Toast.LENGTH_SHORT).show()
-                val navegarExcecoes =
-                    Intent(this, ExcecoesCadastroAdministradorActivity::class.java)
-                startActivity(navegarExcecoes)
+
+                val navegarCadastrando =
+                    Intent(this, LivroCadastrandoAdministradorActivity::class.java)
+                startActivity(navegarCadastrando)
+
             } catch (e: IllegalArgumentException) {
-                Toast.makeText(this, e.message ?: "Erro de validação.", Toast.LENGTH_SHORT).show()
+                showErrorToast(e.message ?: "Erro de validação.")
             } catch (e: Exception) {
-                Toast.makeText(this, "Erro inesperado.", Toast.LENGTH_SHORT).show()
+                showErrorToast("Erro inesperado.")
             }
         }
     }

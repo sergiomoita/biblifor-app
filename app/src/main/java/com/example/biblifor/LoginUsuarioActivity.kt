@@ -1,20 +1,59 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.LayoutInflater
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class LoginUsuarioActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login_usuario)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val btnAcessar = findViewById<Button>(R.id.btnAcessarLoginUsuarioSergio)
+        val tvEsqueceuSenha = findViewById<TextView>(R.id.tvEsqueceuSenhaLoginUsuario)
+        val etMatricula = findViewById<EditText>(R.id.inputMatriculaLoginUsuarioSergio)
+        val etSenha = findViewById<EditText>(R.id.inputSenhaLoginUsuarioSergio) // <-- ID correto do campo de senha
+
+        btnAcessar.setOnClickListener {
+            val matricula = etMatricula.text.toString().trim()
+            val senha = etSenha.text.toString().trim()
+
+            if (matricula.isEmpty() || senha.isEmpty()) {
+                mostrarToastErro("⚠️ Preencha todos os campos!")
+                return@setOnClickListener
+            }
+
+            when {
+                matricula == "123" && senha == "usuario" -> {
+                    startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
+                    finish()
+                }
+                matricula == "333" && senha == "admin" -> {
+                    startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+                    finish()
+                }
+                else -> {
+                    mostrarToastErro("❌ Matrícula ou senha incorretos!")
+                }
+            }
         }
+
+        tvEsqueceuSenha.setOnClickListener {
+            startActivity(Intent(this, EsqueceuSenhaUsuarioActivity::class.java))
+        }
+    }
+
+    private fun mostrarToastErro(mensagem: String) {
+        val inflater = LayoutInflater.from(this)
+        val layout = inflater.inflate(R.layout.toast_erro_login, null)
+        val tvMensagem = layout.findViewById<TextView>(R.id.textoToastErro)
+        tvMensagem.text = mensagem
+        Toast(applicationContext).apply {
+            duration = Toast.LENGTH_SHORT
+            view = layout
+        }.show()
     }
 }

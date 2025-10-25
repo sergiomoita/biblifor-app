@@ -8,7 +8,6 @@
     android:background="#004AF7"
     tools:context=".CadastrarLivroAdministradorActivity">
 
-
     <ImageView
         android:id="@+id/lopesLogoUnifor38"
         android:layout_width="83dp"
@@ -283,6 +282,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/home" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

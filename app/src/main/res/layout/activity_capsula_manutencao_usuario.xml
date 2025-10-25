@@ -1,10 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0066FF"
     tools:context=".CapsulaManutencaoUsuarioActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Botão voltar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btnVoltarCapsulaManutencaoUsuarioSergio"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Voltar"
+            android:src="@drawable/seta"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+    </RelativeLayout>
+
+    <!-- Card central -->
+    <LinearLayout
+        android:id="@+id/cardContainerCapsulaManutencaoUsuarioSergio"
+        android:layout_width="301dp"
+        android:layout_height="479dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Ícone da cápsula com borda amarela -->
+        <ImageView
+            android:id="@+id/iconCapsulaManutencaoUsuarioSergio"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_icon_border_amarelo"
+            android:padding="12dp"
+            android:src="@drawable/capsulas" />
+
+        <!-- Texto principal -->
+        <TextView
+            android:id="@+id/textStatusCapsulaManutencaoUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Cápsula em manutenção"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Botão Manutenção -->
+        <Button
+            android:id="@+id/btnCapsulaManutencaoUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FFC107"
+            android:text="Em manutenção"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
+
+</RelativeLayout>

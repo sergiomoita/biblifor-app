@@ -1,10 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#005BFF"
     tools:context=".LimiteEmprestimosUsuarioActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <!-- BARRA INFERIOR FIXA NO FUNDO -->
+
+    <LinearLayout
+        android:id="@+id/conteudoPrincipalLimiteEmprestimos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/barraInferiorLimiteEmprestimosSergio"
+        android:layout_marginBottom="46dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- LOGO CENTRALIZADO -->
+
+        <!-- LINHA COM SETA E ÍCONES (TOPO) -->
+        <ImageView
+            android:id="@+id/logoLimiteEmprestimoSergio"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:contentDescription="Logo Unifor Biblifor"
+            android:src="@drawable/logo_unifor" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <!-- Botão voltar -->
+            <ImageView
+                android:id="@+id/btnVoltarLimiteEmprestimosSergio"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentStart="true"
+                android:contentDescription="Voltar"
+                android:src="@drawable/seta"
+                android:tint="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <!-- Ícones EMA e Notificação à direita -->
+            <LinearLayout
+                android:id="@+id/linhaIconesDireita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="end|center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iconMascoteLimiteEmprestimosSergio"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Ícone mascote"
+                    android:src="@drawable/chatbot_ema"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+
+                <ImageView
+                    android:id="@+id/iconNotificacaoLimiteEmprestimosSergio"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="Ícone notificação"
+                    android:src="@drawable/notificacao"
+                    android:tint="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Texto principal -->
+        <TextView
+            android:id="@+id/tvTituloLimiteEmprestimosSergio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="Você atingiu o limite de empréstimos!"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Mascote -->
+        <ImageView
+            android:id="@+id/imgMascoteLimiteEmprestimosSergio"
+            android:layout_width="200dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="Mascote do Biblifor"
+            android:src="@drawable/ema_microfone" />
+
+        <!-- Texto explicativo -->
+        <TextView
+            android:id="@+id/tvDescricaoLimiteEmprestimosSergio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="Devolva ao menos um livro para a biblioteca ou aguarde o prazo de liberação para o seu próximo empréstimo!"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <!-- Botão -->
+        <Button
+            android:id="@+id/btnHistoricoEmprestimosLimiteEmprestimosSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="16dp"
+            android:text="Histórico de Empréstimos"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/barraInferiorLimiteEmprestimosSergio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iconHomeLimiteEmprestimosSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Home" />
+
+        <ImageView
+            android:id="@+id/iconMascoteInferiorLimiteEmprestimosSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/chatbot_ema"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Mascote" />
+
+        <ImageView
+            android:id="@+id/iconMensagemLimiteEmprestimosSergio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/email"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Mensagem" />
+
+        <ImageView
+            android:id="@+id/iconMenuInferiorLimiteEmprestimosSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Menu" />
+    </LinearLayout>
+
+</RelativeLayout>

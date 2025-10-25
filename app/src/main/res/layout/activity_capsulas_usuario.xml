@@ -1,10 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#005BFF"
     tools:context=".CapsulasUsuarioActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <LinearLayout
+        android:id="@+id/conteudoCapsulasCapsulasUsuarioSergio"
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:layout_above="@id/barraInferiorCapsulasUsuarioSergio"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- LINHA DO TOPO -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <!-- Botão Voltar -->
+            <ImageView
+                android:id="@+id/btnVoltarCapsulasCapsulasUsuarioSergio"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentStart="true"
+                android:contentDescription="Voltar"
+                android:src="@drawable/seta"
+                android:tint="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            <!-- Ícones à direita -->
+            <LinearLayout
+                android:id="@+id/linhaIconesDireitaCapsulasCapsulasUsuarioSergio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="end|center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iconMascoteCapsulasCapsulasUsuarioSergio"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Mascote"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/chatbot_ema" />
+
+                <ImageView
+                    android:id="@+id/iconNotificacaoCapsulasUsuarioSergio"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="Notificação"
+                    android:src="@drawable/notificacao"
+                    android:tint="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- TÍTULO -->
+        <TextView
+            android:id="@+id/tvTituloCapsulasCapsulasUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Cápsulas"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <!-- SUBTÍTULO -->
+        <TextView
+            android:id="@+id/tvSubtituloCapsulasCapsulasUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Reserve um ambiente exclusivo para estudar."
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <!-- ÁREA DAS CÁPSULAS -->
+        <LinearLayout
+            android:id="@+id/areaCapsulasCapsulasUsuarioSergio"
+            android:layout_width="match_parent"
+            android:layout_height="456dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:background="#FFFFFF"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- LINHA 1 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCapsula1CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_capsula_verde"
+                    android:tag="verde"
+                    android:contentDescription="Cápsula 1" />
+
+                <ImageButton
+                    android:id="@+id/btnCapsula2CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_capsula_vermelha"
+                    android:tag="vermelha"
+                    android:contentDescription="Cápsula 2" />
+            </LinearLayout>
+
+            <!-- LINHA 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCapsula3CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_capsula_verde"
+                    android:tag="verde"
+                    android:contentDescription="Cápsula 3" />
+
+                <ImageButton
+                    android:id="@+id/btnCapsula4CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_capsula_verde"
+                    android:tag="verde"
+                    android:contentDescription="Cápsula 4" />
+            </LinearLayout>
+
+            <!-- LINHA 3 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCapsula5CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_capsula_verde"
+                    android:tag="verde"
+                    android:contentDescription="Cápsula 5" />
+
+                <ImageButton
+                    android:id="@+id/btnCapsula6CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_capsula_vermelha"
+                    android:tag="vermelha"
+                    android:contentDescription="Cápsula 6" />
+            </LinearLayout>
+
+            <!-- LINHA 4 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCapsula7CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_capsula_vermelha"
+                    android:tag="vermelha"
+                    android:contentDescription="Cápsula 7" />
+
+                <ImageButton
+                    android:id="@+id/btnCapsula8CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_capsula_amarelo"
+                    android:tag="amarelo"
+                    android:contentDescription="Cápsula 8" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- BARRA INFERIOR FIXA -->
+    <LinearLayout
+        android:id="@+id/barraInferiorCapsulasUsuarioSergio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iconHomeCapsulasUsuarioSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Home" />
+
+        <ImageView
+            android:id="@+id/iconMascoteInferiorCapsulasUsuarioSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/chatbot_ema"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Mascote" />
+
+        <ImageView
+            android:id="@+id/iconMensagemCapsulasUsuarioSergio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/email"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Mensagem" />
+
+        <ImageView
+            android:id="@+id/iconMenuInferiorCapsulasUsuarioSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Menu" />
+    </LinearLayout>
+</RelativeLayout>

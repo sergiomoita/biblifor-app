@@ -13,28 +13,9 @@
         android:theme="@style/Theme.BIBLIFOR"
         tools:targetApi="31">
 
+        <!-- === LOGIN USUÁRIO É O LAUNCHER === -->
         <activity
-            android:name=".StatusCapsulaAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CapsulasAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MenuHamburguerAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EscreverMensagemAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MensagensAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditarLivroAdministradorActivity"
-            android:exported="false" />
-
-        <!-- === EMPRESTAR LIVRO É O LAUNCHER === -->
-        <activity
-            android:name=".EmprestarLivroAdministradorActivity"
+            android:name=".LoginUsuarioActivity"
             android:exported="true"
             android:theme="@style/Theme.BIBLIFOR">
             <intent-filter>
@@ -43,138 +24,54 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".LivrosEmprestaveisAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MenuPrincipalAdministradorAcessibilidadeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PerfilAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ConfirmacaoCadastroAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ExcecoesCadastroAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LivroCadastrandoAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CadastrarLivroAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MenuPrincipalAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EsqueceuSenhaAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginAdministradorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EmprestimoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RenovacaoEmprestimoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DisponiveisRenovacaoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RenovacaoConfirmadaUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PerguntasFrequentesUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CapsulaManutencaoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CapsulaIndisponivelUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CapsulaDisponivelUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CapsulasUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AcervoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopupLivroOnlineUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ConfirmacaoEmprestimoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AvaliacaoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopupHistoricoEmprestimosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HistoricoEmprestimosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LimiteEmprestimosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopupEmprestimoProibidoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RecomendadosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MensagemSemResultadoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PesquisaSemResultadoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LivroDesfavoritadoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopupFavoritosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FavoritosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopupResultadosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ResultadosPesquisaUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PesquisaUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AvisosUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChatbotUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PopupHistoricoEmprestimoUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PerfilUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MenuAcessibilidadeUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MenuPrincipalUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EsqueceuSenhaUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginUsuarioActivity"
-            android:exported="false" />
+        <!-- Administrador -->
+        <activity android:name=".StatusCapsulaAdministradorActivity" android:exported="false" />
+        <activity android:name=".CapsulasAdministradorActivity" android:exported="false" />
+        <activity android:name=".MenuHamburguerAdministradorActivity" android:exported="false" />
+        <activity android:name=".EscreverMensagemAdministradorActivity" android:exported="false" />
+        <activity android:name=".MensagensAdministradorActivity" android:exported="false" />
+        <activity android:name=".EditarLivroAdministradorActivity" android:exported="false" />
+        <activity android:name=".EmprestarLivroAdministradorActivity" android:exported="false" />
+        <activity android:name=".LivrosEmprestaveisAdministradorActivity" android:exported="false" />
+        <activity android:name=".PerfilAdministradorActivity" android:exported="false" />
+        <activity android:name=".ConfirmacaoCadastroAdministradorActivity" android:exported="false" />
+        <activity android:name=".ExcecoesCadastroAdministradorActivity" android:exported="false" />
+        <activity android:name=".LivroCadastrandoAdministradorActivity" android:exported="false" />
+        <activity android:name=".MenuPrincipalAdministradorActivity" android:exported="false" />
+        <activity android:name=".CadastrarLivroAdministradorActivity" android:exported="false" />
+
+        <!-- Usuário -->
+        <activity android:name=".PerfilUsuarioActivity" android:exported="false" />
+        <activity android:name=".EmprestimoUsuarioActivity" android:exported="false" />
+        <activity android:name=".RenovacaoEmprestimoUsuarioActivity" android:exported="false" />
+        <activity android:name=".DisponiveisRenovacaoUsuarioActivity" android:exported="false" />
+        <activity android:name=".RenovacaoConfirmadaUsuarioActivity" android:exported="false" />
+        <activity android:name=".PerguntasFrequentesUsuarioActivity" android:exported="false" />
+        <activity android:name=".CapsulaManutencaoUsuarioActivity" android:exported="false" />
+        <activity android:name=".CapsulaIndisponivelUsuarioActivity" android:exported="false" />
+        <activity android:name=".CapsulaDisponivelUsuarioActivity" android:exported="false" />
+        <activity android:name=".CapsulasUsuarioActivity" android:exported="false" />
+        <activity android:name=".AcervoUsuarioActivity" android:exported="false" />
+        <activity android:name=".PopupLivroOnlineUsuarioActivity" android:exported="false" />
+        <activity android:name=".ConfirmacaoEmprestimoUsuarioActivity" android:exported="false" />
+        <activity android:name=".AvaliacaoUsuarioActivity" android:exported="false" />
+        <activity android:name=".PopupHistoricoEmprestimosUsuarioActivity" android:exported="false" />
+        <activity android:name=".HistoricoEmprestimosUsuarioActivity" android:exported="false" />
+        <activity android:name=".LimiteEmprestimosUsuarioActivity" android:exported="false" />
+        <activity android:name=".PopupEmprestimoProibidoUsuarioActivity" android:exported="false" />
+        <activity android:name=".RecomendadosUsuarioActivity" android:exported="false" />
+        <activity android:name=".MensagemSemResultadoUsuarioActivity" android:exported="false" />
+        <activity android:name=".PesquisaSemResultadoUsuarioActivity" android:exported="false" />
+        <activity android:name=".LivroDesfavoritadoUsuarioActivity" android:exported="false" />
+        <activity android:name=".PopupFavoritosUsuarioActivity" android:exported="false" />
+        <activity android:name=".FavoritosUsuarioActivity" android:exported="false" />
+        <activity android:name=".PopupResultadosUsuarioActivity" android:exported="false" />
+        <activity android:name=".ResultadosPesquisaUsuarioActivity" android:exported="false" />
+        <activity android:name=".PesquisaUsuarioActivity" android:exported="false" />
+        <activity android:name=".AvisosUsuarioActivity" android:exported="false" />
+        <activity android:name=".ChatbotUsuarioActivity" android:exported="false" />
+        <activity android:name=".PopupHistoricoEmprestimoUsuarioActivity" android:exported="false" />
+        <activity android:name=".EsqueceuSenhaUsuarioActivity" android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
