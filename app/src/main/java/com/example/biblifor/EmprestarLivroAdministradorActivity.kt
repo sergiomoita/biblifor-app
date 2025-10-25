@@ -1,20 +1,26 @@
 package com.example.biblifor
 
+import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class EmprestarLivroAdministradorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_emprestar_livro_administrador)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+
+
+        val textoEmprestavel = findViewById<TextView>(R.id.lopesTextoEmprestavel45)
+        val textoDescricao = findViewById<TextView>(R.id.lopesTornar45)
+        val botaoSim = findViewById<Button>(R.id.lopesBtnSim45)
+
+        botaoSim.setOnClickListener {
+            textoEmprestavel.text = "Emprestável"
+            textoEmprestavel.setTextColor(Color.parseColor("#2E7D32")) // verde escuro bonito
+            textoDescricao.text = "Livro liberado para empréstimo."
         }
     }
 }

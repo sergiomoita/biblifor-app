@@ -25,6 +25,7 @@
         android:layout_width="44dp"
         android:layout_height="33dp"
         android:layout_marginTop="92dp"
+        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,6 +66,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Cadastrar"
         android:textSize="20dp"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,13 +80,14 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Preencha as informações abaixo"
         android:textSize="12sp"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lopesCadastrar38" />
 
     <EditText
-        android:id="@+id/lopesNome39"
+        android:id="@+id/lopesNome38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -117,10 +120,10 @@
         android:textColor="#C92C2929"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesNome39" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesNome38" />
 
     <EditText
-        android:id="@+id/lopesTopicos40"
+        android:id="@+id/lopesTopicos38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -138,7 +141,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lopesAutor40" />
 
     <EditText
-        android:id="@+id/lopesQtd40"
+        android:id="@+id/lopesQtd38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -154,10 +157,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos38" />
 
     <EditText
-        android:id="@+id/lopesLocaliza40"
+        android:id="@+id/lopesLocaliza38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -172,10 +175,10 @@
         android:textColor="#C92C2929"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesQtd40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesQtd38" />
 
     <EditText
-        android:id="@+id/lopesDispo40"
+        android:id="@+id/lopesDispo38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -190,10 +193,10 @@
         android:textColor="#C92C2929"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesLocaliza40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesLocaliza38" />
 
     <EditText
-        android:id="@+id/lopesEmprestar40"
+        android:id="@+id/lopesEmprestar38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -208,13 +211,13 @@
         android:textColor="#C92C2929"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesDispo40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesDispo38" />
 
     <Button
         android:id="@+id/lopesBtnCadastrar38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="136dp"
         android:text="Cadastrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,11 +230,59 @@
         android:layout_height="43dp"
         android:layout_marginStart="199dp"
         android:layout_marginTop="16dp"
+        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lopesNomeUnifor38"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/escrever_mensagem" />
+
+    <ImageView
+        android:id="@+id/lopesEmailRodape38"
+        android:layout_width="54dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lopesMenuRodape38"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape38"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/lopesMenuRodape38"
+        android:layout_width="49dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
+    <ImageView
+        android:id="@+id/lopesChatbotRodape38"
+        android:layout_width="39dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="728dp"
+        app:layout_constraintEnd_toStartOf="@+id/lopesEmailRodape38"
+        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape38"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesCasaRodape38"
+        android:layout_width="54dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="744dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

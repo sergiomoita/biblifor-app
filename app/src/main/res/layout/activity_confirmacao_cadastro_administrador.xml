@@ -34,7 +34,7 @@
         android:id="@+id/lopesNao41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="236dp"
+        android:layout_marginBottom="432dp"
         android:background="#9E7F7F"
         android:backgroundTint="#BCAEAE"
         android:fontFamily="@font/poppins_semibold"
@@ -42,7 +42,7 @@
         android:textColor="#CC1313"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintHorizontal_bias="0.266"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#282424" />
 
@@ -50,14 +50,17 @@
         android:id="@+id/lopesSim41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="432dp"
         android:background="#FFFFFF"
         android:fontFamily="@font/poppins_semibold"
         android:text="Sim"
         android:textColor="#62AF11"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.724"
+        app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#1D1A1A" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

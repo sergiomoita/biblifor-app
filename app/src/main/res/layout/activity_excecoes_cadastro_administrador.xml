@@ -132,7 +132,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lopesNome40" />
 
     <EditText
-        android:id="@+id/lopesTopicos40"
+        android:id="@+id/lopesTopicos38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -150,7 +150,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lopesAutor40" />
 
     <EditText
-        android:id="@+id/lopesQtd40"
+        android:id="@+id/lopesQtd38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -166,10 +166,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos38" />
 
     <EditText
-        android:id="@+id/lopesLocaliza40"
+        android:id="@+id/lopesLocaliza38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -184,10 +184,10 @@
         android:textColor="#ED0909"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesQtd40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesQtd38" />
 
     <EditText
-        android:id="@+id/lopesDispo40"
+        android:id="@+id/lopesDispo38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -202,10 +202,10 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesLocaliza40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesLocaliza38" />
 
     <EditText
-        android:id="@+id/lopesEmprestar40"
+        android:id="@+id/lopesEmprestar38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -220,7 +220,7 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesDispo40" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesDispo38" />
 
     <Button
         android:id="@+id/lopesBtnCadastrar40"

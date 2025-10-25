@@ -163,14 +163,14 @@
         android:id="@+id/lopesFisicoDigital32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="360dp"
+        android:layout_marginBottom="540dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="físico + digital"
         android:textColor="#FFFFFF"
         android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -185,19 +185,68 @@
         android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.376"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesDisponivel32" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesDisponivel32"
+        app:layout_constraintVertical_bias="0.043" />
 
     <ImageView
         android:id="@+id/lopesRelogio32"
         android:layout_width="25dp"
         android:layout_height="19dp"
         android:layout_marginTop="9dp"
-        android:layout_marginBottom="332dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesFisicoDigital32"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.431"
         app:srcCompat="@drawable/tempo_azul" />
+
+    <ImageView
+        android:id="@+id/lopesEmailRodape32"
+        android:layout_width="54dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lopesMenuRodape32"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape32"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/lopesMenuRodape32"
+        android:layout_width="49dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
+    <ImageView
+        android:id="@+id/lopesChatbotRodape32"
+        android:layout_width="39dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="728dp"
+        app:layout_constraintEnd_toStartOf="@+id/lopesEmailRodape32"
+        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape32"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesCasaRodape32"
+        android:layout_width="54dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="744dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
 </androidx.constraintlayout.widget.ConstraintLayout>

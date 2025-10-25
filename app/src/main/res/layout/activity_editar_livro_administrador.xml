@@ -5,6 +5,282 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#004AF7"
     tools:context=".EditarLivroAdministradorActivity">
 
+
+    <ImageView
+        android:id="@+id/lopesLogoUnifor39"
+        android:layout_width="83dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_unifor" />
+
+    <ImageView
+        android:id="@+id/lopesSetaVoltar39"
+        android:layout_width="44dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="92dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta" />
+
+    <TextView
+        android:id="@+id/lopesNomeUnifor39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Unifor Biblifor"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lopesEditar46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Editar"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lopesPreencha46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Preencha as informações abaixo"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesEditar46" />
+
+    <ImageView
+        android:id="@+id/lopesEscrever46"
+        android:layout_width="29dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="199dp"
+        android:layout_marginTop="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/lopesNomeUnifor39"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/escrever_mensagem" />
+
+    <ImageView
+        android:id="@+id/lopesCrimeCastigo46"
+        android:layout_width="120dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/livro_crime_e_castigo" />
+
+    <EditText
+        android:id="@+id/lopesNome46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="544dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Édipo Rei"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/lopesAutor46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Sófocles"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesNome46" />
+
+    <EditText
+        android:id="@+id/lopesTopicos46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Filosofia"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesAutor46" />
+
+    <EditText
+        android:id="@+id/lopesQtd46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="9"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos46" />
+
+    <EditText
+        android:id="@+id/lopesLocaliza46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="RC-18"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesQtd46" />
+
+    <EditText
+        android:id="@+id/lopesDispo46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Disponível: físico"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesLocaliza46" />
+
+    <EditText
+        android:id="@+id/lopesEmprestar46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:fontFamily="@font/poppins_semibold"
+        android:inputType="text"
+        android:paddingLeft="6dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Emprestar: sim"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lopesDispo46" />
+
+    <Button
+        android:id="@+id/lopesBtnCadastrar46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="148dp"
+        android:text="Cadastrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <ImageView
+        android:id="@+id/lopesEmailRodape46"
+        android:layout_width="54dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lopesMenuRodape46"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape46"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/lopesMenuRodape46"
+        android:layout_width="49dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
+    <ImageView
+        android:id="@+id/lopesChatbotRodape46"
+        android:layout_width="39dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="728dp"
+        app:layout_constraintEnd_toStartOf="@+id/lopesEmailRodape46"
+        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape46"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesCasaRodape46"
+        android:layout_width="54dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="744dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
 </androidx.constraintlayout.widget.ConstraintLayout>

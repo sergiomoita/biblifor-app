@@ -26,52 +26,24 @@
         android:id="@+id/lopesRomeuJulieta34"
         android:layout_width="199dp"
         android:layout_height="287dp"
-        android:layout_marginBottom="328dp"
+        android:layout_marginBottom="428dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/livro_romeu2" />
-
-    <TextView
-        android:id="@+id/lopesLocalizacaoNoAcervo34"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="304dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Localização no acervo: "
-        android:textColor="#FFFFFF"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/lopesQC9134"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="272dp"
-        android:background="#0F0E0E"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="QC-91"
-        android:textColor="#E9E3E3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/lopesBtnHistorico34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="188dp"
+        android:layout_marginBottom="332dp"
         android:backgroundTint="@color/white"
         android:text="Histórico de Empréstimo"
         android:textColor="@color/black"
         app:cornerRadius="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -120,4 +92,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/lopesEmailRodape34"
+        android:layout_width="54dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lopesMenuRodape34"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape34"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/lopesMenuRodape34"
+        android:layout_width="49dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
+    <ImageView
+        android:id="@+id/lopesChatbotRodape34"
+        android:layout_width="39dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="728dp"
+        app:layout_constraintEnd_toStartOf="@+id/lopesEmailRodape34"
+        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape34"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesCasaRodape34"
+        android:layout_width="54dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="744dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
 </androidx.constraintlayout.widget.ConstraintLayout>

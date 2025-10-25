@@ -37,6 +37,7 @@
         android:layout_width="23dp"
         android:layout_height="27dp"
         android:layout_marginTop="32dp"
+        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,29 +73,30 @@
         android:layout_width="44dp"
         android:layout_height="33dp"
         android:layout_marginTop="92dp"
+        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/seta" />
 
+
     <ImageView
         android:id="@+id/lopesLivroGuerraPaz23"
         android:layout_width="132dp"
         android:layout_height="302dp"
-        android:layout_marginBottom="320dp"
+        android:layout_marginBottom="468dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/livro_guerra_e_paz" />
 
-
     <TextView
         android:id="@+id/lopesNomeGuerra23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="528dp"
+        android:layout_marginBottom="672dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Guerra e Paz - Lev Tolstói"
         android:textColor="#FFFFFF"
@@ -108,7 +110,7 @@
         android:id="@+id/lopesUnidades23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="496dp"
+        android:layout_marginBottom="640dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Unidades disponíveis: 4"
         android:textColor="#FFFFFF"
@@ -129,30 +131,30 @@
         android:padding="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.838"
+        app:layout_constraintVertical_bias="0.684"
         tools:listitem="@layout/item_termo" />
 
     <Button
         android:id="@+id/lopesBtnRecusar23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="144dp"
         android:backgroundTint="#F4F4F4"
         android:text="Recusar "
         android:textColor="#121212"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/lopesBtnAceitar23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="144dp"
         android:backgroundTint="#F4F4F4"
         android:text="Aceitar"
         android:textColor="#121212"
@@ -162,10 +164,60 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/lopesCalendario23"
         android:layout_width="196dp"
         android:layout_height="167dp"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="244dp" />
+        android:layout_marginTop="116dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintStart_toEndOf="@+id/lopesLivroGuerraPaz23"
+        app:layout_constraintTop_toBottomOf="@+id/lopesEmprestimo23" />
+
+    <ImageView
+        android:id="@+id/lopesEmailRodape23"
+        android:layout_width="54dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lopesMenuRodape23"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape23"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/lopesMenuRodape23"
+        android:layout_width="49dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
+    <ImageView
+        android:id="@+id/lopesChatbotRodape23"
+        android:layout_width="39dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="728dp"
+        app:layout_constraintEnd_toStartOf="@+id/lopesEmailRodape23"
+        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape23"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesCasaRodape23"
+        android:layout_width="54dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="744dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

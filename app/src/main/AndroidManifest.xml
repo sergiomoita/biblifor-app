@@ -31,9 +31,18 @@
         <activity
             android:name=".EditarLivroAdministradorActivity"
             android:exported="false" />
+
+        <!-- === EMPRESTAR LIVRO É O LAUNCHER === -->
         <activity
             android:name=".EmprestarLivroAdministradorActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.BIBLIFOR">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".LivrosEmprestaveisAdministradorActivity"
             android:exported="false" />
@@ -52,17 +61,9 @@
         <activity
             android:name=".LivroCadastrandoAdministradorActivity"
             android:exported="false" />
-
-        <!-- === CADASTRAR LIVRO É O LAUNCHER === -->
         <activity
             android:name=".CadastrarLivroAdministradorActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:exported="false" />
         <activity
             android:name=".MenuPrincipalAdministradorActivity"
             android:exported="false" />
