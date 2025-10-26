@@ -44,6 +44,30 @@ class DisponiveisRenovacaoUsuarioActivity : AppCompatActivity() {
         }
 
 
+        val imagemLogoHome3 = findViewById<ImageView>(R.id.leoLogoHome3)
+        imagemLogoHome3.setOnClickListener {
+            val navegarLogoHome3 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
+            startActivity(navegarLogoHome3)
+        }
+
+        val imagemLogoChatBot3 = findViewById<ImageView>(R.id.leoImagemChatbot3)
+        imagemLogoChatBot3.setOnClickListener {
+            val navegarLogoChatBot3 = Intent(this, ChatbotUsuarioActivity::class.java)
+            startActivity(navegarLogoChatBot3)
+        }
+
+        val imagemLogoNotificacoes3 = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
+        imagemLogoNotificacoes3.setOnClickListener {
+            val navegarLogoNotificacoes3 = Intent(this, AvisosUsuarioActivity::class.java)
+            startActivity(navegarLogoNotificacoes3)
+        }
+
+        val imagemLogoMenu3 = findViewById<ImageView>(R.id.leoImagemMenu3)
+        imagemLogoMenu3.setOnClickListener {
+            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuario::class.java)
+            startActivity(navegarLogoMenu3)
+        }
+
 
 
     }

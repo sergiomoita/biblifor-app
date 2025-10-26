@@ -65,38 +65,52 @@
 
 
 
-    <ImageView
-        android:id="@+id/leoLogoHomeAdm37"
-        android:layout_width="85dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="772dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+    <LinearLayout
+        android:id="@+id/barraInferiorCapsulasAdmSergio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
 
-    <ImageView
-        android:id="@+id/leoImagemNotificacoesAdm37"
-        android:layout_width="69dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="780dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.66"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/email" />
+        <ImageView
+            android:id="@+id/iconHomeCapsulasAdmSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:contentDescription="Home"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF" />
 
-    <ImageView
-        android:id="@+id/leoImagemMenuAdm37"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="776dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.911"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
+        <ImageView
+            android:id="@+id/iconEscreverMsgCapsulasAdmSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:contentDescription="EnviarMsg"
+            android:src="@drawable/enviar_msg"
+            android:tint="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/iconMensagemCapsulasAdmSergio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:contentDescription="Mensagem"
+            android:src="@drawable/email" />
+
+        <ImageView
+            android:id="@+id/iconMenuInferiorCapsulasAdmSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:contentDescription="Menu"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/leoFotoAdministrador37"
@@ -317,16 +331,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/leoLogoEscreverMensagemBFAdm37"
-        android:layout_width="43dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="784dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.415"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/escrever_mensagem" />
+
 
     <ImageView
         android:id="@+id/leoImagemCapsula137"

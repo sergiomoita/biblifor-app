@@ -10,7 +10,7 @@ class CapsulasUsuarioActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_capsulas_usuario) // altere se o XML tiver outro nome
+        setContentView(R.layout.activity_capsulas_usuario)
 
         // 🔙 Botão de voltar → MenuPrincipalUsuarioActivity
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltarCapsulasCapsulasUsuarioSergio)
@@ -37,8 +37,6 @@ class CapsulasUsuarioActivity : AppCompatActivity() {
         // ==============================
         // ⚙️ Funções da Barra Inferior
         // ==============================
-
-        // 🏠 Home → MenuPrincipalUsuarioActivity
         val iconHome = findViewById<ImageView>(R.id.iconHomeCapsulasUsuarioSergio)
         iconHome.setOnClickListener {
             val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
@@ -46,21 +44,18 @@ class CapsulasUsuarioActivity : AppCompatActivity() {
             finish()
         }
 
-        // 🤖 Chatbot inferior → ChatbotUsuarioActivity
         val iconMascoteInferior = findViewById<ImageView>(R.id.iconMascoteInferiorCapsulasUsuarioSergio)
         iconMascoteInferior.setOnClickListener {
             val intent = Intent(this, ChatbotUsuarioActivity::class.java)
             startActivity(intent)
         }
 
-        // 💬 Mensagem inferior → AvisosUsuarioActivity
         val iconMensagem = findViewById<ImageView>(R.id.iconMensagemCapsulasUsuarioSergio)
         iconMensagem.setOnClickListener {
             val intent = Intent(this, AvisosUsuarioActivity::class.java)
             startActivity(intent)
         }
 
-        // 🍔 Menu inferior → MenuPrincipalUsuarioActivity
         val iconMenu = findViewById<ImageView>(R.id.iconMenuInferiorCapsulasUsuarioSergio)
         iconMenu.setOnClickListener {
             val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
@@ -68,7 +63,9 @@ class CapsulasUsuarioActivity : AppCompatActivity() {
             finish()
         }
 
-        // Configurar todas as cápsulas de forma dinâmica
+        // ==============================
+        // 🎯 Clique nas cápsulas
+        // ==============================
         val idsCapsulas = listOf(
             R.id.btnCapsula1CapsulasUsuarioSergio,
             R.id.btnCapsula2CapsulasUsuarioSergio,
@@ -82,13 +79,17 @@ class CapsulasUsuarioActivity : AppCompatActivity() {
 
         idsCapsulas.forEach { id ->
             val capsula = findViewById<ImageButton>(id)
-            val status = capsula.tag?.toString() ?: "indefinido"
+            capsula.isClickable = true
+            capsula.isEnabled = true
 
             capsula.setOnClickListener {
+                val status = (capsula.tag as? String)?.lowercase() ?: "indefinido"
                 when (status) {
                     "verde" -> startActivity(Intent(this, CapsulaDisponivelUsuarioActivity::class.java))
                     "vermelha" -> startActivity(Intent(this, CapsulaIndisponivelUsuarioActivity::class.java))
-                    "amarela" -> startActivity(Intent(this, CapsulaManutencaoUsuarioActivity::class.java))
+                    "amarela", "amarelo", "manutencao", "manutenção" ->
+                        startActivity(Intent(this, CapsulaManutencaoUsuarioActivity::class.java))
+                    else -> startActivity(Intent(this, CapsulaIndisponivelUsuarioActivity::class.java))
                 }
             }
         }

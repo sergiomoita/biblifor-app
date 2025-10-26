@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Acesso ao Biblifor"
+        android:fontFamily="@font/poppins_semibold"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -37,6 +38,7 @@
         android:text="Aqui você encontra funcionalidades da biblioteca da Universidade de Fortaleza."
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:layout_marginTop="8dp"
         android:paddingHorizontal="16dp" />
@@ -65,12 +67,14 @@
         android:textColor="#000000"
         android:inputType="textPassword" />
 
+
     <!-- Esqueceu a senha -->
     <TextView
         android:id="@+id/tvEsqueceuSenhaLoginUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Esqueceu sua senha?"
+        android:fontFamily="@font/poppins_semibold"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:layout_marginTop="8dp"
@@ -94,11 +98,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
         android:text="BIBLIFOR"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
         android:textSize="24sp"
-        android:layout_marginTop="60dp"
-        android:gravity="center" />
+        android:textStyle="bold" />
 
 </LinearLayout>

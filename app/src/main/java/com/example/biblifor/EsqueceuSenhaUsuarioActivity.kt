@@ -2,33 +2,53 @@ package com.example.biblifor
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import com.example.biblifor.R
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class EsqueceuSenhaUsuarioActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_esqueceu_senha_usuario) // nome do seu XML
+        setContentView(R.layout.activity_esqueceu_senha_usuario)
 
-        // Referências aos elementos
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltarEsqueceuSenhaUsuarioSergio)
         val btnAcessar = findViewById<Button>(R.id.btnAcessarEsqueceuSenhaUsuarioSergio)
+        val inputMatricula = findViewById<EditText>(R.id.inputMatriculaEsqueceuSenhaUsuarioSergio)
+        val inputSenha = findViewById<EditText>(R.id.inputSenhaEsqueceuSenhaUsuarioSergio)
 
-        // Clique na seta → volta para tela de login
         btnVoltar.setOnClickListener {
             val intent = Intent(this, LoginUsuarioActivity::class.java)
             startActivity(intent)
-            finish() // fecha a tela atual
-        }
-
-        // Clique em "Acessar" → vai para tela principal
-        btnAcessar.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(intent)
             finish()
         }
+
+        btnAcessar.setOnClickListener {
+            val matricula = inputMatricula.text.toString().trim()
+
+            if (matricula == "123") {
+                val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                mostrarToastMatriculaInvalida()
+            }
+        }
+    }
+
+    private fun mostrarToastMatriculaInvalida() {
+        val inflater = LayoutInflater.from(this)
+        val layout = inflater.inflate(R.layout.toast_matricula_invalida, null)
+
+        val toast = Toast(applicationContext)
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = layout
+        toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 100)
+        toast.show()
     }
 }

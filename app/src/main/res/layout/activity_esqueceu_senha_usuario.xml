@@ -30,6 +30,9 @@
     </RelativeLayout>
 
     <!-- Logo -->
+
+    <!-- Título -->
+
     <ImageView
         android:id="@+id/logoEsqueceuSenhaUsuarioSergio"
         android:layout_width="154dp"
@@ -38,11 +41,11 @@
         android:contentDescription="Logo Biblifor"
         android:src="@drawable/logo_unifor" />
 
-    <!-- Título -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Acesso ao Biblifor"
+        android:fontFamily="@font/poppins_semibold"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -56,6 +59,7 @@
         android:text="Digite sua matrícula e em seguida defina uma nova senha para sua conta."
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:layout_marginTop="8dp"
         android:paddingHorizontal="16dp" />
@@ -101,11 +105,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
         android:text="BIBLIFOR"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
         android:textSize="24sp"
-        android:layout_marginTop="60dp"
-        android:gravity="center" />
+        android:textStyle="bold" />
 
 </LinearLayout>

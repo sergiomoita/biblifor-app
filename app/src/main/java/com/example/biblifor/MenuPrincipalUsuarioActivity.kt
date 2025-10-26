@@ -144,7 +144,7 @@ class MenuPrincipalUsuarioActivity : AppCompatActivity() {
 
         val imagemLogoMenu3 = findViewById<ImageView>(R.id.leoImagemMenu3)
         imagemLogoMenu3.setOnClickListener {
-            val navegarLogoMenu3 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
+            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuario::class.java)
             startActivity(navegarLogoMenu3)
         }
     }

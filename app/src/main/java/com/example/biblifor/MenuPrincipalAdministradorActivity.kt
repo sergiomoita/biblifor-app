@@ -85,24 +85,20 @@ class MenuPrincipalAdministradorActivity : AppCompatActivity() {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        val leoLogoHomeBFAdm = findViewById<ImageView>(R.id.leoLogoHomeAdm37)
-        leoLogoHomeBFAdm.setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
-        }
 
-        val leoLogoMensagemBFAdm = findViewById<ImageView>(R.id.leoLogoEscreverMensagemBFAdm37)
-        leoLogoMensagemBFAdm.setOnClickListener {
+        // ⚙️ Barra inferior
+        findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+        }
+        findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
-
-        val leoLogoAvisosBFAdm = findViewById<ImageView>(R.id.leoImagemNotificacoesAdm37)
-        leoLogoAvisosBFAdm.setOnClickListener {
+        findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
-
-        val leoLogoMenuBFAdm = findViewById<ImageView>(R.id.leoImagemMenuAdm37)
-        leoLogoMenuBFAdm.setOnClickListener {
-            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
+        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
+
     }
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
+
+    <!-- Capa -->
+    <ImageView
+        android:id="@+id/imgCapaHist"
+        android:layout_width="82dp"
+        android:layout_height="110dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTituloHist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Romeu e Julieta"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintStart_toEndOf="@id/imgCapaHist"
+        app:layout_constraintTop_toTopOf="@id/imgCapaHist"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"/>
+
+    <!-- Autor -->
+    <TextView
+        android:id="@+id/txtAutorHist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="W. Shakespeare"
+        android:textColor="#CFE2FF"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/txtTituloHist"
+        app:layout_constraintTop_toBottomOf="@id/txtTituloHist"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Disponibilidade -->
+    <TextView
+        android:id="@+id/txtDisponHist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disponível: físico + digital"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintStart_toStartOf="@id/txtTituloHist"
+        app:layout_constraintTop_toBottomOf="@id/txtAutorHist" />
+
+    <!-- Status opcional (ex: Empréstimo em finalizado) -->
+    <TextView
+        android:id="@+id/txtStatusHist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#CFE2FF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtTituloHist"
+        app:layout_constraintTop_toBottomOf="@id/txtDisponHist" />
+
+    <!-- Data -->
+    <TextView
+        android:id="@+id/txtDataHist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13/09/2025"
+        android:textColor="#FFFFFF"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintStart_toStartOf="@id/txtTituloHist"
+        app:layout_constraintBottom_toBottomOf="@id/imgCapaHist" />
+
+    <!-- (Opcional) ícone marcador à direita
+    <ImageView
+        android:id="@+id/imgBookmark"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/bookmark_outline"
+        app:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/imgCapaHist"/>
+    -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

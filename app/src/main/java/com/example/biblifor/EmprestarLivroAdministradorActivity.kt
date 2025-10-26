@@ -1,5 +1,6 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
@@ -12,15 +13,20 @@ class EmprestarLivroAdministradorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_emprestar_livro_administrador)
         window.statusBarColor = android.graphics.Color.TRANSPARENT
 
-
         val textoEmprestavel = findViewById<TextView>(R.id.lopesTextoEmprestavel45)
         val textoDescricao = findViewById<TextView>(R.id.lopesTornar45)
         val botaoSim = findViewById<Button>(R.id.lopesBtnSim45)
+        val botaoMenu = findViewById<Button>(R.id.buttonMenu)
 
         botaoSim.setOnClickListener {
             textoEmprestavel.text = "Emprestável"
             textoEmprestavel.setTextColor(Color.parseColor("#2E7D32")) // verde escuro bonito
             textoDescricao.text = "Livro liberado para empréstimo."
+        }
+
+        botaoMenu.setOnClickListener {
+            val intent = Intent(this, MenuPrincipalAdministradorActivity::class.java)
+            startActivity(intent)
         }
     }
 }

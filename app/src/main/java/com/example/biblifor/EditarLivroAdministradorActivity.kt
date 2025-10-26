@@ -1,6 +1,8 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +17,21 @@ class EditarLivroAdministradorActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+
+        // ⚙️ Barra inferior
+        findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+        }
+        findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
     }
 }

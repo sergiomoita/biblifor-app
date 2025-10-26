@@ -50,24 +50,24 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             val navegarNotificacoesSPU5 = Intent (this, AvisosUsuarioActivity::class.java)
             startActivity(navegarNotificacoesSPU5)
         }
-        val leoLogoHomePU5 = findViewById<ImageView>(R.id.leoLogoHomePU5)
+        val leoLogoHomePU5 = findViewById<ImageView>(R.id.leoLogoHome3)
         leoLogoHomePU5.setOnClickListener {
             val navegarLogoHomePU5 = Intent (this, MenuPrincipalUsuarioActivity::class.java)
             startActivity(navegarLogoHomePU5)
         }
-        val leoLogoChatBotPU5 = findViewById<ImageView>(R.id.leoImagemChatbotPU5)
+        val leoLogoChatBotPU5 = findViewById<ImageView>(R.id.leoImagemChatbot3)
         leoLogoChatBotPU5.setOnClickListener {
             val navegarLogoChatBotPU5 = Intent (this, ChatbotUsuarioActivity::class.java)
             startActivity(navegarLogoChatBotPU5)
         }
-        val leoLogoNotificacoesPU5 = findViewById<ImageView>(R.id.leoImagemNotificacoesPU5)
+        val leoLogoNotificacoesPU5 = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
         leoLogoNotificacoesPU5.setOnClickListener {
             val navegarLogoNotificacoesPU5 = Intent (this, AvisosUsuarioActivity::class.java)
             startActivity(navegarLogoNotificacoesPU5)
         }
-        val leoLogoMenuPU5 = findViewById<ImageView>(R.id.leoImagemMenuPU5)
+        val leoLogoMenuPU5 = findViewById<ImageView>(R.id.leoImagemMenu3)
         leoLogoMenuPU5.setOnClickListener {
-            val navegarLogoMenuPU5 = Intent (this, MenuPrincipalUsuarioActivity::class.java)
+            val navegarLogoMenuPU5 = Intent (this, MenuHamburguerUsuario::class.java)
             startActivity(navegarLogoMenuPU5)
         }
     }

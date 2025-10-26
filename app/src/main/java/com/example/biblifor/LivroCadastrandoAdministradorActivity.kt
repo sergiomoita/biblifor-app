@@ -32,6 +32,19 @@ class LivroCadastrandoAdministradorActivity : AppCompatActivity() {
             startActivity(navegarExcecoes)
         }
 
+        // ⚙️ Barra inferior
+        findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+        }
+        findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+        }
 
     }
 }

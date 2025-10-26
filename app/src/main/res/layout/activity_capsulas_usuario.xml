@@ -32,7 +32,7 @@
                 android:tint="#FFFFFF"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <!-- Ícones à direita -->
             <LinearLayout
@@ -63,7 +63,7 @@
                     android:tint="#FFFFFF"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"/>
+                    android:background="?attr/selectableItemBackgroundBorderless" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -204,7 +204,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:background="@drawable/bg_capsula_amarelo"
-                    android:tag="amarelo"
+                    android:tag="amarela"
                     android:contentDescription="Cápsula 8" />
             </LinearLayout>
         </LinearLayout>

@@ -121,50 +121,49 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/lopesEmailRodape24"
-        android:layout_width="54dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/lopesMenuRodape24"
-        app:layout_constraintHorizontal_bias="0.824"
-        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape24"
-        app:srcCompat="@drawable/email" />
-
-    <ImageView
-        android:id="@+id/lopesMenuRodape24"
-        android:layout_width="49dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/leoLogoHome3"
+        android:layout_width="85dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="780dp"
         android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
 
     <ImageView
-        android:id="@+id/lopesChatbotRodape24"
-        android:layout_width="39dp"
-        android:layout_height="134dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="728dp"
-        app:layout_constraintEnd_toStartOf="@+id/lopesEmailRodape24"
-        app:layout_constraintHorizontal_bias="0.386"
-        app:layout_constraintStart_toEndOf="@+id/lopesCasaRodape24"
+        android:id="@+id/leoImagemChatbot3"
+        android:layout_width="57dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="780dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.401"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chatbot_ema" />
 
     <ImageView
-        android:id="@+id/lopesCasaRodape24"
-        android:layout_width="54dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="744dp"
-        android:tint="#FFFFFF"
+        android:id="@+id/leoImagemNotificacoes3"
+        android:layout_width="69dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="792dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintHorizontal_bias="0.631"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/leoImagemMenu3"
+        android:layout_width="61dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="788dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

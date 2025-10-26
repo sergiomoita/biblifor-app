@@ -59,7 +59,7 @@ class LimiteEmprestimosUsuarioActivity : AppCompatActivity() {
         // 🍔 Ícone menu hambúrguer (leva para MenuPrincipalUsuarioActivity)
         val iconMenu = findViewById<ImageView>(R.id.iconMenuInferiorLimiteEmprestimosSergio)
         iconMenu.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
+            val intent = Intent(this, MenuHamburguerUsuario::class.java)
             startActivity(intent)
             finish()
         }

@@ -5,6 +5,137 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#004AF7"
     tools:context=".ResultadosPesquisaUsuarioActivity">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/lopesRenovacaoEmprestimo32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Resultados para: O quinze"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Ícones superiores -->
+    <ImageView
+        android:id="@+id/lopesChatBot32"
+        android:layout_width="34dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/lopesNotificacao32"
+        android:layout_width="23dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notificacao" />
+
+    <ImageView
+        android:id="@+id/lopesLogoUnifor32"
+        android:layout_width="83dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_unifor" />
+
+    <TextView
+        android:id="@+id/lopesNomeUnifor32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Unifor Biblifor"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@id/lopesLogoUnifor32"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/lopesSetaVoltar32"
+        android:layout_width="44dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta" />
+
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/lopesDisponiveisRenovacao32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Resultados da busca"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lopesRenovacaoEmprestimo32" />
+
+    <!-- RecyclerView para lista de resultados -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvResultados"
+        android:layout_width="367dp"
+        android:layout_height="514dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingTop="12dp"
+        android:paddingBottom="96dp"
+        app:layout_constraintBottom_toTopOf="@id/leoLogoHome3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lopesDisponiveisRenovacao32" />
+
+    <!-- Barra inferior -->
+    <ImageView
+        android:id="@+id/leoLogoHome3"
+        android:layout_width="85dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="16dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/home" />
+
+    <ImageView
+        android:id="@+id/leoImagemChatbot3"
+        android:layout_width="57dp"
+        android:layout_height="60dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/leoLogoHome3"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/leoImagemNotificacoes3"
+        android:layout_width="69dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/leoImagemChatbot3"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/leoImagemMenu3"
+        android:layout_width="61dp"
+        android:layout_height="49dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/leoImagemNotificacoes3"
+        app:srcCompat="@drawable/menu_hamb" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

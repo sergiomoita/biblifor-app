@@ -1,18 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- Tema base sem ActionBar -->
     <style name="Base.Theme.BIBLIFOR" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Remove a ActionBar -->
+        <!-- ActionBar off -->
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar">false</item>
 
-        <!-- COR DA STATUS BAR (com prefixo android:) -->
+        <!-- STATUS BAR -->
         <item name="android:statusBarColor">#005BFF</item>
-
-        <!-- Ícones da status bar brancos -->
         <item name="android:windowLightStatusBar">false</item>
 
-        <!-- Permite que o conteúdo ocupe toda a tela -->
+        <!-- NAVIGATION BAR -->
+        <!-- deixe o app desenhar por baixo e use a mesma cor do fundo -->
+        <item name="android:navigationBarColor">#005BFF</item>
+        <!-- Ícones claros na nav bar -->
+        <item name="android:windowLightNavigationBar">false</item>
+        <!-- evita o Android forçar preto por contraste -->
+        <item name="android:enforceNavigationBarContrast">false</item>
+
+        <!-- Conteúdo ocupa a tela toda -->
         <item name="android:fitsSystemWindows">false</item>
     </style>
 
