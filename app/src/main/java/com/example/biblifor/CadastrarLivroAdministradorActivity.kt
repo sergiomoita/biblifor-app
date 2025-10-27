@@ -1,6 +1,7 @@
 package com.example.biblifor
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -18,12 +19,11 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
 
     private fun validarCampo(et: EditText, label: String) {
         val valor = et.text.toString()
-        if (valor.contains("mateus", ignoreCase = true)) {
-            throw IllegalArgumentException("$label não pode conter 'mateus'")
+        if (valor.contains("erro", ignoreCase = true)) {
+            throw IllegalArgumentException("$label não pode conter 'erro'")
         }
     }
 
-    // ---- Toast customizado de ERRO (usa o único layout e bg_toast_erro) ----
     private fun showErrorToast(message: String) {
         val inflater: LayoutInflater = layoutInflater
         val view = inflater.inflate(R.layout.toast_excecao_cadastro, null)
@@ -36,7 +36,6 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
             show()
         }
     }
-    // -----------------------------------------------------------------------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,22 +47,15 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
             insets
         }
 
-        val imgSeta = findViewById<ImageView>(R.id.lopesSetaVoltar38)
-        imgSeta.setOnClickListener {
-            val navegarSeta = Intent(this, MenuPrincipalAdministradorActivity::class.java)
-            startActivity(navegarSeta)
+        // Topo / ícones
+        findViewById<ImageView>(R.id.lopesSetaVoltar38).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.lopesEscrever38).setOnClickListener {
+            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        val imgMensagem = findViewById<ImageView>(R.id.lopesEscrever38)
-        imgMensagem.setOnClickListener {
-            val navegarEscreverMensagem =
-                Intent(this, EscreverMensagemAdministradorActivity::class.java)
-            startActivity(navegarEscreverMensagem)
-        }
-
-
-
-        // ⚙️ Barra inferior
+        // Barra inferior
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
@@ -77,16 +69,53 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
 
-
-        // EditTexts
+        // EditTexts restantes
         val etNome = findViewById<EditText>(R.id.lopesNome38)
         val etAutor = findViewById<EditText>(R.id.lopesAutor40)
         val etTopicos = findViewById<EditText>(R.id.lopesTopicos38)
         val etQtd = findViewById<EditText>(R.id.lopesQtd38)
         val etLocaliza = findViewById<EditText>(R.id.lopesLocaliza38)
-        val etDispo = findViewById<EditText>(R.id.lopesDispo38)
-        val etEmprestar = findViewById<EditText>(R.id.lopesEmprestar38)
 
+        // ====== Função auxiliar para gerenciar estado dos botões ======
+        fun configurarBotaoAlternante(botao: Button, textoBase: String) {
+            // 0 = check vermelho, 1 = check verde, 2 = X vermelho
+            var estado = 0
+
+            // estado inicial
+            botao.text = "✓ $textoBase"
+            botao.setTextColor(Color.parseColor("#FF0000")) // vermelho
+
+            botao.setOnClickListener {
+                estado = (estado + 1) % 3
+                when (estado) {
+                    0 -> { // ✓ vermelho
+                        botao.text = "✓ $textoBase"
+                        botao.setTextColor(Color.parseColor("#FF0000"))
+                    }
+                    1 -> { // ✓ verde
+                        botao.text = "✓ $textoBase"
+                        botao.setTextColor(Color.parseColor("#00C853"))
+                    }
+                    2 -> { // X vermelho
+                        botao.text = "X $textoBase"
+                        botao.setTextColor(Color.parseColor("#FF0000"))
+                    }
+                }
+            }
+        }
+
+        // ====== Botões de opção ======
+        val btnFisico = findViewById<Button>(R.id.btnDispoFisico)
+        val btnOnline = findViewById<Button>(R.id.btnDispoOnline)
+        val btnEmpSim = findViewById<Button>(R.id.btnEmprestarSim)
+        val btnEmpNao = findViewById<Button>(R.id.btnEmprestarNao)
+
+        configurarBotaoAlternante(btnFisico, "Físico")
+        configurarBotaoAlternante(btnOnline, "Online")
+        configurarBotaoAlternante(btnEmpSim, "Sim")
+        configurarBotaoAlternante(btnEmpNao, "Não")
+
+        // ====== Botão Cadastrar ======
         val btnCadastrar = findViewById<Button>(R.id.lopesBtnCadastrar38)
         btnCadastrar.setOnClickListener {
             try {
@@ -95,14 +124,8 @@ class CadastrarLivroAdministradorActivity : AppCompatActivity() {
                 validarCampo(etTopicos, "Tópicos")
                 validarCampo(etQtd, "Quantidade de exemplares")
                 validarCampo(etLocaliza, "Localização no acervo")
-                validarCampo(etDispo, "Disponibilidade")
-                validarCampo(etEmprestar, "Emprestar")
 
-
-                val navegarCadastrando =
-                    Intent(this, LivroCadastrandoAdministradorActivity::class.java)
-                startActivity(navegarCadastrando)
-
+                startActivity(Intent(this, ConfirmacaoCadastroAdministradorActivity::class.java))
             } catch (e: IllegalArgumentException) {
                 showErrorToast(e.message ?: "Erro de validação.")
             } catch (e: Exception) {

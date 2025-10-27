@@ -363,7 +363,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:tint="#FFFFFF"
-            android:src="@drawable/enviar_msg"
+            android:src="@drawable/escrever_mensagem"
             android:layout_marginHorizontal="16dp" />
 
         <ImageView

@@ -21,6 +21,19 @@ class FavoritosAtualizadoActivity : AppCompatActivity() {
             insets
         }
 
+        findViewById<ImageView>(R.id.lopesSetaVoltar32).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.lopesNotificacao32).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.lopesChatBot32).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
+        }
+
+
         // Navegação inferior
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))

@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class LivroDesfavoritadoUsuarioActivity : AppCompatActivity() {
 
-    private var isFavorito = true // Estado do ícone de favorito
+    private var isFavorito = false // Estado do ícone de favorito
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

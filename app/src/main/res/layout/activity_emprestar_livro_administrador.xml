@@ -43,6 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lopesTextoEmprestavel45" />
 
+    <!-- 🔹 Botão "Não" branco com texto preto -->
     <Button
         android:id="@+id/lopesBtnNao45"
         android:layout_width="wrap_content"
@@ -51,27 +52,38 @@
         android:layout_marginEnd="115dp"
         android:layout_marginBottom="228dp"
         android:text="Não"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/lopesBtnSim45"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- 🔹 Botão "Sim" branco com texto preto -->
     <Button
         android:id="@+id/lopesBtnSim45"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="228dp"
         android:text="Sim"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.777"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- 🔹 Botão "Menu" branco com texto preto -->
     <Button
         android:id="@+id/buttonMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="72dp"
         android:text="Menu"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

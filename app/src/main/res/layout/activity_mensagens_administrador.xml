@@ -132,7 +132,7 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:contentDescription="EnviarMsg"
-            android:src="@drawable/enviar_msg"
+            android:src="@drawable/escrever_mensagem"
             android:tint="#FFFFFF" />
 
         <ImageView

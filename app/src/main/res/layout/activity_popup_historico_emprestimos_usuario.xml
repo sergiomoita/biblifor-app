@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#64b5f6"
+    android:background="#FFFFFF"
     tools:context=".PopupHistoricoEmprestimosUsuarioActivity">
 
     <ImageView
@@ -26,9 +26,9 @@
         android:layout_height="wrap_content"
         android:text="28/08/2025 "
         android:textColor="#000000"
+        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintHorizontal_bias="0.879"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
         android:id="@+id/textView4"
         android:layout_width="246dp"
         android:layout_height="34dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Romeu e Julieta - W.Shakespeare"
         android:textColor="#040404"
@@ -49,11 +49,11 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="69dp"
-        android:layout_height="20dp"
+        android:layout_width="89dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="21/08/1993"
         android:textColor="#020202"
-        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.128"
@@ -61,12 +61,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.419" />
 
+    <!-- 🔹 Botão Avaliar com fundo preto e texto branco -->
     <Button
         android:id="@+id/ButtonAvaliarGustavo03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Avaliar"
-        android:textColorLink="#925F5F"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="#000000"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -76,32 +79,31 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="83dp"
-        android:layout_height="27dp"
+        android:layout_width="89dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Emprestimo"
         android:textColor="#000000"
-        android:textColorLink="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.391" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="79dp"
-        android:layout_height="28dp"
+        android:layout_width="92dp"
+        android:layout_height="33dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Devolução"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintHorizontal_bias="0.858"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.385" />
 
     <ImageView
         android:id="@+id/imageViewXMenu"
@@ -117,8 +119,8 @@
 
     <ImageView
         android:id="@+id/imageView26"
-        android:layout_width="126dp"
-        android:layout_height="188dp"
+        android:layout_width="173dp"
+        android:layout_height="213dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -9,42 +9,54 @@
     tools:context=".FavoritosAtualizadoActivity">
 
     <!-- Barra inferior -->
+
     <ImageView
         android:id="@+id/leoLogoHome3"
         android:layout_width="85dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="792dp"
         android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/home" />
 
     <ImageView
         android:id="@+id/leoImagemChatbot3"
         android:layout_width="57dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoLogoHome3"
+        android:layout_marginTop="792dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chatbot_ema" />
 
     <ImageView
         android:id="@+id/leoImagemNotificacoes3"
         android:layout_width="69dp"
         android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoImagemChatbot3"
+        android:layout_marginTop="804dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/email" />
 
+    <!-- Cabeçalho -->
     <ImageView
         android:id="@+id/leoImagemMenu3"
         android:layout_width="61dp"
         android:layout_height="49dp"
+        android:layout_marginTop="800dp"
         android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoImagemNotificacoes3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/menu_hamb" />
 
-    <!-- Cabeçalho -->
     <TextView
         android:id="@+id/lopesRenovacaoEmprestimo32"
         android:layout_width="wrap_content"
@@ -59,23 +71,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Ícones superiores -->
+
     <ImageView
         android:id="@+id/lopesChatBot32"
         android:layout_width="34dp"
         android:layout_height="37dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/lopesNomeUnifor32"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chatbot_ema" />
 
     <ImageView
         android:id="@+id/lopesNotificacao32"
-        android:layout_width="23dp"
-        android:layout_height="27dp"
+        android:layout_width="30dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toEndOf="@+id/lopesChatBot32"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/notificacao" />
 
@@ -104,6 +123,7 @@
         android:layout_width="44dp"
         android:layout_height="33dp"
         android:layout_marginTop="92dp"
+        android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/seta" />

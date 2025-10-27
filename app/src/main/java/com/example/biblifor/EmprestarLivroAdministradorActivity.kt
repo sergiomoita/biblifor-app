@@ -17,13 +17,20 @@ class EmprestarLivroAdministradorActivity : AppCompatActivity() {
         val textoEmprestavel = findViewById<TextView>(R.id.lopesTextoEmprestavel45)
         val textoDescricao = findViewById<TextView>(R.id.lopesTornar45)
         val botaoSim = findViewById<Button>(R.id.lopesBtnSim45)
+        val botaoNao = findViewById<Button>(R.id.lopesBtnNao45)
         val botaoMenu = findViewById<Button>(R.id.buttonMenu)
         val botaoEditar = findViewById<ImageView>(R.id.iconeEditarLivro)
 
         botaoSim.setOnClickListener {
             textoEmprestavel.text = "Emprestável"
-            textoEmprestavel.setTextColor(Color.parseColor("#2E7D32")) // verde escuro bonito
+            textoEmprestavel.setTextColor(Color.parseColor("#2E7D32")) // verde escuro
             textoDescricao.text = "Livro liberado para empréstimo."
+        }
+
+        botaoNao.setOnClickListener {
+            textoEmprestavel.text = "Não emprestável"
+            textoEmprestavel.setTextColor(Color.parseColor("#C62828")) // vermelho escuro
+            textoDescricao.text = "Livro bloqueado para empréstimo."
         }
 
         botaoMenu.setOnClickListener {

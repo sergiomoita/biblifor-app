@@ -31,7 +31,7 @@ class PopupEmprestimoProibidoUsuarioActivity : AppCompatActivity() {
             btnEmprestimo.text = "Proibido"
             Toast.makeText(
                 this,
-                "midia fisica restrita a biblioteca",
+                "Mídia física restrita a biblioteca",
                 Toast.LENGTH_SHORT
             ).show()
         }

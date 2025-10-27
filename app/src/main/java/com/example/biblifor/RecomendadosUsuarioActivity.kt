@@ -83,14 +83,16 @@ class RecomendadosUsuarioActivity : AppCompatActivity() {
             )
         )
 
-        // Ao clicar em "Guerra e Paz", abre PopupEmprestimoProibidoUsuarioActivity
+        // Clique nos livros
         rv.adapter = RecommendedAdapter(recomendados) { book ->
-            if (book.title.contains("Guerra e Paz", ignoreCase = true)) {
-                startActivity(
-                    Intent(this, PopupEmprestimoProibidoUsuarioActivity::class.java)
-                )
+            when {
+                book.title.contains("Guerra e Paz", ignoreCase = true) -> {
+                    startActivity(Intent(this, PopupEmprestimoProibidoUsuarioActivity::class.java))
+                }
+                book.title.contains("Romeu e Julieta", ignoreCase = true) -> {
+                    startActivity(Intent(this, PopupLivroOnlineUsuarioActivity::class.java))
+                }
             }
-
         }
     }
 }

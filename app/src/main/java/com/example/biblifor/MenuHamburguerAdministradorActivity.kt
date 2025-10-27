@@ -31,7 +31,7 @@ class MenuHamburguerAdministradorActivity : AppCompatActivity() {
         }
         val leoBotaoEmprestarMenu49 = findViewById<TextView>(R.id.leoTituloEmprestarMenu49)
         leoBotaoEmprestarMenu49.setOnClickListener {
-            val navegarEmprestar49 = Intent (this, EmprestarLivroAdministradorActivity::class.java)
+            val navegarEmprestar49 = Intent (this, LivrosEmprestaveisAdministradorActivity::class.java)
             startActivity(navegarEmprestar49)
         }
         val leoBotaoCapsulasMenu49 = findViewById<TextView>(R.id.leoTituloCapsulasMenu49)

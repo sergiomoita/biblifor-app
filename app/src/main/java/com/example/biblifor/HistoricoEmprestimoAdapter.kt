@@ -1,5 +1,6 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,16 @@ class HistoricoEmprestimoAdapter(private val lista: List<HistoricoEmprestimo>) :
     }
 
     override fun onBindViewHolder(holder: HistoricoEmprestimoViewHolder, position: Int) {
-        holder.textoHistorico.text = lista[position].texto
+        val item = lista[position]
+        holder.textoHistorico.text = item.texto
+
+        // 🔹 Quando o livro "Dom Casmurro" for clicado → abre PopUpHistoricoEmprestimoActivity
+        holder.itemView.setOnClickListener {
+            if (item.texto.contains("Dom Casmurro", ignoreCase = true)) {
+                val intent = Intent(holder.itemView.context, PopupHistoricoEmprestimoUsuarioActivity::class.java)
+                holder.itemView.context.startActivity(intent)
+            }
+        }
     }
 
     override fun getItemCount(): Int = lista.size
