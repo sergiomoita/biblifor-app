@@ -97,7 +97,7 @@ class MenuPrincipalUsuarioActivity : AppCompatActivity() {
                     startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
                 }
                 "laranjeira" -> {
-                    startActivity(Intent(this, PesquisaSemResultadoUsuarioActivity::class.java))
+                    startActivity(Intent(this, MensagemSemResultadoUsuarioActivity::class.java))
                 }
                 else -> {
                     startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
@@ -144,7 +144,7 @@ class MenuPrincipalUsuarioActivity : AppCompatActivity() {
 
         val imagemLogoMenu3 = findViewById<ImageView>(R.id.leoImagemMenu3)
         imagemLogoMenu3.setOnClickListener {
-            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuario::class.java)
+            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuarioActivity::class.java)
             startActivity(navegarLogoMenu3)
         }
     }

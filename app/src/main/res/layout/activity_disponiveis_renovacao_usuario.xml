@@ -191,19 +191,6 @@
         app:layout_constraintVertical_bias="0.043" />
 
     <ImageView
-        android:id="@+id/lopesRelogio32"
-        android:layout_width="25dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="9dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431"
-        app:srcCompat="@drawable/tempo_azul" />
-
-    <ImageView
         android:id="@+id/leoLogoHome3"
         android:layout_width="85dp"
         android:layout_height="58dp"

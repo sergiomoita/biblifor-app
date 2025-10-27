@@ -13,9 +13,9 @@
         android:theme="@style/Theme.BIBLIFOR"
         tools:targetApi="31">
 
-        <!-- === FAVORITOS USUÁRIO É O LAUNCHER === -->
+        <!-- === SPLASH DE CARREGAMENTO É O LAUNCHER === -->
         <activity
-            android:name=".FavoritosUsuarioActivity"
+            android:name=".SplashCarregamentoActivity"
             android:exported="true"
             android:theme="@style/Theme.BIBLIFOR">
             <intent-filter>
@@ -23,6 +23,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Login Usuário -->
+        <activity
+            android:name=".LoginUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
+        <!-- Mensagem Sem Resultado Usuário -->
+        <activity
+            android:name=".MensagemSemResultadoUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
+        <!-- Favoritos (NOVO) -->
+        <activity
+            android:name=".FavoritosAtualizadoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
+        <!-- Usuário -->
+        <activity
+            android:name=".CapsulasUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
+        <!-- Favoritos Usuário (versão antiga, caso ainda usada) -->
+        <activity
+            android:name=".FavoritosUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
 
         <!-- Histórico Empréstimos Usuário -->
         <activity
@@ -33,6 +63,18 @@
         <!-- Popup Histórico Empréstimos (Usuário) -->
         <activity
             android:name=".PopupHistoricoEmprestimosUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
+        <!-- Popup Histórico Empréstimo (singular) -->
+        <activity
+            android:name=".PopupHistoricoEmprestimoUsuarioActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
+        <!-- Popup Resultados Usuário (NOVO) -->
+        <activity
+            android:name=".PopupResultadosUsuarioActivity"
             android:exported="false"
             android:theme="@style/Theme.BIBLIFOR" />
 
@@ -53,13 +95,13 @@
         <activity android:name=".LivrosEmprestaveisAdministradorActivity" android:exported="false" />
         <activity android:name=".PerfilAdministradorActivity" android:exported="false" />
         <activity android:name=".ConfirmacaoCadastroAdministradorActivity" android:exported="false" />
-        <activity android:name=".ExcecoesCadastroAdministradorActivity" android:exported="false" />
         <activity android:name=".LivroCadastrandoAdministradorActivity" android:exported="false" />
         <activity android:name=".MenuPrincipalAdministradorActivity" android:exported="false" />
         <activity android:name=".CadastrarLivroAdministradorActivity" android:exported="false" />
 
         <!-- Usuário -->
         <activity android:name=".MenuPrincipalUsuarioActivity" android:exported="false" android:theme="@style/Theme.BIBLIFOR" />
+        <activity android:name=".MenuHamburguerUsuarioActivity" android:exported="false" android:theme="@style/Theme.BIBLIFOR" />
         <activity android:name=".PerfilUsuarioActivity" android:exported="false" />
         <activity android:name=".RenovacaoConfirmadaUsuarioActivity" android:exported="false" />
         <activity android:name=".RenovacaoEmprestimoUsuarioActivity" android:exported="false" />
@@ -75,18 +117,12 @@
         <activity android:name=".AvaliacaoUsuarioActivity" android:exported="false" />
         <activity android:name=".LimiteEmprestimosUsuarioActivity" android:exported="false" />
         <activity android:name=".PopupEmprestimoProibidoUsuarioActivity" android:exported="false" />
-        <activity android:name=".MensagemSemResultadoUsuarioActivity" android:exported="false" />
-        <activity android:name=".PesquisaSemResultadoUsuarioActivity" android:exported="false" />
         <activity android:name=".LivroDesfavoritadoUsuarioActivity" android:exported="false" />
         <activity android:name=".PopupFavoritosUsuarioActivity" android:exported="false" />
-        <activity android:name=".PopupResultadosUsuarioActivity" android:exported="false" />
         <activity android:name=".ResultadosPesquisaUsuarioActivity" android:exported="false" />
-        <activity android:name=".PesquisaUsuarioActivity" android:exported="false" />
         <activity android:name=".AvisosUsuarioActivity" android:exported="false" />
         <activity android:name=".ChatbotUsuarioActivity" android:exported="false" />
-        <activity android:name=".PopupHistoricoEmprestimoUsuarioActivity" android:exported="false" />
         <activity android:name=".EsqueceuSenhaUsuarioActivity" android:exported="false" />
-        <activity android:name=".LoginUsuarioActivity" android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

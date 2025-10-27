@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -17,6 +18,7 @@ class EmprestarLivroAdministradorActivity : AppCompatActivity() {
         val textoDescricao = findViewById<TextView>(R.id.lopesTornar45)
         val botaoSim = findViewById<Button>(R.id.lopesBtnSim45)
         val botaoMenu = findViewById<Button>(R.id.buttonMenu)
+        val botaoEditar = findViewById<ImageView>(R.id.iconeEditarLivro)
 
         botaoSim.setOnClickListener {
             textoEmprestavel.text = "Emprestável"
@@ -26,6 +28,11 @@ class EmprestarLivroAdministradorActivity : AppCompatActivity() {
 
         botaoMenu.setOnClickListener {
             val intent = Intent(this, MenuPrincipalAdministradorActivity::class.java)
+            startActivity(intent)
+        }
+
+        botaoEditar.setOnClickListener {
+            val intent = Intent(this, EditarLivroAdministradorActivity::class.java)
             startActivity(intent)
         }
     }

@@ -5,114 +5,100 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B38A0"
+    android:background="#004E6F"
     tools:context=".MenuHamburguerAdministradorActivity">
 
+    <ImageView
+        android:id="@+id/leoImagemMenuSuperior49"
+        android:layout_width="80dp"
+        android:layout_height="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
     <TextView
-        android:id="@+id/lopesMenu49"
+        android:id="@+id/leoTituloMenu49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="92dp"
         android:text="Menu"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lopesPerfil49"
+        android:id="@+id/leoTituloPerfilMenu49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="216dp"
         android:text="Perfil"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.193"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesInicio49" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lopesCadastrar49"
+        android:id="@+id/leoTituloCadastrarMenu49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="328dp"
         android:text="Cadastrar"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesPerfil49" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/loesEmprestar49"
+        android:id="@+id/leoTituloEmprestarMenu49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="452dp"
         android:text="Emprestar"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesCadastrar49" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lopesCapsulas49"
+        android:id="@+id/leoTituloCapsulasMenu49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="576dp"
         android:text="Cápsulas"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.221"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loesEmprestar49" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lopesEventos49"
+        android:id="@+id/leoTituloEventosMenu49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:fontFamily="@font/poppins_semibold"
+        android:layout_marginTop="700dp"
         android:text="Eventos"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesCapsulas49" />
-
-    <ImageView
-        android:id="@+id/lopesMenuHamb49"
-        android:layout_width="60dp"
-        android:layout_height="68dp"
-        android:tint="#FFFFFF"
-        app:srcCompat="@drawable/menu_hamb"
-        tools:layout_editor_absoluteX="183dp"
-        tools:layout_editor_absoluteY="6dp" />
-
-    <TextView
-        android:id="@+id/lopesInicio49"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Início"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesMenu49" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

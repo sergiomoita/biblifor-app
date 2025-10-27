@@ -55,15 +55,15 @@
         <!-- ÁREA DAS CÁPSULAS -->
         <LinearLayout
             android:id="@+id/areaCapsulasAdmSergio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_width="354dp"
+            android:layout_height="528dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
             android:background="#FFFFFF"
             android:elevation="6dp"
+            android:gravity="center"
             android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center">
+            android:padding="24dp">
 
             <GridLayout
                 android:id="@+id/gridCapsulasAdmSergio"

@@ -5,6 +5,329 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#004AF7"
     tools:context=".PerguntasFrequentesUsuarioActivity">
+
+    <ImageView
+        android:id="@+id/leoLogoUnifor31"
+        android:layout_width="90dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_unifor" />
+
+    <TextView
+        android:id="@+id/leotextViewUnifor31"
+        android:layout_width="168dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif"
+        android:text="Unifor Biblifor"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/leoLogoHomeBF31"
+        android:layout_width="85dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="780dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/home" />
+
+    <ImageView
+        android:id="@+id/leoImagemChatbotBF31"
+        android:layout_width="57dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="780dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.401"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/leoImagemNotificacoesBF31"
+        android:layout_width="69dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="792dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/email" />
+
+    <ImageView
+        android:id="@+id/leoImagemMenuBF31"
+        android:layout_width="61dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="788dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menu_hamb" />
+
+    <ImageView
+        android:id="@+id/leoImagemSetaPF31"
+        android:layout_width="42dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta"
+        app:tint="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/leoTituloSuperiorPF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="Perguntas Frequentes"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/leoImagemChatbotSuperiorPF31"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chatbot_ema" />
+
+    <ImageView
+        android:id="@+id/leoImagemNotificacaoSuperiorPF31"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notificacao" />
+
+    <TextView
+        android:id="@+id/leoTextoSuperiorPF31"
+        android:layout_width="394dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="116dp"
+        android:text="Tudo é novo e empolgante quando você começa a explorar a nossa biblioteca. Queremos que você se sinta bem-vindo e aproveite ao máximo todos os serviços. Por isso, respondemos aqui às principais dúvidas de quem está começando a utilizar o aplicativo ou visitar a Biblioteca."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/leoSetaDuvida1PF31"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta_cabeca"
+        app:tint="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/leoSetaDuvida2PF31"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="312dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta_cabeca"
+        app:tint="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/leoSetaDuvida4PF31"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="548dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta_cabeca"
+        app:tint="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/leoSetaDuvida5PF31"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="652dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta_cabeca"
+        app:tint="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/leoSetaDuvida3PF31"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="436dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta_cabeca"
+        app:tint="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/leoTituloDuvida1PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:text="Cadastro e acesso"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoTituloDuvida2PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="312dp"
+        android:text="Empréstimo e devoluções"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoTituloDuvida3PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="436dp"
+        android:text="Multas e prazos"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida1PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:text="Para usar os serviços da Biblioteca Unifor, é preciso estar vinculado à universidade como aluno, professor ou colaborador. O acesso é gerado automaticamente pelas informações institucionais e pode ser feito com o número de matrícula (RA) e a senha padrão. Em caso de esquecimento ou dificuldade, a senha pode ser recuperada no aplicativo ou com o suporte da biblioteca."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida2PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="348dp"
+        android:text="O empréstimo de livros da Biblioteca Unifor é exclusivo para alunos, professores e colaboradores. Para retirar, apresente o cartão institucional. O prazo é de 7 dias, com renovação online se não houver reserva. O acesso usa matrícula (RA) e senha. Em caso de dúvidas, o suporte da biblioteca está disponível."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida3PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="472dp"
+        android:text="O atraso na devolução de livros gera multa de R$ 2,50 por dia e exemplar. O prazo é de 7 dias para alunos e 14 para professores. A renovação só é permitida sem reserva. As multas devem ser quitadas no balcão antes de novos empréstimos."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida4PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="584dp"
+        android:text="A pesquisa do acervo pode ser feita online com matrícula e senha. É possível buscar livros e periódicos por título, autor ou assunto, além de verificar reservas e disponibilidade. Para mais orientações, o suporte está disponível no balcão da biblioteca."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida5PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="688dp"
+        android:text="A biblioteca oferece serviços de apoio acadêmico, como análise de normas da ABNT, auxílio no currículo Lattes e empréstimo de livros. Os usuários contam com orientações presenciais e online, garantindo suporte à produção e à pesquisa científica."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoTituloDuvida4PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="548dp"
+        android:text="Pesquisa de acervo"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoTituloDuvida5PF31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="652dp"
+        android:text="Serviços extras"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

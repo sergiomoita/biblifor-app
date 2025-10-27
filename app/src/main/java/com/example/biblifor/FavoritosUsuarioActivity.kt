@@ -32,7 +32,7 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
         findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
-            startActivity(Intent(this, MenuHamburguerUsuario::class.java))
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
         // ===== RecyclerView =====
@@ -50,9 +50,9 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
                 dateText = "Favoritado hoje"
             ),
             HistoryBook(
-                title = "1984",
-                author = "George Orwell",
-                coverRes = R.drawable.livro_1984,
+                title = "O quinze",
+                author = "Rachel Queiroz",
+                coverRes = R.drawable.livro_rachelqueiroz,
                 availabilityText = "Disponível: físico",
                 isAvailable = true,
                 dateText = "Favoritado ontem"
@@ -66,8 +66,8 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
                 dateText = "Favoritado esta semana"
             ),
             HistoryBook(
-                title = "Turma monica",
-                author = "F. Kafka",
+                title = "Turma Monica",
+                author = "M. Sousa",
                 coverRes = R.drawable.livro_turmamonica,
                 availabilityText = "Indisponível",
                 isAvailable = false,
@@ -85,8 +85,13 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
 
         // Adapter com ação de clique
         rv.adapter = HistoryAdapter(favoritos) { livro ->
-            if (livro.title == "teste teste") {
+            // abre a tela de "desfavoritado" se for o Turma Monica (ignorando maiúsculas)
+            // OU se o livro estiver indisponível.
+            if (livro.title.equals("Turma Monica", ignoreCase = true) || !livro.isAvailable) {
                 startActivity(Intent(this, LivroDesfavoritadoUsuarioActivity::class.java))
+            } else {
+                // aqui você pode abrir a tela padrão de detalhes, se quiser
+                // startActivity(Intent(this, DetalheLivroUsuarioActivity::class.java))
             }
         }
     }

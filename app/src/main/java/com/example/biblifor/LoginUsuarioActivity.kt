@@ -4,18 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.*
+import android.window.SplashScreen
 import androidx.appcompat.app.AppCompatActivity
+
 
 class LoginUsuarioActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_usuario)
 
         val btnAcessar = findViewById<Button>(R.id.btnAcessarLoginUsuarioSergio)
         val tvEsqueceuSenha = findViewById<TextView>(R.id.tvEsqueceuSenhaLoginUsuario)
         val etMatricula = findViewById<EditText>(R.id.inputMatriculaLoginUsuarioSergio)
-        val etSenha = findViewById<EditText>(R.id.inputSenhaLoginUsuarioSergio) // <-- ID correto do campo de senha
+        val etSenha = findViewById<EditText>(R.id.inputSenhaLoginUsuarioSergio)
 
         btnAcessar.setOnClickListener {
             val matricula = etMatricula.text.toString().trim()

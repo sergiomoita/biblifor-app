@@ -1,10 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#005BFF"
     tools:context=".PopupLivroOnlineUsuarioActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Botão de Voltar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btnVoltarPopupLivroOnlineUsuarioSergio"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Voltar"
+            android:src="@drawable/seta"
+            android:tint="#FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+    </RelativeLayout>
+
+    <!-- CARD CENTRAL -->
+    <LinearLayout
+        android:id="@+id/cardContainerPopupLivroOnlineUsuarioSergio"
+        android:layout_width="295dp"
+        android:layout_height="571dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Capa -->
+        <ImageView
+            android:id="@+id/imgCapaPopupLivroOnlineUsuarioSergio"
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Capa do livro"
+            android:src="@drawable/livro_romeu1" />
+
+        <!-- Avaliação -->
+        <RatingBar
+            android:id="@+id/ratingPopupLivroOnlineUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="#FFD700"
+            android:rating="5.0"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:stepSize="0.5" />
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTituloPopupLivroOnlineUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:gravity="center"
+            android:text="Romeu e Julieta - W. Carrasco"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Status -->
+        <TextView
+            android:id="@+id/txtStatusPopupLivroOnlineUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Disponível em versão digital."
+            android:textColor="#00C853"
+            android:textSize="14sp" />
+
+        <!-- Botão Online -->
+        <Button
+            android:id="@+id/btnOnlinePopupLivroOnlineUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Online"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Barra inferior -->
+    <LinearLayout
+        android:id="@+id/barraInferiorPopupLivroOnlineUsuarioSergio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iconHomePopupLivroOnlineUsuarioSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"
+            android:contentDescription="Home" />
+
+        <ImageView
+            android:id="@+id/iconChatBotPopupLivroOnlineUsuarioSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/chatbot_ema"
+            android:contentDescription="Mascote" />
+
+        <ImageView
+            android:id="@+id/iconMensagemPopupLivroOnlineUsuarioSergio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/email"
+            android:contentDescription="Mensagem" />
+
+        <ImageView
+            android:id="@+id/iconMenuPopupLivroOnlineUsuarioSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF"
+            android:contentDescription="Menu" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toastFundo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_toast_branco"
+    android:padding="12dp"
+    android:elevation="8dp"
+    android:layout_margin="10dp">
+
+    <!-- Título principal -->
+    <TextView
+        android:id="@+id/toastTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Livro removido dos favoritos"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/toastSubtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Corpo Humano – Turma da Mônica"
+        android:textColor="#333333"
+        android:textSize="13sp"
+        android:layout_marginTop="2dp" />
+
+    <!-- Ícone de status (check ou desfavoritado) -->
+    <ImageView
+        android:id="@+id/toastIconStatus"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="6dp"
+        android:layout_gravity="end"
+        android:src="@drawable/check_verde"
+        android:tint="#000000" />
+</LinearLayout>

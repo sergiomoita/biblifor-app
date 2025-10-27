@@ -96,17 +96,6 @@
         app:srcCompat="@drawable/seta" />
 
     <ImageView
-        android:id="@+id/leoImagemRecarregarPADM42"
-        android:layout_width="38dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="108dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/recarregar" />
-
-    <ImageView
         android:id="@+id/leoImagemNotificacaoSuperiorPADM42"
         android:layout_width="43dp"
         android:layout_height="31dp"

@@ -1,10 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#005BFF"
     tools:context=".LivroDesfavoritadoUsuarioActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Botão de Voltar -->
+    <ImageView
+        android:id="@+id/btnVoltarLivroDesfavoritadoUsuario"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="16dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/seta"
+        android:tint="#FFFFFF"
+        android:contentDescription="Voltar"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless" />
+
+    <!-- CARD CENTRAL -->
+    <LinearLayout
+        android:id="@+id/cardLivroDesfavoritadoUsuario"
+        android:layout_width="295dp"
+        android:layout_height="571dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:background="@drawable/bg_card">
+
+        <!-- Capa -->
+        <ImageView
+            android:id="@+id/imgCapaLivroDesfavoritadoUsuario"
+            android:layout_width="130dp"
+            android:layout_height="190dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Capa do livro"
+            android:src="@drawable/livro_turmamonica" />
+
+        <!-- Avaliação + Favorito -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
+
+            <RatingBar
+                android:id="@+id/ratingLivroDesfavoritadoUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4"
+                android:stepSize="0.5"
+                android:progressTint="#FFD700"
+                android:scaleX="0.9"
+                android:scaleY="0.9" />
+
+            <ImageView
+                android:id="@+id/iconFavoritoLivroDesfavoritadoUsuario"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="6dp"
+                android:src="@drawable/desfavoritado"
+                android:tint="#FFC107"
+                android:contentDescription="Ícone de favorito" />
+        </LinearLayout>
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTituloLivroDesfavoritadoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Corpo Humano – Turma da Mônica"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <!-- Status -->
+        <TextView
+            android:id="@+id/txtStatusLivroDesfavoritadoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Indisponível"
+            android:textColor="#FF0000"
+            android:textSize="14sp"
+            android:layout_marginTop="6dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- ✅ NOVO BOTÃO ABAIXO DO CARD -->
+    <Button
+        android:id="@+id/btnFavoritosAtualizado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardLivroDesfavoritadoUsuario"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Favoritos"
+        android:textColor="#005BFF"
+        android:textStyle="bold"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp" />
+
+    <!-- Barra inferior -->
+    <LinearLayout
+        android:id="@+id/barraInferiorLivroDesfavoritadoUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iconHomeLivroDesfavoritadoUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"
+            android:contentDescription="Home" />
+
+        <ImageView
+            android:id="@+id/iconChatbotLivroDesfavoritadoUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/chatbot_ema"
+            android:contentDescription="Mascote" />
+
+        <ImageView
+            android:id="@+id/iconMensagemLivroDesfavoritadoUsuario"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/email"
+            android:contentDescription="Mensagem" />
+
+        <ImageView
+            android:id="@+id/iconMenuLivroDesfavoritadoUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF"
+            android:contentDescription="Menu" />
+    </LinearLayout>
+
+</RelativeLayout>

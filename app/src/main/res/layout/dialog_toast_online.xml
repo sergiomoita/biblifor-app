@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_toast_azul"
+    android:padding="16dp"
+    android:gravity="center"
+    android:elevation="6dp">
+
+    <TextView
+        android:id="@+id/txtMensagemToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deseja continuar para\no site “minhabiblioteca.unifor.com”?"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnNaoToast"
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:text="Não"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btnSimToast"
+            android:layout_width="80dp"
+            android:layout_height="38dp"
+            android:text="Sim"
+            android:backgroundTint="#FFFFFF"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+    </LinearLayout>
+</LinearLayout>

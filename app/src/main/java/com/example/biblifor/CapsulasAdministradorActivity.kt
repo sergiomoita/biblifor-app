@@ -75,7 +75,7 @@ class CapsulasAdministradorActivity : AppCompatActivity() {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
         findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java)); finish()
         }
 
         // 💊 Clique nas cápsulas: abre a tela já levando o status atual correto

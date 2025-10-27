@@ -74,7 +74,7 @@ class EmprestimoUsuarioActivity : AppCompatActivity() {
 
         val imagemLogoMenu3 = findViewById<ImageView>(R.id.leoImagemMenu3)
         imagemLogoMenu3.setOnClickListener {
-            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuario::class.java)
+            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuarioActivity::class.java)
             startActivity(navegarLogoMenu3)
         }
 

@@ -33,7 +33,7 @@ class RecomendadosUsuarioActivity : AppCompatActivity() {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
         findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
-            startActivity(Intent(this, MenuHamburguerUsuario::class.java))
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
         // ===== RecyclerView (2 colunas) =====
@@ -86,6 +86,7 @@ class RecomendadosUsuarioActivity : AppCompatActivity() {
                     Intent(this, PopupEmprestimoProibidoUsuarioActivity::class.java)
                 )
             }
+
         }
     }
 }

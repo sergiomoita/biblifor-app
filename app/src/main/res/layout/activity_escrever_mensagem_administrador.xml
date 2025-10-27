@@ -1,10 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EscreverMensagemAdministradorActivity">
+    android:background="#005CFF"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Barra superior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/foto_adm"
+            android:layout_marginEnd="8dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Olá, Hugo Moura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:text="1020845"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnVoltarEscreverMensagemAdministradorSergio"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/seta"
+            android:tint="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Título -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nova Mensagem"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Card principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:elevation="4dp"
+        android:gravity="top">
+
+        <!-- Campo destinatários -->
+        <EditText
+            android:id="@+id/etDestinatariosEscreverMensagemAdministradorSergio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Destinatários"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#888"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Campo assunto (área de texto grande) -->
+        <EditText
+            android:id="@+id/etAssuntoEscreverMensagemAdministradorSergio"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="Assunto"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:gravity="top|start"
+            android:textColor="#000"
+            android:textColorHint="#888"
+            android:inputType="textMultiLine"
+            android:minLines="8" />
+
+
+        <!-- Botão enviar (alinhado à direita) -->
+        <Button
+            android:id="@+id/btnEnviarEscreverMensagemAdministradorSergio"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="end"
+            android:backgroundTint="#004070"
+            android:text="Enviar"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+    </LinearLayout>
+
+    <!-- Barra inferior -->
+    <LinearLayout
+        android:id="@+id/barraInferiorEscreverMensagemAdministradorSergio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iconHomeEscreverMensagemAdministradorSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"
+            android:contentDescription="Home" />
+
+        <ImageView
+            android:id="@+id/iconEscreverEscreverMensagemAdministradorSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/escrever_mensagem"
+            android:tint="#FFFFFF"
+            android:contentDescription="EnviarMsg" />
+
+        <ImageView
+            android:id="@+id/iconMensagemEscreverMensagemAdministradorSergio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/email"
+            android:contentDescription="Mensagem" />
+
+        <ImageView
+            android:id="@+id/iconMenuInferiorEscreverMensagemAdministradorSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF"
+            android:contentDescription="Menu" />
+    </LinearLayout>
+
+</LinearLayout>

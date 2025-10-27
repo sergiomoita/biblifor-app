@@ -67,7 +67,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
         val leoLogoMenuPU5 = findViewById<ImageView>(R.id.leoImagemMenu3)
         leoLogoMenuPU5.setOnClickListener {
-            val navegarLogoMenuPU5 = Intent (this, MenuHamburguerUsuario::class.java)
+            val navegarLogoMenuPU5 = Intent (this, MenuHamburguerUsuarioActivity::class.java)
             startActivity(navegarLogoMenuPU5)
         }
     }

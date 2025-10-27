@@ -10,18 +10,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
+class FavoritosAtualizadoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_historico_emprestimos_usuario)
+        setContentView(R.layout.activity_favoritos_atualizado)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // --- Navegação inferior ---
+        // Navegação inferior
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -36,51 +36,26 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
         }
 
         // ===== RecyclerView =====
-        val rv = findViewById<RecyclerView>(R.id.rvHistorico)
+        val rv = findViewById<RecyclerView>(R.id.rvFavoritos)
         rv.layoutManager = LinearLayoutManager(this)
 
-        val historico = listOf(
-            HistoryBook(
-                title = "Romeu e Julieta",
-                author = "W. Shakespeare",
-                coverRes = R.drawable.livro_romeu2,
-                availabilityText = "Disponível: físico + digital",
-                isAvailable = true,
-                dateText = "13/09/2025"
-            ),
-            HistoryBook(
-                title = "1984",
-                author = "George Orwell",
-                coverRes = R.drawable.livro_1984,
-                availabilityText = "Disponível: físico",
-                isAvailable = true,
-                dateText = "02/09/2025",
-                statusText = "Empréstimo em finalizado"
-            ),
+        // Lista de livros favoritos (idêntica ao Favoritos, MAS sem "Turma Monica")
+        val favoritos = listOf(
             HistoryBook(
                 title = "Dom Casmurro",
                 author = "Machado de Assis",
                 coverRes = R.drawable.livro_dom_casmurro,
-                availabilityText = "Indisponível",
-                isAvailable = false,
-                dateText = "28/08/2025",
-                statusText = "Empréstimo em finalizado"
+                availabilityText = "Disponível: físico",
+                isAvailable = true,
+                dateText = "Favoritado hoje"
             ),
             HistoryBook(
-                title = "Código Limpo",
-                author = "Robert C. Martin",
-                coverRes = R.drawable.livro_cleancode,
-                availabilityText = "Disponível: físico + digital",
+                title = "O quinze",
+                author = "Rachel Queiroz",
+                coverRes = R.drawable.livro_rachelqueiroz,
+                availabilityText = "Disponível: físico",
                 isAvailable = true,
-                dateText = "10/08/2025"
-            ),
-            HistoryBook(
-                title = "Antígona",
-                author = "Sófocles",
-                coverRes = R.drawable.livro_antigona,
-                availabilityText = "Disponível: digital",
-                isAvailable = true,
-                dateText = "24/07/2025"
+                dateText = "Favoritado ontem"
             ),
             HistoryBook(
                 title = "Guerra e Paz",
@@ -88,15 +63,25 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
                 coverRes = R.drawable.livro_guerra_e_paz,
                 availabilityText = "Disponível: físico + digital",
                 isAvailable = true,
-                dateText = "15/07/2025"
+                dateText = "Favoritado esta semana"
+            ),
+            HistoryBook(
+                title = "Código Limpo",
+                author = "Robert C. Martin",
+                coverRes = R.drawable.livro_cleancode,
+                availabilityText = "Disponível: físico + digital",
+                isAvailable = true,
+                dateText = "Favoritado este mês"
             )
         )
 
-        // --- Adapter com clique ---
-        rv.adapter = HistoryAdapter(historico) { livro ->
-            if (livro.title == "Romeu e Julieta") {
-                val intent = Intent(this, PopupHistoricoEmprestimosUsuarioActivity::class.java)
-                startActivity(intent)
+        // Adapter com ação de clique (idêntico ao original)
+        rv.adapter = HistoryAdapter(favoritos) { livro ->
+            if (livro.title.equals("Turma Monica", ignoreCase = true) || !livro.isAvailable) {
+                startActivity(Intent(this, LivroDesfavoritadoUsuarioActivity::class.java))
+            } else {
+                // Poderia abrir detalhes padrão, se existir
+                // startActivity(Intent(this, DetalheLivroUsuarioActivity::class.java))
             }
         }
     }
