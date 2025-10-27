@@ -21,6 +21,10 @@ class ResultadosPesquisaUsuarioActivity : AppCompatActivity() {
             insets
         }
 
+        findViewById<ImageView>(R.id.lopesSetaVoltar32).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
+        }
+
         // Navegação inferior (mantida)
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))

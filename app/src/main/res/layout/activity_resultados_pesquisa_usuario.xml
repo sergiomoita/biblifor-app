@@ -23,13 +23,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Ícones superiores -->
+
     <ImageView
         android:id="@+id/lopesChatBot32"
         android:layout_width="34dp"
         android:layout_height="37dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toEndOf="@+id/lopesNomeUnifor32"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chatbot_ema" />
 
@@ -37,9 +40,12 @@
         android:id="@+id/lopesNotificacao32"
         android:layout_width="23dp"
         android:layout_height="27dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="28dp"
+        android:tint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/lopesChatBot32"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/notificacao" />
 
@@ -68,6 +74,7 @@
         android:layout_width="44dp"
         android:layout_height="33dp"
         android:layout_marginTop="92dp"
+        android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/seta" />
