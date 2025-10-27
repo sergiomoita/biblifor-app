@@ -15,8 +15,6 @@ class CapsulasUsuarioActivity : AppCompatActivity() {
         // 🔙 Botão de voltar → MenuPrincipalUsuarioActivity
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltarCapsulasCapsulasUsuarioSergio)
         btnVoltar.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

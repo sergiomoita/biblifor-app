@@ -24,11 +24,12 @@ class AvisosUsuarioActivity : AppCompatActivity() {
             insets
         }
 
-        // --- RecyclerView ---
+        // =============================
+        // 🧩 RecyclerView
+        // =============================
         val rv = findViewById<RecyclerView>(R.id.rvAvisosUsuario)
         rv.layoutManager = LinearLayoutManager(this)
 
-        // Lista de avisos (com vários exemplos)
         val avisos = listOf(
             Aviso(
                 "Unifor - Biblioteca",
@@ -84,29 +85,42 @@ class AvisosUsuarioActivity : AppCompatActivity() {
 
         rv.adapter = AvisoAdapter(avisos)
 
-        // --- Navegação ---
-        val leoLogoHomeBFChatbot7 = findViewById<ImageView>(R.id.leoLogoHomeChatbotBF7)
-        leoLogoHomeBFChatbot7.setOnClickListener {
-            val navegarHomeChat7 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarHomeChat7)
+        // =============================
+        // ⬇️ Ícones inferiores
+        // =============================
+        findViewById<ImageView>(R.id.leoLogoHomeChatbotBF7).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
 
-        val leoLogoChatbotBFChatbot7 = findViewById<ImageView>(R.id.leoImagemChatbotBF7)
-        leoLogoChatbotBFChatbot7.setOnClickListener {
-            val navegarChatbotChat7 = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarChatbotChat7)
+        findViewById<ImageView>(R.id.leoImagemChatbotBF7).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        val leoLogoNotificacoesBFChatbot7 = findViewById<ImageView>(R.id.leoImagemNotificacoesChatbotBF7)
-        leoLogoNotificacoesBFChatbot7.setOnClickListener {
-            val navegarNotificacoesChat7 = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarNotificacoesChat7)
+        findViewById<ImageView>(R.id.leoImagemNotificacoesChatbotBF7).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        val leoLogoMenuBFChatbot7 = findViewById<ImageView>(R.id.leoImagemMenuChatbotBF7)
-        leoLogoMenuBFChatbot7.setOnClickListener {
-            val navegarMenuChat7 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarMenuChat7)
+        findViewById<ImageView>(R.id.leoImagemMenuChatbotBF7).setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
+        }
+
+        // =============================
+        // ⬆️ Ícones superiores
+        // =============================
+
+        // 🔙 Foto do usuário → volta ao menu principal
+        findViewById<ImageView>(R.id.imageView3).setOnClickListener {
+            startActivity(Intent(this, PerfilUsuarioActivity::class.java))
+        }
+
+        // 🤖 Chatbot (superior)
+        findViewById<ImageView>(R.id.imageView4).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
+        }
+
+        // 🔔 Notificação (superior)
+        findViewById<ImageView>(R.id.imageView5).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
     }
 }

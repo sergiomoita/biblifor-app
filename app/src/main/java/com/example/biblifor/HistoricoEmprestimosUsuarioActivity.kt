@@ -21,6 +21,11 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
             insets
         }
 
+        findViewById<ImageView>(R.id.btnVoltarHistorico).setOnClickListener {
+            finish() // volta para a tela anterior
+        }
+
+
         // --- Navegação inferior ---
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))

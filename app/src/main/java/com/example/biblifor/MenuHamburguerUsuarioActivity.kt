@@ -66,8 +66,7 @@ class MenuHamburguerUsuarioActivity : AppCompatActivity() {
         }
         val leoMenuSuperior25 = findViewById<ImageView>(R.id.leoImagemMenuSuperior25)
         leoMenuSuperior25.setOnClickListener {
-            val navegarMenuSuperior25 = Intent (this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarMenuSuperior25)
+            finish()
         }
     }
 }

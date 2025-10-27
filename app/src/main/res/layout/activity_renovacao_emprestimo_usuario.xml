@@ -8,50 +8,12 @@
     android:background="#004AF7"
     tools:context=".RenovacaoEmprestimoUsuarioActivity">
 
-
-    <TextView
-        android:id="@+id/lopesRenovacaoEmprestimo33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Renovação de empréstimo"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/lopesChatBot33"
-        android:layout_width="34dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
-
-    <ImageView
-        android:id="@+id/lopesNotificacao33"
-        android:layout_width="23dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificacao" />
-
+    <!-- Cabeçalho com logo -->
     <ImageView
         android:id="@+id/lopesLogoUnifor33"
         android:layout_width="83dp"
         android:layout_height="74dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_unifor" />
@@ -64,162 +26,186 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Unifor Biblifor"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/lopesLogoUnifor33"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Botão Voltar -->
     <ImageView
         android:id="@+id/lopesSetaVoltar33"
         android:layout_width="44dp"
         android:layout_height="33dp"
-        android:layout_marginTop="92dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
+        android:layout_marginTop="96dp"
+        android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/seta" />
 
+    <!-- Título principal -->
+    <TextView
+        android:id="@+id/lopesRenovacaoEmprestimo33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Renovação de empréstimo"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Imagem do livro (centralizada e equilibrada) -->
+
+    <!-- Legenda organizada (nome, autor, datas) -->
+
     <ImageView
         android:id="@+id/lopesLivroRomeuJulieta33"
-        android:layout_width="132dp"
-        android:layout_height="302dp"
-        android:layout_marginBottom="432dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
+        android:layout_width="130dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lopesRenovacaoEmprestimo33"
         app:srcCompat="@drawable/livro_romeu2" />
 
-    <TextView
-        android:id="@+id/lopesNomeRomeu33"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/infoLivroLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="628dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Romeu e Julieta - W. Shakespeare"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        android:gravity="start"
+        app:layout_constraintTop_toTopOf="@id/lopesLivroRomeuJulieta33"
+        app:layout_constraintBottom_toBottomOf="@id/lopesLivroRomeuJulieta33"
+        app:layout_constraintStart_toEndOf="@id/lopesLivroRomeuJulieta33"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/lopesDataDevolucao33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="596dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Data de devolução: 28/12/2022"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.713"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/lopesNomeRomeu33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Romeu e Julieta"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:layout_marginBottom="6dp" />
 
-    <TextView
-        android:id="@+id/lopesNovaData33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="548dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Nova devolução: 10/02/2023"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.668"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/lopesAutorRomeu33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_light"
+            android:text="W. Shakespeare"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:layout_marginBottom="12dp" />
 
+        <TextView
+            android:id="@+id/lopesDataDevolucao33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Data de devolução: 28/12/2022"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/lopesNovaData33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Nova devolução: 10/02/2023"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Lista de termos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTermos33"
-        android:layout_width="291dp"
-        android:layout_height="260dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="160dp"
         android:background="#FFFFFF"
         android:padding="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lopesLivroRomeuJulieta33"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lopesNovaData33"
-        app:layout_constraintVertical_bias="0.285"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lopesBtnAceitar33"
         tools:listitem="@layout/item_termo" />
 
-    <Button
-        android:id="@+id/lopesBtnRecusar33"
+    <!-- Botões Aceitar / Recusar -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
-        android:backgroundTint="#F4F4F4"
-        android:text="Recusar "
-        android:textColor="#121212"
+        android:layout_marginBottom="120dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/lopesBtnAceitar33"
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/lopesBtnRecusar33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F4F4F4"
+            android:text="Recusar"
+            android:textColor="#121212"
+            android:layout_marginEnd="24dp" />
+
+        <Button
+            android:id="@+id/lopesBtnAceitar33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F4F4F4"
+            android:text="Aceitar"
+            android:textColor="#121212" />
+    </LinearLayout>
+
+    <!-- Barra inferior -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
-        android:backgroundTint="#F4F4F4"
-        android:text="Aceitar"
-        android:textColor="#121212"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.703"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/leoLogoHome3"
-        android:layout_width="85dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="780dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/leoImagemChatbot3"
-        android:layout_width="57dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="780dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
+        <ImageView
+            android:id="@+id/leoLogoHome3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:tint="#FFFFFF"
+            app:srcCompat="@drawable/home" />
 
-    <ImageView
-        android:id="@+id/leoImagemNotificacoes3"
-        android:layout_width="69dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="792dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/email" />
+        <ImageView
+            android:id="@+id/leoImagemChatbot3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:srcCompat="@drawable/chatbot_ema" />
 
-    <ImageView
-        android:id="@+id/leoImagemMenu3"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="788dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
+        <ImageView
+            android:id="@+id/leoImagemNotificacoes3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/email" />
 
+        <ImageView
+            android:id="@+id/leoImagemMenu3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:tint="#FFFFFF"
+            app:srcCompat="@drawable/menu_hamb" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

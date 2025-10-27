@@ -15,13 +15,17 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_favoritos_usuario)
+
+        // Ajuste para edge-to-edge (modo imersivo)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Navegação inferior
+        // =============================
+        // 🧭 Navegação Inferior
+        // =============================
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -35,11 +39,25 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        // ===== RecyclerView =====
+        // =============================
+        // ⬆️ Ícones Superiores
+        // =============================
+        findViewById<ImageView>(R.id.lopesSetaVoltar32).setOnClickListener {
+            finish()
+        }
+        findViewById<ImageView>(R.id.lopesChatBot32).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.lopesNotificacao32).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
+        }
+
+        // =============================
+        // 📚 RecyclerView de Favoritos
+        // =============================
         val rv = findViewById<RecyclerView>(R.id.rvFavoritos)
         rv.layoutManager = LinearLayoutManager(this)
 
-        // Lista de livros favoritos
         val favoritos = listOf(
             HistoryBook(
                 title = "Dom Casmurro",
@@ -83,14 +101,12 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             )
         )
 
-        // Adapter com ação de clique
+        // Adapter com clique nos livros
         rv.adapter = HistoryAdapter(favoritos) { livro ->
-            // abre a tela de "desfavoritado" se for o Turma Monica (ignorando maiúsculas)
-            // OU se o livro estiver indisponível.
             if (livro.title.equals("Turma Monica", ignoreCase = true) || !livro.isAvailable) {
                 startActivity(Intent(this, LivroDesfavoritadoUsuarioActivity::class.java))
             } else {
-                // aqui você pode abrir a tela padrão de detalhes, se quiser
+                // Aqui poderia abrir detalhes do livro, se quiser futuramente
                 // startActivity(Intent(this, DetalheLivroUsuarioActivity::class.java))
             }
         }

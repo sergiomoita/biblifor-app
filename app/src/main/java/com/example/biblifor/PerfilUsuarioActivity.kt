@@ -42,8 +42,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         val leoBotaoVoltarPU5 = findViewById<ImageView>(R.id.leoImagemSetaPU5)
         leoBotaoVoltarPU5.setOnClickListener {
-            val navegarVoltarPU5 = Intent (this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarVoltarPU5)
+            onBackPressedDispatcher.onBackPressed()
         }
         val leoBotaoNotificacoesSPU5 = findViewById<ImageView>(R.id.leoImagemNotificacaoSuperiorPU5)
         leoBotaoNotificacoesSPU5.setOnClickListener {

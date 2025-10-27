@@ -47,28 +47,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/lopesChatBot34"
-        android:layout_width="34dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
-
-    <ImageView
-        android:id="@+id/lopesNotificacao34"
-        android:layout_width="23dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificacao" />
-
-    <ImageView
         android:id="@+id/lopesLogoUnifor34"
         android:layout_width="83dp"
         android:layout_height="74dp"

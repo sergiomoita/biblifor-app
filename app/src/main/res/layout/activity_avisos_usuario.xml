@@ -92,11 +92,12 @@
 
         <ImageView
             android:id="@+id/leoLogoHomeChatbotBF7"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/home" />
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"/>
 
         <ImageView
             android:id="@+id/leoImagemChatbotBF7"
@@ -142,6 +143,7 @@
         app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificacao" />
+        app:srcCompat="@drawable/notificacao"
+        android:tint="#FFFFFF"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

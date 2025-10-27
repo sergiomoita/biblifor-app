@@ -23,17 +23,6 @@ class RenovacaoEmprestimoUsuarioActivity : AppCompatActivity() {
             insets
         }
 
-        val imgChatBot = findViewById<ImageView>(R.id.lopesChatBot33)
-        imgChatBot.setOnClickListener {
-            val navegarChatBot = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarChatBot)
-        }
-
-        val imgNotificacao = findViewById<ImageView>(R.id.lopesNotificacao33)
-        imgNotificacao.setOnClickListener {
-            val navegarNotificacao = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarNotificacao)
-        }
 
 
         val imgSeta = findViewById<ImageView>(R.id.lopesSetaVoltar33)

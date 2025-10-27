@@ -21,6 +21,11 @@ class AcervoUsuarioActivity : AppCompatActivity() {
             insets
         }
 
+        findViewById<ImageView>(R.id.btnVoltarAcervo).setOnClickListener {
+            finish() // volta para a tela anterior
+        }
+
+
         // Navegação inferior (mantida)
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,19 +17,22 @@ class MenuPrincipalAdministradorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu_principal_administrador)
+
+        // ===== Ajuste de insets (barras do sistema) =====
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        // ===== PERFIL (foto -> abre perfil do administrador) =====
         val leoBotaoPerfilAdm = findViewById<ImageView>(R.id.leoFotoAdministrador37)
         leoBotaoPerfilAdm.setOnClickListener {
             startActivity(Intent(this, PerfilAdministradorActivity::class.java))
         }
 
-        // ===== ACESSIBILIDADE: toggle de cor dos textos =====
-        val leoBotaoDeAcessibilidadeAdm = findViewById<ImageView>(R.id.leoBotaoAcessibilidadeAdm37)
+        // ===== ACESSIBILIDADE =====
+        val botaoAcessibilidade = findViewById<ImageView>(R.id.leoBotaoAcessibilidadeAdm37)
         val textosParaAcessibilidade = listOf<TextView>(
             findViewById(R.id.leotextViewUniforAdministrador37),
             findViewById(R.id.leoOlaAdministrador37),
@@ -36,21 +40,18 @@ class MenuPrincipalAdministradorActivity : AppCompatActivity() {
             findViewById(R.id.leoTituloAcervoAdm37),
             findViewById(R.id.leoTituloCapsulasAdm37),
             findViewById(R.id.leoTituloEventosAdm37),
-            findViewById(R.id.leoVerMaisAdministrador37),
             findViewById(R.id.leoNovaMensagemAdm37),
             findViewById(R.id.leoTituloEvento1Adm37),
-            findViewById(R.id.leoDataEvento1Adm37),
             findViewById(R.id.leoCorpoEvento1Adm37),
-            findViewById(R.id.leoTItuloEvento2Adm37), // mantém o id exatamente como está
-            findViewById(R.id.leoDataEvento2Adm37),
+            findViewById(R.id.leoTItuloEvento2Adm37),
             findViewById(R.id.leoCorpoTextoEvento2Adm37)
         )
 
         val coresOriginais = textosParaAcessibilidade.map { it to it.currentTextColor }
-        val corAcessivel = Color.parseColor("#FFFF00")
+        val corAcessivel = Color.parseColor("#FFFF00") // Amarelo alto contraste
 
         var acessibilidadeAtiva = false
-        leoBotaoDeAcessibilidadeAdm.setOnClickListener {
+        botaoAcessibilidade.setOnClickListener {
             if (!acessibilidadeAtiva) {
                 textosParaAcessibilidade.forEach { it.setTextColor(corAcessivel) }
             } else {
@@ -58,47 +59,82 @@ class MenuPrincipalAdministradorActivity : AppCompatActivity() {
             }
             acessibilidadeAtiva = !acessibilidadeAtiva
         }
-        // =====================================================
 
-        val leoBotaoEscreverMensagemAdm = findViewById<ImageView>(R.id.leoBotaoEscreverMensagemAdm37)
-        leoBotaoEscreverMensagemAdm.setOnClickListener {
+        // ===== BOTÕES DE AÇÃO =====
+        val botaoEscreverMensagem = findViewById<ImageView>(R.id.leoBotaoEscreverMensagemAdm37)
+        botaoEscreverMensagem.setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        val leoBotaoCadastrarAdm = findViewById<Button>(R.id.leoBotaoCadastrarAdm37)
-        leoBotaoCadastrarAdm.setOnClickListener {
+        val botaoCadastrar = findViewById<Button>(R.id.leoBotaoCadastrarAdm37)
+        botaoCadastrar.setOnClickListener {
             startActivity(Intent(this, CadastrarLivroAdministradorActivity::class.java))
         }
 
-        val leoBotaoEmprestarAdm = findViewById<Button>(R.id.leoBotaoEmprestarAdm37)
-        leoBotaoEmprestarAdm.setOnClickListener {
+        val botaoEmprestar = findViewById<Button>(R.id.leoBotaoEmprestarAdm37)
+        botaoEmprestar.setOnClickListener {
             startActivity(Intent(this, LivrosEmprestaveisAdministradorActivity::class.java))
         }
 
-        val leoBotaoVerMaisCapsulasAdm = findViewById<TextView>(R.id.leoVerMaisAdministrador37)
-        leoBotaoVerMaisCapsulasAdm.setOnClickListener {
+        val botaoVerMaisCapsulas = findViewById<TextView>(R.id.btnVerMaisCapsulas)
+        botaoVerMaisCapsulas.setOnClickListener {
             startActivity(Intent(this, CapsulasAdministradorActivity::class.java))
         }
 
-        val leoBotaoEscreverMensagem2Adm = findViewById<ImageView>(R.id.leoBotaoNovaMensagem237)
-        leoBotaoEscreverMensagem2Adm.setOnClickListener {
-            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
-        }
+        // ===== SEÇÃO NOVA MENSAGEM (toda área clicável) =====
+                val secaoNovaMensagem = findViewById<LinearLayout>(R.id.secaoNovaMensagem)
+                val botaoNovaMensagem = findViewById<ImageView>(R.id.leoBotaoNovaMensagem237)
+
+        // Clique no texto ou ícone leva para a mesma tela
+                val abrirNovaMensagem = Intent(this, EscreverMensagemAdministradorActivity::class.java)
+
+                secaoNovaMensagem.setOnClickListener {
+                    startActivity(abrirNovaMensagem)
+                }
+
+                botaoNovaMensagem.setOnClickListener {
+                    startActivity(abrirNovaMensagem)
+                }
 
 
-        // ⚙️ Barra inferior
-        findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+        // ===== SEÇÕES CLICÁVEIS =====
+        val secaoCapsulas = findViewById<LinearLayout>(R.id.secaoCapsulas)
+        val secaoEventos = findViewById<LinearLayout>(R.id.secaoEventos)
+        val verMaisEventos = findViewById<TextView>(R.id.btnVerMaisEventos)
+
+        secaoCapsulas.setOnClickListener {
+            startActivity(Intent(this, CapsulasAdministradorActivity::class.java))
         }
-        findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
-        }
-        findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
+
+        secaoEventos.setOnClickListener {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
-        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java)); finish()
+
+        verMaisEventos.setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
 
+        // ===== BARRA INFERIOR FIXA =====
+        val bottomHome = findViewById<ImageView>(R.id.leoLogoHome3)
+        val bottomChatbot = findViewById<ImageView>(R.id.leoImagemChatbot3)
+        val bottomEmail = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
+        val bottomMenu = findViewById<ImageView>(R.id.leoImagemMenu3)
+
+        bottomHome.setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            finish()
+        }
+
+        bottomChatbot.setOnClickListener {
+            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
+        }
+
+        bottomEmail.setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
+        }
+
+        bottomMenu.setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
+        }
     }
 }

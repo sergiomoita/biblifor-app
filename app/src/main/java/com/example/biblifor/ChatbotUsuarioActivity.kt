@@ -20,8 +20,7 @@ class ChatbotUsuarioActivity : AppCompatActivity() {
         }
         val leoSetaVoltarChatbot7 = findViewById<ImageView>(R.id.leoImagemSetaVoltarChatbot7)
         leoSetaVoltarChatbot7.setOnClickListener {
-            val navegarSetaChat7 = Intent (this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarSetaChat7)
+            onBackPressedDispatcher.onBackPressed()
         }
         val leoLogoHomeBFChatbot7 = findViewById<ImageView>(R.id.leoLogoHomeChatbotBF7)
         leoLogoHomeBFChatbot7.setOnClickListener {

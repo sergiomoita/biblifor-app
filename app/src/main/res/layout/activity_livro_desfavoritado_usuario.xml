@@ -21,16 +21,17 @@
         android:focusable="true"
         android:background="?attr/selectableItemBackgroundBorderless" />
 
+
     <!-- CARD CENTRAL -->
     <LinearLayout
         android:id="@+id/cardLivroDesfavoritadoUsuario"
-        android:layout_width="295dp"
-        android:layout_height="571dp"
+        android:layout_width="294dp"
+        android:layout_height="514dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
+        android:background="@drawable/bg_card"
         android:gravity="center_horizontal"
-        android:padding="16dp"
-        android:background="@drawable/bg_card">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <!-- Capa -->
         <ImageView
@@ -45,8 +46,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:gravity="center">
 
             <RatingBar
                 android:id="@+id/ratingLivroDesfavoritadoUsuario"
@@ -54,20 +55,19 @@
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 android:numStars="5"
-                android:rating="4"
-                android:stepSize="0.5"
                 android:progressTint="#FFD700"
+                android:rating="4"
                 android:scaleX="0.9"
-                android:scaleY="0.9" />
+                android:scaleY="0.9"
+                android:stepSize="0.5" />
 
             <ImageView
                 android:id="@+id/iconFavoritoLivroDesfavoritadoUsuario"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="6dp"
-                android:src="@drawable/desfavoritado"
-                android:tint="#FFC107"
-                android:contentDescription="Ícone de favorito" />
+                android:contentDescription="Ícone de favorito"
+                android:src="@drawable/desfavoritado" />
         </LinearLayout>
 
         <!-- Título -->
@@ -75,38 +75,32 @@
             android:id="@+id/txtTituloLivroDesfavoritadoUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Corpo Humano – Turma da Mônica"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
         <!-- Status -->
         <TextView
             android:id="@+id/txtStatusLivroDesfavoritadoUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
             android:text="Indisponível"
             android:textColor="#FF0000"
-            android:textSize="14sp"
-            android:layout_marginTop="6dp"
-            android:gravity="center" />
-    </LinearLayout>
+            android:textSize="14sp" />
 
-    <!-- ✅ NOVO BOTÃO ABAIXO DO CARD -->
-    <Button
-        android:id="@+id/btnFavoritosAtualizado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cardLivroDesfavoritadoUsuario"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="Favoritos"
-        android:textColor="#005BFF"
-        android:textStyle="bold"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="8dp" />
+        <Button
+            android:id="@+id/btnFavoritosAtualizado"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Favoritos"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <!-- Barra inferior -->
     <LinearLayout

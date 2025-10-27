@@ -43,8 +43,7 @@ class PerguntasFrequentesUsuarioActivity : AppCompatActivity() {
         }
         val imagemSetaVoltarPF31 = findViewById<ImageView>(R.id.leoImagemSetaPF31)
         imagemSetaVoltarPF31.setOnClickListener {
-            val navegarSetaVoltarPF31 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarSetaVoltarPF31)
+            finish()
         }
         val imagemSuperiorChatBotPF31 = findViewById<ImageView>(R.id.leoImagemChatbotSuperiorPF31)
         imagemSuperiorChatBotPF31.setOnClickListener {

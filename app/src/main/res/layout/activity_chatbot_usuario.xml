@@ -46,7 +46,8 @@
         app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:srcCompat="@drawable/home"
+        android:tint="#FFFFFF"/>
 
     <ImageView
         android:id="@+id/leoImagemChatbotBF7"

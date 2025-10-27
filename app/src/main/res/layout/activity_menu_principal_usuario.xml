@@ -8,418 +8,324 @@
     android:background="#004AF7"
     tools:context=".MenuPrincipalUsuarioActivity">
 
-    <ImageView
-        android:id="@+id/leoLogoUnifor3"
-        android:layout_width="90dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+    <!-- CONTEÚDO ROLÁVEL -->
+    <ScrollView
+        android:id="@+id/scrollConteudo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_unifor" />
-
-    <TextView
-        android:id="@+id/leotextViewUnifor3"
-        android:layout_width="168dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="36dp"
-        android:fontFamily="sans-serif"
-        android:text="Unifor Biblifor"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/leoFotoUser3"
-        android:layout_width="75dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="108dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/foto_user" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp">
 
-    <TextView
-        android:id="@+id/leoOlaUsuario3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:text="Olá, Maria Luísa"
-        android:textColor="#F4F4F4"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.393"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- LOGO E CABEÇALHO -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/leoMatricula3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:text="2120347"
-        android:textColor="#EFEFEF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/leoLogoUnifor3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/logo_unifor" />
 
-    <ImageView
-        android:id="@+id/leoAcessibilidade3"
-        android:layout_width="30dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="120dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.805"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/acessibilidade" />
+                <TextView
+                    android:id="@+id/leotextViewUnifor3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Unifor Biblifor"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/leoNotificacao3"
-        android:layout_width="38dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="124dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificacao" />
+            <!-- PERFIL -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/leoPesquisa3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:ems="10"
-        android:hint="Pesquisar material..."
-        android:inputType="text"
-        android:textColorHint="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.308"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/leoFotoUser3"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@drawable/foto_user" />
 
-    <ImageView
-        android:id="@+id/leoLupaPesquisa3"
-        android:layout_width="41dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="212dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.766"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/lupa_pesquisar" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
 
-    <TextView
-        android:id="@+id/leoTituloHistorico3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="276dp"
-        android:text="Histórico de Empréstimos"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.249"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/leoOlaUsuario3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Olá, Maria Luísa"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/leoVerMais3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="276dp"
-        android:text="Ver mais"
-        android:textColor="#E4D4D4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/leoMatricula3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2120347"
+                        android:textColor="#EDEDED"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-    <ImageView
-        android:id="@+id/leoEmaDeitada3"
-        android:layout_width="248dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="312dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.456"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ema_deitada" />
+                <ImageView
+                    android:id="@+id/leoAcessibilidade3"
+                    android:layout_width="30dp"
+                    android:layout_height="36dp"
+                    android:tint="#FFFFFF"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/acessibilidade" />
 
-    <TextView
-        android:id="@+id/leoLegendaEmaDeitada3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="432dp"
-        android:text="Você não possui nenhum empréstimo realizado"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/leoNotificacao3"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:tint="#FFFFFF"
+                    android:src="@drawable/notificacao" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/leoFavoritos3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="484dp"
-        android:text="Favoritos"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- BARRA DE PESQUISA -->
+            <LinearLayout
+                android:id="@+id/barraPesquisa"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_toast_branco"
+                android:paddingHorizontal="12dp"
+                android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/leoVerMais23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
-        android:text="Ver mais"
-        android:textColor="#E4D4D4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/leoPesquisa3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Pesquisar material de leitura..."
+                    android:textColor="#000000"
+                    android:textColorHint="#777777"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="8dp"
+                    android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/leoTituloLivroFavorito13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="504dp"
-        android:text="O Quinze:"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/leoLupaPesquisa3"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/lupa_pesquisar" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/leoTituloLivroFavorito23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="536dp"
-        android:text="Guerra e Paz:"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- HISTÓRICO DE EMPRÉSTIMOS -->
+            <LinearLayout
+                android:id="@+id/btnHistorico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="1">
 
-    <TextView
-        android:id="@+id/leoDisponivel3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="504dp"
-        android:text="Disponível - Físico + Digital"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/leoTituloHistorico3"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Histórico de Empréstimos"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/leoDisponivel23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="536dp"
-        android:text="Disponível - Físico"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/btnVerMaisHistorico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ver mais"
+                    android:textColor="#E0E0E0"
+                    android:textStyle="italic"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/leoImagemFavoritado3"
-        android:layout_width="17dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="504dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.723"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/favoritado" />
+            <ImageView
+                android:id="@+id/leoEmaDeitada3"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="14dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ema_deitada" />
 
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="18dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="532dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.722"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/favoritado" />
+            <TextView
+                android:id="@+id/leoLegendaEmaDeitada3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Você não possui nenhum empréstimo realizado"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp" />
 
-    <TextView
-        android:id="@+id/leoUltimosAvisos3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="568dp"
-        android:text="Últimos Avisos"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.297"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- FAVORITOS -->
+            <LinearLayout
+                android:id="@+id/btnFavoritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="1">
 
-    <TextView
-        android:id="@+id/leoVerMais33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="568dp"
-        android:text="Ver mais"
-        android:textColor="#E4D4D4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.748"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/leoFavoritos3"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favoritos"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/leoTituloAvisos3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="588dp"
-        android:text="Unifor - Biblioteca"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.297"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/btnVerMaisFavoritos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ver mais"
+                    android:textColor="#E0E0E0"
+                    android:textStyle="italic"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/leoDataAviso3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="588dp"
-        android:text="12/09/2025"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.746"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/containerFavoritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/leoAviso3"
-        android:layout_width="251dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="600dp"
-        android:text="Olá Maria Luísa. Este é um lembrete para devolver o livro &quot;Romeu e Julieta – William Shakespeare&quot; até 13/09/2025. Evite multas e permita que outros leitores também aproveitem essa obra."
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:text="O Quinze — Disponível: físico + digital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:paddingVertical="3dp" />
 
-    <TextView
-        android:id="@+id/leoTituloAvisos23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="660dp"
-        android:text="Unifor - Biblioteca"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.298"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:text="Guerra e Paz — Disponível: físico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/leoDataAviso23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="648dp"
-        android:text="12/08/2025"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.743"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <!-- ÚLTIMOS AVISOS -->
+            <LinearLayout
+                android:id="@+id/btnAvisos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="1">
 
-    <TextView
-        android:id="@+id/leoAviso23"
-        android:layout_width="245dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="676dp"
-        android:text="Olá Maria Luísa. Seu empréstimo foi confirmado. Você retirou &quot;Romeu e Julieta – William Shakespeare&quot;. Devolução prevista para 13/09/2025. Boa leitura!"
-        android:textColor="#FFFFFF"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/leoUltimosAvisos3"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Últimos Avisos"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/leoLogoHome3"
-        android:layout_width="85dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="780dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+                <TextView
+                    android:id="@+id/btnVerMaisAvisos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ver mais"
+                    android:textColor="#E0E0E0"
+                    android:textStyle="italic"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/leoImagemChatbot3"
-        android:layout_width="57dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="780dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
+            <TextView
+                android:id="@+id/leoAviso3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="📚 Olá Maria Luísa. Lembrete: devolva o livro 'Romeu e Julieta – William Shakespeare' até 13/09/2025. Evite multas!"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/leoImagemNotificacoes3"
-        android:layout_width="69dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="792dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/email" />
+            <TextView
+                android:id="@+id/leoAviso4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="📚 Olá Maria Luísa. Seu empréstimo foi confirmado. Você retirou Romeu e Julieta – William Shakespeare. Devolução prevista para 13/09/2025. Boa leitura!"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </ScrollView>
 
-    <ImageView
-        android:id="@+id/leoImagemMenu3"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="788dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
+    <!-- BARRA INFERIOR FIXA -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="#004AF7"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/leoLogoHome3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/home"
+            android:layout_marginHorizontal="16dp" />
+
+        <ImageView
+            android:id="@+id/leoImagemChatbot3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/chatbot_ema"
+            android:layout_marginHorizontal="16dp" />
+
+        <ImageView
+            android:id="@+id/leoImagemNotificacoes3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/email"
+            android:layout_marginHorizontal="16dp" />
+
+        <ImageView
+            android:id="@+id/leoImagemMenu3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/menu_hamb"
+            android:layout_marginHorizontal="16dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

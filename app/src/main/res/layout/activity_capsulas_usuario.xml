@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#005BFF"
     tools:context=".CapsulasUsuarioActivity">
+
+
 
     <!-- CONTEÚDO PRINCIPAL -->
     <LinearLayout
@@ -14,6 +17,35 @@
         android:layout_above="@id/barraInferiorCapsulasUsuarioSergio"
         android:orientation="vertical"
         android:padding="20dp">
+
+        <!-- LOGO + TEXTO UNIFOR BIBLIFOR (ESQUERDA) -->
+        <LinearLayout
+            android:id="@+id/containerLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/leoLogoUniforPU5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/logo_unifor" />
+
+            <TextView
+                android:id="@+id/leotextViewUniforPU5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Unifor Biblifor"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <!-- LINHA DO TOPO -->
         <RelativeLayout

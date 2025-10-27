@@ -19,17 +19,6 @@ class DisponiveisRenovacaoUsuarioActivity : AppCompatActivity() {
             insets
         }
 
-        val imgChatBot = findViewById<ImageView>(R.id.lopesChatBot32)
-        imgChatBot.setOnClickListener {
-            val navegarChatBot = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarChatBot)
-        }
-
-        val imgNotificacao = findViewById<ImageView>(R.id.lopesNotificacao32)
-        imgNotificacao.setOnClickListener {
-            val navegarNotificacao = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarNotificacao)
-        }
 
         val imgLivro = findViewById<ImageView>(R.id.lopesLivroRomeuJulieta32)
         imgLivro.setOnClickListener {
@@ -39,8 +28,7 @@ class DisponiveisRenovacaoUsuarioActivity : AppCompatActivity() {
 
         val imgSeta = findViewById<ImageView>(R.id.lopesSetaVoltar32)
         imgSeta.setOnClickListener {
-            val navegarSeta = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarSeta)
+            finish()
         }
 
 
