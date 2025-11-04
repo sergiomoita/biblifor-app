@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026935092771",
+    "project_id": "biblifor-3e1e0",
+    "storage_bucket": "biblifor-3e1e0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026935092771:android:13a43f16dd232300852396",
+        "android_client_info": {
+          "package_name": "com.example.biblifor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3708JRFHM5zs0h5h1YnPISybaPVAC2zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
