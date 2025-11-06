@@ -67,7 +67,6 @@
         android:textColor="#000000"
         android:inputType="textPassword" />
 
-
     <!-- Esqueceu a senha -->
     <TextView
         android:id="@+id/tvEsqueceuSenhaLoginUsuario"
@@ -93,6 +92,35 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:fontFamily="sans-serif-medium" />
+
+    <!-- Novo por aqui? Cadastrar -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Novo por aqui? Realize seu cadastro! → "
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:fontFamily="@font/poppins_semibold" />
+
+        <TextView
+            android:id="@+id/tvCadastrarLoginUsuarioSergio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
 
     <!-- Texto inferior -->
     <TextView

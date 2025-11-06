@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.*
-import android.window.SplashScreen
 import androidx.appcompat.app.AppCompatActivity
-
 
 class LoginUsuarioActivity : AppCompatActivity() {
 
@@ -19,6 +17,7 @@ class LoginUsuarioActivity : AppCompatActivity() {
         val tvEsqueceuSenha = findViewById<TextView>(R.id.tvEsqueceuSenhaLoginUsuario)
         val etMatricula = findViewById<EditText>(R.id.inputMatriculaLoginUsuarioSergio)
         val etSenha = findViewById<EditText>(R.id.inputSenhaLoginUsuarioSergio)
+        val tvCadastrar = findViewById<TextView>(R.id.tvCadastrarLoginUsuarioSergio) // 🔹 Novo texto "Cadastrar"
 
         btnAcessar.setOnClickListener {
             val matricula = etMatricula.text.toString().trim()
@@ -46,6 +45,12 @@ class LoginUsuarioActivity : AppCompatActivity() {
 
         tvEsqueceuSenha.setOnClickListener {
             startActivity(Intent(this, EsqueceuSenhaUsuarioActivity::class.java))
+        }
+
+        // 🔹 Quando clicar em "Cadastrar", vai para a tela de cadastro
+        tvCadastrar.setOnClickListener {
+            val intent = Intent(this, CadastroUsuarioActivity::class.java)
+            startActivity(intent)
         }
     }
 

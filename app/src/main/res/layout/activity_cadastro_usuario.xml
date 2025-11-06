@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#005BFF"
+    tools:context=".CadastroUsuarioActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logoLoginUsuarioSergio"
+            android:layout_width="154dp"
+            android:layout_height="168dp"
+            android:layout_marginTop="60dp"
+            android:contentDescription="Logo Biblifor"
+            android:src="@drawable/logo_unifor" />
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Cadastro ao Biblifor"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center" />
+
+        <!-- Subtítulo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="16dp"
+            android:text="Aqui você encontra funcionalidades da biblioteca da Universidade de Fortaleza."
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center" />
+
+        <!-- Seletor de Tipo de Usuário -->
+        <LinearLayout
+            android:id="@+id/selectorTipoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnAluno"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="Aluno"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#004070" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <Button
+                android:id="@+id/btnAdministrador"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:text="Administrador"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#00335A" />
+        </LinearLayout>
+
+        <!-- ===== CAMPOS DO ALUNO ===== -->
+        <LinearLayout
+            android:id="@+id/groupAluno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dados do Aluno"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_semibold" />
+
+            <EditText
+                android:id="@+id/inputCursoAluno"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="14dp"
+                android:hint="Curso"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/inputMatriculaAluno"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:hint="Matrícula"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/inputNomeAluno"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:hint="Nome"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/inputSenhaAluno"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:hint="Senha"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <!-- ===== CAMPOS DO ADMINISTRADOR ===== -->
+        <LinearLayout
+            android:id="@+id/groupAdministrador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dados do Administrador"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_semibold" />
+
+            <EditText
+                android:id="@+id/inputCargoAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="14dp"
+                android:hint="Cargo"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/inputMatriculaAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:hint="Matrícula"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/inputNomeAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:hint="Nome"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/inputSenhaAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:hint="Senha"
+                android:background="@drawable/rounded_edittext"
+                android:paddingHorizontal="16dp"
+                android:textColor="#000000"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <!-- Botão Cadastrar -->
+        <Button
+            android:id="@+id/btnAcessarLoginUsuarioSergio"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#004070"
+            android:text="Cadastrar"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <!-- Texto inferior -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="BIBLIFOR"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center" />
+
+    </LinearLayout>
+</ScrollView>
