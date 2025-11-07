@@ -10,6 +10,8 @@ import com.google.firebase.ktx.Firebase
 
 //esse é um teste pra mostrar o git
 
+//teste pra mostrar de novo
+
 class CadastroUsuarioActivity : AppCompatActivity() {
 
     private enum class Tipo { ALUNO, ADMIN }
