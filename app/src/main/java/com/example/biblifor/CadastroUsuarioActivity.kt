@@ -17,6 +17,8 @@ import com.google.firebase.ktx.Firebase
 
 //teste gustavo pra mostrar okokokok
 
+// oi lopes
+
 
 class CadastroUsuarioActivity : AppCompatActivity() {
 
