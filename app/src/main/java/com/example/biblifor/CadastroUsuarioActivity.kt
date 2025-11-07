@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+//esse é um teste pra mostrar o git
+
 class CadastroUsuarioActivity : AppCompatActivity() {
 
     private enum class Tipo { ALUNO, ADMIN }
