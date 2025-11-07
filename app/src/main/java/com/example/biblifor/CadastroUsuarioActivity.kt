@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 //teste pra mostrar de novo
 
 //teste davi pra aparecer
-
+ //abacaxi
 
 
 class CadastroUsuarioActivity : AppCompatActivity() {
