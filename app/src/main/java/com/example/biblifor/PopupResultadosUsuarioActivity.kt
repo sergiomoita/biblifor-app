@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.biblifor.R
 
-class PopupResultadosUsuarioActivity : AppCompatActivity() {
+class PopupResultadosUsuarioActivity : BaseActivity() {
 
     private var isFavorito = false // Controla o estado do botão de favorito
 

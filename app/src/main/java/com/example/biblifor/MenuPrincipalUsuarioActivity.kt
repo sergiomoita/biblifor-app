@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.text.Normalizer
 
-class MenuPrincipalUsuarioActivity : AppCompatActivity() {
+class MenuPrincipalUsuarioActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

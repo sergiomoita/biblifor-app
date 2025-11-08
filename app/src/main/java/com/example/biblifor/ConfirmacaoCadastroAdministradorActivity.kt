@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class ConfirmacaoCadastroAdministradorActivity : AppCompatActivity() {
+class ConfirmacaoCadastroAdministradorActivity : BaseActivity() {
 
     private fun showToastConfirmado(msg: String) {
         val view = layoutInflater.inflate(R.layout.toast_cadastro_confirmado, null)

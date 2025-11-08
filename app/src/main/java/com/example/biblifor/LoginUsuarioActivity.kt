@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
-class LoginUsuarioActivity : AppCompatActivity() {
+class LoginUsuarioActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
-class EscreverMensagemAdministradorActivity : AppCompatActivity() {
+class EscreverMensagemAdministradorActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

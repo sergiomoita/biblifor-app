@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ImageView
 
-class LimiteEmprestimosUsuarioActivity : AppCompatActivity() {
+class LimiteEmprestimosUsuarioActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.biblifor.R
 
-class PopupLivroOnlineUsuarioActivity : AppCompatActivity() {
+class PopupLivroOnlineUsuarioActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

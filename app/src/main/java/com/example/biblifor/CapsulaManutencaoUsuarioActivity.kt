@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
-class CapsulaManutencaoUsuarioActivity : AppCompatActivity() {
+class CapsulaManutencaoUsuarioActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

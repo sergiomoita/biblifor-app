@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class EditarLivroAdministradorActivity : AppCompatActivity() {
+class EditarLivroAdministradorActivity : BaseActivity() {
 
     private fun validarCampo(et: EditText, label: String) {
         val valor = et.text.toString()

@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 
-class SplashCarregamentoActivity : AppCompatActivity() {
+class SplashCarregamentoActivity : BaseActivity() {
 
     private val handler = Handler(Looper.getMainLooper())
     private val navegarParaLogin = Runnable {

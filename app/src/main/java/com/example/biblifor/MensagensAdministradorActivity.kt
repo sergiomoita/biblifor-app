@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.biblifor.adapter.AvisoAdapter
 import com.example.biblifor.model.Aviso
 
-class MensagensAdministradorActivity : AppCompatActivity() {
+class MensagensAdministradorActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

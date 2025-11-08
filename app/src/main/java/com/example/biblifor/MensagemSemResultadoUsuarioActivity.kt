@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.biblifor.R
 
-class MensagemSemResultadoUsuarioActivity : AppCompatActivity() {
+class MensagemSemResultadoUsuarioActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

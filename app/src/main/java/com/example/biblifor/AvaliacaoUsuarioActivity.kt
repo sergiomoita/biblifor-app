@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class AvaliacaoUsuarioActivity : AppCompatActivity() {
+class AvaliacaoUsuarioActivity : BaseActivity() {
 
     private lateinit var estrelas: List<ImageView>
 

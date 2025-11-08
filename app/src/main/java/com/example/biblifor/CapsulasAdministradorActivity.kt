@@ -9,7 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import java.text.Normalizer
 
-class CapsulasAdministradorActivity : AppCompatActivity() {
+class CapsulasAdministradorActivity : BaseActivity() {
 
     // Mantém o estado das 8 cápsulas (índice 1..8; índice 0 é descartado)
     // Valores possíveis: "DISPONIVEL", "INDISPONIVEL", "MANUTENCAO"

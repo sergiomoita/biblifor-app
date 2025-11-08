@@ -12,7 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class LivroDesfavoritadoUsuarioActivity : AppCompatActivity() {
+class LivroDesfavoritadoUsuarioActivity : BaseActivity() {
 
     private var isFavorito = false // Estado do ícone de favorito
 

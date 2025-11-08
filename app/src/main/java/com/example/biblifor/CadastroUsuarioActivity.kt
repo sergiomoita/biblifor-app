@@ -20,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 // oi lopes
 
 
-class CadastroUsuarioActivity : AppCompatActivity() {
+class CadastroUsuarioActivity : BaseActivity() {
 
     private enum class Tipo { ALUNO, ADMIN }
 
