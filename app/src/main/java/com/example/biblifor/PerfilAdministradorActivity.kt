@@ -3,53 +3,66 @@ package com.example.biblifor
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PerfilAdministradorActivity : BaseActivity() {
 
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Altere para o nome real do layout da Activity do perfil do administrador
         setContentView(R.layout.activity_perfil_administrador)
 
-        // 1) RecyclerView da tela do administrador (id: recyclerHistorico42)
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerHistorico42)
+        db = FirebaseFirestore.getInstance()
 
-        // 2) LayoutManager
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerHistorico42)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
+        recyclerView.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
 
-        // (Opcional) Linha divisória entre itens
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(this, layoutManager.orientation)
-        )
-
-        // 3) Dados de exemplo (você pode substituir por dados reais)
         val historico = listOf(
-            HistoricoEmprestimo("Mensagem de Teste  18/09/2025"),
-            HistoricoEmprestimo("Tarde de Leitura  02/09/2025"),
-            HistoricoEmprestimo("Oficina Escrita  28/08/2025"),
-            HistoricoEmprestimo("Ajudar Alunos  19/08/2025"),
-            HistoricoEmprestimo("Monitores Biblioteca  04/08/2025"),
-            HistoricoEmprestimo("Como Consultar  04/08/2025")
+            HistoricoEmprestimo("Mensagem de Teste 18/09/2025"),
+            HistoricoEmprestimo("Tarde de Leitura 02/09/2025"),
+            HistoricoEmprestimo("Oficina Escrita 28/08/2025"),
+            HistoricoEmprestimo("Ajudar Alunos 19/08/2025"),
+            HistoricoEmprestimo("Monitores Biblioteca 04/08/2025"),
+            HistoricoEmprestimo("Como Consultar 04/08/2025")
         )
-
-        // 4) Adapter reaproveitado
         recyclerView.adapter = HistoricoEmprestimoAdapter(historico)
 
-        val leoBotaoVoltarPADM42 = findViewById<ImageView>(R.id.leoImagemSetaPADM42)
-        leoBotaoVoltarPADM42.setOnClickListener {
-            val navegarVoltarAdm42 = Intent (this, MenuPrincipalAdministradorActivity::class.java)
-            startActivity(navegarVoltarAdm42)
+        // Referências aos TextViews do layout
+        val nomeAdm = findViewById<TextView>(R.id.leoNomeCompletoAdmPADM42)
+        val funcaoAdm = findViewById<TextView>(R.id.leoNomeFuncaoAdmPADM42)
+        val matriculaAdm = findViewById<TextView>(R.id.leoMatriculaAdmPADM42)
+
+        db.collection("administrador").document("123").get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    nomeAdm.text = document.getString("nome") ?: "Nome não encontrado"
+                    funcaoAdm.text = document.getString("cargo") ?: "Cargo não encontrado"
+                    matriculaAdm.text = document.getString("matricula") ?: "Sem matrícula"
+                } else {
+                    nomeAdm.text = "Erro ao carregar"
+                }
+            }
+            .addOnFailureListener {
+                nomeAdm.text = "Falha ao conectar ao Firestore"
+            }
+
+        // 🔙 Botão de voltar
+        findViewById<ImageView>(R.id.leoImagemSetaPADM42).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
         }
-        val leoBotaoNotificacoesSPADM42 = findViewById<ImageView>(R.id.leoImagemNotificacaoSuperiorPADM42)
-        leoBotaoNotificacoesSPADM42.setOnClickListener {
-            val navegarNotificacoesSAdm42 = Intent (this, MensagensAdministradorActivity::class.java)
-            startActivity(navegarNotificacoesSAdm42)
+
+        // 🔔 Notificações
+        findViewById<ImageView>(R.id.leoImagemNotificacaoSuperiorPADM42).setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
+
         // ⚙️ Barra inferior
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
