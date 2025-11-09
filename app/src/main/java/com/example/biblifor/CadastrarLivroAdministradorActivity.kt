@@ -5,23 +5,21 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.*
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.ktx.firestore
 
 class CadastrarLivroAdministradorActivity : BaseActivity() {
 
+    private lateinit var fb: FirebaseFirestore
+
+    // ========= FUNÇÕES AUXILIARES =========
     private fun validarCampo(et: EditText, label: String) {
-        val valor = et.text.toString()
-        if (valor.contains("erro", ignoreCase = true)) {
-            throw IllegalArgumentException("$label não pode conter 'erro'")
-        }
+        if (et.text.toString().trim().isEmpty())
+            throw IllegalArgumentException("$label não pode estar vazio")
     }
 
     private fun showErrorToast(message: String) {
@@ -37,17 +35,53 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         }
     }
 
+    // ====== Estilização ======
+    private fun selecionar(btn: Button) {
+        btn.setBackgroundColor(Color.parseColor("#002C9B"))
+        btn.setTextColor(Color.WHITE)
+    }
+
+    private fun desselecionar(btn: Button) {
+        btn.setBackgroundColor(Color.WHITE)
+        btn.setTextColor(Color.parseColor("#002C9B"))
+    }
+
+    // ====== Disponibilidade → múltipla ======
+    private fun configurarDisponibilidade(btn: Button) {
+        btn.setOnClickListener {
+            val selecionado = (btn.currentTextColor == Color.WHITE)
+
+            if (selecionado) desselecionar(btn)
+            else selecionar(btn)
+        }
+    }
+
+    // ====== Empréstimo → exclusiva ======
+    private fun configurarEmprestimoExclusivo(btnSim: Button, btnNao: Button) {
+        btnSim.setOnClickListener {
+            selecionar(btnSim)
+            desselecionar(btnNao)
+        }
+        btnNao.setOnClickListener {
+            selecionar(btnNao)
+            desselecionar(btnSim)
+        }
+    }
+
+    // =========================================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_cadastrar_livro_administrador)
+
+        fb = Firebase.firestore
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Topo / ícones
+        // ======= TOP BAR =======
         findViewById<ImageView>(R.id.lopesSetaVoltar38).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
         }
@@ -55,7 +89,7 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        // Barra inferior
+        // ======= BOTTOM BAR =======
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
@@ -69,63 +103,87 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
 
-        // EditTexts restantes
-        val etNome = findViewById<EditText>(R.id.lopesNome38)
+        // ======= CAMPOS =======
+        val etTitulo = findViewById<EditText>(R.id.lopesNome38)
         val etAutor = findViewById<EditText>(R.id.lopesAutor40)
         val etTopicos = findViewById<EditText>(R.id.lopesTopicos38)
         val etQtd = findViewById<EditText>(R.id.lopesQtd38)
-        val etLocaliza = findViewById<EditText>(R.id.lopesLocaliza38)
+        val etCodigoAcervo = findViewById<EditText>(R.id.lopesLocaliza38)
 
-        // ====== Função auxiliar para gerenciar estado dos botões ======
-        fun configurarBotaoAlternante(botao: Button, textoBase: String) {
-            // 0 = check vermelho, 1 = check verde, 2 = X vermelho
-            var estado = 0
 
-            // estado inicial
-            botao.text = "✓ $textoBase"
-            botao.setTextColor(Color.parseColor("#FF0000")) // vermelho
-
-            botao.setOnClickListener {
-                estado = (estado + 1) % 3
-                when (estado) {
-                    0 -> { // ✓ vermelho
-                        botao.text = "✓ $textoBase"
-                        botao.setTextColor(Color.parseColor("#FF0000"))
-                    }
-                    1 -> { // ✓ verde
-                        botao.text = "✓ $textoBase"
-                        botao.setTextColor(Color.parseColor("#00C853"))
-                    }
-                    2 -> { // X vermelho
-                        botao.text = "X $textoBase"
-                        botao.setTextColor(Color.parseColor("#FF0000"))
-                    }
-                }
-            }
-        }
-
-        // ====== Botões de opção ======
+        // ====== BOTÕES ======
         val btnFisico = findViewById<Button>(R.id.btnDispoFisico)
         val btnOnline = findViewById<Button>(R.id.btnDispoOnline)
         val btnEmpSim = findViewById<Button>(R.id.btnEmprestarSim)
         val btnEmpNao = findViewById<Button>(R.id.btnEmprestarNao)
 
-        configurarBotaoAlternante(btnFisico, "Físico")
-        configurarBotaoAlternante(btnOnline, "Online")
-        configurarBotaoAlternante(btnEmpSim, "Sim")
-        configurarBotaoAlternante(btnEmpNao, "Não")
+        // estilização inicial
+        desselecionar(btnFisico)
+        desselecionar(btnOnline)
+        desselecionar(btnEmpSim)
+        desselecionar(btnEmpNao)
 
-        // ====== Botão Cadastrar ======
+        // disponibilidade → múltipla
+        configurarDisponibilidade(btnFisico)
+        configurarDisponibilidade(btnOnline)
+
+        // empréstimo → exclusiva
+        configurarEmprestimoExclusivo(btnEmpSim, btnEmpNao)
+
+
+        // ====== BOTÃO CADASTRAR ======
         val btnCadastrar = findViewById<Button>(R.id.lopesBtnCadastrar38)
         btnCadastrar.setOnClickListener {
+
             try {
-                validarCampo(etNome, "Nome")
+                validarCampo(etTitulo, "Título")
                 validarCampo(etAutor, "Autor")
                 validarCampo(etTopicos, "Tópicos")
                 validarCampo(etQtd, "Quantidade de exemplares")
-                validarCampo(etLocaliza, "Localização no acervo")
+                validarCampo(etCodigoAcervo, "Código de acervo")
 
-                startActivity(Intent(this, ConfirmacaoCadastroAdministradorActivity::class.java))
+                // ====== Lógica de disponibilidade ======
+                val disponibilidade = when {
+                    btnFisico.currentTextColor == Color.WHITE &&
+                            btnOnline.currentTextColor == Color.WHITE -> "Físico e Online"
+
+                    btnFisico.currentTextColor == Color.WHITE -> "Físico"
+                    btnOnline.currentTextColor == Color.WHITE -> "Online"
+                    else -> "Indisponível"
+                }
+
+                // ====== Lógica de empréstimo ======
+                val situacaoEmprestimo = when {
+                    btnEmpSim.currentTextColor == Color.WHITE -> "Emprestável"
+                    btnEmpNao.currentTextColor == Color.WHITE -> "Não-emprestável"
+                    else -> "Não informado"
+                }
+
+                // imagem placeholder
+                val imagemString = "imagem aqui"
+
+                val dadosLivro = mapOf(
+                    "Titulo" to etTitulo.text.toString(),
+                    "Autor" to etAutor.text.toString(),
+                    "Topicos" to etTopicos.text.toString(),
+                    "QuantidadeExemplares" to etQtd.text.toString(),
+                    "CodigoAcervo" to etCodigoAcervo.text.toString(),
+                    "Disponibilidade" to disponibilidade,
+                    "SituacaoEmprestimo" to situacaoEmprestimo,
+                    "Imagem" to imagemString
+                )
+
+                fb.collection("livros")
+                    .document(etTitulo.text.toString())   // título como ID
+                    .set(dadosLivro)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Livro cadastrado com sucesso!", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, ConfirmacaoCadastroAdministradorActivity::class.java))
+                    }
+                    .addOnFailureListener {
+                        showErrorToast("Erro ao cadastrar livro.")
+                    }
+
             } catch (e: IllegalArgumentException) {
                 showErrorToast(e.message ?: "Erro de validação.")
             } catch (e: Exception) {
