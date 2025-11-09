@@ -37,9 +37,8 @@ android {
 }
 
 dependencies {
-
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
     implementation("com.google.firebase:firebase-firestore-ktx:25.1.4")
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
