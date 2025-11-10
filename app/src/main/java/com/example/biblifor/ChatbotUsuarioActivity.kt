@@ -28,7 +28,7 @@ class ChatbotUsuarioActivity : BaseActivity() {
             "- Não invente políticas. Se tiver dúvida, diga que não tem essa informação e oriente a procurar o balcão da biblioteca ou o suporte no app.\n" +
             "\n" +
             "FORMATAÇÃO:\n" +
-            "- Responda em 1–3 parágrafos curtos.\n" +
+            "- Responda em 1–3 linhas de texto sempre, para ficar curto, porém com a resposta necessária\n" +
             "- Use listas apenas quando pedir “passo a passo”.\n" +
             "- Não inclua código, links externos ou informações não confirmadas.\n" +
             "\n" +
