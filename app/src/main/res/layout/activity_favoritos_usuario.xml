@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_unifor" />
 
-    <!-- Ícones superiores e seta -->
     <TextView
         android:id="@+id/lopesNomeUnifor32"
         android:layout_width="wrap_content"
@@ -31,38 +30,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/lopesLogoUnifor32"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/lopesSetaVoltar32"
-        android:layout_width="36dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta"
-        android:tint="#FFFFFF" />
-
-    <ImageView
-        android:id="@+id/lopesChatBot32"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
-
-    <ImageView
-        android:id="@+id/lopesNotificacao32"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificacao"
-        android:tint="#FFFFFF"/>
 
     <!-- Título -->
     <TextView
@@ -78,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- RecyclerView de Favoritos -->
+    <!-- LISTA: 1 livro por linha -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavoritos"
         android:layout_width="0dp"
@@ -86,15 +53,59 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:paddingTop="12dp"
-        android:paddingBottom="96dp"
+        android:paddingBottom="84dp"
         android:clipToPadding="false"
         android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/lopesRenovacaoEmprestimo32"
-        app:layout_constraintBottom_toTopOf="@id/barraInferiorFavoritos"
+        app:layout_constraintBottom_toTopOf="@id/barraPaginacaoFavoritos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- BARRA INFERIOR -->
+    <!-- Paginação: três botões brancos, números pretos -->
+    <LinearLayout
+        android:id="@+id/barraPaginacaoFavoritos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/barraInferiorFavoritos">
+
+        <Button
+            android:id="@+id/btnPag1Favoritos"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:text="1"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:background="@drawable/bg_page_button_white"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnPag2Favoritos"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:text="2"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:background="@drawable/bg_page_button_white"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnPag3Favoritos"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:text="3"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:background="@drawable/bg_page_button_white" />
+    </LinearLayout>
+
+    <!-- BARRA INFERIOR (mantida conforme seu layout) -->
     <LinearLayout
         android:id="@+id/barraInferiorFavoritos"
         android:layout_width="match_parent"
