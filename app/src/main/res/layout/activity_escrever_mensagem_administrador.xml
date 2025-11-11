@@ -35,11 +35,12 @@
                 android:textSize="16sp"/>
 
             <TextView
-                android:text="1020845"
+                android:id="@+id/tvMatriculaHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:text="1020845" />
 
         </LinearLayout>
 
@@ -79,20 +80,32 @@
             android:id="@+id/etDestinatariosEscreverMensagemAdministradorSergio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Destinatários"
+            android:hint="Matrícula do destinatário"
             android:background="@drawable/bg_edittext"
             android:padding="12dp"
             android:textColor="#000"
             android:textColorHint="#888"
             android:layout_marginBottom="12dp" />
 
-        <!-- Campo assunto (área de texto grande) -->
+        <!-- ✅ NOVO CAMPO: Título -->
+        <EditText
+            android:id="@+id/etTituloEscreverMensagemAdministradorSergio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Título"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textColor="#000"
+            android:textColorHint="#888"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Campo de conteúdo -->
         <EditText
             android:id="@+id/etAssuntoEscreverMensagemAdministradorSergio"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:hint="Assunto"
+            android:hint="Mensagem"
             android:background="@drawable/bg_edittext"
             android:padding="12dp"
             android:gravity="top|start"
@@ -100,7 +113,6 @@
             android:textColorHint="#888"
             android:inputType="textMultiLine"
             android:minLines="8" />
-
 
         <!-- Botão enviar (alinhado à direita) -->
         <Button

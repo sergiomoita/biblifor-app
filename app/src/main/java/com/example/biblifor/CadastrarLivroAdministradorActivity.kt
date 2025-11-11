@@ -130,7 +130,6 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         // empréstimo → exclusiva
         configurarEmprestimoExclusivo(btnEmpSim, btnEmpNao)
 
-
         // ====== BOTÃO CADASTRAR ======
         val btnCadastrar = findViewById<Button>(R.id.lopesBtnCadastrar38)
         btnCadastrar.setOnClickListener {
@@ -173,16 +172,32 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
                     "Imagem" to imagemString
                 )
 
-                fb.collection("livros")
-                    .document(etTitulo.text.toString())   // título como ID
-                    .set(dadosLivro)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Livro cadastrado com sucesso!", Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this, ConfirmacaoCadastroAdministradorActivity::class.java))
-                    }
-                    .addOnFailureListener {
-                        showErrorToast("Erro ao cadastrar livro.")
-                    }
+                // ====== POP-UP CONFIRMAÇÃO ======
+                val nomeLivro = etTitulo.text.toString()
+
+                val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+                builder.setTitle("Confirmação")
+                builder.setMessage("Gostaria de cadastrar o livro \"$nomeLivro\"?")
+
+                builder.setPositiveButton("Sim") { _, _ ->
+                    // Enviar ao Firebase somente se confirmar
+                    fb.collection("livros")
+                        .document(nomeLivro) // título como ID
+                        .set(dadosLivro)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Livro cadastrado com sucesso!", Toast.LENGTH_LONG).show()
+                            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+                        }
+                        .addOnFailureListener {
+                            showErrorToast("Erro ao cadastrar livro.")
+                        }
+                }
+
+                builder.setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()    // apenas fecha
+                }
+
+                builder.create().show()  // mostra o pop-up
 
             } catch (e: IllegalArgumentException) {
                 showErrorToast(e.message ?: "Erro de validação.")
@@ -190,5 +205,6 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
                 showErrorToast("Erro inesperado.")
             }
         }
+
     }
 }

@@ -33,7 +33,6 @@ class LoginUsuarioActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            // ✅ Agora autentica primeiro em "administrador" e depois em "alunos"
             autenticarUsuario(matricula, senha)
         }
 
@@ -46,14 +45,10 @@ class LoginUsuarioActivity : BaseActivity() {
         }
     }
 
-    /** Orquestra a autenticação:
-     *  1) procura na coleção "administrador"
-     *  2) se não achar, procura em "alunos"
-     */
+    // 1) Tenta autenticar como administrador
     private fun autenticarUsuario(matricula: String, senhaDigitada: String) {
         val admins = db.collection("administrador")
 
-        // Tenta pelo ID do documento (docId == matrícula)
         admins.document(matricula).get()
             .addOnSuccessListener { doc ->
                 if (doc.exists()) {
@@ -61,10 +56,11 @@ class LoginUsuarioActivity : BaseActivity() {
                         senhaNoBanco = doc.getString("senha"),
                         tipo = doc.getString("tipo") ?: "administrador",
                         nome = doc.getString("nome"),
-                        senhaDigitada = senhaDigitada
+                        senhaDigitada = senhaDigitada,
+                        matricula = matricula
                     )
                 } else {
-                    // Fallback: query por campo "matricula"
+                    // fallback → busca por campo
                     admins.whereEqualTo("matricula", matricula).limit(1).get()
                         .addOnSuccessListener { query ->
                             if (!query.isEmpty) {
@@ -73,10 +69,10 @@ class LoginUsuarioActivity : BaseActivity() {
                                     senhaNoBanco = d.getString("senha"),
                                     tipo = d.getString("tipo") ?: "administrador",
                                     nome = d.getString("nome"),
-                                    senhaDigitada = senhaDigitada
+                                    senhaDigitada = senhaDigitada,
+                                    matricula = matricula
                                 )
                             } else {
-                                // Não é admin → tenta alunos
                                 autenticarAluno(matricula, senhaDigitada)
                             }
                         }
@@ -90,7 +86,7 @@ class LoginUsuarioActivity : BaseActivity() {
             }
     }
 
-    /** Autenticação na coleção "alunos" (igual ao que já estava funcionando) */
+    // 2) Tenta autenticar aluno
     private fun autenticarAluno(matricula: String, senhaDigitada: String) {
         val alunos = db.collection("alunos")
 
@@ -101,7 +97,8 @@ class LoginUsuarioActivity : BaseActivity() {
                         senhaNoBanco = doc.getString("senha"),
                         tipo = doc.getString("tipo") ?: "aluno",
                         nome = doc.getString("nome"),
-                        senhaDigitada = senhaDigitada
+                        senhaDigitada = senhaDigitada,
+                        matricula = matricula
                     )
                 } else {
                     alunos.whereEqualTo("matricula", matricula).limit(1).get()
@@ -115,7 +112,8 @@ class LoginUsuarioActivity : BaseActivity() {
                                 senhaNoBanco = d.getString("senha"),
                                 tipo = d.getString("tipo") ?: "aluno",
                                 nome = d.getString("nome"),
-                                senhaDigitada = senhaDigitada
+                                senhaDigitada = senhaDigitada,
+                                matricula = matricula
                             )
                         }
                         .addOnFailureListener { e ->
@@ -128,12 +126,13 @@ class LoginUsuarioActivity : BaseActivity() {
             }
     }
 
-    /** Decide a rota com base no tipo e confere senha */
+    /** Recebe credenciais e decide rota */
     private fun validarSenhaEDirecionar(
         senhaNoBanco: String?,
         tipo: String?,
         nome: String?,
-        senhaDigitada: String
+        senhaDigitada: String,
+        matricula: String
     ) {
         if (senhaNoBanco == null) {
             mostrarToastErro("❌ Registro sem senha. Contate o suporte.")
@@ -145,15 +144,33 @@ class LoginUsuarioActivity : BaseActivity() {
         }
 
         val papel = (tipo ?: "aluno").lowercase()
+
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val editor = prefs.edit()
+
         if (papel == "admin" || papel == "administrador") {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java).apply {
-                putExtra("NOME_USUARIO", nome ?: "")
-            })
+
+            editor.putString("MATRICULA_ADM", matricula)   // ✅ salva ADM
+            editor.apply()
+
+            startActivity(
+                Intent(this, MenuPrincipalAdministradorActivity::class.java).apply {
+                    putExtra("NOME_USUARIO", nome ?: "")
+                }
+            )
+
         } else {
-            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java).apply {
-                putExtra("NOME_USUARIO", nome ?: "")
-            })
+
+            editor.putString("MATRICULA_USER", matricula)  // ✅ salva USER
+            editor.apply()
+
+            startActivity(
+                Intent(this, MenuPrincipalUsuarioActivity::class.java).apply {
+                    putExtra("NOME_USUARIO", nome ?: "")
+                }
+            )
         }
+
         finish()
     }
 

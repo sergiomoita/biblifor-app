@@ -1,7 +1,11 @@
 package com.example.biblifor.model
 
+import com.google.firebase.Timestamp
+
 data class Aviso(
-    val origem: String,   // "Unifor - Biblioteca"
-    val data: String,     // "12/09/2025"
-    val mensagem: String  // texto do aviso
+    val titulo: String = "",
+    val data: Timestamp? = null,
+    val mensagem: String = "",
+    val matricula: String = "",
+    val matriculaAdm: String = ""
 )

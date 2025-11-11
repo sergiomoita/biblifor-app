@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="16dp"
+    android:background="#004AF7">
+
+    <!-- Linha superior: Título e Data -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/itemAvisoTitulo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Unifor - Biblioteca"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/itemAvisoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/09/2025"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+
+    <!-- Mensagem -->
+    <TextView
+        android:id="@+id/itemAvisoMensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mensagem..."
+        android:textSize="13sp"
+        android:paddingTop="4dp"
+        android:textColor="#FFFFFF"
+        android:lineSpacingExtra="2dp"/>
+
+
+    <!-- Linha divisória -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#80FFFFFF"/>
+</LinearLayout>
