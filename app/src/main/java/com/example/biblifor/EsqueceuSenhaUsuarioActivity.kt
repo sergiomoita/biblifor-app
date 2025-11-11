@@ -32,7 +32,7 @@ class EsqueceuSenhaUsuarioActivity : BaseActivity() {
             val matricula = inputMatricula.text.toString().trim()
 
             if (matricula == "123") {
-                val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
+                val intent = Intent(this, LoginUsuarioActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

@@ -96,10 +96,10 @@
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="#004070"
-        android:text="Acessar"
+        android:fontFamily="sans-serif-medium"
+        android:text="Redefinir"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-medium" />
+        android:textStyle="bold" />
 
     <!-- Texto inferior -->
     <TextView
