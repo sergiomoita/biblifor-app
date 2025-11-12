@@ -51,6 +51,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Nova Mensagem -->
+
     <TextView
         android:id="@+id/textNovaMensagem"
         android:layout_width="wrap_content"

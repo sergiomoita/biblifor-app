@@ -1,5 +1,6 @@
 package com.example.biblifor
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -20,14 +21,19 @@ class EscreverMensagemAdministradorActivity : BaseActivity() {
 
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
+        val nomeAdm = prefs.getString("NOME_ADM", "Administrador")
+
+        // ====== Atualiza cabeçalho com nome e matrícula ======
+        findViewById<TextView>(R.id.tvMatriculaHeader)?.text = matriculaAdm ?: ""
+        findViewById<TextView>(R.id.tvNomeAdministradorEscreverMensagem)?.text = "Olá, $nomeAdm"
 
         if (matriculaAdm == null) {
             Toast.makeText(this, "Erro ao identificar administrador!", Toast.LENGTH_SHORT).show()
             return
         }
 
+        // ====== Envio de mensagem ======
         btnEnviar.setOnClickListener {
-
             val dest = etMatriculaDest.text.toString().trim()
             val titulo = etTitulo.text.toString().trim()
             val msg = etMensagem.text.toString().trim()
@@ -54,6 +60,34 @@ class EscreverMensagemAdministradorActivity : BaseActivity() {
                 .addOnFailureListener { e ->
                     Log.e("FIRE", "Erro: ${e.localizedMessage}")
                 }
+        }
+
+        // ====== BOTÃO VOLTAR ======
+        findViewById<ImageView>(R.id.btnVoltarEscreverMensagemAdministradorSergio)?.setOnClickListener {
+            finish()
+        }
+
+        // ====== FOTO DO ADM → PERFIL ======
+        findViewById<ImageView>(R.id.fotoAdministradorEscreverMensagem)?.setOnClickListener {
+            startActivity(Intent(this, PerfilAdministradorActivity::class.java))
+        }
+
+        // ====== BARRA INFERIOR ======
+        findViewById<ImageView>(R.id.iconHomeEscreverMensagemAdministradorSergio)?.setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            finish()
+        }
+
+        findViewById<ImageView>(R.id.iconEscreverEscreverMensagemAdministradorSergio)?.setOnClickListener {
+            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.iconMensagemEscreverMensagemAdministradorSergio)?.setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.iconMenuInferiorEscreverMensagemAdministradorSergio)?.setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
         }
     }
 }

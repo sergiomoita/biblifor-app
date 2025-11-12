@@ -57,10 +57,27 @@ class MensagensAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        // ==== Barra inferior (caso exista) ====
-        findViewById<ImageView?>(R.id.leoLogoHome3)?.setOnClickListener {
+        // ==== Foto do topo -> Perfil do Administrador ====
+        findViewById<ImageView>(R.id.imageView3).setOnClickListener {
+            startActivity(Intent(this, PerfilAdministradorActivity::class.java))
+        }
+
+        // ==== BARRA INFERIOR FIXA ====
+        findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
             finish()
+        }
+
+        findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
+        }
+
+        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
         }
     }
 

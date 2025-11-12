@@ -15,6 +15,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/fotoAdministradorEscreverMensagem"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/foto_adm"
@@ -27,6 +28,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvNomeAdministradorEscreverMensagem"
                 android:text="Olá, Hugo Moura"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
