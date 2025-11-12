@@ -150,7 +150,8 @@ class LoginUsuarioActivity : BaseActivity() {
 
         if (papel == "admin" || papel == "administrador") {
 
-            editor.putString("MATRICULA_ADM", matricula)   // ✅ salva ADM
+            editor.putString("MATRICULA_ADM", matricula)
+            editor.putString("NOME_ADM", nome ?: "")   // ✅ salva o nome do ADM
             editor.apply()
 
             startActivity(
@@ -161,7 +162,8 @@ class LoginUsuarioActivity : BaseActivity() {
 
         } else {
 
-            editor.putString("MATRICULA_USER", matricula)  // ✅ salva USER
+            editor.putString("MATRICULA_USER", matricula)
+            editor.putString("NOME_USER", nome ?: "")   // ✅ salva o nome do aluno
             editor.apply()
 
             startActivity(

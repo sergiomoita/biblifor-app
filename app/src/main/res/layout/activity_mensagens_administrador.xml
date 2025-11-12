@@ -23,7 +23,7 @@
 
     <!-- Nome -->
     <TextView
-        android:id="@+id/textOlaMaria"
+        android:id="@+id/textNomeAdministradorAvisos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"

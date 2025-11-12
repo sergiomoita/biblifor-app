@@ -17,7 +17,7 @@ import com.google.firebase.ktx.Firebase
 
 class AvisosUsuarioActivity : BaseActivity() {
 
-    lateinit var fb: FirebaseFirestore
+    private lateinit var fb: FirebaseFirestore
     private lateinit var rv: RecyclerView
     private lateinit var adapter: AvisoAdapter
     private val listaAvisos = mutableListOf<Aviso>()
@@ -34,12 +34,17 @@ class AvisosUsuarioActivity : BaseActivity() {
         adapter = AvisoAdapter(listaAvisos)
         rv.adapter = adapter
 
-        // ✅ Pegando matrícula salva no login
+        // ✅ Recupera matrícula e nome do usuário logado
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaUser = prefs.getString("MATRICULA_USER", "") ?: ""
+        val nomeUser = prefs.getString("NOME_USER", null)
 
+        // ✅ Exibe nome e matrícula no topo da tela
         val txtMatricula = findViewById<TextView>(R.id.textMatricula)
+        val txtNomeUsuario = findViewById<TextView>(R.id.textNomeUsuarioAvisos)
+
         txtMatricula.text = matriculaUser
+        txtNomeUsuario.text = if (!nomeUser.isNullOrEmpty()) "Olá, $nomeUser" else "Olá, Usuário"
 
         // ✅ Buscar avisos
         lerAvisos(matriculaUser)
@@ -47,15 +52,13 @@ class AvisosUsuarioActivity : BaseActivity() {
         configurarBotoes()
     }
 
-    // ✅ Função principal que busca do Firestore
-    fun lerAvisos(matricula: String) {
-
+    // ✅ Função principal que busca os avisos no Firestore
+    private fun lerAvisos(matricula: String) {
         fb.collection("mensagens")
             .whereEqualTo("matricula", matricula)
             .orderBy("data", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
-
                 listaAvisos.clear()
 
                 for (doc in result) {
@@ -66,13 +69,10 @@ class AvisosUsuarioActivity : BaseActivity() {
                         matricula = doc.getString("matricula") ?: "",
                         matriculaAdm = doc.getString("matriculaAdm") ?: ""
                     )
-
                     listaAvisos.add(aviso)
                 }
 
                 adapter.notifyDataSetChanged()
-
-                Toast.makeText(this, "Mensagens: ${result.size()}", Toast.LENGTH_LONG).show()
 
                 if (listaAvisos.isEmpty()) {
                     Toast.makeText(this, "Nenhum aviso encontrado.", Toast.LENGTH_SHORT).show()
@@ -85,7 +85,6 @@ class AvisosUsuarioActivity : BaseActivity() {
 
     // ===== BOTÕES DA TELA =====
     private fun configurarBotoes() {
-
         findViewById<ImageView>(R.id.leoLogoHomeChatbotBF7).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }

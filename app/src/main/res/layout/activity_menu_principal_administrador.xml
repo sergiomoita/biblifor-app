@@ -268,43 +268,16 @@
                     android:foreground="?attr/selectableItemBackgroundBorderless"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/leoTituloEvento1Adm37"
+            <!-- RecyclerView dos últimos avisos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUltimosEventos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hugo Moura - Biblioteca - Alunos (12/09/2025)"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:id="@+id/leoCorpoEvento1Adm37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Olá, Alunos. Este é um convite para a Tarde de Leitura e Café, dia 18/09/2025 às 15h."
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
-
-            <TextView
-                android:id="@+id/leoTItuloEvento2Adm37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Leonilha Lessa - Biblioteca - Geral (25/08/2025)"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_marginTop="16dp" />
-
-            <TextView
-                android:id="@+id/leoCorpoTextoEvento2Adm37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Participe da Oficina de Escrita Criativa dia 25/09/2025 às 14h. Uma ótima oportunidade para soltar a imaginação!"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
+                android:maxHeight="200dp"
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:padding="4dp"
+                tools:listitem="@layout/item_aviso"/>
 
             <!-- NOVA MENSAGEM -->
             <LinearLayout

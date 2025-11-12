@@ -3,16 +3,30 @@ package com.example.biblifor
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.biblifor.adapter.AvisoAdapter
+import com.example.biblifor.model.Aviso
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.ktx.firestore
 
 class MenuPrincipalAdministradorActivity : BaseActivity() {
+
+    private lateinit var db: FirebaseFirestore
+    private lateinit var rvUltimosEventos: RecyclerView
+    private lateinit var adapterAvisos: AvisoAdapter
+    private val listaUltimosAvisos = mutableListOf<Aviso>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,9 +39,36 @@ class MenuPrincipalAdministradorActivity : BaseActivity() {
             insets
         }
 
+        // ===== Inicializa Firestore =====
+        db = Firebase.firestore
+
+        // ===== Configuração da RecyclerView =====
+        rvUltimosEventos = findViewById(R.id.rvUltimosEventos)
+        rvUltimosEventos.layoutManager = LinearLayoutManager(this)
+        adapterAvisos = AvisoAdapter(listaUltimosAvisos)
+        rvUltimosEventos.adapter = adapterAvisos
+
+        // ===== Recupera matrícula e nome do administrador logado =====
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
+        val nomeAdm = prefs.getString("NOME_ADM", null)
+
+        val tvOlaAdm = findViewById<TextView>(R.id.leoOlaAdministrador37)
+        val tvMatriculaAdm = findViewById<TextView>(R.id.leoMatriculaAdministrador37)
+
+        // Atualiza cabeçalho dinamicamente
+        tvOlaAdm.text = if (!nomeAdm.isNullOrEmpty()) "Olá, $nomeAdm" else "Olá, Administrador"
+        tvMatriculaAdm.text = matriculaAdm ?: ""
+
+        // Carrega últimos avisos do administrador logado
+        if (matriculaAdm != null) {
+            carregarUltimosAvisos(matriculaAdm)
+        } else {
+            Log.e("ADM", "⚠️ Nenhuma matrícula de administrador encontrada")
+        }
+
         // ===== PERFIL (foto -> abre perfil do administrador) =====
-        val leoBotaoPerfilAdm = findViewById<ImageView>(R.id.leoFotoAdministrador37)
-        leoBotaoPerfilAdm.setOnClickListener {
+        findViewById<ImageView>(R.id.leoFotoAdministrador37).setOnClickListener {
             startActivity(Intent(this, PerfilAdministradorActivity::class.java))
         }
 
@@ -40,17 +81,13 @@ class MenuPrincipalAdministradorActivity : BaseActivity() {
             findViewById(R.id.leoTituloAcervoAdm37),
             findViewById(R.id.leoTituloCapsulasAdm37),
             findViewById(R.id.leoTituloEventosAdm37),
-            findViewById(R.id.leoNovaMensagemAdm37),
-            findViewById(R.id.leoTituloEvento1Adm37),
-            findViewById(R.id.leoCorpoEvento1Adm37),
-            findViewById(R.id.leoTItuloEvento2Adm37),
-            findViewById(R.id.leoCorpoTextoEvento2Adm37)
+            findViewById(R.id.leoNovaMensagemAdm37)
         )
 
         val coresOriginais = textosParaAcessibilidade.map { it to it.currentTextColor }
-        val corAcessivel = Color.parseColor("#FFFF00") // Amarelo alto contraste
-
+        val corAcessivel = Color.parseColor("#FFFF00")
         var acessibilidadeAtiva = false
+
         botaoAcessibilidade.setOnClickListener {
             if (!acessibilidadeAtiva) {
                 textosParaAcessibilidade.forEach { it.setTextColor(corAcessivel) }
@@ -61,80 +98,84 @@ class MenuPrincipalAdministradorActivity : BaseActivity() {
         }
 
         // ===== BOTÕES DE AÇÃO =====
-        val botaoEscreverMensagem = findViewById<ImageView>(R.id.leoBotaoEscreverMensagemAdm37)
-        botaoEscreverMensagem.setOnClickListener {
+        findViewById<ImageView>(R.id.leoBotaoEscreverMensagemAdm37).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        val botaoCadastrar = findViewById<Button>(R.id.leoBotaoCadastrarAdm37)
-        botaoCadastrar.setOnClickListener {
+        findViewById<Button>(R.id.leoBotaoCadastrarAdm37).setOnClickListener {
             startActivity(Intent(this, CadastrarLivroAdministradorActivity::class.java))
         }
 
-        val botaoEmprestar = findViewById<Button>(R.id.leoBotaoEmprestarAdm37)
-        botaoEmprestar.setOnClickListener {
+        findViewById<Button>(R.id.leoBotaoEmprestarAdm37).setOnClickListener {
             startActivity(Intent(this, LivrosEmprestaveisAdministradorActivity::class.java))
         }
 
-        val botaoVerMaisCapsulas = findViewById<TextView>(R.id.btnVerMaisCapsulas)
-        botaoVerMaisCapsulas.setOnClickListener {
+        findViewById<TextView>(R.id.btnVerMaisCapsulas).setOnClickListener {
             startActivity(Intent(this, CapsulasAdministradorActivity::class.java))
         }
 
-        // ===== SEÇÃO NOVA MENSAGEM (toda área clicável) =====
-                val secaoNovaMensagem = findViewById<LinearLayout>(R.id.secaoNovaMensagem)
-                val botaoNovaMensagem = findViewById<ImageView>(R.id.leoBotaoNovaMensagem237)
-
-        // Clique no texto ou ícone leva para a mesma tela
-                val abrirNovaMensagem = Intent(this, EscreverMensagemAdministradorActivity::class.java)
-
-                secaoNovaMensagem.setOnClickListener {
-                    startActivity(abrirNovaMensagem)
-                }
-
-                botaoNovaMensagem.setOnClickListener {
-                    startActivity(abrirNovaMensagem)
-                }
-
+        // ===== SEÇÃO NOVA MENSAGEM =====
+        val secaoNovaMensagem = findViewById<LinearLayout>(R.id.secaoNovaMensagem)
+        val botaoNovaMensagem = findViewById<ImageView>(R.id.leoBotaoNovaMensagem237)
+        val abrirNovaMensagem = Intent(this, EscreverMensagemAdministradorActivity::class.java)
+        secaoNovaMensagem.setOnClickListener { startActivity(abrirNovaMensagem) }
+        botaoNovaMensagem.setOnClickListener { startActivity(abrirNovaMensagem) }
 
         // ===== SEÇÕES CLICÁVEIS =====
-        val secaoCapsulas = findViewById<LinearLayout>(R.id.secaoCapsulas)
-        val secaoEventos = findViewById<LinearLayout>(R.id.secaoEventos)
-        val verMaisEventos = findViewById<TextView>(R.id.btnVerMaisEventos)
-
-        secaoCapsulas.setOnClickListener {
+        findViewById<LinearLayout>(R.id.secaoCapsulas).setOnClickListener {
             startActivity(Intent(this, CapsulasAdministradorActivity::class.java))
         }
 
-        secaoEventos.setOnClickListener {
+        findViewById<LinearLayout>(R.id.secaoEventos).setOnClickListener {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
 
-        verMaisEventos.setOnClickListener {
+        findViewById<TextView>(R.id.btnVerMaisEventos).setOnClickListener {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
 
         // ===== BARRA INFERIOR FIXA =====
-        val bottomHome = findViewById<ImageView>(R.id.leoLogoHome3)
-        val bottomChatbot = findViewById<ImageView>(R.id.leoImagemChatbot3)
-        val bottomEmail = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
-        val bottomMenu = findViewById<ImageView>(R.id.leoImagemMenu3)
-
-        bottomHome.setOnClickListener {
+        findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
             finish()
         }
 
-        bottomChatbot.setOnClickListener {
+        findViewById<ImageView>(R.id.leoImagemChatbot3).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        bottomEmail.setOnClickListener {
+        findViewById<ImageView>(R.id.leoImagemNotificacoes3).setOnClickListener {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
 
-        bottomMenu.setOnClickListener {
+        findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
             startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
         }
+    }
+
+    // ==== FUNÇÃO PARA CARREGAR OS 3 ÚLTIMOS AVISOS DO ADMINISTRADOR ====
+    private fun carregarUltimosAvisos(matriculaAdm: String) {
+        db.collection("mensagens")
+            .whereEqualTo("matriculaAdm", matriculaAdm)
+            .orderBy("data", Query.Direction.DESCENDING)
+            .limit(3)
+            .get()
+            .addOnSuccessListener { result ->
+                listaUltimosAvisos.clear()
+                for (doc in result) {
+                    val aviso = Aviso(
+                        titulo = doc.getString("titulo") ?: "",
+                        mensagem = doc.getString("mensagem") ?: "",
+                        matricula = doc.getString("matricula") ?: "",
+                        matriculaAdm = doc.getString("matriculaAdm") ?: "",
+                        data = doc.getTimestamp("data")
+                    )
+                    listaUltimosAvisos.add(aviso)
+                }
+                adapterAvisos.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                Log.e("AVISOS_ADM", "❌ Erro ao carregar avisos do administrador: ${e.localizedMessage}")
+            }
     }
 }

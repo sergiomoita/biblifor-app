@@ -298,23 +298,17 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/leoAviso3"
+            <!-- RecyclerView dos últimos avisos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUltimosAvisos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxHeight="200dp"
                 android:layout_marginTop="10dp"
-                android:text="📚 Olá Maria Luísa. Lembrete: devolva o livro 'Romeu e Julieta – William Shakespeare' até 13/09/2025. Evite multas!"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp" />
+                android:clipToPadding="false"
+                android:padding="4dp"
+                tools:listitem="@layout/item_aviso"/>
 
-            <TextView
-                android:id="@+id/leoAviso4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="📚 Olá Maria Luísa. Seu empréstimo foi confirmado. Você retirou Romeu e Julieta – William Shakespeare. Devolução prevista para 13/09/2025. Boa leitura!"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
 

@@ -27,42 +27,50 @@ class MensagensAdministradorActivity : BaseActivity() {
 
         fb = Firebase.firestore
 
+        // ==== Recupera matrícula e nome do administrador logado ====
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
+        val nomeAdm = prefs.getString("NOME_ADM", null)
 
         val txMatricula = findViewById<TextView>(R.id.textMatricula)
+        val txNomeAdm = findViewById<TextView>(R.id.textNomeAdministradorAvisos)
 
-        if (matriculaAdm == null) {
-            Log.e("ADM", "⚠️ Nenhuma matrícula ADM encontrada")
-            txMatricula.text = ""
-            return
-        } else {
-            txMatricula.text = matriculaAdm
-        }
+        // ==== Exibe nome e matrícula ====
+        txNomeAdm.text = if (!nomeAdm.isNullOrEmpty()) "Olá, $nomeAdm" else "Olá, Administrador"
+        txMatricula.text = matriculaAdm ?: ""
 
+        // ==== Configura RecyclerView ====
         rv = findViewById(R.id.rvEventosAdmin)
         rv.layoutManager = LinearLayoutManager(this)
         adapter = AvisoAdapter(listaAvisos)
         rv.adapter = adapter
 
-        lerAvisos(matriculaAdm)
+        // ==== Busca avisos enviados pelo administrador logado ====
+        if (matriculaAdm != null) {
+            lerAvisos(matriculaAdm)
+        } else {
+            Log.e("ADM", "⚠️ Nenhuma matrícula ADM encontrada")
+        }
 
-        // Navegação
+        // ==== Botão Nova Mensagem ====
         findViewById<ImageView>(R.id.iconNovaMensagem).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
+        }
+
+        // ==== Barra inferior (caso exista) ====
+        findViewById<ImageView?>(R.id.leoLogoHome3)?.setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            finish()
         }
     }
 
     private fun lerAvisos(matriculaAdm: String) {
-
         fb.collection("mensagens")
             .whereEqualTo("matriculaAdm", matriculaAdm)
             .orderBy("data", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
-
                 listaAvisos.clear()
-
                 for (doc in result) {
                     val aviso = Aviso(
                         titulo = doc.getString("titulo") ?: "",
@@ -73,7 +81,6 @@ class MensagensAdministradorActivity : BaseActivity() {
                     )
                     listaAvisos.add(aviso)
                 }
-
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
