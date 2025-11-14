@@ -4,92 +4,156 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CapsulasUsuarioActivity : BaseActivity() {
+
+    private val db by lazy { Firebase.firestore }
+    private val CAPS = "capsulas"
+
+    private object CapsStatus {
+        const val DISP  = "Disponível"
+        const val INDISP = "Indisponível"
+        const val MANUT = "Em manutenção"
+    }
+
+    // IDs das 8 cápsulas no layout do usuário
+    private val idsCapsulas = listOf(
+        R.id.btnCapsula1CapsulasUsuarioSergio,
+        R.id.btnCapsula2CapsulasUsuarioSergio,
+        R.id.btnCapsula3CapsulasUsuarioSergio,
+        R.id.btnCapsula4CapsulasUsuarioSergio,
+        R.id.btnCapsula5CapsulasUsuarioSergio,
+        R.id.btnCapsula6CapsulasUsuarioSergio,
+        R.id.btnCapsula7CapsulasUsuarioSergio,
+        R.id.btnCapsula8CapsulasUsuarioSergio
+    )
+
+    // Recebe o resultado da tela "Disponível" (se reservou, pinta de vermelho)
+    private val reservarLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                val numero = data?.getIntExtra("numeroCapsula", -1) ?: -1
+                val reservada = data?.getBooleanExtra("reservada", false) ?: false
+                if (reservada && numero in 1..idsCapsulas.size) {
+                    aplicarEstadoVisual(numero, CapsStatus.INDISP) // muda para vermelho
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_capsulas_usuario)
 
-        // 🔙 Botão de voltar → MenuPrincipalUsuarioActivity
-        val btnVoltar = findViewById<ImageView>(R.id.btnVoltarCapsulasCapsulasUsuarioSergio)
-        btnVoltar.setOnClickListener {
-            finish()
+        // 🔙 Voltar
+        findViewById<ImageView>(R.id.btnVoltarCapsulasCapsulasUsuarioSergio).setOnClickListener { finish() }
+
+        // 🤖 Mascote superior → Chatbot
+        findViewById<ImageView>(R.id.iconMascoteCapsulasCapsulasUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        // 🤖 Ícone do mascote superior → ChatbotUsuarioActivity
-        val iconMascoteSuperior = findViewById<ImageView>(R.id.iconMascoteCapsulasCapsulasUsuarioSergio)
-        iconMascoteSuperior.setOnClickListener {
-            val intent = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(intent)
+        // 🔔 Notificações
+        findViewById<ImageView>(R.id.iconNotificacaoCapsulasUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        // 🔔 Ícone de notificação → AvisosUsuarioActivity
-        val iconNotificacao = findViewById<ImageView>(R.id.iconNotificacaoCapsulasUsuarioSergio)
-        iconNotificacao.setOnClickListener {
-            val intent = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(intent)
+        // ⚙️ Barra inferior
+        findViewById<ImageView>(R.id.iconHomeCapsulasUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java)); finish()
+        }
+        findViewById<ImageView>(R.id.iconMascoteInferiorCapsulasUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.iconMensagemCapsulasUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java)); finish()
         }
 
-        // ==============================
-        // ⚙️ Funções da Barra Inferior
-        // ==============================
-        val iconHome = findViewById<ImageView>(R.id.iconHomeCapsulasUsuarioSergio)
-        iconHome.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        val iconMascoteInferior = findViewById<ImageView>(R.id.iconMascoteInferiorCapsulasUsuarioSergio)
-        iconMascoteInferior.setOnClickListener {
-            val intent = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(intent)
-        }
-
-        val iconMensagem = findViewById<ImageView>(R.id.iconMensagemCapsulasUsuarioSergio)
-        iconMensagem.setOnClickListener {
-            val intent = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(intent)
-        }
-
-        val iconMenu = findViewById<ImageView>(R.id.iconMenuInferiorCapsulasUsuarioSergio)
-        iconMenu.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        // ==============================
-        // 🎯 Clique nas cápsulas
-        // ==============================
-        val idsCapsulas = listOf(
-            R.id.btnCapsula1CapsulasUsuarioSergio,
-            R.id.btnCapsula2CapsulasUsuarioSergio,
-            R.id.btnCapsula3CapsulasUsuarioSergio,
-            R.id.btnCapsula4CapsulasUsuarioSergio,
-            R.id.btnCapsula5CapsulasUsuarioSergio,
-            R.id.btnCapsula6CapsulasUsuarioSergio,
-            R.id.btnCapsula7CapsulasUsuarioSergio,
-            R.id.btnCapsula8CapsulasUsuarioSergio
-        )
-
-        idsCapsulas.forEach { id ->
-            val capsula = findViewById<ImageButton>(id)
-            capsula.isClickable = true
-            capsula.isEnabled = true
-
-            capsula.setOnClickListener {
-                val status = (capsula.tag as? String)?.lowercase() ?: "indefinido"
-                when (status) {
-                    "verde" -> startActivity(Intent(this, CapsulaDisponivelUsuarioActivity::class.java))
-                    "vermelha" -> startActivity(Intent(this, CapsulaIndisponivelUsuarioActivity::class.java))
-                    "amarela", "amarelo", "manutencao", "manutenção" ->
-                        startActivity(Intent(this, CapsulaManutencaoUsuarioActivity::class.java))
-                    else -> startActivity(Intent(this, CapsulaIndisponivelUsuarioActivity::class.java))
-                }
+        // 🎯 Clique nas cápsulas: consulta estado e navega para a tela correspondente
+        idsCapsulas.forEachIndexed { idx, viewId ->
+            val numero = idx + 1
+            findViewById<ImageButton>(viewId).setOnClickListener {
+                consultarEstadoRemotoENavegar(numero)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        sincronizarEstados()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // garante que a tela sempre reflita o estado do banco ao voltar
+        sincronizarEstados()
+    }
+
+    // --------- Firestore (Aluno) ---------
+
+    private fun docId(n: Int) = "capsula$n"
+
+    /** Atualiza as cores de todas as cápsulas conforme Firestore */
+    private fun sincronizarEstados() {
+        for (n in 1..idsCapsulas.size) {
+            db.collection(CAPS).document(docId(n)).get()
+                .addOnSuccessListener { snap ->
+                    val disp = snap.getString("disponibilidade") ?: CapsStatus.INDISP
+                    aplicarEstadoVisual(n, disp)
+                }
+                .addOnFailureListener {
+                    aplicarEstadoVisual(n, CapsStatus.INDISP)
+                }
+        }
+    }
+
+    /** Aplica background correto e grava uma tag simples para depuração */
+    private fun aplicarEstadoVisual(numero: Int, estado: String) {
+        val viewId = idsCapsulas.getOrNull(numero - 1) ?: return
+        val btn = findViewById<ImageButton>(viewId)
+        when (estado) {
+            CapsStatus.DISP -> {
+                btn.setBackgroundResource(R.drawable.bg_capsula_verde)
+                btn.tag = "verde"
+            }
+            CapsStatus.MANUT -> {
+                btn.setBackgroundResource(R.drawable.bg_capsula_amarelo)
+                btn.tag = "amarela"
+            }
+            else -> {
+                btn.setBackgroundResource(R.drawable.bg_capsula_vermelha)
+                btn.tag = "vermelha"
+            }
+        }
+    }
+
+    private fun consultarEstadoRemotoENavegar(numero: Int) {
+        db.collection(CAPS).document(docId(numero)).get()
+            .addOnSuccessListener { snap ->
+                val estado = snap.getString("disponibilidade") ?: CapsStatus.INDISP
+                when (estado) {
+                    CapsStatus.DISP -> {
+                        val i = Intent(this, CapsulaDisponivelUsuarioActivity::class.java)
+                        i.putExtra("numeroCapsula", numero)
+                        reservarLauncher.launch(i) // popup e reserva acontecem na próxima tela
+                    }
+                    CapsStatus.MANUT -> {
+                        startActivity(Intent(this, CapsulaManutencaoUsuarioActivity::class.java))
+                    }
+                    else -> {
+                        startActivity(Intent(this, CapsulaIndisponivelUsuarioActivity::class.java))
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Falha ao consultar estado. Tente novamente.", Toast.LENGTH_SHORT).show()
+            }
     }
 }

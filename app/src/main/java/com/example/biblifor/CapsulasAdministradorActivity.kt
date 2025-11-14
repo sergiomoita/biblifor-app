@@ -5,17 +5,27 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import java.text.Normalizer
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CapsulasAdministradorActivity : BaseActivity() {
 
-    // Mantém o estado das 8 cápsulas (índice 1..8; índice 0 é descartado)
-    // Valores possíveis: "DISPONIVEL", "INDISPONIVEL", "MANUTENCAO"
+    private val db by lazy { Firebase.firestore }
+    private val CAPS = "capsulas"
+
+    private object CapsStatus {
+        const val DISP  = "Disponível"
+        const val INDISP = "Indisponível"
+        const val MANUT = "Em manutenção"   // novo texto solicitado
+    }
+
+    // Estado das 8 cápsulas (1..8; índice 0 descartado) — valores: DISPONIVEL/INDISPONIVEL/MANUTENCAO
     private var statusCapsulas: MutableList<String> = MutableList(9) { "DISPONIVEL" }
 
-    // ✅ Recebe o novo status e aplica no array + UI
+    // Recebe o novo status da tela de edição e persiste no Firestore
     private val statusLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -26,13 +36,12 @@ class CapsulasAdministradorActivity : BaseActivity() {
                 val code = when (novoStatus) {
                     "disponivel"   -> "DISPONIVEL"
                     "indisponivel" -> "INDISPONIVEL"
-                    "manutencao"   -> "MANUTENCAO"
+                    "manutencao", "emmanutencao" -> "MANUTENCAO" // aceita ambos, grava como "Em manutenção"
                     else           -> "DISPONIVEL"
                 }
 
                 if (numero in 1..8) {
-                    statusCapsulas[numero] = code       // atualiza o estado “fonte da verdade”
-                    aplicarStatusNaUI(numero, code)     // reflete imediatamente na UI
+                    atualizarStatusNoFirestore(numero, code)
                 }
             }
         }
@@ -41,25 +50,14 @@ class CapsulasAdministradorActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_capsulas_administrador)
 
-        // Restaura estado (em caso de rotação/recriação)
+        // Restaura estado em recriações
         if (savedInstanceState != null) {
             val arr = savedInstanceState.getStringArray("statusCapsulas")
-            if (arr != null && arr.size == 9) {
-                statusCapsulas = arr.toMutableList()
-            }
-        } else {
-            // Primeira vez: lê o que está no layout e inicializa o array
-            for (i in 1..8) {
-                statusCapsulas[i] = lerStatusDoTextView(i)
-            }
+            if (arr != null && arr.size == 9) statusCapsulas = arr.toMutableList()
         }
 
-        // Garante que a UI reflita o array sempre que a Activity abrir
-        for (i in 1..8) aplicarStatusNaUI(i, statusCapsulas[i])
-
-        // 🔙 Botão de voltar
-        val btnVoltar = findViewById<ImageView>(R.id.btnVoltarCapsulasAdmSergio)
-        btnVoltar.setOnClickListener {
+        // 🔙 Voltar
+        findViewById<ImageView>(R.id.btnVoltarCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
             finish()
         }
@@ -78,7 +76,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java)); finish()
         }
 
-        // 💊 Clique nas cápsulas: abre a tela já levando o status atual correto
+        // 💊 Clique nas cápsulas → abre a tela de status atual
         val idsCapsulas = listOf(
             R.id.btnCapsula1AdmCapsulasAdmSergio,
             R.id.btnCapsula2AdmCapsulasAdmSergio,
@@ -96,7 +94,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
                 val statusBonito = when (statusCapsulas[numero]) {
                     "DISPONIVEL"   -> "Disponível"
                     "INDISPONIVEL" -> "Indisponível"
-                    "MANUTENCAO"   -> "Manutenção"
+                    "MANUTENCAO"   -> "Em manutenção"
                     else           -> "Disponível"
                 }
                 val i = Intent(this, StatusCapsulaAdministradorActivity::class.java)
@@ -107,38 +105,66 @@ class CapsulasAdministradorActivity : BaseActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        sincronizarComFirestore()
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putStringArray("statusCapsulas", statusCapsulas.toTypedArray())
     }
 
-    // --------- Helpers ---------
+    // --------- Firestore (Adm) ---------
 
-    // Lê o TextView que já está no layout e retorna o code (DISPONIVEL/INDISPONIVEL/MANUTENCAO)
-    private fun lerStatusDoTextView(numero: Int): String {
-        val idTxt = when (numero) {
-            1 -> R.id.statusCapsula1AdmCapsulasAdmSergio
-            2 -> R.id.statusCapsula2AdmCapsulasAdmSergio
-            3 -> R.id.statusCapsula3AdmCapsulasAdmSergio
-            4 -> R.id.statusCapsula4AdmCapsulasAdmSergio
-            5 -> R.id.statusCapsula5AdmCapsulasAdmSergio
-            6 -> R.id.statusCapsula6AdmCapsulasAdmSergio
-            7 -> R.id.statusCapsula7AdmCapsulasAdmSergio
-            8 -> R.id.statusCapsula8AdmCapsulasAdmSergio
-            else -> null
-        } ?: return "DISPONIVEL"
+    private fun docId(n: Int) = "capsula$n"
 
-        val txt = findViewById<TextView>(idTxt).text.toString().normalizado()
-        return when {
-            "indisponivel" in txt -> "INDISPONIVEL"
-            "manutencao"  in txt -> "MANUTENCAO"
-            else                  -> "DISPONIVEL"
+    /** Lê Firestore e reflete na UI (converte variações para o code interno) */
+    private fun sincronizarComFirestore() {
+        for (n in 1..8) {
+            db.collection(CAPS).document(docId(n)).get()
+                .addOnSuccessListener { snap ->
+                    val disp = snap.getString("disponibilidade")
+                    val code = when (disp?.normalizado()) {
+                        "disponivel"     -> "DISPONIVEL"
+                        "indisponivel"   -> "INDISPONIVEL"
+                        "manutencao", "emmanutencao" -> "MANUTENCAO"
+                        else -> "DISPONIVEL"
+                    }
+                    statusCapsulas[n] = code
+                    aplicarStatusNaUI(n, code)
+                }
+                .addOnFailureListener {
+                    // mantém estado anterior se falhar
+                }
         }
     }
 
-    // Aplica cor do botão + texto do status para UMA cápsula
+    /** Persiste no Firestore e atualiza UI local */
+    private fun atualizarStatusNoFirestore(numero: Int, code: String) {
+        val valor = when (code) {
+            "DISPONIVEL"   -> CapsStatus.DISP
+            "INDISPONIVEL" -> CapsStatus.INDISP
+            "MANUTENCAO"   -> CapsStatus.MANUT   // grava "Em manutenção"
+            else           -> CapsStatus.DISP
+        }
+
+        db.collection(CAPS).document(docId(numero))
+            .update(mapOf("disponibilidade" to valor))
+            .addOnSuccessListener {
+                statusCapsulas[numero] = code
+                aplicarStatusNaUI(numero, code)
+                Toast.makeText(this, "Cápsula $numero atualizada para $valor.", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Erro ao atualizar: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    // --------- Helpers de UI ---------
+
     private fun aplicarStatusNaUI(numero: Int, code: String) {
-        // Botão
+        // Botão (cor)
         val idBtn = when (numero) {
             1 -> R.id.btnCapsula1AdmCapsulasAdmSergio
             2 -> R.id.btnCapsula2AdmCapsulasAdmSergio
@@ -150,7 +176,6 @@ class CapsulasAdministradorActivity : BaseActivity() {
             8 -> R.id.btnCapsula8AdmCapsulasAdmSergio
             else -> null
         }
-
         idBtn?.let { id ->
             val btn = findViewById<ImageButton>(id)
             when (code) {
@@ -161,7 +186,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
             }
         }
 
-        // Texto
+        // Texto do status
         val idTxt = when (numero) {
             1 -> R.id.statusCapsula1AdmCapsulasAdmSergio
             2 -> R.id.statusCapsula2AdmCapsulasAdmSergio
@@ -173,23 +198,13 @@ class CapsulasAdministradorActivity : BaseActivity() {
             8 -> R.id.statusCapsula8AdmCapsulasAdmSergio
             else -> null
         }
-
         idTxt?.let { id ->
             val tv = findViewById<TextView>(id)
             tv.maxLines = 2
             when (code) {
-                "DISPONIVEL" -> {
-                    tv.text = "Status: Disponível"
-                    tv.setTextColor(0xFF008000.toInt())
-                }
-                "INDISPONIVEL" -> {
-                    tv.text = "Status: Indisponível"
-                    tv.setTextColor(0xFFFF0000.toInt())
-                }
-                "MANUTENCAO" -> {
-                    tv.text = "Status: Manutenção"
-                    tv.setTextColor(0xFFFFA500.toInt())
-                }
+                "DISPONIVEL" -> { tv.text = "Status: Disponível";     tv.setTextColor(0xFF008000.toInt()) }
+                "INDISPONIVEL" -> { tv.text = "Status: Indisponível"; tv.setTextColor(0xFFFF0000.toInt()) }
+                "MANUTENCAO" -> { tv.text = "Status: Em manutenção";  tv.setTextColor(0xFFFFA500.toInt()) }
             }
         }
     }
@@ -197,6 +212,6 @@ class CapsulasAdministradorActivity : BaseActivity() {
     private fun String.normalizado(): String {
         val semAcento = Normalizer.normalize(this, Normalizer.Form.NFD)
             .replace("\\p{Mn}+".toRegex(), "")
-        return semAcento.lowercase()
+        return semAcento.lowercase().replace("\\s+".toRegex(), "")
     }
 }
