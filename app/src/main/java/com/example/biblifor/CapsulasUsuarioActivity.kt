@@ -20,7 +20,7 @@ class CapsulasUsuarioActivity : BaseActivity() {
         const val MANUT = "Em manutenção"
     }
 
-    // IDs das 8 cápsulas no layout do usuário
+    // IDs das 12 cápsulas no layout do usuário
     private val idsCapsulas = listOf(
         R.id.btnCapsula1CapsulasUsuarioSergio,
         R.id.btnCapsula2CapsulasUsuarioSergio,
@@ -29,7 +29,11 @@ class CapsulasUsuarioActivity : BaseActivity() {
         R.id.btnCapsula5CapsulasUsuarioSergio,
         R.id.btnCapsula6CapsulasUsuarioSergio,
         R.id.btnCapsula7CapsulasUsuarioSergio,
-        R.id.btnCapsula8CapsulasUsuarioSergio
+        R.id.btnCapsula8CapsulasUsuarioSergio,
+        R.id.btnCapsula9CapsulasUsuarioSergio,
+        R.id.btnCapsula10CapsulasUsuarioSergio,
+        R.id.btnCapsula11CapsulasUsuarioSergio,
+        R.id.btnCapsula12CapsulasUsuarioSergio
     )
 
     // Recebe o resultado da tela "Disponível" (se reservou, pinta de vermelho)

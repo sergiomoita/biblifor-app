@@ -52,249 +52,374 @@
             android:layout_marginTop="4dp"
             android:background="#80FFFFFF" />
 
-        <!-- ÁREA DAS CÁPSULAS -->
-        <LinearLayout
-            android:id="@+id/areaCapsulasAdmSergio"
-            android:layout_width="354dp"
-            android:layout_height="528dp"
-            android:layout_marginHorizontal="16dp"
+        <!-- ÁREA DAS CÁPSULAS (rolável) -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollCapsulasAdm"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginTop="24dp"
-            android:background="#FFFFFF"
-            android:elevation="6dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:fillViewport="true">
 
-            <GridLayout
-                android:id="@+id/gridCapsulasAdmSergio"
-                android:layout_width="234dp"
-                android:layout_height="421dp"
-                android:alignmentMode="alignMargins"
-                android:columnCount="2"
+            <LinearLayout
+                android:id="@+id/areaCapsulasAdmSergio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="#FFFFFF"
+                android:elevation="6dp"
                 android:gravity="center"
-                android:useDefaultMargins="true">
+                android:orientation="vertical"
+                android:padding="24dp">
 
-                <!-- CÁPSULA 1 -->
-                <LinearLayout
-                    android:layout_width="107dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/btnCapsula1AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
-
-                    <TextView
-                        android:id="@+id/statusCapsula1AdmCapsulasAdmSergio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Disponível"
-                        android:textColor="#008000"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <!-- CÁPSULA 2 -->
-                <LinearLayout
+                <GridLayout
+                    android:id="@+id/gridCapsulasAdmSergio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="2"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:useDefaultMargins="true">
 
-                    <ImageButton
-                        android:id="@+id/btnCapsula2AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
+                    <!-- CÁPSULA 1 -->
+                    <LinearLayout
+                        android:layout_width="107dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/statusCapsula2AdmCapsulasAdmSergio"
+                        <ImageButton
+                            android:id="@+id/btnCapsula1AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula1AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Disponível"
+                            android:textColor="#008000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 2 -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Indisponível"
-                        android:textColor="#FF0000"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <!-- CÁPSULA 3 -->
-                <LinearLayout
-                    android:layout_width="109dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        <ImageButton
+                            android:id="@+id/btnCapsula2AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
 
-                    <ImageButton
-                        android:id="@+id/btnCapsula3AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
+                        <TextView
+                            android:id="@+id/statusCapsula2AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Indisponível"
+                            android:textColor="#FF0000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/statusCapsula3AdmCapsulasAdmSergio"
+                    <!-- CÁPSULA 3 -->
+                    <LinearLayout
+                        android:layout_width="109dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula3AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula3AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Disponível"
+                            android:textColor="#008000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 4 -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Disponível"
-                        android:textColor="#008000"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <!-- CÁPSULA 4 -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        <ImageButton
+                            android:id="@+id/btnCapsula4AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
 
-                    <ImageButton
-                        android:id="@+id/btnCapsula4AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
+                        <TextView
+                            android:id="@+id/statusCapsula4AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Indisponível"
+                            android:textColor="#FF0000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/statusCapsula4AdmCapsulasAdmSergio"
+                    <!-- CÁPSULA 5 -->
+                    <LinearLayout
+                        android:layout_width="111dp"
+                        android:layout_height="97dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula5AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula5AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Indisponível"
+                            android:textColor="#FF0000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 6 -->
+                    <LinearLayout
+                        android:layout_width="108dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula6AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula6AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Disponível"
+                            android:textColor="#008000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 7 -->
+                    <LinearLayout
+                        android:layout_width="110dp"
+                        android:layout_height="99dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula7AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula7AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Indisponível"
+                            android:textColor="#FF0000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 8 -->
+                    <LinearLayout
+                        android:layout_width="108dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula8AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula8AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Indisponível"
+                            android:textColor="#FF0000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 9 -->
+                    <LinearLayout
+                        android:layout_width="107dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula9AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula9AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Disponível"
+                            android:textColor="#008000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 10 -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Indisponível"
-                        android:textColor="#FF0000"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="111dp"
-                    android:layout_height="97dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        <ImageButton
+                            android:id="@+id/btnCapsula10AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
 
-                    <ImageButton
-                        android:id="@+id/btnCapsula5AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
+                        <TextView
+                            android:id="@+id/statusCapsula10AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Indisponível"
+                            android:textColor="#FF0000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/statusCapsula5AdmCapsulasAdmSergio"
+                    <!-- CÁPSULA 11 -->
+                    <LinearLayout
+                        android:layout_width="109dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnCapsula11AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
+
+                        <TextView
+                            android:id="@+id/statusCapsula11AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Em manutenção"
+                            android:textColor="#FFA500"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- CÁPSULA 12 -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Indisponível"
-                        android:textColor="#FF0000"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="108dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                        <ImageButton
+                            android:id="@+id/btnCapsula12AdmCapsulasAdmSergio"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/bg_capsula_azul"
+                            android:padding="45dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/editar"
+                            android:tint="@android:color/white" />
 
-                    <ImageButton
-                        android:id="@+id/btnCapsula6AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
+                        <TextView
+                            android:id="@+id/statusCapsula12AdmCapsulasAdmSergio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Status: Disponível"
+                            android:textColor="#008000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/statusCapsula6AdmCapsulasAdmSergio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Disponível"
-                        android:textColor="#008000"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="110dp"
-                    android:layout_height="99dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/btnCapsula7AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
-
-                    <TextView
-                        android:id="@+id/statusCapsula7AdmCapsulasAdmSergio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Indisponível"
-                        android:textColor="#FF0000"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="108dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/btnCapsula8AdmCapsulasAdmSergio"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_capsula_azul"
-                        android:padding="45dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/editar"
-                        android:tint="@android:color/white" />
-
-                    <TextView
-                        android:id="@+id/statusCapsula8AdmCapsulasAdmSergio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Status: Indisponível"
-                        android:textColor="#FF0000"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </GridLayout>
-        </LinearLayout>
+                </GridLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
     <!-- BARRA INFERIOR -->

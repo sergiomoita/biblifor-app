@@ -7,8 +7,6 @@
     android:background="#005BFF"
     tools:context=".CapsulasUsuarioActivity">
 
-
-
     <!-- CONTEÚDO PRINCIPAL -->
     <LinearLayout
         android:id="@+id/conteudoCapsulasCapsulasUsuarioSergio"
@@ -219,6 +217,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -239,6 +238,58 @@
                     android:tag="amarela"
                     android:contentDescription="Cápsula 8" />
             </LinearLayout>
+
+            <!-- LINHA 5 (NOVO) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCapsula9CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_capsula_verde"
+                    android:tag="verde"
+                    android:contentDescription="Cápsula 9" />
+
+                <ImageButton
+                    android:id="@+id/btnCapsula10CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_capsula_verde"
+                    android:tag="verde"
+                    android:contentDescription="Cápsula 10" />
+            </LinearLayout>
+
+            <!-- LINHA 6 (NOVO) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCapsula11CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_capsula_vermelha"
+                    android:tag="vermelha"
+                    android:contentDescription="Cápsula 11" />
+
+                <ImageButton
+                    android:id="@+id/btnCapsula12CapsulasUsuarioSergio"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_capsula_amarelo"
+                    android:tag="amarela"
+                    android:contentDescription="Cápsula 12" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

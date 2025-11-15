@@ -22,8 +22,8 @@ class CapsulasAdministradorActivity : BaseActivity() {
         const val MANUT = "Em manutenção"   // novo texto solicitado
     }
 
-    // Estado das 8 cápsulas (1..8; índice 0 descartado) — valores: DISPONIVEL/INDISPONIVEL/MANUTENCAO
-    private var statusCapsulas: MutableList<String> = MutableList(9) { "DISPONIVEL" }
+    // Estado das 12 cápsulas (1..12; índice 0 descartado) — valores: DISPONIVEL/INDISPONIVEL/MANUTENCAO
+    private var statusCapsulas: MutableList<String> = MutableList(13) { "DISPONIVEL" }
 
     // Recebe o novo status da tela de edição e persiste no Firestore
     private val statusLauncher =
@@ -36,11 +36,11 @@ class CapsulasAdministradorActivity : BaseActivity() {
                 val code = when (novoStatus) {
                     "disponivel"   -> "DISPONIVEL"
                     "indisponivel" -> "INDISPONIVEL"
-                    "manutencao", "emmanutencao" -> "MANUTENCAO" // aceita ambos, grava como "Em manutenção"
+                    "manutencao", "emmanutencao" -> "MANUTENCAO"
                     else           -> "DISPONIVEL"
                 }
 
-                if (numero in 1..8) {
+                if (numero in 1..12) {
                     atualizarStatusNoFirestore(numero, code)
                 }
             }
@@ -53,7 +53,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
         // Restaura estado em recriações
         if (savedInstanceState != null) {
             val arr = savedInstanceState.getStringArray("statusCapsulas")
-            if (arr != null && arr.size == 9) statusCapsulas = arr.toMutableList()
+            if (arr != null && arr.size == 13) statusCapsulas = arr.toMutableList()
         }
 
         // 🔙 Voltar
@@ -85,7 +85,11 @@ class CapsulasAdministradorActivity : BaseActivity() {
             R.id.btnCapsula5AdmCapsulasAdmSergio,
             R.id.btnCapsula6AdmCapsulasAdmSergio,
             R.id.btnCapsula7AdmCapsulasAdmSergio,
-            R.id.btnCapsula8AdmCapsulasAdmSergio
+            R.id.btnCapsula8AdmCapsulasAdmSergio,
+            R.id.btnCapsula9AdmCapsulasAdmSergio,
+            R.id.btnCapsula10AdmCapsulasAdmSergio,
+            R.id.btnCapsula11AdmCapsulasAdmSergio,
+            R.id.btnCapsula12AdmCapsulasAdmSergio
         )
 
         idsCapsulas.forEachIndexed { index, idBtn ->
@@ -121,7 +125,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
 
     /** Lê Firestore e reflete na UI (converte variações para o code interno) */
     private fun sincronizarComFirestore() {
-        for (n in 1..8) {
+        for (n in 1..12) {
             db.collection(CAPS).document(docId(n)).get()
                 .addOnSuccessListener { snap ->
                     val disp = snap.getString("disponibilidade")
@@ -174,6 +178,10 @@ class CapsulasAdministradorActivity : BaseActivity() {
             6 -> R.id.btnCapsula6AdmCapsulasAdmSergio
             7 -> R.id.btnCapsula7AdmCapsulasAdmSergio
             8 -> R.id.btnCapsula8AdmCapsulasAdmSergio
+            9 -> R.id.btnCapsula9AdmCapsulasAdmSergio
+            10 -> R.id.btnCapsula10AdmCapsulasAdmSergio
+            11 -> R.id.btnCapsula11AdmCapsulasAdmSergio
+            12 -> R.id.btnCapsula12AdmCapsulasAdmSergio
             else -> null
         }
         idBtn?.let { id ->
@@ -196,6 +204,10 @@ class CapsulasAdministradorActivity : BaseActivity() {
             6 -> R.id.statusCapsula6AdmCapsulasAdmSergio
             7 -> R.id.statusCapsula7AdmCapsulasAdmSergio
             8 -> R.id.statusCapsula8AdmCapsulasAdmSergio
+            9 -> R.id.statusCapsula9AdmCapsulasAdmSergio
+            10 -> R.id.statusCapsula10AdmCapsulasAdmSergio
+            11 -> R.id.statusCapsula11AdmCapsulasAdmSergio
+            12 -> R.id.statusCapsula12AdmCapsulasAdmSergio
             else -> null
         }
         idTxt?.let { id ->
