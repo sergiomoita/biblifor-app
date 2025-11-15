@@ -10,9 +10,10 @@
 
     <TextView
         android:id="@+id/leoTextoCarregandoSplash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="358dp"
+        android:layout_height="55dp"
         android:layout_marginTop="392dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Carregando livros... Ops! Carregando arquivos..."
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -37,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="592dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="BIBLIFOR"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
@@ -45,13 +47,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="181dp"
-        android:layout_height="145dp"
+    <ProgressBar
+        android:id="@+id/progressBarSplash"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/leoTextoBibliforSplash"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:max="100"
+        android:progress="0"
+        android:indeterminate="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/_771958__1_" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/leoTextoBibliforSplash" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

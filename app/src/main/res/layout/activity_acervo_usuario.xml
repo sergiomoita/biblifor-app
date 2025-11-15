@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#005BFF"
+    android:background="#004AF7"
+    android:animateLayoutChanges="true"
     tools:context=".AcervoUsuarioActivity">
 
     <!-- LOGO + TEXTO UNIFOR BIBLIFOR (ESQUERDA) -->
@@ -50,19 +51,63 @@
         app:layout_constraintTop_toBottomOf="@id/containerLogo"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- TÍTULO PRINCIPAL -->
+    <!-- Título + Lupa -->
     <TextView
-        android:id="@+id/lopesRecomendados"
+        android:id="@+id/lopesTituloAcervo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Acervo"
         android:textColor="#FFFFFF"
-        android:textSize="26sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/btnVoltarAcervo"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivLupaAcervo" />
+
+    <ImageView
+        android:id="@+id/ivLupaAcervo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="24dp"
+        android:contentDescription="Buscar"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/lupa_pesquisar"
+        app:layout_constraintTop_toTopOf="@id/lopesTituloAcervo"
+        app:layout_constraintBottom_toBottomOf="@id/lopesTituloAcervo"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Barra de pesquisa -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/containerSearchAcervo"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@id/lopesTituloAcervo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/etSearchAcervo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="Pesquisar no acervo"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:textColor="#000000"
+            android:textColorHint="#808080" />
+    </androidx.cardview.widget.CardView>
 
     <!-- SUBTÍTULO -->
     <TextView
@@ -76,65 +121,122 @@
         android:text="Todos os materiais de leitura disponíveis."
         android:textColor="#FFFFFF"
         android:textSize="15sp"
-        app:layout_constraintTop_toBottomOf="@id/lopesRecomendados"
+        app:layout_constraintTop_toBottomOf="@id/containerSearchAcervo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- LISTA DE LIVROS -->
+    <!-- LISTA (1 livro por linha, igual Favoritos) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAcervo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="84dp"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingBottom="96dp"
         app:layout_constraintTop_toBottomOf="@id/lopesTodosDisponiveis"
-        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintBottom_toTopOf="@id/barraPaginacaoAcervo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- BARRA INFERIOR FIXA -->
+    <!-- Paginação ajustada: < 1 > -->
+    <LinearLayout
+        android:id="@+id/barraPaginacaoAcervo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar">
+
+        <!-- Botão voltar (<) -->
+        <TextView
+            android:id="@+id/btnPag1Acervo"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_page_button_white"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="&lt;"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <!-- Número atual (dinâmico) -->
+        <TextView
+            android:id="@+id/btnPag2Acervo"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_page_button_white"
+            android:gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="1"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <!-- Botão avançar (>) -->
+        <TextView
+            android:id="@+id/btnPag3Acervo"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_page_button_white"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="&gt;"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- BARRA INFERIOR FIXA (mesmos IDs pra reaproveitar navegação) -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="#005BFF"
+        android:background="@android:color/transparent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="32dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/leoLogoHome3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginHorizontal="20dp"
             android:tint="#FFFFFF"
-            android:src="@drawable/home"
-            android:layout_marginHorizontal="16dp" />
+            app:srcCompat="@drawable/home" />
 
         <ImageView
             android:id="@+id/leoImagemChatbot3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/chatbot_ema"
-            android:layout_marginHorizontal="16dp" />
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="20dp"
+            app:srcCompat="@drawable/chatbot_ema" />
 
         <ImageView
             android:id="@+id/leoImagemNotificacoes3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/email"
-            android:layout_marginHorizontal="16dp" />
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginHorizontal="20dp"
+            app:srcCompat="@drawable/email" />
 
         <ImageView
             android:id="@+id/leoImagemMenu3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginHorizontal="20dp"
             android:tint="#FFFFFF"
-            android:src="@drawable/menu_hamb"
-            android:layout_marginHorizontal="16dp" />
+            app:srcCompat="@drawable/menu_hamb" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#004AF7"
+    android:animateLayoutChanges="true"
     tools:context=".RecomendadosUsuarioActivity">
 
     <!-- LOGO + TEXTO UNIFOR BIBLIFOR -->
@@ -37,7 +38,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- SETA DE VOLTAR ABAIXO DO LOGO -->
+    <!-- SETA DE VOLTAR -->
     <ImageView
         android:id="@+id/btnVoltarRecomendados"
         android:layout_width="32dp"
@@ -50,18 +51,32 @@
         app:layout_constraintTop_toBottomOf="@id/containerLogo"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- TÍTULO PRINCIPAL -->
+    <!-- TÍTULO + LUPA -->
     <TextView
         android:id="@+id/lopesRecomendados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Recomendados"
         android:textColor="#FFFFFF"
         android:textSize="26sp"
         app:layout_constraintTop_toBottomOf="@id/btnVoltarRecomendados"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivLupaRecomendados" />
+
+    <ImageView
+        android:id="@+id/ivLupaRecomendados"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="24dp"
+        android:contentDescription="Buscar"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/lupa_pesquisar"
+        app:layout_constraintTop_toTopOf="@id/lopesRecomendados"
+        app:layout_constraintBottom_toBottomOf="@id/lopesRecomendados"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- SUBTÍTULO -->
@@ -80,7 +95,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- LISTA (RecyclerView) -->
+    <!-- Barra de pesquisa -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/containerSearchRecomendados"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@id/lopesComBase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/etSearchRecomendados"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="Pesquisar nos recomendados"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:textColor="#000000"
+            android:textColorHint="#808080" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- LISTA -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecomendados"
         android:layout_width="0dp"
@@ -90,12 +135,65 @@
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:paddingBottom="96dp"
-        app:layout_constraintTop_toBottomOf="@id/lopesComBase"
-        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/containerSearchRecomendados"
+        app:layout_constraintBottom_toTopOf="@id/barraPaginacaoRecomendados"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- BARRA INFERIOR FIXA -->
+    <!-- Paginação < 1 > -->
+    <LinearLayout
+        android:id="@+id/barraPaginacaoRecomendados"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar">
+
+        <TextView
+            android:id="@+id/btnPag1Recomendados"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_page_button_white"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="&lt;"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btnPag2Recomendados"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_page_button_white"
+            android:gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="1"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btnPag3Recomendados"
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_page_button_white"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="&gt;"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- BARRA INFERIOR -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
