@@ -134,18 +134,44 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
+
+        // WABALABA DUB DUB
         val imagemLupa = findViewById<ImageView>(R.id.leoLupaPesquisa3)
         imagemLupa.setOnClickListener {
-            val textoBruto = inputPesquisa.text?.toString()?.trim().orEmpty()
-            val normalizado = Normalizer.normalize(textoBruto, Normalizer.Form.NFD)
-                .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
-                .lowercase()
 
-            when (normalizado) {
-                "o quinze" -> startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
-                "laranjeira" -> startActivity(Intent(this, MensagemSemResultadoUsuarioActivity::class.java))
-                else -> startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
-            }
+            val textoPesquisado = inputPesquisa.text?.toString()?.trim().orEmpty()
+            if (textoPesquisado.isEmpty()) return@setOnClickListener
+
+            val db = FirebaseFirestore.getInstance()
+
+            db.collection("livros")
+                .whereEqualTo("Titulo", textoPesquisado)
+                .get()
+                .addOnSuccessListener { result ->
+                    if (!result.isEmpty) {
+
+                        val doc = result.documents[0]
+
+                        val intent = Intent(this, ResultadosPesquisaUsuarioActivity::class.java)
+
+                        intent.putExtra("titulo", doc.getString("Titulo"))
+                        intent.putExtra("autor", doc.getString("Autor"))
+                        intent.putExtra("codigoAcervo", doc.getString("CodigoAcervo"))
+                        intent.putExtra("disponibilidade", doc.getString("Disponibilidade"))
+                        intent.putExtra("imagem", doc.getString("Imagem"))
+                        intent.putExtra("quantidade", doc.getString("QuantidadeExemplares"))
+                        intent.putExtra("situacaoEmprestimo", doc.getString("SituacaoEmprestimo"))
+                        intent.putExtra("topicos", doc.getString("Topicos"))
+
+                        startActivity(intent)
+
+                    } else {
+                        startActivity(Intent(this, MensagemSemResultadoUsuarioActivity::class.java))
+                    }
+                }
+                .addOnFailureListener {
+                    startActivity(Intent(this, MensagemSemResultadoUsuarioActivity::class.java))
+                }
         }
     }
 }

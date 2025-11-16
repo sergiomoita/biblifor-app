@@ -4,28 +4,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ResultadosPesquisaUsuarioActivity : BaseActivity() {
+
+    private lateinit var db: FirebaseFirestore
+    private lateinit var rv: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_resultados_pesquisa_usuario)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        // ======== BOTÕES ========
         findViewById<ImageView>(R.id.lopesSetaVoltar32).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
-
-        // Navegação inferior (mantida)
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -39,43 +43,59 @@ class ResultadosPesquisaUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        // ===== RecyclerView (mesmo estilo do histórico) =====
-        val rv = findViewById<RecyclerView>(R.id.rvResultados)
+        // Firestore
+        db = FirebaseFirestore.getInstance()
+
+        // RecyclerView
+        rv = findViewById(R.id.rvResultados)
         rv.layoutManager = LinearLayoutManager(this)
 
-        // Mock dos resultados - ajuste nomes dos drawables se necessário
-        val resultados = listOf(
-            HistoryBook(
-                title = "O Quinze",
-                author = "Rachel de Queiroz",
-                coverRes = R.drawable.livro_rachelqueiroz, // ajuste se necessário
-                availabilityText = "Disponível: físico",
-                isAvailable = true,
-                dateText = "Hoje"
-            ),
-            HistoryBook(
-                title = "Análise de texto",
-                author = "Rachel de Queiroz",
-                coverRes = R.drawable.livro_tcc, // ajuste se necessário
-                availabilityText = "Disponível: físico + digital",
-                isAvailable = true,
-                dateText = "Hoje"
-            ),
-            HistoryBook(
-                title = "Quincas Borba",
-                author = "Machado de Assis",
-                coverRes = R.drawable.livro_quincas,
-                availabilityText = "Indisponível",
-                isAvailable = false,
-                dateText = "Ontem"
-            )
-        )
+        // Título vindo da tela de pesquisa
+        val tituloPesquisado = intent.getStringExtra("titulo_pesquisado") ?: ""
 
-        // Clique: se conter "O Quinze", abre o popup
-        rv.adapter = HistoryAdapter(resultados) { livro ->
-            if (livro.title.contains("O Quinze", ignoreCase = true)) {
-                startActivity(Intent(this, PopupResultadosUsuarioActivity::class.java))
+        buscarLivro(tituloPesquisado)
+    }
+
+    private fun buscarLivro(titulo: String) {
+        db.collection("livros")
+            .whereEqualTo("Titulo", titulo) //  ATENÇÃO → respeita maiúsculas
+            .get()
+            .addOnSuccessListener { result ->
+
+                if (!result.isEmpty) {
+                    val doc = result.documents[0]
+
+                    // ========== PEGA OS CAMPOS DO FIREBASE ==========
+                    val tituloLivro = doc.getString("Titulo") ?: "Sem título"
+                    val autorLivro = doc.getString("Autor") ?: "Autor desconhecido"
+                    val disponibilidade = doc.getString("Disponibilidade") ?: "Indefinido"
+
+                    // Cover placeholder (até você colocar imagens reais)
+                    val img = R.drawable.livro_padrao
+
+                    val livro = HistoryBook(
+                        title = tituloLivro,
+                        author = autorLivro,
+                        coverRes = img,
+                        availabilityText = disponibilidade,
+                        isAvailable = !disponibilidade.contains("Indisponível", true),
+                        dateText = "Hoje",
+                        statusText = null
+                    )
+
+                    // Mostra o item na lista
+                    rv.adapter = HistoryAdapter(listOf(livro)) { item ->
+                        // Abre popup com detalhes
+                        startActivity(Intent(this, PopupResultadosUsuarioActivity::class.java))
+                    }
+                } else {
+                    // Resultado vazio (não precisa tela separada)
+                    rv.adapter = HistoryAdapter(emptyList()) { }
+                }
             }
-        }
+            .addOnFailureListener {
+                // Erro → lista vazia
+                rv.adapter = HistoryAdapter(emptyList()) { }
+            }
     }
 }
