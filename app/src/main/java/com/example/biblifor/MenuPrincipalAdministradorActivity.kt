@@ -56,16 +56,17 @@ class MenuPrincipalAdministradorActivity : BaseActivity() {
         val tvOlaAdm = findViewById<TextView>(R.id.leoOlaAdministrador37)
         val tvMatriculaAdm = findViewById<TextView>(R.id.leoMatriculaAdministrador37)
 
-        // Atualiza cabeçalho dinamicamente
+        // Exibe no XML
         tvOlaAdm.text = if (!nomeAdm.isNullOrEmpty()) "Olá, $nomeAdm" else "Olá, Administrador"
         tvMatriculaAdm.text = matriculaAdm ?: ""
 
-        // Carrega últimos avisos do administrador logado
+        // Carrega últimos avisos
         if (matriculaAdm != null) {
             carregarUltimosAvisos(matriculaAdm)
         } else {
             Log.e("ADM", "⚠️ Nenhuma matrícula de administrador encontrada")
         }
+
 
         // ===== PERFIL (foto -> abre perfil do administrador) =====
         findViewById<ImageView>(R.id.leoFotoAdministrador37).setOnClickListener {

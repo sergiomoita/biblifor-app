@@ -3,30 +3,18 @@ package com.example.biblifor
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.biblifor.adapter.AvisoAdapter
-import com.example.biblifor.model.Aviso
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.ktx.firestore
 import java.text.Normalizer
 
 class MenuPrincipalUsuarioActivity : BaseActivity() {
-
-    private lateinit var db: FirebaseFirestore
-    private lateinit var rvUltimosAvisos: RecyclerView
-    private lateinit var adapterAvisos: AvisoAdapter
-    private val listaUltimosAvisos = mutableListOf<Aviso>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,40 +27,41 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             insets
         }
 
-        // ==== Inicializa Firestore ====
-        db = Firebase.firestore
+        //matricula
+        val matriculaRecebida = intent.getStringExtra("matricula")
 
-        // ==== Configuração da RecyclerView ====
-        rvUltimosAvisos = findViewById(R.id.rvUltimosAvisos)
-        rvUltimosAvisos.layoutManager = LinearLayoutManager(this)
-        adapterAvisos = AvisoAdapter(listaUltimosAvisos)
-        rvUltimosAvisos.adapter = adapterAvisos
-
-        // ==== Recupera nome e matrícula do usuário logado ====
-        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
-        val matriculaUser = prefs.getString("MATRICULA_USER", null)
-        val nomeUser = prefs.getString("NOME_USER", null)
-
-        // ==== Atualiza cabeçalho ====
+        //textview
         val txtNome = findViewById<TextView>(R.id.leoOlaUsuario3)
         val txtMatricula = findViewById<TextView>(R.id.leoMatricula3)
 
-        if (!nomeUser.isNullOrEmpty()) {
-            txtNome.text = "Olá, $nomeUser"
+        //buscar dados firebase
+        if (matriculaRecebida != null) {
+            val db = FirebaseFirestore.getInstance()
+
+            db.collection("alunos")
+                .document(matriculaRecebida)
+                .get()
+                .addOnSuccessListener { doc ->
+                    if (doc.exists()) {
+                        val nome = doc.getString("nome") ?: "Usuário"
+                        val matricula = doc.getString("matricula") ?: matriculaRecebida
+
+                        txtNome.text = "Olá, $nome"
+                        txtMatricula.text = matricula
+                    } else {
+                        txtNome.text = "Usuário não encontrado"
+                        txtMatricula.text = ""
+                    }
+                }
+                .addOnFailureListener {
+                    txtNome.text = "Erro ao carregar"
+                }
         } else {
-            txtNome.text = "Olá, usuário"
+            txtNome.text = "Usuário"
         }
 
-        txtMatricula.text = matriculaUser ?: "—"
+        //restante do codigo
 
-        // ==== Carrega últimos avisos se matrícula válida ====
-        if (matriculaUser != null) {
-            carregarUltimosAvisos(matriculaUser)
-        } else {
-            Log.e("AVISOS", "⚠️ Nenhuma matrícula de usuário encontrada")
-        }
-
-        // ==== BOTÕES DE SEÇÕES ====
         val btnHistorico = findViewById<LinearLayout>(R.id.btnHistorico)
         val btnFavoritos = findViewById<LinearLayout>(R.id.btnFavoritos)
         val btnAvisos = findViewById<LinearLayout>(R.id.btnAvisos)
@@ -89,12 +78,11 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        // ==== PERFIL ====
-        findViewById<ImageView>(R.id.leoFotoUser3).setOnClickListener {
+        val imagemPerfil = findViewById<ImageView>(R.id.leoFotoUser3)
+        imagemPerfil.setOnClickListener {
             startActivity(Intent(this, PerfilUsuarioActivity::class.java))
         }
 
-        // ==== ACESSIBILIDADE ====
         val imagemAcessibilidade = findViewById<ImageView>(R.id.leoAcessibilidade3)
         val inputPesquisa = findViewById<EditText>(R.id.leoPesquisa3)
 
@@ -105,7 +93,9 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             findViewById(R.id.leoTituloHistorico3),
             findViewById(R.id.leoLegendaEmaDeitada3),
             findViewById(R.id.leoFavoritos3),
-            findViewById(R.id.leoUltimosAvisos3)
+            findViewById(R.id.leoUltimosAvisos3),
+            findViewById(R.id.leoAviso3),
+            findViewById(R.id.leoAviso4)
         )
 
         val coresOriginais = textosParaAcessibilidade.map { it to it.currentTextColor }
@@ -124,7 +114,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             acessibilidadeAtiva = !acessibilidadeAtiva
         }
 
-        // ==== NAVEGAÇÃO INFERIOR ====
         findViewById<ImageView>(R.id.leoNotificacao3).setOnClickListener {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
@@ -145,7 +134,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        // ==== PESQUISA ====
         val imagemLupa = findViewById<ImageView>(R.id.leoLupaPesquisa3)
         imagemLupa.setOnClickListener {
             val textoBruto = inputPesquisa.text?.toString()?.trim().orEmpty()
@@ -159,31 +147,5 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
                 else -> startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
             }
         }
-    }
-
-    // ==== LER 3 ÚLTIMOS AVISOS ====
-    private fun carregarUltimosAvisos(matricula: String) {
-        db.collection("mensagens")
-            .whereEqualTo("matricula", matricula)
-            .orderBy("data", Query.Direction.DESCENDING)
-            .limit(3)
-            .get()
-            .addOnSuccessListener { result ->
-                listaUltimosAvisos.clear()
-                for (doc in result) {
-                    val aviso = Aviso(
-                        titulo = doc.getString("titulo") ?: "",
-                        mensagem = doc.getString("mensagem") ?: "",
-                        matricula = doc.getString("matricula") ?: "",
-                        matriculaAdm = doc.getString("matriculaAdm") ?: "",
-                        data = doc.getTimestamp("data")
-                    )
-                    listaUltimosAvisos.add(aviso)
-                }
-                adapterAvisos.notifyDataSetChanged()
-            }
-            .addOnFailureListener { e ->
-                Log.e("AVISOS", "❌ Erro ao carregar avisos: ${e.localizedMessage}")
-            }
     }
 }
