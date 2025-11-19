@@ -1,20 +1,42 @@
 package com.example.biblifor
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.biblifor.util.bitmapToBase64
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CadastrarLivroAdministradorActivity : BaseActivity() {
 
     private lateinit var fb: FirebaseFirestore
+
+    // IMAGEM DO LIVRO
+    private lateinit var btnImagemLivro: Button
+    private var imagemLivroBase64: String? = null
+
+    private val seletorImagemLivro =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                val input = contentResolver.openInputStream(uri)
+                val bitmap = BitmapFactory.decodeStream(input)
+                input?.close()
+
+                if (bitmap != null) {
+                    imagemLivroBase64 = bitmapToBase64(bitmap)
+                    // feedback simples de que a imagem foi escolhida
+                    btnImagemLivro.text = "Imagem selecionada"
+                }
+            }
+        }
 
     // ========= FUNÇÕES AUXILIARES =========
     private fun validarCampo(et: EditText, label: String) {
@@ -110,6 +132,11 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         val etQtd = findViewById<EditText>(R.id.lopesQtd38)
         val etCodigoAcervo = findViewById<EditText>(R.id.lopesLocaliza38)
 
+        // BOTÃO DE IMAGEM DO LIVRO
+        btnImagemLivro = findViewById(R.id.lopesBtnImagem38)
+        btnImagemLivro.setOnClickListener {
+            seletorImagemLivro.launch("image/*")
+        }
 
         // ====== BOTÕES ======
         val btnFisico = findViewById<Button>(R.id.btnDispoFisico)
@@ -158,8 +185,8 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
                     else -> "Não informado"
                 }
 
-                // imagem placeholder
-                val imagemString = "imagem aqui"
+                // IMAGEM DO LIVRO EM BASE64 (ou vazio se não escolheu)
+                val imagemString = imagemLivroBase64 ?: ""
 
                 val dadosLivro = mapOf(
                     "Titulo" to etTitulo.text.toString(),
@@ -185,8 +212,17 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
                         .document(nomeLivro) // título como ID
                         .set(dadosLivro)
                         .addOnSuccessListener {
-                            Toast.makeText(this, "Livro cadastrado com sucesso!", Toast.LENGTH_LONG).show()
-                            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+                            Toast.makeText(
+                                this,
+                                "Livro cadastrado com sucesso!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            startActivity(
+                                Intent(
+                                    this,
+                                    MenuPrincipalAdministradorActivity::class.java
+                                )
+                            ); finish()
                         }
                         .addOnFailureListener {
                             showErrorToast("Erro ao cadastrar livro.")
