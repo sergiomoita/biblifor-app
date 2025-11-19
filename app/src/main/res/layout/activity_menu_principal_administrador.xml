@@ -62,7 +62,7 @@
                     android:id="@+id/leoFotoAdministrador37"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:src="@drawable/foto_adm" />
+                    tools:src="@drawable/foto_adm" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -298,8 +298,7 @@
                     android:text="Nova Mensagem"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/leoBotaoNovaMensagem237"

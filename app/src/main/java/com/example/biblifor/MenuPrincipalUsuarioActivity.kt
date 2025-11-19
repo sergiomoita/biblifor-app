@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblifor.adapter.AvisoAdapter
 import com.example.biblifor.model.Aviso
+import com.example.biblifor.util.base64ToBitmap
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
@@ -56,6 +57,7 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         // ==== Atualiza cabeçalho ====
         val txtNome = findViewById<TextView>(R.id.leoOlaUsuario3)
         val txtMatricula = findViewById<TextView>(R.id.leoMatricula3)
+        val imgFotoUser = findViewById<ImageView>(R.id.leoFotoUser3)
 
         if (!nomeUser.isNullOrEmpty()) {
             txtNome.text = "Olá, $nomeUser"
@@ -65,8 +67,9 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
 
         txtMatricula.text = matriculaUser ?: "—"
 
-        // ==== Carrega últimos avisos se matrícula válida ====
+        // ==== Carrega foto de perfil do aluno logado ====
         if (matriculaUser != null) {
+            carregarFotoPerfilAluno(matriculaUser, imgFotoUser)
             carregarUltimosAvisos(matriculaUser)
         } else {
             Log.e("AVISOS", "⚠️ Nenhuma matrícula de usuário encontrada")
@@ -90,7 +93,7 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         }
 
         // ==== PERFIL ====
-        findViewById<ImageView>(R.id.leoFotoUser3).setOnClickListener {
+        imgFotoUser.setOnClickListener {
             startActivity(Intent(this, PerfilUsuarioActivity::class.java))
         }
 
@@ -184,6 +187,33 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             }
             .addOnFailureListener { e ->
                 Log.e("AVISOS", "❌ Erro ao carregar avisos: ${e.localizedMessage}")
+            }
+    }
+
+    // ==== NOVO: carregar fotoPerfil do aluno logado ====
+    private fun carregarFotoPerfilAluno(matricula: String, imageView: ImageView) {
+        db.collection("alunos")
+            .document(matricula)
+            .get()
+            .addOnSuccessListener { doc ->
+                if (doc != null && doc.exists()) {
+                    val fotoBase64 = doc.getString("fotoPerfil")
+                    if (!fotoBase64.isNullOrEmpty()) {
+                        val bitmap = base64ToBitmap(fotoBase64)
+                        if (bitmap != null) {
+                            imageView.setImageBitmap(bitmap)
+                        } else {
+                            Log.e("FOTO_PERFIL", "Falha ao decodificar bitmap para $matricula")
+                        }
+                    } else {
+                        Log.d("FOTO_PERFIL", "fotoPerfil vazio para $matricula")
+                    }
+                } else {
+                    Log.e("FOTO_PERFIL", "Documento de aluno não encontrado para $matricula")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FOTO_PERFIL", "Erro ao buscar foto: ${e.localizedMessage}")
             }
     }
 }

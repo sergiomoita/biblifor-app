@@ -62,7 +62,7 @@
                     android:id="@+id/leoFotoUser3"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
-                    android:src="@drawable/foto_user" />
+                    tools:src="@drawable/foto_user" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -307,7 +307,7 @@
                 android:layout_marginTop="10dp"
                 android:clipToPadding="false"
                 android:padding="4dp"
-                tools:listitem="@layout/item_aviso"/>
+                tools:listitem="@layout/item_aviso" />
 
         </LinearLayout>
     </ScrollView>

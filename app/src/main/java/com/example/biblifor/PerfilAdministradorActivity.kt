@@ -2,11 +2,13 @@ package com.example.biblifor
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.biblifor.util.base64ToBitmap
 import com.google.firebase.firestore.FirebaseFirestore
 
 class PerfilAdministradorActivity : BaseActivity() {
@@ -19,6 +21,7 @@ class PerfilAdministradorActivity : BaseActivity() {
 
         db = FirebaseFirestore.getInstance()
 
+        // ===== RecyclerView de histórico (exemplo fixo) =====
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerHistorico42)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -34,24 +37,71 @@ class PerfilAdministradorActivity : BaseActivity() {
         )
         recyclerView.adapter = HistoricoEmprestimoAdapter(historico)
 
-        // Referências aos TextViews do layout
-        val nomeAdm = findViewById<TextView>(R.id.leoNomeCompletoAdmPADM42)
-        val funcaoAdm = findViewById<TextView>(R.id.leoNomeFuncaoAdmPADM42)
-        val matriculaAdm = findViewById<TextView>(R.id.leoMatriculaAdmPADM42)
+        // ===== Views de texto e foto =====
+        val nomeHeaderTextView = findViewById<TextView>(R.id.leoNomeAdmPADM42)
+        val matriculaHeaderTextView = findViewById<TextView>(R.id.leoMatriculaAdmPADM42)
 
-        db.collection("administrador").document("123").get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    nomeAdm.text = document.getString("nome") ?: "Nome não encontrado"
-                    funcaoAdm.text = document.getString("cargo") ?: "Cargo não encontrado"
-                    matriculaAdm.text = document.getString("matricula") ?: "Sem matrícula"
-                } else {
-                    nomeAdm.text = "Erro ao carregar"
+        val nomeCompletoBoxTextView = findViewById<TextView>(R.id.leoNomeCompletoAdmPADM42)
+        val funcaoTextView = findViewById<TextView>(R.id.leoNomeFuncaoAdmPADM42)
+        val matriculaBoxTextView = findViewById<TextView>(R.id.leoMatriculaAdmPADM42)
+
+        val fotoPerfilImageView = findViewById<ImageView>(R.id.leoFotoPerfilAdmPADM42)
+
+        // ===== Recupera ADM logado do SharedPreferences =====
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
+        val nomeAdmPrefs = prefs.getString("NOME_ADM", null)
+
+        if (matriculaAdm == null) {
+            nomeHeaderTextView.text = "Administrador não encontrado"
+            nomeCompletoBoxTextView.text = "Administrador não encontrado"
+            Log.e("PERFIL_ADM", "Nenhuma MATRÍCULA_ADM salva em APP_PREFS")
+        } else {
+            // Busca documento do administrador logado
+            db.collection("administrador")
+                .document(matriculaAdm)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val nome = document.getString("nome") ?: ""
+                        val cargo = document.getString("cargo") ?: ""
+                        val matricula = document.getString("matricula") ?: ""
+                        val fotoBase64 = document.getString("fotoPerfil")
+
+                        // Cabeçalho
+                        nomeHeaderTextView.text =
+                            if (nome.isNotEmpty()) nome else (nomeAdmPrefs ?: "Administrador")
+                        matriculaHeaderTextView.text =
+                            if (matricula.isNotEmpty()) matricula else matriculaAdm
+
+                        // Boxes de informação
+                        nomeCompletoBoxTextView.text = if (nome.isNotEmpty()) nome else "Nome não encontrado"
+                        funcaoTextView.text = if (cargo.isNotEmpty()) cargo else "Cargo não encontrado"
+                        matriculaBoxTextView.text =
+                            if (matricula.isNotEmpty()) matricula else "Sem matrícula"
+
+                        // Foto de perfil (Base64 -> Bitmap)
+                        if (!fotoBase64.isNullOrEmpty()) {
+                            val bitmap = base64ToBitmap(fotoBase64)
+                            if (bitmap != null) {
+                                fotoPerfilImageView.setImageBitmap(bitmap)
+                            } else {
+                                Log.e("PERFIL_ADM", "Falha ao decodificar fotoPerfil para $matriculaAdm")
+                            }
+                        } else {
+                            Log.d("PERFIL_ADM", "fotoPerfil vazio para $matriculaAdm")
+                        }
+                    } else {
+                        nomeHeaderTextView.text = "Administrador não encontrado"
+                        nomeCompletoBoxTextView.text = "Administrador não encontrado"
+                    }
                 }
-            }
-            .addOnFailureListener {
-                nomeAdm.text = "Falha ao conectar ao Firestore"
-            }
+                .addOnFailureListener { e ->
+                    nomeHeaderTextView.text = "Erro ao carregar dados"
+                    nomeCompletoBoxTextView.text = "Erro ao carregar dados"
+                    Log.e("PERFIL_ADM", "Erro ao buscar administrador: ${e.localizedMessage}")
+                }
+        }
 
         // 🔙 Botão de voltar
         findViewById<ImageView>(R.id.leoImagemSetaPADM42).setOnClickListener {

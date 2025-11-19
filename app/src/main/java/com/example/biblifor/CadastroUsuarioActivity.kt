@@ -1,24 +1,15 @@
 package com.example.biblifor
 
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.biblifor.util.bitmapToBase64
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-
-//esse é um teste pra mostrar o git
-
-//teste pra mostrar de novo
-
-//teste davi pra aparecer
- //abacaxi
-
-//teste gustavo pra mostrar okokokok
-
-// oi lopes
-
 
 class CadastroUsuarioActivity : BaseActivity() {
 
@@ -30,8 +21,41 @@ class CadastroUsuarioActivity : BaseActivity() {
     private lateinit var groupAdmin: LinearLayout
     private lateinit var btnCadastrar: Button
 
+    private lateinit var imgFotoPerfilAluno: ImageView
+    private lateinit var imgFotoPerfilAdmin: ImageView
+    private var fotoAlunoBase64: String? = null
+    private var fotoAdminBase64: String? = null
+
     private var tipoSelecionado: Tipo? = null
     private val db = Firebase.firestore
+
+    private val seletorImagemAluno =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                val input = contentResolver.openInputStream(uri)
+                val bitmap = BitmapFactory.decodeStream(input)
+                input?.close()
+
+                if (bitmap != null) {
+                    imgFotoPerfilAluno.setImageBitmap(bitmap)
+                    fotoAlunoBase64 = bitmapToBase64(bitmap)
+                }
+            }
+        }
+
+    private val seletorImagemAdmin =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                val input = contentResolver.openInputStream(uri)
+                val bitmap = BitmapFactory.decodeStream(input)
+                input?.close()
+
+                if (bitmap != null) {
+                    imgFotoPerfilAdmin.setImageBitmap(bitmap)
+                    fotoAdminBase64 = bitmapToBase64(bitmap)
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +66,12 @@ class CadastroUsuarioActivity : BaseActivity() {
         groupAluno = findViewById(R.id.groupAluno)
         groupAdmin = findViewById(R.id.groupAdministrador)
         btnCadastrar = findViewById(R.id.btnAcessarLoginUsuarioSergio)
+
+        imgFotoPerfilAluno = findViewById(R.id.imgFotoPerfilAluno)
+        imgFotoPerfilAdmin = findViewById(R.id.imgFotoPerfilAdmin)
+
+        imgFotoPerfilAluno.setOnClickListener { seletorImagemAluno.launch("image/*") }
+        imgFotoPerfilAdmin.setOnClickListener { seletorImagemAdmin.launch("image/*") }
 
         btnAluno.setOnClickListener {
             tipoSelecionado = Tipo.ALUNO
@@ -57,26 +87,32 @@ class CadastroUsuarioActivity : BaseActivity() {
             destacarSelecionado(btnAdmin, btnAluno)
         }
 
-        btnCadastrar.setOnClickListener {
-            if (tipoSelecionado == null) {
-                toast("Selecione Aluno ou Administrador.")
-                return@setOnClickListener
-            }
+        // DESATIVAR AUTOFILL NOS CAMPOS DE SENHA
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            findViewById<EditText>(R.id.inputSenhaAluno).importantForAutofill =
+                View.IMPORTANT_FOR_AUTOFILL_NO
+            findViewById<EditText>(R.id.inputSenhaAdmin).importantForAutofill =
+                View.IMPORTANT_FOR_AUTOFILL_NO
+        }
 
+        btnCadastrar.setOnClickListener {
             when (tipoSelecionado) {
                 Tipo.ALUNO -> cadastrarAluno()
                 Tipo.ADMIN -> cadastrarAdmin()
-                else -> Unit
+                null -> {
+                    // aqui NÃO lança exceção, só avisa o usuário
+                    toast("Selecione Aluno ou Administrador.")
+                }
             }
         }
     }
 
     // ====== ALUNO ======
     private fun cadastrarAluno() {
-        val curso = findViewById<EditText>(R.id.inputCursoAluno).text.toString().trim()
-        val matricula = findViewById<EditText>(R.id.inputMatriculaAluno).text.toString().trim()
-        val nome = findViewById<EditText>(R.id.inputNomeAluno).text.toString().trim()
-        val senha = findViewById<EditText>(R.id.inputSenhaAluno).text.toString().trim()
+        val curso = findViewById<EditText>(R.id.inputCursoAluno).text.toString()
+        val matricula = findViewById<EditText>(R.id.inputMatriculaAluno).text.toString()
+        val nome = findViewById<EditText>(R.id.inputNomeAluno).text.toString()
+        val senha = findViewById<EditText>(R.id.inputSenhaAluno).text.toString()
 
         if (curso.isEmpty() || matricula.isEmpty() || nome.isEmpty() || senha.isEmpty()) {
             toast("Preencha todos os campos do Aluno.")
@@ -88,10 +124,10 @@ class CadastroUsuarioActivity : BaseActivity() {
             "curso" to curso,
             "matricula" to matricula,
             "nome" to nome,
-            "senha" to senha
+            "senha" to senha,
+            "fotoPerfil" to (fotoAlunoBase64 ?: "")
         )
 
-        // Cria documento com ID = matrícula (ou atualiza se já existir)
         db.collection("alunos").document(matricula)
             .set(dados)
             .addOnSuccessListener {
@@ -105,10 +141,10 @@ class CadastroUsuarioActivity : BaseActivity() {
 
     // ====== ADMIN ======
     private fun cadastrarAdmin() {
-        val cargo = findViewById<EditText>(R.id.inputCargoAdmin).text.toString().trim()
-        val matricula = findViewById<EditText>(R.id.inputMatriculaAdmin).text.toString().trim()
-        val nome = findViewById<EditText>(R.id.inputNomeAdmin).text.toString().trim()
-        val senha = findViewById<EditText>(R.id.inputSenhaAdmin).text.toString().trim()
+        val cargo = findViewById<EditText>(R.id.inputCargoAdmin).text.toString()
+        val matricula = findViewById<EditText>(R.id.inputMatriculaAdmin).text.toString()
+        val nome = findViewById<EditText>(R.id.inputNomeAdmin).text.toString()
+        val senha = findViewById<EditText>(R.id.inputSenhaAdmin).text.toString()
 
         if (cargo.isEmpty() || matricula.isEmpty() || nome.isEmpty() || senha.isEmpty()) {
             toast("Preencha todos os campos do Administrador.")
@@ -120,10 +156,10 @@ class CadastroUsuarioActivity : BaseActivity() {
             "cargo" to cargo,
             "matricula" to matricula,
             "nome" to nome,
-            "senha" to senha
+            "senha" to senha,
+            "fotoPerfil" to (fotoAdminBase64 ?: "")
         )
 
-        // Cria documento com ID = matrícula (ou atualiza se já existir)
         db.collection("administrador").document(matricula)
             .set(dados)
             .addOnSuccessListener {
@@ -144,14 +180,13 @@ class CadastroUsuarioActivity : BaseActivity() {
     }
 
     private fun destacarSelecionado(selecionado: Button, outro: Button) {
-        selecionado.backgroundTintList =
-            android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#002A50"))
+        selecionado.setBackgroundColor(android.graphics.Color.parseColor("#002A50"))
         selecionado.setTextColor(android.graphics.Color.WHITE)
 
-        outro.backgroundTintList =
-            android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#004070"))
+        outro.setBackgroundColor(android.graphics.Color.parseColor("#004070"))
         outro.setTextColor(android.graphics.Color.WHITE)
     }
 
-    private fun toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun toast(msg: String) =
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

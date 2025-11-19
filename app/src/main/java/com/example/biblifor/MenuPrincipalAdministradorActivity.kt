@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblifor.adapter.AvisoAdapter
 import com.example.biblifor.model.Aviso
+import com.example.biblifor.util.base64ToBitmap
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
@@ -48,27 +49,30 @@ class MenuPrincipalAdministradorActivity : BaseActivity() {
         adapterAvisos = AvisoAdapter(listaUltimosAvisos)
         rvUltimosEventos.adapter = adapterAvisos
 
+        // ===== Views de cabeçalho =====
+        val tvOlaAdm = findViewById<TextView>(R.id.leoOlaAdministrador37)
+        val tvMatriculaAdm = findViewById<TextView>(R.id.leoMatriculaAdministrador37)
+        val imgFotoAdm = findViewById<ImageView>(R.id.leoFotoAdministrador37)
+
         // ===== Recupera matrícula e nome do administrador logado =====
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
         val nomeAdm = prefs.getString("NOME_ADM", null)
 
-        val tvOlaAdm = findViewById<TextView>(R.id.leoOlaAdministrador37)
-        val tvMatriculaAdm = findViewById<TextView>(R.id.leoMatriculaAdministrador37)
-
         // Atualiza cabeçalho dinamicamente
         tvOlaAdm.text = if (!nomeAdm.isNullOrEmpty()) "Olá, $nomeAdm" else "Olá, Administrador"
         tvMatriculaAdm.text = matriculaAdm ?: ""
 
-        // Carrega últimos avisos do administrador logado
+        // Carrega foto e últimos avisos do administrador logado
         if (matriculaAdm != null) {
+            carregarFotoPerfilAdmin(matriculaAdm, imgFotoAdm)
             carregarUltimosAvisos(matriculaAdm)
         } else {
             Log.e("ADM", "⚠️ Nenhuma matrícula de administrador encontrada")
         }
 
         // ===== PERFIL (foto -> abre perfil do administrador) =====
-        findViewById<ImageView>(R.id.leoFotoAdministrador37).setOnClickListener {
+        imgFotoAdm.setOnClickListener {
             startActivity(Intent(this, PerfilAdministradorActivity::class.java))
         }
 
@@ -176,6 +180,33 @@ class MenuPrincipalAdministradorActivity : BaseActivity() {
             }
             .addOnFailureListener { e ->
                 Log.e("AVISOS_ADM", "❌ Erro ao carregar avisos do administrador: ${e.localizedMessage}")
+            }
+    }
+
+    // ==== NOVO: carregar fotoPerfil do administrador logado ====
+    private fun carregarFotoPerfilAdmin(matriculaAdm: String, imageView: ImageView) {
+        db.collection("administrador")
+            .document(matriculaAdm)
+            .get()
+            .addOnSuccessListener { doc ->
+                if (doc != null && doc.exists()) {
+                    val fotoBase64 = doc.getString("fotoPerfil")
+                    if (!fotoBase64.isNullOrEmpty()) {
+                        val bitmap = base64ToBitmap(fotoBase64)
+                        if (bitmap != null) {
+                            imageView.setImageBitmap(bitmap)
+                        } else {
+                            Log.e("FOTO_ADM", "Falha ao decodificar fotoPerfil para $matriculaAdm")
+                        }
+                    } else {
+                        Log.d("FOTO_ADM", "fotoPerfil vazio para $matriculaAdm")
+                    }
+                } else {
+                    Log.e("FOTO_ADM", "Documento de administrador não encontrado para $matriculaAdm")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FOTO_ADM", "Erro ao buscar foto do administrador: ${e.localizedMessage}")
             }
     }
 }

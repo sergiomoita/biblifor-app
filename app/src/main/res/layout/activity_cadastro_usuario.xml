@@ -30,23 +30,9 @@
             android:text="Cadastro ao Biblifor"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center" />
+            android:textSize="18sp" />
 
-        <!-- Subtítulo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingHorizontal="16dp"
-            android:text="Aqui você encontra funcionalidades da biblioteca da Universidade de Fortaleza."
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center" />
-
-        <!-- Seletor de Tipo de Usuário -->
+        <!-- Seletor Aluno/Admin -->
         <LinearLayout
             android:id="@+id/selectorTipoUsuario"
             android:layout_width="match_parent"
@@ -61,7 +47,6 @@
                 android:layout_height="44dp"
                 android:layout_weight="1"
                 android:text="Aluno"
-                android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#004070" />
 
@@ -75,7 +60,6 @@
                 android:layout_height="44dp"
                 android:layout_weight="1"
                 android:text="Administrador"
-                android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#00335A" />
         </LinearLayout>
@@ -95,8 +79,26 @@
                 android:text="Dados do Aluno"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_semibold" />
+                android:textSize="16sp" />
+
+            <!-- FOTO DE PERFIL DO ALUNO -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Foto de Perfil"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp" />
+
+            <ImageView
+                android:id="@+id/imgFotoPerfilAluno"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/pfpdefault"
+                android:background="@drawable/rounded_edittext"
+                android:scaleType="centerCrop"
+                android:padding="8dp" />
 
             <EditText
                 android:id="@+id/inputCursoAluno"
@@ -104,10 +106,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="14dp"
                 android:hint="Curso"
+                android:inputType="text"
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="textCapWords" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/inputMatriculaAluno"
@@ -115,10 +117,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:hint="Matrícula"
+                android:inputType="text"
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="number" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/inputNomeAluno"
@@ -126,10 +128,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:hint="Nome"
+                android:inputType="text"
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="textCapWords" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/inputSenhaAluno"
@@ -137,10 +139,12 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:hint="Senha"
+                android:inputType="textPassword"
+                android:importantForAutofill="no"
+                android:autofillHints=""
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="textPassword" />
+                android:textColor="#000000" />
         </LinearLayout>
 
         <!-- ===== CAMPOS DO ADMINISTRADOR ===== -->
@@ -158,8 +162,26 @@
                 android:text="Dados do Administrador"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_semibold" />
+                android:textSize="16sp" />
+
+            <!-- FOTO DE PERFIL DO ADMIN -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Foto de Perfil"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp" />
+
+            <ImageView
+                android:id="@+id/imgFotoPerfilAdmin"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/pfpdefault"
+                android:background="@drawable/rounded_edittext"
+                android:scaleType="centerCrop"
+                android:padding="8dp" />
 
             <EditText
                 android:id="@+id/inputCargoAdmin"
@@ -167,10 +189,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="14dp"
                 android:hint="Cargo"
+                android:inputType="text"
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="textCapWords" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/inputMatriculaAdmin"
@@ -178,10 +200,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:hint="Matrícula"
+                android:inputType="text"
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="number" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/inputNomeAdmin"
@@ -189,10 +211,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:hint="Nome"
+                android:inputType="text"
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="textCapWords" />
+                android:textColor="#000000" />
 
             <EditText
                 android:id="@+id/inputSenhaAdmin"
@@ -200,10 +222,12 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:hint="Senha"
+                android:inputType="textPassword"
+                android:importantForAutofill="no"
+                android:autofillHints=""
                 android:background="@drawable/rounded_edittext"
                 android:paddingHorizontal="16dp"
-                android:textColor="#000000"
-                android:inputType="textPassword" />
+                android:textColor="#000000" />
         </LinearLayout>
 
         <!-- Botão Cadastrar -->
@@ -215,20 +239,7 @@
             android:backgroundTint="#004070"
             android:text="Cadastrar"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium" />
-
-        <!-- Texto inferior -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:text="BIBLIFOR"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>
