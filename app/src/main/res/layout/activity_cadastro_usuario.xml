@@ -13,12 +13,23 @@
         android:gravity="center_horizontal"
         android:padding="24dp">
 
+        <!-- Seta de voltar -->
+        <ImageView
+            android:id="@+id/btnVoltarCadastro"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/seta"
+            android:tint="#FFFFFF" />
+
         <!-- Logo -->
         <ImageView
             android:id="@+id/logoLoginUsuarioSergio"
             android:layout_width="154dp"
             android:layout_height="168dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="24dp"
             android:contentDescription="Logo Biblifor"
             android:src="@drawable/logo_unifor" />
 

@@ -70,6 +70,14 @@ class CadastroUsuarioActivity : BaseActivity() {
         imgFotoPerfilAluno = findViewById(R.id.imgFotoPerfilAluno)
         imgFotoPerfilAdmin = findViewById(R.id.imgFotoPerfilAdmin)
 
+        // SETA DE VOLTAR PARA LOGIN
+        val btnVoltarCadastro: ImageView = findViewById(R.id.btnVoltarCadastro)
+        btnVoltarCadastro.setOnClickListener {
+            val intent = Intent(this, LoginUsuarioActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         imgFotoPerfilAluno.setOnClickListener { seletorImagemAluno.launch("image/*") }
         imgFotoPerfilAdmin.setOnClickListener { seletorImagemAdmin.launch("image/*") }
 
