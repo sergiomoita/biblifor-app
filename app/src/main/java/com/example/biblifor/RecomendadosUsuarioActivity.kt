@@ -120,6 +120,7 @@ class RecomendadosUsuarioActivity : BaseActivity() {
 
     private fun carregarLivrosDoFirebase() {
         db.collection("livros")
+            .whereEqualTo("recomendar", true)   // 🔥 AGORA FILTRA APENAS RECOMENDADOS
             .get()
             .addOnSuccessListener { result ->
                 allRecomendados.clear()
@@ -152,6 +153,7 @@ class RecomendadosUsuarioActivity : BaseActivity() {
                 aplicarEstiloBotoes()
             }
     }
+
 
     // 🔥 FILTRO — IGUAL AO DAS OUTRAS TELAS
     private fun configurarFiltroTexto() {
