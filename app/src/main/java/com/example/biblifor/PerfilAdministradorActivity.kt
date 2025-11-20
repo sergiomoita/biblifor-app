@@ -1,19 +1,62 @@
 package com.example.biblifor
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblifor.util.base64ToBitmap
+import com.example.biblifor.util.bitmapToBase64
 import com.google.firebase.firestore.FirebaseFirestore
 
 class PerfilAdministradorActivity : BaseActivity() {
 
     private lateinit var db: FirebaseFirestore
+
+    // guarda a matrícula do ADM para usar no callback do seletor
+    private var admIdForEdit: String? = null
+
+    // Abre seletor externo (Google Fotos/galeria) e trata o retorno
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri == null) return@registerForActivityResult
+
+            try {
+                contentResolver.openInputStream(uri)?.use { input ->
+                    val bitmap = BitmapFactory.decodeStream(input)
+                    if (bitmap == null) {
+                        Toast.makeText(this, "Não foi possível carregar a imagem.", Toast.LENGTH_SHORT).show()
+                        return@registerForActivityResult
+                    }
+
+                    val base64 = bitmapToBase64(bitmap)
+                    val admId = admIdForEdit
+                    if (admId.isNullOrEmpty()) {
+                        Toast.makeText(this, "Administrador não identificado.", Toast.LENGTH_SHORT).show()
+                        return@registerForActivityResult
+                    }
+
+                    db.collection("administrador").document(admId)
+                        .update(mapOf("fotoPerfil" to base64))
+                        .addOnSuccessListener {
+                            // reflete na UI imediatamente
+                            findViewById<ImageView>(R.id.leoFotoPerfilAdmPADM42).setImageBitmap(bitmap)
+                            Toast.makeText(this, "Foto de perfil atualizada!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Erro ao atualizar foto: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                        }
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "Falha ao abrir a imagem.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +89,13 @@ class PerfilAdministradorActivity : BaseActivity() {
         val matriculaBoxTextView = findViewById<TextView>(R.id.leoMatriculaAdmPADM42)
 
         val fotoPerfilImageView = findViewById<ImageView>(R.id.leoFotoPerfilAdmPADM42)
+        val botaoEditarPerfilAdmNew = findViewById<ImageView>(R.id.leoBotaoEditarPerfilAdmNew)
 
         // ===== Recupera ADM logado do SharedPreferences =====
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
         val nomeAdmPrefs = prefs.getString("NOME_ADM", null)
+        admIdForEdit = matriculaAdm
 
         if (matriculaAdm == null) {
             nomeHeaderTextView.text = "Administrador não encontrado"
@@ -101,6 +146,15 @@ class PerfilAdministradorActivity : BaseActivity() {
                     nomeCompletoBoxTextView.text = "Erro ao carregar dados"
                     Log.e("PERFIL_ADM", "Erro ao buscar administrador: ${e.localizedMessage}")
                 }
+        }
+
+        // ✏️ Editar foto do perfil do ADM (abre seletor)
+        botaoEditarPerfilAdmNew.setOnClickListener {
+            if (admIdForEdit.isNullOrEmpty()) {
+                Toast.makeText(this, "Administrador não identificado.", Toast.LENGTH_SHORT).show()
+            } else {
+                pickImageLauncher.launch("image/*")
+            }
         }
 
         // 🔙 Botão de voltar

@@ -1,19 +1,62 @@
 package com.example.biblifor
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblifor.util.base64ToBitmap
+import com.example.biblifor.util.bitmapToBase64
 import com.google.firebase.firestore.FirebaseFirestore
 
 class PerfilUsuarioActivity : BaseActivity() {
 
     private val db = FirebaseFirestore.getInstance()
+
+    // Guarda a matrícula do usuário para usar no callback do seletor
+    private var alunoIdForEdit: String? = null
+
+    // Launcher para escolher imagem (abre aba externa como Google Fotos)
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri == null) return@registerForActivityResult
+
+            try {
+                contentResolver.openInputStream(uri)?.use { input ->
+                    val bitmap = BitmapFactory.decodeStream(input)
+                    if (bitmap == null) {
+                        Toast.makeText(this, "Não foi possível carregar a imagem.", Toast.LENGTH_SHORT).show()
+                        return@registerForActivityResult
+                    }
+
+                    val base64 = bitmapToBase64(bitmap)
+                    val idAluno = alunoIdForEdit
+                    if (idAluno.isNullOrEmpty()) {
+                        Toast.makeText(this, "Usuário não identificado.", Toast.LENGTH_SHORT).show()
+                        return@registerForActivityResult
+                    }
+
+                    // Atualiza no Firestore e reflete na UI
+                    db.collection("alunos").document(idAluno)
+                        .update(mapOf("fotoPerfil" to base64))
+                        .addOnSuccessListener {
+                            findViewById<ImageView>(R.id.leoFotoPerfilUsuarioPU5).setImageBitmap(bitmap)
+                            Toast.makeText(this, "Foto de perfil atualizada!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Erro ao atualizar foto: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                        }
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "Falha ao abrir a imagem.", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +70,12 @@ class PerfilUsuarioActivity : BaseActivity() {
         val nomeHeaderTextView = findViewById<TextView>(R.id.leoNomeUserPU5)
         val matriculaHeaderTv  = findViewById<TextView>(R.id.leoMatriculaUserPU5)
         val fotoPerfilImage    = findViewById<ImageView>(R.id.leoFotoPerfilUsuarioPU5)
+        val editarFotoPerfilNew = findViewById<ImageView>(R.id.leoBotaoEditarFotoPerfilNew)
 
         // 🔹 Recupera matrícula do usuário logado (mesmo esquema do menu)
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val idAluno = prefs.getString("MATRICULA_USER", null)
+        alunoIdForEdit = idAluno
 
         if (idAluno == null) {
             nomeHeaderTextView.text = "Usuário não encontrado"
@@ -76,6 +121,11 @@ class PerfilUsuarioActivity : BaseActivity() {
                     nomeBoxTextView.text = "Erro ao carregar dados"
                     Log.e("PERFIL", "Erro ao buscar aluno: ${e.localizedMessage}")
                 }
+        }
+
+        // 🔹 Clique para editar foto de perfil (abre seletor externo)
+        editarFotoPerfilNew.setOnClickListener {
+            pickImageLauncher.launch("image/*")
         }
 
         // 🔹 RecyclerView do histórico (ainda exemplo fixo)
