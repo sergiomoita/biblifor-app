@@ -24,8 +24,6 @@ class EscreverMensagemAdministradorActivity : BaseActivity() {
         val nomeAdm = prefs.getString("NOME_ADM", "Administrador")
 
         // ====== Atualiza cabeçalho com nome e matrícula ======
-        findViewById<TextView>(R.id.tvMatriculaHeader)?.text = matriculaAdm ?: ""
-        findViewById<TextView>(R.id.tvNomeAdministradorEscreverMensagem)?.text = "Olá, $nomeAdm"
 
         if (matriculaAdm == null) {
             Toast.makeText(this, "Erro ao identificar administrador!", Toast.LENGTH_SHORT).show()
@@ -68,9 +66,6 @@ class EscreverMensagemAdministradorActivity : BaseActivity() {
         }
 
         // ====== FOTO DO ADM → PERFIL ======
-        findViewById<ImageView>(R.id.fotoAdministradorEscreverMensagem)?.setOnClickListener {
-            startActivity(Intent(this, PerfilAdministradorActivity::class.java))
-        }
 
         // ====== BARRA INFERIOR ======
         findViewById<ImageView>(R.id.iconHomeEscreverMensagemAdministradorSergio)?.setOnClickListener {

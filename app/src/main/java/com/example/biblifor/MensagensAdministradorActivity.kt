@@ -35,9 +35,56 @@ class MensagensAdministradorActivity : BaseActivity() {
         val txMatricula = findViewById<TextView>(R.id.textMatricula)
         val txNomeAdm = findViewById<TextView>(R.id.textNomeAdministradorAvisos)
 
-        // ==== Exibe nome e matrícula ====
         txNomeAdm.text = if (!nomeAdm.isNullOrEmpty()) "Olá, $nomeAdm" else "Olá, Administrador"
         txMatricula.text = matriculaAdm ?: ""
+
+        // ======================================================
+        // FOTO DO ADMINISTRADOR (CORRIGIDO)
+        // ======================================================
+        val imgAdm = findViewById<ImageView>(R.id.imageView3)
+
+        if (!matriculaAdm.isNullOrEmpty()) {
+
+            fb.collection("administradores")
+                .document(matriculaAdm)
+                .get()
+                .addOnSuccessListener { doc ->
+                    if (doc.exists()) {
+
+                        val base64Raw = doc.getString("fotoPerfil")
+
+                        if (!base64Raw.isNullOrEmpty()) {
+                            try {
+                                // remove lixo, aspas e prefixos
+                                val base64 = base64Raw
+                                    .replace("data:image/jpeg;base64,", "")
+                                    .replace("data:image/png;base64,", "")
+                                    .replace("\"", "")
+                                    .trim()
+
+                                val imageBytes =
+                                    android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
+
+                                val bitmap = android.graphics.BitmapFactory.decodeByteArray(
+                                    imageBytes,
+                                    0,
+                                    imageBytes.size
+                                )
+
+                                if (bitmap != null) {
+                                    imgAdm.setImageBitmap(bitmap)
+                                }
+
+                            } catch (e: Exception) {
+                                Log.e("FOTO_ADM", "Erro ao decodificar Base64: ${e.message}")
+                            }
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    Log.e("ADM", "Erro ao carregar foto")
+                }
+        }
 
         // ==== Configura RecyclerView ====
         rv = findViewById(R.id.rvEventosAdmin)
@@ -48,21 +95,17 @@ class MensagensAdministradorActivity : BaseActivity() {
         // ==== Busca avisos enviados pelo administrador logado ====
         if (matriculaAdm != null) {
             lerAvisos(matriculaAdm)
-        } else {
-            Log.e("ADM", "⚠️ Nenhuma matrícula ADM encontrada")
         }
 
-        // ==== Botão Nova Mensagem ====
+        // ==== Botões ====
         findViewById<ImageView>(R.id.iconNovaMensagem).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 
-        // ==== Foto do topo -> Perfil do Administrador ====
-        findViewById<ImageView>(R.id.imageView3).setOnClickListener {
+        imgAdm.setOnClickListener {
             startActivity(Intent(this, PerfilAdministradorActivity::class.java))
         }
 
-        // ==== BARRA INFERIOR FIXA ====
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
             finish()

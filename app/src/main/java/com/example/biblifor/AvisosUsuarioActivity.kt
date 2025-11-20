@@ -39,20 +39,54 @@ class AvisosUsuarioActivity : BaseActivity() {
         val matriculaUser = prefs.getString("MATRICULA_USER", "") ?: ""
         val nomeUser = prefs.getString("NOME_USER", null)
 
-        // ✅ Exibe nome e matrícula no topo da tela
+        // ===== Exibe nome e matrícula =====
         val txtMatricula = findViewById<TextView>(R.id.textMatricula)
         val txtNomeUsuario = findViewById<TextView>(R.id.textNomeUsuarioAvisos)
 
         txtMatricula.text = matriculaUser
         txtNomeUsuario.text = if (!nomeUser.isNullOrEmpty()) "Olá, $nomeUser" else "Olá, Usuário"
 
-        // ✅ Buscar avisos
+        // ============================================
+        // ✅ FOTO DO USUÁRIO LOGADO
+        // ============================================
+        val imgUsuario = findViewById<ImageView>(R.id.imageView3)
+
+        fb.collection("alunos")
+            .document(matriculaUser)
+            .get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    val base64 = doc.getString("fotoPerfil")
+
+                    if (!base64.isNullOrEmpty()) {
+                        try {
+                            val imageBytes = android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
+                            val bitmap = android.graphics.BitmapFactory.decodeByteArray(
+                                imageBytes,
+                                0,
+                                imageBytes.size
+                            )
+                            imgUsuario.setImageBitmap(bitmap)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                // mantém a imagem padrão se der erro
+            }
+
+        // ===== Buscar avisos =====
         lerAvisos(matriculaUser)
 
         configurarBotoes()
     }
 
-    // ✅ Função principal que busca os avisos no Firestore
+
+    // =====================================================
+    // 🔵 Função principal que busca os avisos do Firestore
+    // =====================================================
     private fun lerAvisos(matricula: String) {
         fb.collection("mensagens")
             .whereEqualTo("matricula", matricula)
@@ -83,7 +117,10 @@ class AvisosUsuarioActivity : BaseActivity() {
             }
     }
 
-    // ===== BOTÕES DA TELA =====
+
+    // ================================
+    // BOTÕES DA TELA
+    // ================================
     private fun configurarBotoes() {
         findViewById<ImageView>(R.id.leoLogoHomeChatbotBF7).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))

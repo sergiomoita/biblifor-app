@@ -14,12 +14,7 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/fotoAdministradorEscreverMensagem"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/foto_adm"
-            android:layout_marginEnd="8dp" />
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -27,22 +22,9 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvNomeAdministradorEscreverMensagem"
-                android:text="Olá, Hugo Moura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/tvMatriculaHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="13sp"
-                android:text="1020845" />
+
+
 
         </LinearLayout>
 

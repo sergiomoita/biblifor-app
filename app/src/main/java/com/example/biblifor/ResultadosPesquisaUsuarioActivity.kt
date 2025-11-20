@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class ResultadosPesquisaUsuarioActivity : AppCompatActivity() {
+class ResultadosPesquisaUsuarioActivity : BaseActivity() {
 
     private lateinit var root: ConstraintLayout
     private lateinit var rv: RecyclerView
