@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextWatcher
+import android.text.Editable
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.MotionEvent
@@ -85,6 +87,7 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         etSearchLivros = findViewById(R.id.etSearchLivrosEmprestaveis)
 
         configurarBuscaAnimada()
+        configurarFiltroTexto()
 
         btnPagPrev.setOnClickListener {
             if (currentPage > 1) irParaPagina(currentPage - 1)
@@ -93,7 +96,6 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
             if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
 
-        // 🔥 Carrega livros do Firestore
         carregarLivrosDoFirebase()
     }
 
@@ -118,13 +120,15 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
 
                     val livro = Book(
                         title = tituloComAutor,
-                        coverRes = R.drawable.livro_1984, // fallback
+                        coverRes = R.drawable.livro_1984,
                         emprestavel = emprestavel,
                         imagemBase64 = imagemBase64
                     )
 
                     allLivros.add(livro)
                 }
+
+                allLivros.sortBy { it.title.lowercase() }
 
                 prepararPaginacao()
                 renderPage()
@@ -135,6 +139,44 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
                 renderPage()
                 aplicarEstiloBotoes()
             }
+    }
+
+    // 🔥 FILTRO DE TEXTO APLICADO EM TEMPO REAL
+    private fun configurarFiltroTexto() {
+        etSearchLivros.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                aplicarFiltroBusca(s.toString())
+            }
+        })
+    }
+
+    // 🔥 Filtro que puxa resultados para o topo
+    private fun aplicarFiltroBusca(texto: String) {
+
+        val termo = texto.trim().lowercase()
+
+        if (termo.isEmpty()) {
+            allLivros.sortBy { it.title.lowercase() }
+        } else {
+            val combinam = allLivros.filter {
+                it.title.lowercase().contains(termo)
+            }
+
+            val naoCombinam = allLivros.filter {
+                !it.title.lowercase().contains(termo)
+            }
+
+            allLivros.clear()
+            allLivros.addAll(combinam + naoCombinam)
+        }
+
+        currentPage = 1
+        prepararPaginacao()
+        renderPage()
+        aplicarEstiloBotoes()
     }
 
     private fun configurarBuscaAnimada() {
@@ -200,15 +242,12 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
     }
 
     private fun renderPage() {
-
         val start = (currentPage - 1) * pageSize
         val end = min(start + pageSize, allLivros.size)
 
         val slice = if (start in 0 until end) allLivros.subList(start, end) else emptyList()
 
         rvLivros.adapter = BookAdapterEmprestaveisAdmin(slice) { livro ->
-
-            // Se quiser ação ao clicar em um livro:
             if (livro.title.contains("Crime e Castigo", ignoreCase = true)) {
                 startActivity(Intent(this, EmprestarLivroAdministradorActivity::class.java))
             }
@@ -218,7 +257,6 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
     }
 
     private fun aplicarEstiloBotoes() {
-
         fun TextView.config(texto: String, habilitado: Boolean, isCurrent: Boolean) {
             text = texto
             isEnabled = habilitado

@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.biblifor.R
+import android.widget.TextView
 
 class MensagemSemResultadoUsuarioActivity : BaseActivity() {
 
@@ -14,7 +12,13 @@ class MensagemSemResultadoUsuarioActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mensagem_sem_resultado_usuario)
 
-        // Botão de voltar
+        // --- RECEBER O TERMO DA PESQUISA ---
+        val termoPesquisado = intent.getStringExtra("pesquisa") ?: ""
+
+        val tvTermo = findViewById<TextView>(R.id.tvTermoPesquisadoMensagemSemResultadoUsuarioSergio)
+        tvTermo.text = "\"$termoPesquisado\""
+
+        // Botão voltar
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltarMensagemSemResultadoUsuarioSergio)
         btnVoltar.setOnClickListener {
             val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
@@ -26,60 +30,46 @@ class MensagemSemResultadoUsuarioActivity : BaseActivity() {
         val editPesquisa = findViewById<EditText>(R.id.editPesquisaMensagemSemResultadoUsuarioSergio)
         val iconLupa = findViewById<ImageView>(R.id.iconLupaMensagemSemResultadoUsuarioSergio)
 
+        // 🔥 PESQUISA INTELIGENTE REAL — mesma lógica das outras telas
         iconLupa.setOnClickListener {
             val termo = editPesquisa.text.toString().trim()
             if (termo.isNotEmpty()) {
-                Toast.makeText(this, "Pesquisando por \"$termo\"...", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Digite um termo para pesquisar.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ResultadosPesquisaUsuarioActivity::class.java)
+                intent.putExtra("pesquisa", termo)
+                startActivity(intent)
+                finish()
             }
         }
 
-        // 🤖 Ícone do mascote superior → ChatbotUsuarioActivity
-        val iconMascoteSuperior = findViewById<ImageView>(R.id.iconMascoteMensagemSemResultadoUsuarioSergio)
-        iconMascoteSuperior.setOnClickListener {
-            val intent = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(intent)
+        // Ícone mascote superior → ChatbotUsuarioActivity
+        findViewById<ImageView>(R.id.iconMascoteMensagemSemResultadoUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        // 🔔 Ícone de notificação → AvisosUsuarioActivity
-        val iconNotificacao = findViewById<ImageView>(R.id.iconNotificacaoMensagemSemResultadoUsuarioSergio)
-        iconNotificacao.setOnClickListener {
-            val intent = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(intent)
+        // Notificações superior
+        findViewById<ImageView>(R.id.iconNotificacaoMensagemSemResultadoUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
         // ==============================
-        // ⚙️ Funções da Barra Inferior
+        // Barra inferior
         // ==============================
 
-        // 🏠 Home → MenuPrincipalUsuarioActivity
-        val iconHome = findViewById<ImageView>(R.id.iconHomeMensagemSemResultadoUsuarioSergio)
-        iconHome.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.iconHomeMensagemSemResultadoUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
             finish()
         }
 
-        // 🤖 Chatbot inferior → ChatbotUsuarioActivity
-        val iconMascoteInferior = findViewById<ImageView>(R.id.iconChatBotMensagemSemResultadoUsuarioSergio)
-        iconMascoteInferior.setOnClickListener {
-            val intent = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.iconChatBotMensagemSemResultadoUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        // 💬 Mensagem inferior → AvisosUsuarioActivity
-        val iconMensagem = findViewById<ImageView>(R.id.iconMensagemMensagemSemResultadoUsuarioSergio)
-        iconMensagem.setOnClickListener {
-            val intent = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.iconMensagemMensagemSemResultadoUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        // 🍔 Menu inferior → MenuPrincipalUsuarioActivity
-        val iconMenu = findViewById<ImageView>(R.id.iconMenuMensagemSemResultadoUsuarioSergio)
-        iconMenu.setOnClickListener {
-            val intent = Intent(this, MenuHamburguerUsuarioActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.iconMenuMensagemSemResultadoUsuarioSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
             finish()
         }
     }

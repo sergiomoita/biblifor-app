@@ -150,18 +150,17 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
 
         // ==== PESQUISA ====
         val imagemLupa = findViewById<ImageView>(R.id.leoLupaPesquisa3)
+        // ==== PESQUISA INTELIGENTE REAL ====
         imagemLupa.setOnClickListener {
-            val textoBruto = inputPesquisa.text?.toString()?.trim().orEmpty()
-            val normalizado = Normalizer.normalize(textoBruto, Normalizer.Form.NFD)
-                .replace(Regex("\\p{InCombiningDiacriticalMarks}+"), "")
-                .lowercase()
+            val termo = inputPesquisa.text?.toString()?.trim().orEmpty()
 
-            when (normalizado) {
-                "o quinze" -> startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
-                "laranjeira" -> startActivity(Intent(this, MensagemSemResultadoUsuarioActivity::class.java))
-                else -> startActivity(Intent(this, ResultadosPesquisaUsuarioActivity::class.java))
-            }
+            if (termo.isBlank()) return@setOnClickListener
+
+            val intent = Intent(this, ResultadosPesquisaUsuarioActivity::class.java)
+            intent.putExtra("pesquisa", termo)
+            startActivity(intent)
         }
+
     }
 
     // ==== LER 3 ÚLTIMOS AVISOS ====

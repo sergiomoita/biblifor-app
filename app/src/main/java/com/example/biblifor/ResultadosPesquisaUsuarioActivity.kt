@@ -2,30 +2,88 @@ package com.example.biblifor
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ResultadosPesquisaUsuarioActivity : AppCompatActivity() {
+
+    private lateinit var root: ConstraintLayout
+    private lateinit var rv: RecyclerView
+    private lateinit var etPesquisa: EditText
+    private lateinit var containerPesquisa: androidx.cardview.widget.CardView
+    private lateinit var lupaSuperior: ImageView
+    private lateinit var lupaInterna: ImageView
+
+    private lateinit var adapter: FavoritosPagedAdapter
+    private val resultados = mutableListOf<Book>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_resultados_pesquisa_usuario)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
+        // ====== Referências ======
+        root = findViewById(R.id.main)
+        rv = findViewById(R.id.rvResultados)
+        etPesquisa = findViewById(R.id.editPesquisaResultados)
+        containerPesquisa = findViewById(R.id.containerPesquisaResultados)
+        lupaSuperior = findViewById(R.id.ivLupaResultados)
+        lupaInterna = findViewById(R.id.ivLupaInternaResultados)
+
+        // ====== Adapter ======
+        rv.layoutManager = LinearLayoutManager(this)
+        adapter = FavoritosPagedAdapter { livro ->
+            if (livro.title.contains("Romeu", ignoreCase = true)) {
+                startActivity(Intent(this, PopupResultadosUsuarioActivity::class.java))
+            }
+        }
+        rv.adapter = adapter
+
+        // ====== SETA VOLTAR ======
         findViewById<ImageView>(R.id.lopesSetaVoltar32).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
+            finish()
         }
 
-        // Navegação inferior (mantida)
+        // ====== Recebe termo inicial ======
+        val termo = intent.getStringExtra("pesquisa") ?: ""
+        etPesquisa.setText(termo)
+
+        // ====== Pesquisa inicial ======
+        realizarPesquisa(termo)
+
+        // ====== Lupa superior (abre/fecha a barra) ======
+        lupaSuperior.setOnClickListener {
+            val visible = containerPesquisa.visibility == android.view.View.VISIBLE
+
+            TransitionManager.beginDelayedTransition(root, AutoTransition())
+            containerPesquisa.visibility =
+                if (visible) android.view.View.GONE else android.view.View.VISIBLE
+
+            if (!visible) {
+                // abrir → focar no campo
+                etPesquisa.requestFocus()
+            }
+        }
+
+        // ====== Lupa interna (realiza a pesquisa) ======
+        lupaInterna.setOnClickListener {
+            val texto = etPesquisa.text.toString().trim()
+            if (texto.isNotEmpty()) {
+                realizarPesquisa(texto)
+            }
+        }
+
+        // ====== Navegação inferior ======
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -38,44 +96,49 @@ class ResultadosPesquisaUsuarioActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
+    }
 
-        // ===== RecyclerView (mesmo estilo do histórico) =====
-        val rv = findViewById<RecyclerView>(R.id.rvResultados)
-        rv.layoutManager = LinearLayoutManager(this)
+    // ======================================================
+    // 🔥 REALIZAR PESQUISA — SÓ DISPARA AQUI
+    // ======================================================
+    private fun realizarPesquisa(texto: String) {
+        val db = Firebase.firestore
+        resultados.clear()
 
-        // Mock dos resultados - ajuste nomes dos drawables se necessário
-        val resultados = listOf(
-            HistoryBook(
-                title = "O Quinze",
-                author = "Rachel de Queiroz",
-                coverRes = R.drawable.livro_rachelqueiroz, // ajuste se necessário
-                availabilityText = "Disponível: físico",
-                isAvailable = true,
-                dateText = "Hoje"
-            ),
-            HistoryBook(
-                title = "Análise de texto",
-                author = "Rachel de Queiroz",
-                coverRes = R.drawable.livro_tcc, // ajuste se necessário
-                availabilityText = "Disponível: físico + digital",
-                isAvailable = true,
-                dateText = "Hoje"
-            ),
-            HistoryBook(
-                title = "Quincas Borba",
-                author = "Machado de Assis",
-                coverRes = R.drawable.livro_quincas,
-                availabilityText = "Indisponível",
-                isAvailable = false,
-                dateText = "Ontem"
-            )
-        )
+        db.collection("livros")
+            .get()
+            .addOnSuccessListener { result ->
+                val pesquisaLower = texto.lowercase()
 
-        // Clique: se conter "O Quinze", abre o popup
-        rv.adapter = HistoryAdapter(resultados) { livro ->
-            if (livro.title.contains("O Quinze", ignoreCase = true)) {
-                startActivity(Intent(this, PopupResultadosUsuarioActivity::class.java))
+                for (doc in result) {
+                    val titulo = doc.getString("Titulo") ?: continue
+                    val autor = doc.getString("Autor") ?: ""
+                    val imagem = doc.getString("Imagem")
+                    val situacao = doc.getString("SituacaoEmprestimo") ?: ""
+
+                    val combinado = "$titulo $autor".lowercase()
+
+                    if (!combinado.contains(pesquisaLower)) continue
+
+                    resultados.add(
+                        Book(
+                            title = "$titulo - $autor",
+                            coverRes = R.drawable.livro_socrates,
+                            emprestavel = situacao.equals("Emprestável", true),
+                            imagemBase64 = imagem
+                        )
+                    )
+                }
+
+                // Se nada encontrado → vai para a tela sem resultado
+                if (resultados.isEmpty()) {
+                    val intent = Intent(this, MensagemSemResultadoUsuarioActivity::class.java)
+                    intent.putExtra("pesquisa", texto)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    adapter.submitPage(resultados.toList())
+                }
             }
-        }
     }
 }

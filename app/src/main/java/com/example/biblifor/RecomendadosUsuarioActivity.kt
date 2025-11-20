@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.MotionEvent
@@ -77,21 +79,19 @@ class RecomendadosUsuarioActivity : BaseActivity() {
         rvRecomendados.setHasFixedSize(true)
 
         adapter = FavoritosPagedAdapter { book ->
-            // Mantém as ações especiais, se os títulos coincidirem
             if (book.title.contains("Guerra e Paz", ignoreCase = true)) {
                 startActivity(Intent(this, PopupEmprestimoProibidoUsuarioActivity::class.java))
             } else if (book.title.contains("Romeu", ignoreCase = true)) {
                 startActivity(Intent(this, PopupLivroOnlineUsuarioActivity::class.java))
             }
         }
+
         rvRecomendados.adapter = adapter
 
         // Botão voltar
-        findViewById<ImageView>(R.id.btnVoltarRecomendados).setOnClickListener {
-            finish()
-        }
+        findViewById<ImageView>(R.id.btnVoltarRecomendados).setOnClickListener { finish() }
 
-        // Navegação inferior
+        // Barra inferior
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -106,6 +106,7 @@ class RecomendadosUsuarioActivity : BaseActivity() {
         }
 
         configurarBuscaAnimada()
+        configurarFiltroTexto()
 
         btnPagEsq.setOnClickListener {
             if (currentPage > 1) irParaPagina(currentPage - 1)
@@ -114,7 +115,6 @@ class RecomendadosUsuarioActivity : BaseActivity() {
             if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
 
-        // 🔥 Carregar do Firestore
         carregarLivrosDoFirebase()
     }
 
@@ -130,30 +130,59 @@ class RecomendadosUsuarioActivity : BaseActivity() {
                     val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
                     val imagemBase64 = doc.getString("Imagem")
 
-                    val emprestavel =
-                        situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
+                    val emprestavel = situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
 
                     val tituloComAutor =
                         if (autor.isNotBlank()) "$titulo - $autor" else titulo
 
-                    val livro = Book(
-                        title = tituloComAutor,
-                        coverRes = R.drawable.livro_1984,
-                        emprestavel = emprestavel,
-                        imagemBase64 = imagemBase64
+                    allRecomendados.add(
+                        Book(
+                            title = tituloComAutor,
+                            coverRes = R.drawable.livro_1984,
+                            emprestavel = emprestavel,
+                            imagemBase64 = imagemBase64
+                        )
                     )
-                    allRecomendados.add(livro)
                 }
+
+                allRecomendados.sortBy { it.title.lowercase() }
 
                 prepararPaginacao()
                 renderPage()
                 aplicarEstiloBotoes()
             }
-            .addOnFailureListener {
-                prepararPaginacao()
-                renderPage()
-                aplicarEstiloBotoes()
+    }
+
+    // 🔥 FILTRO — IGUAL AO DAS OUTRAS TELAS
+    private fun configurarFiltroTexto() {
+        etSearchRecomendados.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                aplicarFiltroBusca(s.toString())
             }
+        })
+    }
+
+    private fun aplicarFiltroBusca(texto: String) {
+
+        val termo = texto.trim().lowercase()
+
+        if (termo.isEmpty()) {
+            allRecomendados.sortBy { it.title.lowercase() }
+        } else {
+            val combinam = allRecomendados.filter { it.title.lowercase().contains(termo) }
+            val naoCombinam = allRecomendados.filter { !it.title.lowercase().contains(termo) }
+
+            allRecomendados.clear()
+            allRecomendados.addAll(combinam + naoCombinam)
+        }
+
+        currentPage = 1
+        prepararPaginacao()
+        renderPage()
+        aplicarEstiloBotoes()
     }
 
     private fun configurarBuscaAnimada() {
@@ -176,7 +205,6 @@ class RecomendadosUsuarioActivity : BaseActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN &&
-            this::containerSearchRecomendados.isInitialized &&
             containerSearchRecomendados.visibility == View.VISIBLE
         ) {
             val rect = Rect()
@@ -222,6 +250,7 @@ class RecomendadosUsuarioActivity : BaseActivity() {
     private fun renderPage() {
         val start = (currentPage - 1) * pageSize
         val end = min(start + pageSize, allRecomendados.size)
+
         val slice =
             if (start in 0 until end) allRecomendados.subList(start, end) else emptyList()
 
@@ -239,12 +268,7 @@ class RecomendadosUsuarioActivity : BaseActivity() {
                 isCurrent -> 1f
                 else -> 0.95f
             }
-            setTextColor(
-                ContextCompat.getColor(
-                    this@RecomendadosUsuarioActivity,
-                    android.R.color.black
-                )
-            )
+            setTextColor(ContextCompat.getColor(this@RecomendadosUsuarioActivity, android.R.color.black))
             background = ContextCompat.getDrawable(
                 this@RecomendadosUsuarioActivity,
                 R.drawable.bg_page_button_white

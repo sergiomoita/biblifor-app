@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.MotionEvent
@@ -77,7 +79,7 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        adapter = FavoritosPagedAdapter { /* ação ao clicar no favorito */ }
+        adapter = FavoritosPagedAdapter { /* ação ao clicar */ }
 
         rvFavoritos.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -85,6 +87,7 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         rvFavoritos.setHasFixedSize(true)
 
         configurarBuscaAnimada()
+        configurarFiltroTexto()
 
         btnPag1.setOnClickListener {
             if (currentPage > 1) irParaPagina(currentPage - 1)
@@ -93,7 +96,6 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
 
-        // 🔥 Carregar do Firestore
         carregarLivrosDoFirebase()
     }
 
@@ -109,30 +111,57 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
                     val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
                     val imagemBase64 = doc.getString("Imagem")
 
-                    val emprestavel =
-                        situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
-
+                    val emprestavel = situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
                     val tituloComAutor =
                         if (autor.isNotBlank()) "$titulo - $autor" else titulo
 
-                    val livro = Book(
-                        title = tituloComAutor,
-                        coverRes = R.drawable.livro_1984,
-                        emprestavel = emprestavel,
-                        imagemBase64 = imagemBase64
+                    allFavoritos.add(
+                        Book(
+                            title = tituloComAutor,
+                            coverRes = R.drawable.livro_1984,
+                            emprestavel = emprestavel,
+                            imagemBase64 = imagemBase64
+                        )
                     )
-                    allFavoritos.add(livro)
                 }
+
+                allFavoritos.sortBy { it.title.lowercase() }
 
                 prepararPaginacao()
                 renderPage()
                 aplicarEstiloBotoes()
             }
-            .addOnFailureListener {
-                prepararPaginacao()
-                renderPage()
-                aplicarEstiloBotoes()
+    }
+
+    // 🔥 FILTRO — IGUAL AO DA TELA DE EMPRESTÁVEIS DO ADM
+    private fun configurarFiltroTexto() {
+        etSearchFavoritos.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                aplicarFiltroBusca(s.toString())
             }
+        })
+    }
+
+    private fun aplicarFiltroBusca(texto: String) {
+        val termo = texto.trim().lowercase()
+
+        if (termo.isEmpty()) {
+            allFavoritos.sortBy { it.title.lowercase() }
+        } else {
+            val combinam = allFavoritos.filter { it.title.lowercase().contains(termo) }
+            val naoCombinam = allFavoritos.filter { !it.title.lowercase().contains(termo) }
+
+            allFavoritos.clear()
+            allFavoritos.addAll(combinam + naoCombinam)
+        }
+
+        currentPage = 1
+        prepararPaginacao()
+        renderPage()
+        aplicarEstiloBotoes()
     }
 
     private fun configurarBuscaAnimada() {
@@ -155,7 +184,6 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN &&
-            this::containerSearchFavoritos.isInitialized &&
             containerSearchFavoritos.visibility == View.VISIBLE
         ) {
             val rect = Rect()
@@ -202,6 +230,7 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         val start = (currentPage - 1) * pageSize
         val end = min(start + pageSize, allFavoritos.size)
         val slice = if (start in 0 until end) allFavoritos.subList(start, end) else emptyList()
+
         adapter.submitPage(slice)
         rvFavoritos.scrollToPosition(0)
     }
@@ -210,18 +239,14 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         fun TextView.config(texto: String, habilitado: Boolean, isCurrent: Boolean) {
             text = texto
             isEnabled = habilitado
-            typeface = if (isCurrent) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+            typeface =
+                if (isCurrent) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
             alpha = when {
                 !habilitado -> 0.35f
                 isCurrent -> 1f
                 else -> 0.95f
             }
-            setTextColor(
-                ContextCompat.getColor(
-                    this@FavoritosUsuarioActivity,
-                    android.R.color.black
-                )
-            )
+            setTextColor(ContextCompat.getColor(this@FavoritosUsuarioActivity, android.R.color.black))
             background = ContextCompat.getDrawable(
                 this@FavoritosUsuarioActivity,
                 R.drawable.bg_page_button_white

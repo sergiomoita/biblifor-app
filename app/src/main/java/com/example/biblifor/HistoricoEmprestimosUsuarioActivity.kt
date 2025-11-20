@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.MotionEvent
@@ -13,31 +15,32 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlin.math.ceil
 import kotlin.math.min
 
-class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
+class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
     private lateinit var rootLayout: ConstraintLayout
 
     private lateinit var rvHistorico: RecyclerView
-    private lateinit var btnPagPrev: TextView   // "<"
-    private lateinit var btnPagCenter: TextView // número da página
-    private lateinit var btnPagNext: TextView   // ">"
+    private lateinit var btnPagPrev: TextView
+    private lateinit var btnPagCenter: TextView
+    private lateinit var btnPagNext: TextView
 
-    private lateinit var adapter: HistoryPagedAdapter
+    private lateinit var adapter: FavoritosPagedAdapter
 
     // Busca
     private lateinit var ivLupaHistorico: ImageView
     private lateinit var containerSearchHistorico: View
     private lateinit var etSearchHistorico: EditText
 
-    private val allHistorico = mutableListOf<HistoryBook>()
+    private val allHistorico = mutableListOf<Book>()
     private val pageSize = 5
     private var currentPage = 1
     private var totalPages = 1
@@ -48,7 +51,7 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
 
         rootLayout = findViewById(R.id.main)
 
-        // --- Navegação inferior ---
+        // Navegação inferior
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -76,11 +79,10 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
         containerSearchHistorico = findViewById(R.id.containerSearchHistorico)
         etSearchHistorico = findViewById(R.id.etSearchHistorico)
 
-        adapter = HistoryPagedAdapter { livro ->
-            // Clique no livro do histórico
-            if (livro.title.contains("Romeu e Julieta", ignoreCase = true)) {
-                val intent = Intent(this, PopupHistoricoEmprestimosUsuarioActivity::class.java)
-                startActivity(intent)
+        // Usa o mesmo adapter das outras telas
+        adapter = FavoritosPagedAdapter { book ->
+            if (book.title.contains("Romeu", ignoreCase = true)) {
+                startActivity(Intent(this, PopupHistoricoEmprestimosUsuarioActivity::class.java))
             }
         }
 
@@ -89,218 +91,49 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
         rvHistorico.adapter = adapter
         rvHistorico.setHasFixedSize(true)
 
-        // ===== TODOS OS LIVROS (mesmos de favoritos/recomendados) =====
-        allHistorico.addAll(
-            listOf(
-                HistoryBook(
-                    title = "Romeu e Julieta",
-                    author = "W. Shakespeare",
-                    coverRes = R.drawable.livro_romeu2,
-                    availabilityText = "Disponível: físico + digital",
-                    isAvailable = true,
-                    dateText = "13/09/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "1984",
-                    author = "George Orwell",
-                    coverRes = R.drawable.livro_1984,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "02/09/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Dom Casmurro",
-                    author = "Machado de Assis",
-                    coverRes = R.drawable.livro_dom_casmurro,
-                    availabilityText = "Indisponível",
-                    isAvailable = false,
-                    dateText = "28/08/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Código Limpo",
-                    author = "Robert C. Martin",
-                    coverRes = R.drawable.livro_cleancode,
-                    availabilityText = "Disponível: físico + digital",
-                    isAvailable = true,
-                    dateText = "10/08/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Antígona",
-                    author = "Sófocles",
-                    coverRes = R.drawable.livro_antigona,
-                    availabilityText = "Disponível: digital",
-                    isAvailable = true,
-                    dateText = "24/07/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Guerra e Paz",
-                    author = "L. Tolstói",
-                    coverRes = R.drawable.livro_guerra_e_paz,
-                    availabilityText = "Disponível: físico + digital",
-                    isAvailable = true,
-                    dateText = "15/07/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Crime e Castigo",
-                    author = "Fiódor Dostoiévski",
-                    coverRes = R.drawable.livro_crime_e_castigo,
-                    availabilityText = "Indisponível",
-                    isAvailable = false,
-                    dateText = "30/06/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "O Livro dos Juízes",
-                    author = "Desconhecido",
-                    coverRes = R.drawable.livro_dos_juizes,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "18/06/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Édipo Rei",
-                    author = "Sófocles",
-                    coverRes = R.drawable.livro_edipo_rei,
-                    availabilityText = "Disponível: digital",
-                    isAvailable = true,
-                    dateText = "05/06/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Ilíada",
-                    author = "Homero",
-                    coverRes = R.drawable.livro_iliada,
-                    availabilityText = "Indisponível",
-                    isAvailable = false,
-                    dateText = "22/05/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "A Metamorfose",
-                    author = "Franz Kafka",
-                    coverRes = R.drawable.livro_metamorfose,
-                    availabilityText = "Disponível: físico + digital",
-                    isAvailable = true,
-                    dateText = "10/05/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Napoleão",
-                    author = "Andrew Roberts",
-                    coverRes = R.drawable.livro_napoleao,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "28/04/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Quincas Borba",
-                    author = "Machado de Assis",
-                    coverRes = R.drawable.livro_quincas,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "15/04/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Rachel de Queiroz",
-                    author = "Rachel de Queiroz",
-                    coverRes = R.drawable.livro_rachelqueiroz,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "01/04/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "A Revolução dos Bichos",
-                    author = "George Orwell",
-                    coverRes = R.drawable.livro_rev_bichos,
-                    availabilityText = "Indisponível",
-                    isAvailable = false,
-                    dateText = "20/03/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Romeu e Julieta (versão adaptada)",
-                    author = "W. Carrasco",
-                    coverRes = R.drawable.livro_romeu1,
-                    availabilityText = "Disponível: digital",
-                    isAvailable = true,
-                    dateText = "05/03/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Sócrates",
-                    author = "Desconhecido",
-                    coverRes = R.drawable.livro_socrates,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "18/02/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "TCC Eletrônica Aplicada",
-                    author = "M. Lopes",
-                    coverRes = R.drawable.livro_tcc,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "02/02/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Texto Acadêmico",
-                    author = "Desconhecido",
-                    coverRes = R.drawable.livro_texto_academico,
-                    availabilityText = "Disponível: digital",
-                    isAvailable = true,
-                    dateText = "15/01/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Turma da Mônica",
-                    author = "Mauricio de Sousa",
-                    coverRes = R.drawable.livro_turmamonica,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "05/01/2025",
-                    statusText = "Empréstimo finalizado"
-                ),
-                HistoryBook(
-                    title = "Diário de um Banana",
-                    author = "Jeff Kinney",
-                    coverRes = R.drawable.livro_banana,
-                    availabilityText = "Disponível: físico",
-                    isAvailable = true,
-                    dateText = "20/12/2024",
-                    statusText = "Empréstimo finalizado"
-                )
-            )
-        )
-
-        prepararPaginacao()
-        renderPage()
-        aplicarEstiloBotoes()
         configurarBuscaAnimada()
+        carregarLivrosDoFirebase()
 
-        // Paginação: < 1 >
         btnPagPrev.setOnClickListener {
-            if (currentPage > 1) {
-                irParaPagina(currentPage - 1)
-            }
+            if (currentPage > 1) irParaPagina(currentPage - 1)
         }
 
         btnPagNext.setOnClickListener {
-            if (currentPage < totalPages) {
-                irParaPagina(currentPage + 1)
-            }
+            if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
+    }
+
+    private fun carregarLivrosDoFirebase() {
+        val db = Firebase.firestore
+
+        db.collection("livros")
+            .get()
+            .addOnSuccessListener { result ->
+                allHistorico.clear()
+
+                for (doc in result) {
+                    val titulo = doc.getString("Titulo") ?: continue
+                    val autor = doc.getString("Autor") ?: ""
+                    val imagemBase64 = doc.getString("Imagem")
+                    val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
+
+                    val tituloComAutor =
+                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
+
+                    val livro = Book(
+                        title = tituloComAutor,
+                        coverRes = R.drawable.livro_socrates, // fallback
+                        emprestavel = situacaoEmprestimo.equals("Emprestável", true),
+                        imagemBase64 = imagemBase64
+                    )
+
+                    allHistorico.add(livro)
+                }
+
+                prepararPaginacao()
+                renderPage()
+                aplicarEstiloBotoes()
+            }
     }
 
     private fun configurarBuscaAnimada() {
@@ -319,9 +152,32 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
                 mostrarTeclado()
             }
         }
+
+        // 🔥 PESQUISA INTELIGENTE — AGORA SEM ERROS
+        etSearchHistorico.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val texto = s?.toString()?.trim()?.lowercase().orEmpty()
+
+                if (texto.isEmpty()) {
+                    prepararPaginacao()
+                    renderPage()
+                    aplicarEstiloBotoes()
+                    return
+                }
+
+                val filtrados = allHistorico
+                    .filter { it.title.lowercase().contains(texto) }
+                    .sortedBy { it.title }
+
+                adapter.submitPage(filtrados)
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
-    // Fecha barra de pesquisa se tocar fora dela
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN &&
             this::containerSearchHistorico.isInitialized &&
@@ -329,11 +185,7 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
         ) {
             val rect = Rect()
             containerSearchHistorico.getGlobalVisibleRect(rect)
-
-            val x = ev.rawX.toInt()
-            val y = ev.rawY.toInt()
-
-            if (!rect.contains(x, y)) {
+            if (!rect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
                 TransitionManager.beginDelayedTransition(rootLayout, AutoTransition())
                 containerSearchHistorico.visibility = View.GONE
                 esconderTeclado()
@@ -361,7 +213,7 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
     }
 
     private fun irParaPagina(p: Int) {
-        if (p in 1..totalPages && p != currentPage) {
+        if (p in 1..totalPages) {
             currentPage = p
             renderPage()
             aplicarEstiloBotoes()
@@ -371,22 +223,21 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
     private fun renderPage() {
         val start = (currentPage - 1) * pageSize
         val end = min(start + pageSize, allHistorico.size)
+
         val slice =
-            if (start in 0 until end) allHistorico.subList(start, end) else emptyList()
+            if (start in 0 until end) allHistorico.subList(start, end)
+            else emptyList()
+
         adapter.submitPage(slice)
         rvHistorico.scrollToPosition(0)
     }
 
     private fun aplicarEstiloBotoes() {
-        fun TextView.config(texto: String, habilitado: Boolean, isCurrent: Boolean) {
+        fun TextView.estilizar(texto: String, habilitado: Boolean, atual: Boolean) {
             text = texto
             isEnabled = habilitado
-            typeface = if (isCurrent) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-            alpha = when {
-                !habilitado -> 0.35f
-                isCurrent -> 1f
-                else -> 0.95f
-            }
+            typeface = if (atual) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+            alpha = if (habilitado) 1f else 0.35f
             setTextColor(
                 ContextCompat.getColor(
                     this@HistoricoEmprestimosUsuarioActivity,
@@ -399,22 +250,8 @@ class HistoricoEmprestimosUsuarioActivity : AppCompatActivity() {
             )
         }
 
-        btnPagPrev.config(
-            texto = "<",
-            habilitado = currentPage > 1,
-            isCurrent = false
-        )
-
-        btnPagCenter.config(
-            texto = currentPage.toString(),
-            habilitado = true,
-            isCurrent = true
-        )
-
-        btnPagNext.config(
-            texto = ">",
-            habilitado = currentPage < totalPages,
-            isCurrent = false
-        )
+        btnPagPrev.estilizar("<", currentPage > 1, false)
+        btnPagCenter.estilizar(currentPage.toString(), true, true)
+        btnPagNext.estilizar(">", currentPage < totalPages, false)
     }
 }
