@@ -1,6 +1,8 @@
 package com.example.biblifor
 
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,15 +30,22 @@ class FavoritosPagedAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val b = items[position]
-        holder.imgCapa.setImageResource(b.coverRes)
+
         holder.txtTitulo.text = b.title
 
         if (b.emprestavel) {
             holder.txtStatus.text = "Emprestável"
-            holder.txtStatus.setTextColor(Color.parseColor("#00C853"))
+            holder.txtStatus.setTextColor(0xFF00C853.toInt())
         } else {
             holder.txtStatus.text = "Não-emprestável"
-            holder.txtStatus.setTextColor(Color.parseColor("#FF3B30"))
+            holder.txtStatus.setTextColor(0xFFFF5252.toInt())
+        }
+
+        val bitmap = base64ToBitmap(b.imagemBase64)
+        if (bitmap != null) {
+            holder.imgCapa.setImageBitmap(bitmap)
+        } else {
+            holder.imgCapa.setImageResource(b.coverRes)
         }
 
         holder.itemView.setOnClickListener { onItemClick(b) }
@@ -48,5 +57,15 @@ class FavoritosPagedAdapter(
         items.clear()
         items.addAll(pageItems)
         notifyDataSetChanged()
+    }
+
+    private fun base64ToBitmap(base64: String?): Bitmap? {
+        if (base64.isNullOrBlank()) return null
+        return try {
+            val bytes = Base64.decode(base64, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        } catch (_: Exception) {
+            null
+        }
     }
 }

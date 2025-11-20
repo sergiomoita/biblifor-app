@@ -1,6 +1,8 @@
 package com.example.biblifor
 
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class BookAdapter(
     private val items: List<Book>,
-    private val onItemClick: (Book) -> Unit // 👈 novo callback
+    private val onItemClick: (Book) -> Unit
 ) : RecyclerView.Adapter<BookAdapter.VH>() {
 
     class VH(v: View) : RecyclerView.ViewHolder(v) {
@@ -26,23 +28,37 @@ class BookAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val b = items[position]
-        holder.imgCapa.setImageResource(b.coverRes)
-        holder.txtTitulo.text = b.title
+        val book = items[position]
 
-        if (b.emprestavel) {
+        holder.txtTitulo.text = book.title
+
+        if (book.emprestavel) {
             holder.txtStatus.text = "Emprestável"
-            holder.txtStatus.setTextColor(Color.parseColor("#00C853"))
+            holder.txtStatus.setTextColor(0xFF00C853.toInt()) // verde
         } else {
             holder.txtStatus.text = "Não-emprestável"
-            holder.txtStatus.setTextColor(Color.parseColor("#FF3B30"))
+            holder.txtStatus.setTextColor(0xFFFF5252.toInt()) // vermelho
         }
 
-        // 👇 Clique no item
-        holder.itemView.setOnClickListener {
-            onItemClick(b)
+        val bitmap = base64ToBitmap(book.imagemBase64)
+        if (bitmap != null) {
+            holder.imgCapa.setImageBitmap(bitmap)
+        } else {
+            holder.imgCapa.setImageResource(book.coverRes)
         }
+
+        holder.itemView.setOnClickListener { onItemClick(book) }
     }
 
     override fun getItemCount(): Int = items.size
+
+    private fun base64ToBitmap(base64: String?): Bitmap? {
+        if (base64.isNullOrBlank()) return null
+        return try {
+            val bytes = Base64.decode(base64, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        } catch (_: Exception) {
+            null
+        }
+    }
 }

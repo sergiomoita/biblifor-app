@@ -20,6 +20,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlin.math.ceil
 import kotlin.math.min
 
@@ -28,9 +31,9 @@ class RecomendadosUsuarioActivity : BaseActivity() {
     private lateinit var rootLayout: ConstraintLayout
 
     private lateinit var rvRecomendados: RecyclerView
-    private lateinit var btnPagEsq: TextView   // "<"
-    private lateinit var btnPagCentro: TextView // número da página
-    private lateinit var btnPagDir: TextView   // ">"
+    private lateinit var btnPagEsq: TextView
+    private lateinit var btnPagCentro: TextView
+    private lateinit var btnPagDir: TextView
     private lateinit var adapter: FavoritosPagedAdapter
 
     // Busca
@@ -38,25 +41,26 @@ class RecomendadosUsuarioActivity : BaseActivity() {
     private lateinit var containerSearchRecomendados: View
     private lateinit var etSearchRecomendados: EditText
 
-    // Dados + paginação
     private val allRecomendados = mutableListOf<Book>()
-    private val pageSize = 5           // mesmo padrão dos Favoritos
+    private val pageSize = 5
     private var currentPage = 1
     private var totalPages = 1
+
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_recomendados_usuario)
 
-        // Insets
+        db = Firebase.firestore
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Root para animação
         rootLayout = findViewById(R.id.main)
 
         rvRecomendados = findViewById(R.id.rvRecomendados)
@@ -68,14 +72,12 @@ class RecomendadosUsuarioActivity : BaseActivity() {
         containerSearchRecomendados = findViewById(R.id.containerSearchRecomendados)
         etSearchRecomendados = findViewById(R.id.etSearchRecomendados)
 
-        // ===== 1 livro por linha, mesmo layout dos Favoritos =====
         rvRecomendados.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvRecomendados.setHasFixedSize(true)
 
-        // Usa o MESMO adapter de Favoritos (mesmo card)
         adapter = FavoritosPagedAdapter { book ->
-            // Se quiser manter ações especiais, pode usar o título aqui
+            // Mantém as ações especiais, se os títulos coincidirem
             if (book.title.contains("Guerra e Paz", ignoreCase = true)) {
                 startActivity(Intent(this, PopupEmprestimoProibidoUsuarioActivity::class.java))
             } else if (book.title.contains("Romeu", ignoreCase = true)) {
@@ -103,29 +105,57 @@ class RecomendadosUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        // ===== MESMOS LIVROS DOS FAVORITOS =====
-        allRecomendados.addAll(gerarMockComSeusDrawablesRecomendados())
-
-        prepararPaginacao()
-        renderPage()
-        aplicarEstiloBotoes()
         configurarBuscaAnimada()
 
-        // Paginação: < e >
         btnPagEsq.setOnClickListener {
-            if (currentPage > 1) {
-                irParaPagina(currentPage - 1)
-            }
+            if (currentPage > 1) irParaPagina(currentPage - 1)
+        }
+        btnPagDir.setOnClickListener {
+            if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
 
-        btnPagDir.setOnClickListener {
-            if (currentPage < totalPages) {
-                irParaPagina(currentPage + 1)
-            }
-        }
+        // 🔥 Carregar do Firestore
+        carregarLivrosDoFirebase()
     }
 
-    // ===== BUSCA ANIMADA =====
+    private fun carregarLivrosDoFirebase() {
+        db.collection("livros")
+            .get()
+            .addOnSuccessListener { result ->
+                allRecomendados.clear()
+
+                for (doc in result) {
+                    val titulo = doc.getString("Titulo") ?: continue
+                    val autor = doc.getString("Autor") ?: ""
+                    val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
+                    val imagemBase64 = doc.getString("Imagem")
+
+                    val emprestavel =
+                        situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
+
+                    val tituloComAutor =
+                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
+
+                    val livro = Book(
+                        title = tituloComAutor,
+                        coverRes = R.drawable.livro_1984,
+                        emprestavel = emprestavel,
+                        imagemBase64 = imagemBase64
+                    )
+                    allRecomendados.add(livro)
+                }
+
+                prepararPaginacao()
+                renderPage()
+                aplicarEstiloBotoes()
+            }
+            .addOnFailureListener {
+                prepararPaginacao()
+                renderPage()
+                aplicarEstiloBotoes()
+            }
+    }
+
     private fun configurarBuscaAnimada() {
         ivLupaRecomendados.setOnClickListener {
             val mostrando = containerSearchRecomendados.visibility == View.VISIBLE
@@ -151,7 +181,6 @@ class RecomendadosUsuarioActivity : BaseActivity() {
         ) {
             val rect = Rect()
             containerSearchRecomendados.getGlobalVisibleRect(rect)
-
             val x = ev.rawX.toInt()
             val y = ev.rawY.toInt()
 
@@ -175,11 +204,10 @@ class RecomendadosUsuarioActivity : BaseActivity() {
         imm.hideSoftInputFromWindow(etSearchRecomendados.windowToken, 0)
     }
 
-    // ===== PAGINAÇÃO =====
     private fun prepararPaginacao() {
         val n = allRecomendados.size
         val needed = ceil(n / pageSize.toDouble()).toInt()
-        totalPages = min(3, maxOf(needed, 1))   // até 3 páginas, igual Favoritos
+        totalPages = min(3, maxOf(needed, 1))
         currentPage = currentPage.coerceIn(1, totalPages)
     }
 
@@ -226,39 +254,5 @@ class RecomendadosUsuarioActivity : BaseActivity() {
         btnPagEsq.config("<", currentPage > 1, false)
         btnPagCentro.config(currentPage.toString(), true, true)
         btnPagDir.config(">", currentPage < totalPages, false)
-    }
-
-    // ===== MOCK IGUAL AO DOS FAVORITOS =====
-    private fun gerarMockComSeusDrawablesRecomendados(): List<Book> {
-        val capas = listOf(
-            R.drawable.livro_1984,
-            R.drawable.livro_antigona,
-            R.drawable.livro_banana,
-            R.drawable.livro_cleancode,
-            R.drawable.livro_crime_e_castigo,
-            R.drawable.livro_dom_casmurro,
-            R.drawable.livro_dos_juizes,
-            R.drawable.livro_edipo_rei,
-            R.drawable.livro_guerra_e_paz,
-            R.drawable.livro_iliada,
-            R.drawable.livro_metamorfose,
-            R.drawable.livro_napoleao,
-            R.drawable.livro_quincas,
-            R.drawable.livro_rachelqueiroz,
-            R.drawable.livro_rev_bichos,
-            R.drawable.livro_romeu1,
-            R.drawable.livro_romeu2,
-            R.drawable.livro_socrates,
-            R.drawable.livro_tcc,
-            R.drawable.livro_texto_academico,
-            R.drawable.livro_turmamonica
-        )
-        return capas.mapIndexed { i, res ->
-            Book(
-                title = "Livro ${i + 1}",
-                coverRes = res,
-                emprestavel = (i % 2 == 0)
-            )
-        }
     }
 }

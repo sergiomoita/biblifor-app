@@ -154,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#3392FF"
-                    android:text="Emprestar"
+                    android:text="Livros"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 

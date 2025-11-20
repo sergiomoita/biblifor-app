@@ -17,6 +17,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlin.math.ceil
 import kotlin.math.min
 
@@ -25,9 +28,9 @@ class AcervoUsuarioActivity : BaseActivity() {
     private lateinit var rootLayout: ConstraintLayout
 
     private lateinit var rvAcervo: RecyclerView
-    private lateinit var btnPag1: TextView   // seta "<"
-    private lateinit var btnPag2: TextView   // número da página
-    private lateinit var btnPag3: TextView   // seta ">"
+    private lateinit var btnPag1: TextView
+    private lateinit var btnPag2: TextView
+    private lateinit var btnPag3: TextView
     private lateinit var adapter: FavoritosPagedAdapter
 
     // Busca
@@ -40,11 +43,14 @@ class AcervoUsuarioActivity : BaseActivity() {
     private var currentPage = 1
     private var totalPages = 1
 
+    private lateinit var db: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_acervo_usuario)
 
-        // Root para animação
+        db = Firebase.firestore
+
         rootLayout = findViewById(R.id.main)
 
         rvAcervo = findViewById(R.id.rvAcervo)
@@ -70,40 +76,66 @@ class AcervoUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        // Botão de voltar
         findViewById<ImageView>(R.id.btnVoltarAcervo).setOnClickListener {
             finish()
         }
 
-        adapter = FavoritosPagedAdapter { book ->
-            // Se quiser algum comportamento especial de clique no acervo, coloca aqui
-        }
+        adapter = FavoritosPagedAdapter { /* clique no acervo, se quiser */ }
 
         rvAcervo.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvAcervo.adapter = adapter
         rvAcervo.setHasFixedSize(true)
 
-        allBooks.addAll(gerarMockComSeusDrawables())
-
-        prepararPaginacao()
-        renderPage()
-        aplicarEstiloBotoes()
         configurarBuscaAnimada()
 
-        // Botão esquerdo: página anterior
         btnPag1.setOnClickListener {
-            if (currentPage > 1) {
-                irParaPagina(currentPage - 1)
-            }
+            if (currentPage > 1) irParaPagina(currentPage - 1)
+        }
+        btnPag3.setOnClickListener {
+            if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
 
-        // Botão direito: próxima página
-        btnPag3.setOnClickListener {
-            if (currentPage < totalPages) {
-                irParaPagina(currentPage + 1)
+        // 🔥 Carregar do Firestore
+        carregarLivrosDoFirebase()
+    }
+
+    private fun carregarLivrosDoFirebase() {
+        db.collection("livros")
+            .get()
+            .addOnSuccessListener { result ->
+                allBooks.clear()
+
+                for (doc in result) {
+                    val titulo = doc.getString("Titulo") ?: continue
+                    val autor = doc.getString("Autor") ?: ""
+                    val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
+                    val imagemBase64 = doc.getString("Imagem")
+
+                    val emprestavel =
+                        situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
+
+                    val tituloComAutor =
+                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
+
+                    val livro = Book(
+                        title = tituloComAutor,
+                        coverRes = R.drawable.livro_1984,
+                        emprestavel = emprestavel,
+                        imagemBase64 = imagemBase64
+                    )
+                    allBooks.add(livro)
+                }
+
+                prepararPaginacao()
+                renderPage()
+                aplicarEstiloBotoes()
             }
-        }
+            .addOnFailureListener {
+                prepararPaginacao()
+                renderPage()
+                aplicarEstiloBotoes()
+            }
     }
 
     private fun configurarBuscaAnimada() {
@@ -124,7 +156,6 @@ class AcervoUsuarioActivity : BaseActivity() {
         }
     }
 
-    // Fecha a barra se tocar fora dela
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN &&
             this::containerSearchAcervo.isInitialized &&
@@ -132,7 +163,6 @@ class AcervoUsuarioActivity : BaseActivity() {
         ) {
             val rect = Rect()
             containerSearchAcervo.getGlobalVisibleRect(rect)
-
             val x = ev.rawX.toInt()
             val y = ev.rawY.toInt()
 
@@ -201,58 +231,8 @@ class AcervoUsuarioActivity : BaseActivity() {
             )
         }
 
-        // Esquerda: seta "<"
-        btnPag1.config(
-            texto = "<",
-            habilitado = currentPage > 1,
-            isCurrent = false
-        )
-
-        // Meio: número da página atual
-        btnPag2.config(
-            texto = currentPage.toString(),
-            habilitado = true,
-            isCurrent = true
-        )
-
-        // Direita: seta ">"
-        btnPag3.config(
-            texto = ">",
-            habilitado = currentPage < totalPages,
-            isCurrent = false
-        )
-    }
-
-    private fun gerarMockComSeusDrawables(): List<Book> {
-        val capas = listOf(
-            R.drawable.livro_1984,
-            R.drawable.livro_antigona,
-            R.drawable.livro_banana,
-            R.drawable.livro_cleancode,
-            R.drawable.livro_crime_e_castigo,
-            R.drawable.livro_dom_casmurro,
-            R.drawable.livro_dos_juizes,
-            R.drawable.livro_edipo_rei,
-            R.drawable.livro_guerra_e_paz,
-            R.drawable.livro_iliada,
-            R.drawable.livro_metamorfose,
-            R.drawable.livro_napoleao,
-            R.drawable.livro_quincas,
-            R.drawable.livro_rachelqueiroz,
-            R.drawable.livro_rev_bichos,
-            R.drawable.livro_romeu1,
-            R.drawable.livro_romeu2,
-            R.drawable.livro_socrates,
-            R.drawable.livro_tcc,
-            R.drawable.livro_texto_academico,
-            R.drawable.livro_turmamonica
-        )
-        return capas.mapIndexed { i, res ->
-            Book(
-                title = "Livro ${i + 1}",
-                coverRes = res,
-                emprestavel = (i % 2 == 0)
-            )
-        }
+        btnPag1.config("<", currentPage > 1, false)
+        btnPag2.config(currentPage.toString(), true, true)
+        btnPag3.config(">", currentPage < totalPages, false)
     }
 }
