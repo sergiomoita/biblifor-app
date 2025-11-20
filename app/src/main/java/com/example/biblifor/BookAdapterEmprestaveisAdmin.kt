@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.biblifor.Book
+import Book
 import com.example.biblifor.R
 import com.example.biblifor.util.base64ToBitmap
 

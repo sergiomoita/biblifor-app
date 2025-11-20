@@ -1,5 +1,7 @@
 package com.example.biblifor
 
+import Book
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 class FavoritosPagedAdapter(
@@ -31,8 +34,10 @@ class FavoritosPagedAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val b = items[position]
 
+        // === TÍTULO ===
         holder.txtTitulo.text = b.title
 
+        // === STATUS DE EMPRÉSTIMO ===
         if (b.emprestavel) {
             holder.txtStatus.text = "Emprestável"
             holder.txtStatus.setTextColor(0xFF00C853.toInt())
@@ -41,6 +46,7 @@ class FavoritosPagedAdapter(
             holder.txtStatus.setTextColor(0xFFFF5252.toInt())
         }
 
+        // === IMAGEM BASE64 OU PADRÃO ===
         val bitmap = base64ToBitmap(b.imagemBase64)
         if (bitmap != null) {
             holder.imgCapa.setImageBitmap(bitmap)
@@ -48,7 +54,21 @@ class FavoritosPagedAdapter(
             holder.imgCapa.setImageResource(b.coverRes)
         }
 
-        holder.itemView.setOnClickListener { onItemClick(b) }
+        // ================================
+        //  🔥 ABRIR POPUP COM TODOS DADOS
+        // ================================
+        holder.itemView.setOnClickListener {
+            val ctx = holder.itemView.context
+            val intent = Intent(ctx, PopupResultadosUsuarioActivity::class.java)
+
+            intent.putExtra("titulo", b.tituloOriginal)          // título sem autor
+            intent.putExtra("autor", b.autor)
+            intent.putExtra("imagemBase64", b.imagemBase64)
+            intent.putExtra("situacao", b.situacaoEmprestimo)
+            intent.putExtra("disponibilidade", b.disponibilidade)
+
+            ctx.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = items.size

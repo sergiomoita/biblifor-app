@@ -1,5 +1,6 @@
 package com.example.biblifor
 
+import Book
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -120,30 +121,38 @@ class RecomendadosUsuarioActivity : BaseActivity() {
 
     private fun carregarLivrosDoFirebase() {
         db.collection("livros")
-            .whereEqualTo("recomendar", true)   // 🔥 AGORA FILTRA APENAS RECOMENDADOS
+            .whereEqualTo("recomendar", true)
             .get()
             .addOnSuccessListener { result ->
                 allRecomendados.clear()
 
                 for (doc in result) {
-                    val titulo = doc.getString("Titulo") ?: continue
+
+                    val tituloOriginal = doc.getString("Titulo") ?: continue
                     val autor = doc.getString("Autor") ?: ""
                     val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
+                    val disponibilidade = doc.getString("Disponibilidade") ?: ""
                     val imagemBase64 = doc.getString("Imagem")
 
-                    val emprestavel = situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
+                    val emprestavel = situacaoEmprestimo.equals("Emprestável", true)
 
-                    val tituloComAutor =
-                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
+                    val tituloExibicao =
+                        if (autor.isNotBlank()) "$tituloOriginal - $autor"
+                        else tituloOriginal
 
-                    allRecomendados.add(
-                        Book(
-                            title = tituloComAutor,
-                            coverRes = R.drawable.livro_1984,
-                            emprestavel = emprestavel,
-                            imagemBase64 = imagemBase64
-                        )
+                    val livro = Book(
+                        title = tituloExibicao,
+                        coverRes = R.drawable.livro_1984,   // fallback
+                        emprestavel = emprestavel,
+                        imagemBase64 = imagemBase64,
+
+                        tituloOriginal = tituloOriginal,
+                        autor = autor,
+                        situacaoEmprestimo = situacaoEmprestimo,
+                        disponibilidade = disponibilidade
                     )
+
+                    allRecomendados.add(livro)
                 }
 
                 allRecomendados.sortBy { it.title.lowercase() }
@@ -153,6 +162,7 @@ class RecomendadosUsuarioActivity : BaseActivity() {
                 aplicarEstiloBotoes()
             }
     }
+
 
 
     // 🔥 FILTRO — IGUAL AO DAS OUTRAS TELAS

@@ -6,143 +6,113 @@
     android:background="#005BFF"
     tools:context=".PopupResultadosUsuarioActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/btnVoltarPopupResultadosUsuarioSergio"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Voltar"
-            android:src="@drawable/seta"
-            android:tint="#FFFFFF"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-    </RelativeLayout>
+    <!-- BOTÃO VOLTAR -->
+    <ImageView
+        android:id="@+id/btnVoltarPopupResultadosUsuarioSergio"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/seta"
+        android:tint="#FFFFFF"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Voltar" />
 
     <!-- CARD CENTRAL -->
     <LinearLayout
         android:id="@+id/cardContainerPopupResultadosUsuario"
         android:layout_width="295dp"
-        android:layout_height="571dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/bg_card"
+        android:padding="16dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Capa do livro -->
+        <!-- CAPA DO LIVRO -->
         <ImageView
             android:id="@+id/imgCapaPopupResultadosUsuario"
-            android:layout_width="130dp"
-            android:layout_height="190dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:layout_marginBottom="12dp"
             android:contentDescription="Capa do livro"
             android:src="@drawable/livro_rachelqueiroz" />
 
-        <!-- Avaliação e ícone de favorito -->
-        <LinearLayout
-            android:layout_width="278dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center_vertical">
+        <!-- BOTÃO DE FAVORITAR CENTRALIZADO -->
+        <ImageView
+            android:id="@+id/iconFavoritoPopupResultadosUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/desfavoritado"
+            android:tint="#FFC107"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Favoritar" />
 
-            <!-- Estrelas -->
-            <RatingBar
-                android:id="@+id/ratingPopupResultadosUsuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:progressTint="#FFD700"
-                android:rating="4.5"
-                android:scaleX="0.9"
-                android:scaleY="0.9"
-                android:stepSize="0.5" />
-
-            <!-- Ícone de favorito -->
-            <ImageView
-                android:id="@+id/iconFavoritoPopupResultadosUsuario"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="Adicionar aos favoritos"
-                android:focusable="true"
-                android:src="@drawable/desfavoritado"
-                android:tint="#FFC107" />
-        </LinearLayout>
-
-        <!-- Título e autor -->
+        <!-- NOME DO LIVRO -->
         <TextView
             android:id="@+id/txtTituloPopupResultadosUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:gravity="center"
-            android:text="O quinze"
+            android:text="Título do Livro"
             android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginBottom="6dp"/>
 
-        <!-- Status -->
+        <!-- STATUS -->
         <TextView
             android:id="@+id/txtStatusPopupResultadosUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:text="Disponível em mídia física e digital."
+            android:text="Disponível"
+            android:textSize="14sp"
             android:textColor="#00C853"
-            android:textSize="14sp" />
+            android:gravity="center"
+            android:layout_marginBottom="18dp" />
 
-        <!-- Botões principais -->
+        <!-- BOTÕES: EMPRÉSTIMO / ONLINE -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <Button
                 android:id="@+id/btnEmprestimoPopupResultadosUsuario"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginEnd="12dp"
-                android:backgroundTint="#FFFFFF"
                 android:text="Empréstimo"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:backgroundTint="#FFFFFF"
+                android:layout_marginEnd="12dp"/>
 
             <Button
                 android:id="@+id/btnOnlinePopupResultadosUsuario"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:backgroundTint="#FFFFFF"
                 android:text="Online"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:backgroundTint="#FFFFFF"/>
         </LinearLayout>
 
-        <!-- Botão de favoritos -->
         <Button
             android:id="@+id/btnFavoritosPopupResultadosUsuario"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:backgroundTint="#FFFFFF"
             android:text="Favoritos"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:backgroundTint="#FFFFFF" />
 
     </LinearLayout>
 
-    <!-- Barra inferior -->
+    <!-- BARRA INFERIOR -->
     <LinearLayout
         android:id="@+id/barraInferiorPopupResultadosUsuario"
         android:layout_width="match_parent"
@@ -155,35 +125,31 @@
             android:id="@+id/iconHomePopupResultadosUsuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
             android:src="@drawable/home"
             android:tint="#FFFFFF"
-            android:contentDescription="Home" />
+            android:layout_marginHorizontal="20dp" />
 
         <ImageView
             android:id="@+id/iconChatBotPopupResultadosUsuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
             android:src="@drawable/chatbot_ema"
-            android:contentDescription="Mascote" />
+            android:layout_marginHorizontal="20dp" />
 
         <ImageView
             android:id="@+id/iconMensagemPopupResultadosUsuario"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
             android:src="@drawable/email"
-            android:contentDescription="Mensagem" />
+            android:layout_marginHorizontal="20dp" />
 
         <ImageView
             android:id="@+id/iconMenuPopupResultadosUsuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
             android:src="@drawable/menu_hamb"
             android:tint="#FFFFFF"
-            android:contentDescription="Menu" />
+            android:layout_marginHorizontal="20dp" />
     </LinearLayout>
 
 </RelativeLayout>

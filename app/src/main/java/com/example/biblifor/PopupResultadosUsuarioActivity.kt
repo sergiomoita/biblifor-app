@@ -1,31 +1,78 @@
 package com.example.biblifor
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.biblifor.R
 
 class PopupResultadosUsuarioActivity : BaseActivity() {
 
-    private var isFavorito = false // Controla o estado do botão de favorito
+    private var isFavorito = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_popup_resultados_usuario)
 
-        // --- Botão Voltar ---
-        val btnVoltar = findViewById<ImageView>(R.id.btnVoltarPopupResultadosUsuarioSergio)
-        btnVoltar.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        // ==============================
+        // RECEBENDO DADOS DO INTENT
+        // ==============================
+
+        val titulo = intent.getStringExtra("titulo") ?: "Título indisponível"
+        val autor = intent.getStringExtra("autor") ?: ""
+        val situacao = intent.getStringExtra("situacao") ?: ""
+        val disponibilidade = intent.getStringExtra("disponibilidade") ?: ""
+        val imagemBase64 = intent.getStringExtra("imagemBase64")
+
+        // Views
+        val txtTitulo = findViewById<TextView>(R.id.txtTituloPopupResultadosUsuario)
+        val txtStatus = findViewById<TextView>(R.id.txtStatusPopupResultadosUsuario)
+        val imgCapa = findViewById<ImageView>(R.id.imgCapaPopupResultadosUsuario)
+        val iconFavorito = findViewById<ImageView>(R.id.iconFavoritoPopupResultadosUsuario)
+
+        // Título
+        txtTitulo.text = if (autor.isNotEmpty()) "$titulo\n($autor)" else titulo
+
+        // Status
+        val statusFinal = when {
+            disponibilidade.contains("Físico") && disponibilidade.contains("Online") ->
+                "Disponível em mídia física e digital"
+
+            disponibilidade.contains("Físico") ->
+                "Disponível somente em mídia física"
+
+            disponibilidade.contains("Online") ->
+                "Disponível somente online"
+
+            else -> "Indisponível"
         }
 
-        // --- Ícone de Favorito ---
-        val iconFavorito = findViewById<ImageView>(R.id.iconFavoritoPopupResultadosUsuario)
+        txtStatus.text = statusFinal
+
+        // ==============================
+        // Carregar capa Base64 → Bitmap
+        // ==============================
+        if (!imagemBase64.isNullOrEmpty()) {
+            try {
+                val bytes = Base64.decode(imagemBase64, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                imgCapa.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                imgCapa.setImageResource(R.drawable.livro_rachelqueiroz)
+            }
+        } else {
+            imgCapa.setImageResource(R.drawable.livro_rachelqueiroz)
+        }
+
+        // ==============================
+        // FAVORITAR
+        // ==============================
+
         iconFavorito.setOnClickListener {
-            isFavorito = !isFavorito // Alterna o estado (favoritado/desfavoritado)
+            isFavorito = !isFavorito
 
             if (isFavorito) {
                 iconFavorito.setImageResource(R.drawable.favoritado)
@@ -36,59 +83,45 @@ class PopupResultadosUsuarioActivity : BaseActivity() {
             }
         }
 
-        // --- Botões principais ---
-        val btnEmprestimo = findViewById<Button>(R.id.btnEmprestimoPopupResultadosUsuario)
-        val btnOnline = findViewById<Button>(R.id.btnOnlinePopupResultadosUsuario)
-        val btnFavoritos = findViewById<Button>(R.id.btnFavoritosPopupResultadosUsuario)
+        // ==============================
+        // BOTÃO VOLTAR
+        // ==============================
+        findViewById<ImageView>(R.id.btnVoltarPopupResultadosUsuarioSergio)
+            .setOnClickListener { finish() }
 
-        btnEmprestimo.setOnClickListener {
-            val intent = Intent(this, EmprestimoUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()
+        // ==============================
+        // BOTÕES PRINCIPAIS
+        // ==============================
+        findViewById<Button>(R.id.btnEmprestimoPopupResultadosUsuario).setOnClickListener {
+            startActivity(Intent(this, EmprestimoUsuarioActivity::class.java))
         }
 
-        btnOnline.setOnClickListener {
+        findViewById<Button>(R.id.btnOnlinePopupResultadosUsuario).setOnClickListener {
             Toast.makeText(this, "Abrindo versão online...", Toast.LENGTH_SHORT).show()
         }
 
-        btnFavoritos.setOnClickListener {
-            val intent = Intent(this, FavoritosUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()
+        findViewById<Button>(R.id.btnFavoritosPopupResultadosUsuario).setOnClickListener {
+            startActivity(Intent(this, FavoritosUsuarioActivity::class.java))
         }
 
         // ==============================
-        // ⚙️ Funções da Barra Inferior
+        // BARRA INFERIOR
         // ==============================
 
-        // 🏠 Home → MenuPrincipalUsuarioActivity
-        val iconHome = findViewById<ImageView>(R.id.iconHomePopupResultadosUsuario)
-        iconHome.setOnClickListener {
-            val intent = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()
+        findViewById<ImageView>(R.id.iconHomePopupResultadosUsuario).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
 
-        // 🤖 Chatbot inferior → ChatbotUsuarioActivity
-        val iconMascoteInferior = findViewById<ImageView>(R.id.iconChatBotPopupResultadosUsuario)
-        iconMascoteInferior.setOnClickListener {
-            val intent = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.iconChatBotPopupResultadosUsuario).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        // 💬 Mensagem inferior → AvisosUsuarioActivity
-        val iconMensagem = findViewById<ImageView>(R.id.iconMensagemPopupResultadosUsuario)
-        iconMensagem.setOnClickListener {
-            val intent = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(intent)
+        findViewById<ImageView>(R.id.iconMensagemPopupResultadosUsuario).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        // 🍔 Menu inferior → MenuPrincipalUsuarioActivity
-        val iconMenu = findViewById<ImageView>(R.id.iconMenuPopupResultadosUsuario)
-        iconMenu.setOnClickListener {
-            val intent = Intent(this, MenuHamburguerUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()
+        findViewById<ImageView>(R.id.iconMenuPopupResultadosUsuario).setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
     }
 }
