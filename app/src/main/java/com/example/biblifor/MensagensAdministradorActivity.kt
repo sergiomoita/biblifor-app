@@ -39,42 +39,33 @@ class MensagensAdministradorActivity : BaseActivity() {
         txMatricula.text = matriculaAdm ?: ""
 
         // ======================================================
-        // FOTO DO ADMINISTRADOR (CORRIGIDO)
+        // FOTO DO ADMINISTRADOR (CORRIGIDO para coleção "administrador")
         // ======================================================
         val imgAdm = findViewById<ImageView>(R.id.imageView3)
 
         if (!matriculaAdm.isNullOrEmpty()) {
-
-            fb.collection("administradores")
+            fb.collection("administrador") // <<< mesmo nome usado nas outras telas
                 .document(matriculaAdm)
                 .get()
                 .addOnSuccessListener { doc ->
                     if (doc.exists()) {
-
                         val base64Raw = doc.getString("fotoPerfil")
-
                         if (!base64Raw.isNullOrEmpty()) {
                             try {
-                                // remove lixo, aspas e prefixos
                                 val base64 = base64Raw
                                     .replace("data:image/jpeg;base64,", "")
                                     .replace("data:image/png;base64,", "")
                                     .replace("\"", "")
                                     .trim()
 
-                                val imageBytes =
-                                    android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
-
-                                val bitmap = android.graphics.BitmapFactory.decodeByteArray(
-                                    imageBytes,
-                                    0,
-                                    imageBytes.size
+                                val bytes = android.util.Base64.decode(
+                                    base64,
+                                    android.util.Base64.DEFAULT
                                 )
-
-                                if (bitmap != null) {
-                                    imgAdm.setImageBitmap(bitmap)
-                                }
-
+                                val bmp = android.graphics.BitmapFactory.decodeByteArray(
+                                    bytes, 0, bytes.size
+                                )
+                                if (bmp != null) imgAdm.setImageBitmap(bmp)
                             } catch (e: Exception) {
                                 Log.e("FOTO_ADM", "Erro ao decodificar Base64: ${e.message}")
                             }
@@ -82,7 +73,7 @@ class MensagensAdministradorActivity : BaseActivity() {
                     }
                 }
                 .addOnFailureListener {
-                    Log.e("ADM", "Erro ao carregar foto")
+                    Log.e("ADM", "Erro ao carregar foto: ${it.localizedMessage}")
                 }
         }
 
