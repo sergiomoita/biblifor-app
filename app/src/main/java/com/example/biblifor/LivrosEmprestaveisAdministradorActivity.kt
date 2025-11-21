@@ -54,26 +54,27 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         rootLayout = findViewById(R.id.main)
         db = Firebase.firestore
 
-        // Voltar
+        // ---- Voltar ----
         findViewById<ImageView>(R.id.leoImagemSetaPU5).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
-            finish()
+            finish()   // ← CORRETO — Fecha só esta activity
         }
 
-        // Barra inferior
+        // ---- Barra inferior ----
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
         }
+
         findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
+
         findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
-        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
-        }
 
+        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+        }
 
         rvLivros = findViewById(R.id.rvLivros)
         rvLivros.layoutManager = GridLayoutManager(this, 2)
@@ -126,12 +127,10 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
                         coverRes = R.drawable.livro_1984,
                         emprestavel = emprestavel,
                         imagemBase64 = imagemBase64,
-
                         tituloOriginal = titulo,
                         autor = autor,
                         situacaoEmprestimo = situacaoEmprestimo,
                         disponibilidade = disponibilidade,
-
                         livroId = livroId
                     )
 
@@ -164,13 +163,8 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         if (termo.isEmpty()) {
             allLivros.sortBy { it.title.lowercase() }
         } else {
-            val combinam = allLivros.filter {
-                it.title.lowercase().contains(termo)
-            }
-
-            val naoCombinam = allLivros.filter {
-                !it.title.lowercase().contains(termo)
-            }
+            val combinam = allLivros.filter { it.title.lowercase().contains(termo) }
+            val naoCombinam = allLivros.filter { !it.title.lowercase().contains(termo) }
 
             allLivros.clear()
             allLivros.addAll(combinam + naoCombinam)
@@ -276,7 +270,10 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
                 else -> 0.95f
             }
             setTextColor(ContextCompat.getColor(this@LivrosEmprestaveisAdministradorActivity, android.R.color.black))
-            background = ContextCompat.getDrawable(this@LivrosEmprestaveisAdministradorActivity, R.drawable.bg_page_button_white)
+            background = ContextCompat.getDrawable(
+                this@LivrosEmprestaveisAdministradorActivity,
+                R.drawable.bg_page_button_white
+            )
         }
 
         btnPagPrev.config("<", currentPage > 1, false)

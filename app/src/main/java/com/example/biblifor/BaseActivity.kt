@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 
 open class BaseActivity : AppCompatActivity() {
 
-    // ====== FECHAR TECLADO AO CLICAR FORA DO EDITTEXT ======
+    // FECHAR TECLADO AO CLICAR FORA DO EDITTEXT
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN) {
             val focused = currentFocus
@@ -26,13 +26,7 @@ open class BaseActivity : AppCompatActivity() {
 
                 if (!r.contains(x, y)) {
                     focused.clearFocus()
-
-                    val root = window.decorView
-                    root.isFocusable = true
-                    root.isFocusableInTouchMode = true
-                    root.requestFocus()
-
-                    hideIme(root)
+                    hideIme(window.decorView)
                 }
             }
         }
@@ -47,29 +41,12 @@ open class BaseActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(anchor.windowToken, 0)
     }
 
-    // ====== ANIMAÇÕES ESTILO "SISTEMA" ======
+    // REMOVIDO — ANIMAÇÃO NO startActivity CAUSA CRASH
+    // override fun startActivity(intent: Intent?) { ... }
 
-    override fun startActivity(intent: Intent?) {
-        super.startActivity(intent)
-        // Indo pra frente (nova tela)
-        overridePendingTransition(
-            R.anim.open_enter,
-            R.anim.open_exit
-        )
-    }
-
-    override fun startActivity(intent: Intent?, options: Bundle?) {
-        super.startActivity(intent, options)
-        // Indo pra frente (com options)
-        overridePendingTransition(
-            R.anim.open_enter,
-            R.anim.open_exit
-        )
-    }
-
+    // Mantém apenas animação quando VOLTA
     override fun finish() {
         super.finish()
-        // Voltando (back)
         overridePendingTransition(
             R.anim.close_enter,
             R.anim.close_exit

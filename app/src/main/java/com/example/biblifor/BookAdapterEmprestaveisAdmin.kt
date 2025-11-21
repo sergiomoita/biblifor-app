@@ -32,9 +32,11 @@ class BookAdapterEmprestaveisAdmin(
         // FOTO
         if (!b.imagemBase64.isNullOrEmpty()) {
             holder.imgCapa.setImageBitmap(base64ToBitmap(b.imagemBase64))
+        } else {
+            holder.imgCapa.setImageResource(R.drawable.livro_1984)
         }
 
-        // TITULO
+        // TÍTULO
         holder.txtTitulo.text = b.title
 
         // STATUS
@@ -46,9 +48,8 @@ class BookAdapterEmprestaveisAdmin(
             holder.txtStatus.setTextColor(Color.parseColor("#FF3B30"))
         }
 
-        // 🔥 AGORA FUNCIONA AO CLICAR EM QUALQUER LUGAR
+        // ✔️ CLIQUE ÚNICO (CORRETO)
         holder.itemView.setOnClickListener { onItemClick(b) }
-        holder.imgCapa.setOnClickListener { onItemClick(b) }   // ESSA LINHA RESOLVE
     }
 
     override fun getItemCount(): Int = items.size
