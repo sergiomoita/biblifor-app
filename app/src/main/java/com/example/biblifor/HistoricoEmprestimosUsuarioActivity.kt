@@ -20,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.math.ceil
@@ -52,7 +53,9 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
         rootLayout = findViewById(R.id.main)
 
-        // Navegação inferior
+        // ==============================
+        // Barra inferior
+        // ==============================
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -67,9 +70,7 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         }
 
         // Voltar
-        findViewById<ImageView>(R.id.btnVoltarHistorico).setOnClickListener {
-            finish()
-        }
+        findViewById<ImageView>(R.id.btnVoltarHistorico).setOnClickListener { finish() }
 
         rvHistorico = findViewById(R.id.rvHistorico)
         btnPagPrev = findViewById(R.id.btnPagPrevHistorico)
@@ -82,9 +83,15 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
         // Usa o mesmo adapter das outras telas
         adapter = FavoritosPagedAdapter { book ->
-            if (book.title.contains("Romeu", ignoreCase = true)) {
-                startActivity(Intent(this, PopupHistoricoEmprestimosUsuarioActivity::class.java))
-            }
+            // Se quiser abrir um popup específico de histórico, troque a Activity aqui
+            val intent = Intent(this, PopupResultadosUsuarioActivity::class.java)
+            intent.putExtra("livroId", book.livroId)
+            intent.putExtra("titulo", book.tituloOriginal)
+            intent.putExtra("autor", book.autor)
+            intent.putExtra("imagemBase64", book.imagemBase64)
+            intent.putExtra("situacao", book.situacaoEmprestimo)
+            intent.putExtra("disponibilidade", book.disponibilidade)
+            startActivity(intent)
         }
 
         rvHistorico.layoutManager =
@@ -93,7 +100,7 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         rvHistorico.setHasFixedSize(true)
 
         configurarBuscaAnimada()
-        carregarLivrosDoFirebase()
+        carregarHistoricoDoFirebase()
 
         btnPagPrev.setOnClickListener {
             if (currentPage > 1) irParaPagina(currentPage - 1)
@@ -104,39 +111,75 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         }
     }
 
-    private fun carregarLivrosDoFirebase() {
+    // ==============================
+    //   CARREGAR HISTÓRICO DO ALUNO
+    // ==============================
+    private fun carregarHistoricoDoFirebase() {
         val db = Firebase.firestore
 
-        db.collection("livros")
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val matricula = prefs.getString("MATRICULA_USER", "") ?: ""
+
+        if (matricula.isEmpty()) return
+
+        db.collection("alunos")
+            .document(matricula)
+            .collection("historicoEmprestimos")
+            .orderBy("dataEmprestimo", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
+
                 allHistorico.clear()
 
                 for (doc in result) {
-                    val titulo = doc.getString("Titulo") ?: continue
-                    val autor = doc.getString("Autor") ?: ""
-                    val imagemBase64 = doc.getString("Imagem")
-                    val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
 
-                    val tituloComAutor =
-                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
+                    val livroId = doc.getString("livroId") ?: doc.id
+                    val titulo = doc.getString("titulo") ?: livroId
+                    val autor = doc.getString("autor") ?: ""
 
-                    val livro = Book(
-                        title = tituloComAutor,
-                        coverRes = R.drawable.livro_socrates, // fallback
-                        emprestavel = situacaoEmprestimo.equals("Emprestável", true),
-                        imagemBase64 = imagemBase64
-                    )
+                    // Agora vamos buscar os dados reais do livro
+                    db.collection("livros")
+                        .document(livroId)
+                        .get()
+                        .addOnSuccessListener { livroDoc ->
 
-                    allHistorico.add(livro)
+                            val imagemBase64 = livroDoc.getString("Imagem")
+                            val situacaoEmprest = livroDoc.getString("SituacaoEmprestimo") ?: ""
+                            val disponibilidade = livroDoc.getString("Disponibilidade") ?: ""
+
+                            val tituloComAutor =
+                                if (autor.isNotBlank()) "$titulo - $autor" else titulo
+
+                            val emprestavel =
+                                situacaoEmprest.equals("Emprestável", ignoreCase = true)
+
+                            val book = Book(
+                                title = tituloComAutor,
+                                coverRes = R.drawable.livro_socrates, // fallback
+                                emprestavel = emprestavel,
+                                imagemBase64 = imagemBase64,
+                                tituloOriginal = titulo,
+                                autor = autor,
+                                situacaoEmprestimo = situacaoEmprest,
+                                disponibilidade = disponibilidade,
+                                livroId = livroId
+                            )
+
+                            allHistorico.add(book)
+
+                            prepararPaginacao()
+                            renderPage()
+                            aplicarEstiloBotoes()
+
+                        }
                 }
-
-                prepararPaginacao()
-                renderPage()
-                aplicarEstiloBotoes()
             }
     }
 
+
+    // ==============================
+    //   BUSCA + ANIMAÇÃO
+    // ==============================
     private fun configurarBuscaAnimada() {
         ivLupaHistorico.setOnClickListener {
             val mostrando = containerSearchHistorico.visibility == View.VISIBLE
@@ -154,14 +197,14 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
             }
         }
 
-        // 🔥 PESQUISA INTELIGENTE — AGORA SEM ERROS
         etSearchHistorico.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun afterTextChanged(s: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val texto = s?.toString()?.trim()?.lowercase().orEmpty()
+                val termo = s?.toString()?.trim()?.lowercase().orEmpty()
 
-                if (texto.isEmpty()) {
+                if (termo.isEmpty()) {
                     prepararPaginacao()
                     renderPage()
                     aplicarEstiloBotoes()
@@ -169,13 +212,11 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
                 }
 
                 val filtrados = allHistorico
-                    .filter { it.title.lowercase().contains(texto) }
+                    .filter { it.title.lowercase().contains(termo) }
                     .sortedBy { it.title }
 
                 adapter.submitPage(filtrados)
             }
-
-            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
@@ -206,6 +247,9 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         imm.hideSoftInputFromWindow(etSearchHistorico.windowToken, 0)
     }
 
+    // ==============================
+    //   PAGINAÇÃO
+    // ==============================
     private fun prepararPaginacao() {
         val n = allHistorico.size
         val needed = ceil(n / pageSize.toDouble()).toInt()

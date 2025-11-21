@@ -37,7 +37,6 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
     private lateinit var btnPag3: TextView
     private lateinit var adapter: FavoritosPagedAdapter
 
-    // Busca
     private lateinit var ivLupaFavoritos: ImageView
     private lateinit var containerSearchFavoritos: View
     private lateinit var etSearchFavoritos: EditText
@@ -66,7 +65,8 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         containerSearchFavoritos = findViewById(R.id.containerSearchFavoritos)
         etSearchFavoritos = findViewById(R.id.etSearchFavoritos)
 
-        // Navegação inferior
+
+        // ➤ BARRA INFERIOR COMPLETA RESTAURADA
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -80,7 +80,7 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        adapter = FavoritosPagedAdapter { /* ação ao clicar */ }
+        adapter = FavoritosPagedAdapter { }
 
         rvFavoritos.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -97,44 +97,70 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
             if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
 
-        carregarLivrosDoFirebase()
+        carregarFavoritosDoUsuario()
     }
 
-    private fun carregarLivrosDoFirebase() {
-        db.collection("livros")
+    // 🔥 BUSCAR FAVORITOS POR LIVRO-ID
+    private fun carregarFavoritosDoUsuario() {
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val matricula = prefs.getString("MATRICULA_USER", "") ?: ""
+
+        if (matricula.isBlank()) return
+
+        allFavoritos.clear()
+
+        db.collection("alunos")
+            .document(matricula)
+            .collection("favoritos")
             .get()
-            .addOnSuccessListener { result ->
-                allFavoritos.clear()
+            .addOnSuccessListener { favoritosDocs ->
 
-                for (doc in result) {
-                    val titulo = doc.getString("Titulo") ?: continue
-                    val autor = doc.getString("Autor") ?: ""
-                    val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
-                    val imagemBase64 = doc.getString("Imagem")
-
-                    val emprestavel = situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
-                    val tituloComAutor =
-                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
-
-                    allFavoritos.add(
-                        Book(
-                            title = tituloComAutor,
-                            coverRes = R.drawable.livro_1984,
-                            emprestavel = emprestavel,
-                            imagemBase64 = imagemBase64
-                        )
-                    )
+                if (favoritosDocs.isEmpty) {
+                    prepararPaginacao()
+                    renderPage()
+                    return@addOnSuccessListener
                 }
 
-                allFavoritos.sortBy { it.title.lowercase() }
+                for (favDoc in favoritosDocs) {
+                    val livroId = favDoc.id
 
-                prepararPaginacao()
-                renderPage()
-                aplicarEstiloBotoes()
+                    db.collection("livros")
+                        .document(livroId)
+                        .get()
+                        .addOnSuccessListener { livroDoc ->
+                            if (!livroDoc.exists()) return@addOnSuccessListener
+
+                            val tituloOriginal = livroDoc.getString("Titulo") ?: ""
+                            val autor = livroDoc.getString("Autor") ?: ""
+                            val situacao = livroDoc.getString("SituacaoEmprestimo") ?: ""
+                            val disponibilidade = livroDoc.getString("Disponibilidade") ?: ""
+                            val imagem = livroDoc.getString("Imagem")
+
+                            val emprestavel = situacao.equals("Emprestável", true)
+
+                            val livro = Book(
+                                title = if (autor.isNotBlank()) "$tituloOriginal - $autor" else tituloOriginal,
+                                coverRes = R.drawable.livro_1984,
+                                emprestavel = emprestavel,
+                                imagemBase64 = imagem,
+                                tituloOriginal = tituloOriginal,
+                                autor = autor,
+                                situacaoEmprestimo = situacao,
+                                disponibilidade = disponibilidade,
+                                livroId = livroId
+                            )
+
+                            allFavoritos.add(livro)
+
+                            allFavoritos.sortBy { it.title.lowercase() }
+                            prepararPaginacao()
+                            renderPage()
+                        }
+                }
             }
     }
 
-    // 🔥 FILTRO — IGUAL AO DA TELA DE EMPRESTÁVEIS DO ADM
+    // -------- BUSCA --------
     private fun configurarFiltroTexto() {
         etSearchFavoritos.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -162,7 +188,6 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         currentPage = 1
         prepararPaginacao()
         renderPage()
-        aplicarEstiloBotoes()
     }
 
     private fun configurarBuscaAnimada() {
@@ -212,6 +237,7 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(etSearchFavoritos.windowToken, 0)
     }
 
+    // -------- PAGINAÇÃO --------
     private fun prepararPaginacao() {
         val n = allFavoritos.size
         val needed = ceil(n / pageSize.toDouble()).toInt()
@@ -223,39 +249,18 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         if (p in 1..totalPages && p != currentPage) {
             currentPage = p
             renderPage()
-            aplicarEstiloBotoes()
         }
     }
 
     private fun renderPage() {
         val start = (currentPage - 1) * pageSize
         val end = min(start + pageSize, allFavoritos.size)
-        val slice = if (start in 0 until end) allFavoritos.subList(start, end) else emptyList()
+
+        val slice =
+            if (start in 0 until end) allFavoritos.subList(start, end)
+            else emptyList()
 
         adapter.submitPage(slice)
         rvFavoritos.scrollToPosition(0)
-    }
-
-    private fun aplicarEstiloBotoes() {
-        fun TextView.config(texto: String, habilitado: Boolean, isCurrent: Boolean) {
-            text = texto
-            isEnabled = habilitado
-            typeface =
-                if (isCurrent) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-            alpha = when {
-                !habilitado -> 0.35f
-                isCurrent -> 1f
-                else -> 0.95f
-            }
-            setTextColor(ContextCompat.getColor(this@FavoritosUsuarioActivity, android.R.color.black))
-            background = ContextCompat.getDrawable(
-                this@FavoritosUsuarioActivity,
-                R.drawable.bg_page_button_white
-            )
-        }
-
-        btnPag1.config("<", currentPage > 1, false)
-        btnPag2.config(currentPage.toString(), true, true)
-        btnPag3.config(">", currentPage < totalPages, false)
     }
 }

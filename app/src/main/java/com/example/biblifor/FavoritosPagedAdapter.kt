@@ -57,11 +57,17 @@ class FavoritosPagedAdapter(
         // ================================
         //  🔥 ABRIR POPUP COM TODOS DADOS
         // ================================
+        // ================================
+//  🔥 ABRIR POPUP COM TODOS DADOS
+// ================================
         holder.itemView.setOnClickListener {
             val ctx = holder.itemView.context
             val intent = Intent(ctx, PopupResultadosUsuarioActivity::class.java)
 
-            intent.putExtra("titulo", b.tituloOriginal)          // título sem autor
+            // ID real do Firestore
+            intent.putExtra("livroId", b.livroId)
+
+            intent.putExtra("titulo", b.tituloOriginal)
             intent.putExtra("autor", b.autor)
             intent.putExtra("imagemBase64", b.imagemBase64)
             intent.putExtra("situacao", b.situacaoEmprestimo)
@@ -69,6 +75,7 @@ class FavoritosPagedAdapter(
 
             ctx.startActivity(intent)
         }
+
     }
 
     override fun getItemCount(): Int = items.size

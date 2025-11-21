@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import android.graphics.BitmapFactory
+import android.util.Base64
 
 class RecommendedAdapter(
     private val items: List<RecommendedBook>,
@@ -27,13 +29,39 @@ class RecommendedAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val b = items[position]
-        holder.imgCapa.setImageResource(b.coverRes)
+
+        // =======================
+        // IMAGEM BASE64 OU FALLBACK
+        // =======================
+        if (!b.imagemBase64.isNullOrEmpty()) {
+            try {
+                val bytes = Base64.decode(b.imagemBase64, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                holder.imgCapa.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                holder.imgCapa.setImageResource(b.coverRes)
+            }
+        } else {
+            holder.imgCapa.setImageResource(b.coverRes)
+        }
+
+        // =======================
+        // TÍTULO
+        // =======================
         holder.txtTitulo.text = b.title
+
+        // =======================
+        // DISPONIBILIDADE
+        // =======================
         holder.txtDisp.text = b.availabilityText
         holder.txtDisp.setTextColor(
-            if (b.available) Color.parseColor("#00C853") else Color.parseColor("#FF3B30")
+            if (b.available) Color.parseColor("#00C853")
+            else Color.parseColor("#FF3B30")
         )
 
+        // =======================
+        // CLIQUE → envia o livro inteiro (com livroId!)
+        // =======================
         holder.itemView.setOnClickListener { onItemClick?.invoke(b) }
     }
 

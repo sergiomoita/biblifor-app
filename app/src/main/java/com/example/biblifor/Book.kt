@@ -8,5 +8,8 @@ data class Book(
     val tituloOriginal: String = "",
     val autor: String = "",
     val situacaoEmprestimo: String = "",
-    val disponibilidade: String = ""
+    val disponibilidade: String = "",
+
+    // ===== ID DO DOCUMENTO NO FIRESTORE =====
+    val livroId: String = ""
 )

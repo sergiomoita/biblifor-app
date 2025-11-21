@@ -1,66 +1,90 @@
 package com.example.biblifor
 
-import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Button
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.widget.TextView
+import android.content.Intent
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ConfirmacaoEmprestimoUsuarioActivity : BaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_confirmacao_emprestimo_usuario)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // ================ RECEBE DADOS DA TELA ANTERIOR ================
+        val titulo = intent.getStringExtra("titulo") ?: ""
+        val livroId = intent.getStringExtra("livroId") ?: ""
+        val imagemBase64 = intent.getStringExtra("imagemBase64")
+        val localizacaoRecebida = intent.getStringExtra("localizacao") ?: ""
+
+        // ================ VIEWS ================
+        val imgCapa = findViewById<ImageView>(R.id.imgCapaConfirmacao)
+        val txtLocalizacao = findViewById<TextView>(R.id.txtLocalizacao)
+        val btnHistorico = findViewById<Button>(R.id.btnIrHistorico)
+
+        // Se a tela recebeu localização da Activity anterior, já mostra
+        if (localizacaoRecebida.isNotEmpty()) {
+            txtLocalizacao.text = localizacaoRecebida
         }
 
-        val botaoHistorico = findViewById<Button>(R.id.lopesBtnHistorico24)
-        botaoHistorico.setOnClickListener {
-            val navegarHistorico = Intent(this, HistoricoEmprestimosUsuarioActivity::class.java)
-            startActivity(navegarHistorico)
+        // ================ CARREGAR IMAGEM BASE64 ================
+        if (!imagemBase64.isNullOrBlank()) {
+            try {
+                val bytes = Base64.decode(imagemBase64, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                imgCapa.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                imgCapa.setImageResource(R.drawable.livro_rachelqueiroz)
+            }
+        } else {
+            imgCapa.setImageResource(R.drawable.livro_rachelqueiroz)
         }
 
-        val imgChatBot = findViewById<ImageView>(R.id.lopesChatBot24)
-        imgChatBot.setOnClickListener {
-            val navegarChatBot = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarChatBot)
+        // ================  PEGAR LOCALIZAÇÃO DO FIREBASE  ================
+        if (livroId.isNotEmpty()) {
+            Firebase.firestore.collection("livros")
+                .document(livroId)
+                .get()
+                .addOnSuccessListener { doc ->
+                    val localiz = doc.getString("CodigoAcervo") ?: ""
+                    if (localiz.isNotEmpty()) {
+                        txtLocalizacao.text = localiz
+                    }
+                }
         }
 
-        val imgNotificacao = findViewById<ImageView>(R.id.lopesNotificacao24)
-        imgNotificacao.setOnClickListener {
-            val navegarNotificacao = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarNotificacao)
+
+        // ================  BOTÃO → HISTÓRICO ================
+        btnHistorico.setOnClickListener {
+            startActivity(Intent(this, HistoricoEmprestimosUsuarioActivity::class.java))
         }
 
-        val imagemLogoHome3 = findViewById<ImageView>(R.id.leoLogoHome3)
-        imagemLogoHome3.setOnClickListener {
-            val navegarLogoHome3 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarLogoHome3)
+        // ================  BARRA SUPERIOR ================
+        findViewById<ImageView>(R.id.iconChatbot).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        val imagemLogoChatBot3 = findViewById<ImageView>(R.id.leoImagemChatbot3)
-        imagemLogoChatBot3.setOnClickListener {
-            val navegarLogoChatBot3 = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarLogoChatBot3)
+        findViewById<ImageView>(R.id.iconNotificacao).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        val imagemLogoNotificacoes3 = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
-        imagemLogoNotificacoes3.setOnClickListener {
-            val navegarLogoNotificacoes3 = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarLogoNotificacoes3)
+        // ================ BARRA INFERIOR ================
+        findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
-
-        val imagemLogoMenu3 = findViewById<ImageView>(R.id.leoImagemMenu3)
-        imagemLogoMenu3.setOnClickListener {
-            val navegarLogoMenu3 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarLogoMenu3)
+        findViewById<ImageView>(R.id.leoImagemChatbot3).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
-
+        findViewById<ImageView>(R.id.leoImagemNotificacoes3).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
+        }
     }
 }

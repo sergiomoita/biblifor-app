@@ -149,8 +149,11 @@ class RecomendadosUsuarioActivity : BaseActivity() {
                         tituloOriginal = tituloOriginal,
                         autor = autor,
                         situacaoEmprestimo = situacaoEmprestimo,
-                        disponibilidade = disponibilidade
+                        disponibilidade = disponibilidade,
+
+                        livroId = doc.id   // 👈 AGORA ESTÁ AQUI!
                     )
+
 
                     allRecomendados.add(livro)
                 }

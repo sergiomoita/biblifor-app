@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:foreground="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
-    android:background="@android:color/transparent">
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="16dp"
+    android:background="#004AF7">
 
-    <!-- Texto do histórico (usado pelo ViewHolder via R.id.textoHistorico) -->
-    <TextView
-        android:id="@+id/textoHistorico"
+    <!-- Linha superior: Título do livro + Data da devolução -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:lineSpacingExtra="2dp"
-        android:maxLines="3"
-        android:ellipsize="end"
-        tools:text="Exemplo de livro do histórico" />
+        android:orientation="horizontal">
 
-    <!-- Linha divisória opcional -->
+        <TextView
+            android:id="@+id/itemHistoricoTitulo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Título do Livro"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:paddingEnd="8dp" />
+
+        <TextView
+            android:id="@+id/itemHistoricoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/09/2025"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- Linha inferior: nome do autor -->
+    <TextView
+        android:id="@+id/itemHistoricoDetalhes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Autor / Informações..."
+        android:textSize="13sp"
+        android:paddingTop="4dp"
+        android:textColor="#FFFFFF"
+        android:lineSpacingExtra="2dp" />
+
+    <!-- Linha divisória branca semi-transparente -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="#1F000000" />
+        android:layout_marginTop="10dp"
+        android:background="#80FFFFFF" />
+
 </LinearLayout>

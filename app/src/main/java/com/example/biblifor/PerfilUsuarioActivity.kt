@@ -19,10 +19,10 @@ class PerfilUsuarioActivity : BaseActivity() {
 
     private val db = FirebaseFirestore.getInstance()
 
-    // Guarda a matrícula do usuário para usar no callback do seletor
     private var alunoIdForEdit: String? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var historicoAdapter: HistoricoEmprestimoAdapter
 
-    // Launcher para escolher imagem (abre aba externa como Google Fotos)
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri == null) return@registerForActivityResult
@@ -42,7 +42,6 @@ class PerfilUsuarioActivity : BaseActivity() {
                         return@registerForActivityResult
                     }
 
-                    // Atualiza no Firestore e reflete na UI
                     db.collection("alunos").document(idAluno)
                         .update(mapOf("fotoPerfil" to base64))
                         .addOnSuccessListener {
@@ -62,7 +61,6 @@ class PerfilUsuarioActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil_usuario)
 
-        // 🔹 Views da tela
         val nomeBoxTextView = findViewById<TextView>(R.id.leoNomeCompletoUserPU5)
         val cursoTextView   = findViewById<TextView>(R.id.leoNomeCursoUserPU5)
         val matriculaBoxTv  = findViewById<TextView>(R.id.leoMatriculaUserPU5)
@@ -72,7 +70,6 @@ class PerfilUsuarioActivity : BaseActivity() {
         val fotoPerfilImage    = findViewById<ImageView>(R.id.leoFotoPerfilUsuarioPU5)
         val editarFotoPerfilNew = findViewById<ImageView>(R.id.leoBotaoEditarFotoPerfilNew)
 
-        // 🔹 Recupera matrícula do usuário logado (mesmo esquema do menu)
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val idAluno = prefs.getString("MATRICULA_USER", null)
         alunoIdForEdit = idAluno
@@ -82,7 +79,6 @@ class PerfilUsuarioActivity : BaseActivity() {
             nomeBoxTextView.text = "Usuário não encontrado"
             Log.e("PERFIL", "Nenhuma matrícula salva em APP_PREFS")
         } else {
-            // 🔹 Busca os dados do aluno no Firestore
             db.collection("alunos").document(idAluno)
                 .get()
                 .addOnSuccessListener { document ->
@@ -92,7 +88,6 @@ class PerfilUsuarioActivity : BaseActivity() {
                         val matricula = document.getString("matricula") ?: ""
                         val fotoBase64 = document.getString("fotoPerfil")
 
-                        // Preenche textos
                         nomeHeaderTextView.text = nome
                         matriculaHeaderTv.text = matricula
 
@@ -100,16 +95,8 @@ class PerfilUsuarioActivity : BaseActivity() {
                         cursoTextView.text = curso
                         matriculaBoxTv.text = matricula
 
-                        // Foto de perfil
                         if (!fotoBase64.isNullOrEmpty()) {
-                            val bitmap = base64ToBitmap(fotoBase64)
-                            if (bitmap != null) {
-                                fotoPerfilImage.setImageBitmap(bitmap)
-                            } else {
-                                Log.e("PERFIL", "Falha ao decodificar fotoPerfil para $idAluno")
-                            }
-                        } else {
-                            Log.d("PERFIL", "fotoPerfil vazio para $idAluno")
+                            base64ToBitmap(fotoBase64)?.let { fotoPerfilImage.setImageBitmap(it) }
                         }
                     } else {
                         nomeHeaderTextView.text = "Usuário não encontrado"
@@ -123,61 +110,76 @@ class PerfilUsuarioActivity : BaseActivity() {
                 }
         }
 
-        // 🔹 Clique para editar foto de perfil (abre seletor externo)
         editarFotoPerfilNew.setOnClickListener {
             pickImageLauncher.launch("image/*")
         }
 
-        // 🔹 RecyclerView do histórico (ainda exemplo fixo)
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerHistorico5)
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
+        // ===============================
+        // 🔹 CONFIGURAÇÃO DO RECYCLER VIEW
+        // ===============================
+        recyclerView = findViewById(R.id.recyclerHistorico5)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
-            DividerItemDecoration(this, layoutManager.orientation)
+            DividerItemDecoration(this, RecyclerView.VERTICAL)
         )
 
-        val historico = listOf(
-            HistoricoEmprestimo("Romeu e Julieta - W.Shakespeare 13/09/2025"),
-            HistoricoEmprestimo("1984 - George Orwell 02/09/2025"),
-            HistoricoEmprestimo("Dom Casmurro - Machado de Assis 13/09/2025")
-        )
-        recyclerView.adapter = HistoricoEmprestimoAdapter(historico)
+        // 🔥 CORREÇÃO: instanciar o adapter SEM lista!
+        historicoAdapter = HistoricoEmprestimoAdapter()
+        recyclerView.adapter = historicoAdapter
 
-        // 🔹 Botões e navegação
-        val leoBotaoVoltarPU5 = findViewById<ImageView>(R.id.leoImagemSetaPU5)
-        leoBotaoVoltarPU5.setOnClickListener {
+        carregarHistorico(idAluno)
+
+        // Navegação
+        findViewById<ImageView>(R.id.leoImagemSetaPU5).setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        val leoBotaoNotificacoesSPU5 =
-            findViewById<ImageView>(R.id.leoImagemNotificacaoSuperiorPU5)
-        leoBotaoNotificacoesSPU5.setOnClickListener {
-            val navegarNotificacoesSPU5 = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarNotificacoesSPU5)
+        findViewById<ImageView>(R.id.leoImagemNotificacaoSuperiorPU5).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        val leoLogoHomePU5 = findViewById<ImageView>(R.id.leoLogoHome3)
-        leoLogoHomePU5.setOnClickListener {
-            val navegarLogoHomePU5 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarLogoHomePU5)
+        findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
 
-        val leoLogoChatBotPU5 = findViewById<ImageView>(R.id.leoImagemChatbot3)
-        leoLogoChatBotPU5.setOnClickListener {
-            val navegarLogoChatBotPU5 = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarLogoChatBotPU5)
+        findViewById<ImageView>(R.id.leoImagemChatbot3).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        val leoLogoNotificacoesPU5 = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
-        leoLogoNotificacoesPU5.setOnClickListener {
-            val navegarLogoNotificacoesPU5 = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarLogoNotificacoesPU5)
+        findViewById<ImageView>(R.id.leoImagemNotificacoes3).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        val leoLogoMenuPU5 = findViewById<ImageView>(R.id.leoImagemMenu3)
-        leoLogoMenuPU5.setOnClickListener {
-            val navegarLogoMenuPU5 = Intent(this, MenuHamburguerUsuarioActivity::class.java)
-            startActivity(navegarLogoMenuPU5)
+        findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
+    }
+
+    // ==================================================
+    // 🔥 CARREGA O HISTÓRICO REAL DO FIRESTORE
+    // ==================================================
+    private fun carregarHistorico(idAluno: String?) {
+
+        if (idAluno.isNullOrEmpty()) return
+
+        db.collection("alunos")
+            .document(idAluno)
+            .collection("historicoEmprestimos")
+            .get()
+            .addOnSuccessListener { lista ->
+
+                val itens = lista.map { doc ->
+                    val titulo = doc.getString("nome") ?: "Sem título"
+                    val autor = doc.getString("autor") ?: ""
+                    val data = doc.getString("dataDevolucao") ?: ""
+                    HistoricoEmprestimo("$titulo - $autor  $data")
+                }.toMutableList()
+
+                // 🔥 AGORA FUNCIONA
+                historicoAdapter.updateList(itens)
+            }
+            .addOnFailureListener {
+                Log.e("HISTORICO", "Erro ao carregar histórico: ${it.localizedMessage}")
+            }
     }
 }
