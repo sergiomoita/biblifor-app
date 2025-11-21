@@ -2,7 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="biblifor_blue">#005BFF</color>
 
-
+    <!-- adicionadas -->
+    <color name="biblifor_weekday">#1A237E</color>
+    <color name="biblifor_date">#333333</color>
 </resources>

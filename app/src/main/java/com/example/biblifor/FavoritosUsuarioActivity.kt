@@ -1,6 +1,6 @@
 package com.example.biblifor
 
-import Book
+import com.example.biblifor.Book
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -21,6 +21,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.biblifor.adapter.FavoritosPagedAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

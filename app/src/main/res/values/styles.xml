@@ -2,23 +2,18 @@
 <resources>
 
     <style name="BibliforCalendarView" parent="@android:style/Widget.CalendarView">
-        <!-- Cor dos dias da semana (Dom, Seg, Ter...) -->
         <item name="android:weekDayTextAppearance">@style/BibliforWeekDayText</item>
-
-        <!-- Cor dos números dos dias -->
         <item name="android:dateTextAppearance">@style/BibliforDateText</item>
-
-        <!-- Remove o fundo cinza padrão -->
         <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="BibliforWeekDayText" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">#1A237E</item>
+        <item name="android:textColor">@color/biblifor_weekday</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="BibliforDateText" parent="@android:style/TextAppearance.Small">
-        <item name="android:textColor">#333333</item>
+        <item name="android:textColor">@color/biblifor_date</item>
     </style>
 
 </resources>

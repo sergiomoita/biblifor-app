@@ -136,6 +136,7 @@
             </LinearLayout>
 
             <!-- HISTÓRICO DE EMPRÉSTIMOS -->
+            <!-- HISTÓRICO DE EMPRÉSTIMOS -->
             <LinearLayout
                 android:id="@+id/btnHistorico"
                 android:layout_width="match_parent"
@@ -165,23 +166,38 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- IMAGEM + TEXTO (ESCONDIDOS) -->
             <ImageView
-                android:id="@+id/leoEmaDeitada3"
+                android:id="@+id/leoEmaSemHistorico"
                 android:layout_width="180dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="14dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ema_deitada" />
+                android:src="@drawable/ema_deitada"
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/leoLegendaEmaDeitada3"
+                android:id="@+id/leoTextoSemHistorico"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Você não possui nenhum empréstimo realizado"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp"
                 android:layout_gravity="center"
-                android:layout_marginTop="6dp" />
+                android:layout_marginTop="6dp"
+                android:visibility="gone" />
+
+            <!-- RECYCLER VIEW DO HISTÓRICO -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistorico"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="12dp"
+                android:clipToPadding="false"
+                android:padding="4dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_historico" />
+
 
             <!-- FAVORITOS -->
             <LinearLayout
@@ -213,60 +229,16 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- LISTA DE FAVORITOS -->
-            <LinearLayout
-                android:id="@+id/containerFavoritos"
+            <!-- RecyclerView de Favoritos -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFavoritos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-
-                <!-- Item 1 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="3dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="O Quinze — Disponível: físico + digital"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:src="@drawable/favoritado"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Item 2 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="3dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Guerra e Paz — Disponível: físico"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:src="@drawable/favoritado"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="140dp"
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:padding="4dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_favorito" />
 
             <!-- ÚLTIMOS AVISOS -->
             <LinearLayout
@@ -298,15 +270,15 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- RecyclerView dos últimos avisos -->
+            <!-- RecyclerView dos Avisos -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvUltimosAvisos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxHeight="200dp"
+                android:layout_height="140dp"
                 android:layout_marginTop="10dp"
                 android:clipToPadding="false"
                 android:padding="4dp"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_aviso" />
 
         </LinearLayout>

@@ -1,6 +1,6 @@
 package com.example.biblifor
 
-import Book
+import com.example.biblifor.Book
 import BookAdapterEmprestaveisAdmin
 import android.content.Context
 import android.content.Intent
@@ -36,13 +36,12 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
     private lateinit var btnPagCenter: TextView
     private lateinit var btnPagNext: TextView
 
-    // Busca
     private lateinit var ivLupaLivros: ImageView
     private lateinit var containerSearchLivros: View
     private lateinit var etSearchLivros: EditText
 
     private val allLivros = mutableListOf<Book>()
-    private val pageSize = 8   // 🔥 agora 8 por página (2 colunas × 4 linhas)
+    private val pageSize = 8
     private var currentPage = 1
     private var totalPages = 1
 
@@ -74,6 +73,7 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
+
 
         rvLivros = findViewById(R.id.rvLivros)
         rvLivros.layoutManager = GridLayoutManager(this, 2)
@@ -108,22 +108,31 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
 
                 for (doc in result) {
 
+                    val livroId = doc.id
                     val titulo = doc.getString("Titulo") ?: continue
                     val autor = doc.getString("Autor") ?: ""
                     val situacaoEmprestimo = doc.getString("SituacaoEmprestimo") ?: ""
+                    val disponibilidade = doc.getString("Disponibilidade") ?: ""
                     val imagemBase64 = doc.getString("Imagem")
 
-                    val emprestavel =
-                        situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
+                    val emprestavel = situacaoEmprestimo.equals("Emprestável", ignoreCase = true)
 
-                    val tituloComAutor =
-                        if (autor.isNotBlank()) "$titulo - $autor" else titulo
+                    val tituloExibicao =
+                        if (autor.isNotBlank()) "$titulo - $autor"
+                        else titulo
 
                     val livro = Book(
-                        title = tituloComAutor,
+                        title = tituloExibicao,
                         coverRes = R.drawable.livro_1984,
                         emprestavel = emprestavel,
-                        imagemBase64 = imagemBase64
+                        imagemBase64 = imagemBase64,
+
+                        tituloOriginal = titulo,
+                        autor = autor,
+                        situacaoEmprestimo = situacaoEmprestimo,
+                        disponibilidade = disponibilidade,
+
+                        livroId = livroId
                     )
 
                     allLivros.add(livro)
@@ -135,14 +144,9 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
                 renderPage()
                 aplicarEstiloBotoes()
             }
-            .addOnFailureListener {
-                prepararPaginacao()
-                renderPage()
-                aplicarEstiloBotoes()
-            }
     }
 
-    // 🔥 FILTRO DE TEXTO APLICADO EM TEMPO REAL
+
     private fun configurarFiltroTexto() {
         etSearchLivros.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -154,9 +158,7 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         })
     }
 
-    // 🔥 Filtro que puxa resultados para o topo
     private fun aplicarFiltroBusca(texto: String) {
-
         val termo = texto.trim().lowercase()
 
         if (termo.isEmpty()) {
@@ -180,6 +182,7 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         aplicarEstiloBotoes()
     }
 
+
     private fun configurarBuscaAnimada() {
         ivLupaLivros.setOnClickListener {
             val mostrando = containerSearchLivros.visibility == View.VISIBLE
@@ -199,15 +202,11 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (ev.action == MotionEvent.ACTION_DOWN &&
-            this::containerSearchLivros.isInitialized &&
             containerSearchLivros.visibility == View.VISIBLE
         ) {
             val rect = Rect()
             containerSearchLivros.getGlobalVisibleRect(rect)
-            val x = ev.rawX.toInt()
-            val y = ev.rawY.toInt()
-
-            if (!rect.contains(x, y)) {
+            if (!rect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
                 TransitionManager.beginDelayedTransition(rootLayout, AutoTransition())
                 containerSearchLivros.visibility = View.GONE
                 esconderTeclado()
@@ -249,13 +248,22 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         val slice = if (start in 0 until end) allLivros.subList(start, end) else emptyList()
 
         rvLivros.adapter = BookAdapterEmprestaveisAdmin(slice) { livro ->
-            if (livro.title.contains("Crime e Castigo", ignoreCase = true)) {
-                startActivity(Intent(this, EmprestarLivroAdministradorActivity::class.java))
-            }
+
+            val intent = Intent(this, PopupResultadosAdministradorActivity::class.java)
+
+            intent.putExtra("livroId", livro.livroId)
+            intent.putExtra("titulo", livro.tituloOriginal)
+            intent.putExtra("autor", livro.autor)
+            intent.putExtra("situacao", livro.situacaoEmprestimo)
+            intent.putExtra("disponibilidade", livro.disponibilidade)
+            intent.putExtra("imagemBase64", livro.imagemBase64)
+
+            startActivity(intent)
         }
 
         rvLivros.scrollToPosition(0)
     }
+
 
     private fun aplicarEstiloBotoes() {
         fun TextView.config(texto: String, habilitado: Boolean, isCurrent: Boolean) {
@@ -267,16 +275,8 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
                 isCurrent -> 1f
                 else -> 0.95f
             }
-            setTextColor(
-                ContextCompat.getColor(
-                    this@LivrosEmprestaveisAdministradorActivity,
-                    android.R.color.black
-                )
-            )
-            background = ContextCompat.getDrawable(
-                this@LivrosEmprestaveisAdministradorActivity,
-                R.drawable.bg_page_button_white
-            )
+            setTextColor(ContextCompat.getColor(this@LivrosEmprestaveisAdministradorActivity, android.R.color.black))
+            background = ContextCompat.getDrawable(this@LivrosEmprestaveisAdministradorActivity, R.drawable.bg_page_button_white)
         }
 
         btnPagPrev.config("<", currentPage > 1, false)

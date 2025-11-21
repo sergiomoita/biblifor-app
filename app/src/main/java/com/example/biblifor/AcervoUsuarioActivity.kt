@@ -1,6 +1,7 @@
 package com.example.biblifor
 
-import Book
+import com.example.biblifor.Book
+import com.example.biblifor.adapter.FavoritosPagedAdapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect

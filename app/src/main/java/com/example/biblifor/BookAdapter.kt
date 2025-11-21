@@ -1,6 +1,6 @@
 package com.example.biblifor
 
-import Book
+import com.example.biblifor.Book
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64

@@ -285,6 +285,7 @@
         app:layout_constraintHorizontal_bias="0.622"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="#FFFFFF"
         app:srcCompat="@drawable/editar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

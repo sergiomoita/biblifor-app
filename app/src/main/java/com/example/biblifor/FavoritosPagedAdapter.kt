@@ -1,8 +1,6 @@
-package com.example.biblifor
+package com.example.biblifor.adapter
 
-import Book
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.LayoutInflater
@@ -10,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.biblifor.Book
+import com.example.biblifor.PopupResultadosUsuarioActivity
+import com.example.biblifor.R
 
 class FavoritosPagedAdapter(
     private val onItemClick: (Book) -> Unit
@@ -19,10 +19,10 @@ class FavoritosPagedAdapter(
 
     private val items = mutableListOf<Book>()
 
-    class VH(v: View) : RecyclerView.ViewHolder(v) {
-        val imgCapa: ImageView = v.findViewById(R.id.imgCapa)
-        val txtTitulo: TextView = v.findViewById(R.id.txtTitulo)
-        val txtStatus: TextView = v.findViewById(R.id.txtStatus)
+    class VH(view: View) : RecyclerView.ViewHolder(view) {
+        val imgCapa: ImageView = view.findViewById(R.id.imgCapa)
+        val txtTitulo: TextView = view.findViewById(R.id.txtTitulo)
+        val txtStatus: TextView = view.findViewById(R.id.txtStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -32,67 +32,49 @@ class FavoritosPagedAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val b = items[position]
+        val livro = items[position]
 
-        // === TÍTULO ===
-        holder.txtTitulo.text = b.title
+        // ----- TÍTULO -----
+        holder.txtTitulo.text = livro.title
 
-        // === STATUS DE EMPRÉSTIMO ===
-        if (b.emprestavel) {
-            holder.txtStatus.text = "Emprestável"
-            holder.txtStatus.setTextColor(0xFF00C853.toInt())
+        // ----- STATUS / DISPONIBILIDADE -----
+        holder.txtStatus.text = livro.disponibilidade
+        holder.txtStatus.setTextColor(0xFFFFFFFF.toInt())
+
+        // ----- CAPA -----
+        if (!livro.imagemBase64.isNullOrEmpty()) {
+            try {
+                val bytes = Base64.decode(livro.imagemBase64, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                holder.imgCapa.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                holder.imgCapa.setImageResource(R.drawable.livro_1984)
+            }
         } else {
-            holder.txtStatus.text = "Não-emprestável"
-            holder.txtStatus.setTextColor(0xFFFF5252.toInt())
+            holder.imgCapa.setImageResource(R.drawable.livro_1984)
         }
 
-        // === IMAGEM BASE64 OU PADRÃO ===
-        val bitmap = base64ToBitmap(b.imagemBase64)
-        if (bitmap != null) {
-            holder.imgCapa.setImageBitmap(bitmap)
-        } else {
-            holder.imgCapa.setImageResource(b.coverRes)
-        }
-
-        // ================================
-        //  🔥 ABRIR POPUP COM TODOS DADOS
-        // ================================
-        // ================================
-//  🔥 ABRIR POPUP COM TODOS DADOS
-// ================================
+        // ---- CLICK → abrir popup ----
         holder.itemView.setOnClickListener {
             val ctx = holder.itemView.context
             val intent = Intent(ctx, PopupResultadosUsuarioActivity::class.java)
 
-            // ID real do Firestore
-            intent.putExtra("livroId", b.livroId)
-
-            intent.putExtra("titulo", b.tituloOriginal)
-            intent.putExtra("autor", b.autor)
-            intent.putExtra("imagemBase64", b.imagemBase64)
-            intent.putExtra("situacao", b.situacaoEmprestimo)
-            intent.putExtra("disponibilidade", b.disponibilidade)
+            intent.putExtra("livroId", livro.livroId)
+            intent.putExtra("titulo", livro.tituloOriginal)
+            intent.putExtra("autor", livro.autor)
+            intent.putExtra("imagemBase64", livro.imagemBase64)
+            intent.putExtra("situacao", livro.situacaoEmprestimo)
+            intent.putExtra("disponibilidade", livro.disponibilidade)
 
             ctx.startActivity(intent)
         }
-
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount() = items.size
 
-    fun submitPage(pageItems: List<Book>) {
+    fun submitPage(novos: List<Book>) {
         items.clear()
-        items.addAll(pageItems)
+        items.addAll(novos)
         notifyDataSetChanged()
-    }
-
-    private fun base64ToBitmap(base64: String?): Bitmap? {
-        if (base64.isNullOrBlank()) return null
-        return try {
-            val bytes = Base64.decode(base64, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        } catch (_: Exception) {
-            null
-        }
     }
 }

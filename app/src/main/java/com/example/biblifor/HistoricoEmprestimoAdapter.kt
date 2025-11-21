@@ -25,8 +25,8 @@ class HistoricoEmprestimoAdapter(
     override fun onBindViewHolder(holder: HistoricoEmprestimoViewHolder, position: Int) {
         val item = lista[position]
 
-        // item.texto vem no formato "Título - Autor  Data"
-        // Vamos separar para preencher direitinho:
+        // item.texto vem no formato:
+        // "Título - Autor  10/02/2025"
         val partes = item.texto.split("  ")
 
         val tituloAutor = partes.getOrNull(0) ?: "Título desconhecido"

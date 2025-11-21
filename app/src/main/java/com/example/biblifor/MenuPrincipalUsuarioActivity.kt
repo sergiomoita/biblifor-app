@@ -1,33 +1,44 @@
 package com.example.biblifor
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
+import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.biblifor.adapter.AvisoAdapter
+import com.example.biblifor.adapter.FavoritosAdapter
 import com.example.biblifor.model.Aviso
 import com.example.biblifor.util.base64ToBitmap
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.ktx.firestore
-import java.text.Normalizer
+import com.google.firebase.ktx.Firebase
 
 class MenuPrincipalUsuarioActivity : BaseActivity() {
 
-    private lateinit var db: FirebaseFirestore
+    private val db = Firebase.firestore
+
+    // ----- AVISOS -----
     private lateinit var rvUltimosAvisos: RecyclerView
     private lateinit var adapterAvisos: AvisoAdapter
-    private val listaUltimosAvisos = mutableListOf<Aviso>()
+    private val listaAvisos = mutableListOf<Aviso>()
+
+    // ----- HISTÓRICO -----
+    private lateinit var rvHistorico: RecyclerView
+    private lateinit var adapterHistorico: HistoricoEmprestimoAdapter
+    private val listaHistorico = mutableListOf<HistoricoEmprestimo>()
+    private lateinit var emaHistorico: ImageView
+    private lateinit var txtSemHistorico: TextView
+
+    // ----- FAVORITOS -----
+    private lateinit var rvFavoritos: RecyclerView
+    private lateinit var adapterFavoritos: FavoritosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,101 +51,67 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             insets
         }
 
-        // ==== Inicializa Firestore ====
-        db = Firebase.firestore
-
-        // ==== Configuração da RecyclerView ====
+        // ============================
+        // CONFIGURA AVISOS
+        // ============================
         rvUltimosAvisos = findViewById(R.id.rvUltimosAvisos)
         rvUltimosAvisos.layoutManager = LinearLayoutManager(this)
-        adapterAvisos = AvisoAdapter(listaUltimosAvisos)
+        adapterAvisos = AvisoAdapter(listaAvisos)
         rvUltimosAvisos.adapter = adapterAvisos
 
-        // ==== Recupera nome e matrícula do usuário logado ====
-        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
-        val matriculaUser = prefs.getString("MATRICULA_USER", null)
-        val nomeUser = prefs.getString("NOME_USER", null)
+        // ============================
+        // CONFIGURA HISTÓRICO
+        // ============================
+        rvHistorico = findViewById(R.id.rvHistorico)
+        emaHistorico = findViewById(R.id.leoEmaSemHistorico)
+        txtSemHistorico = findViewById(R.id.leoTextoSemHistorico)
 
-        // ==== Atualiza cabeçalho ====
+        adapterHistorico = HistoricoEmprestimoAdapter(listaHistorico)
+        rvHistorico.layoutManager = LinearLayoutManager(this)
+        rvHistorico.adapter = adapterHistorico
+
+        // ============================
+        // CONFIGURA FAVORITOS
+        // ============================
+        rvFavoritos = findViewById(R.id.rvFavoritos)
+        rvFavoritos.layoutManager = LinearLayoutManager(this)
+
+        adapterFavoritos = FavoritosAdapter(mutableListOf()) { item ->
+            // clique no favorito → vai para popup do livro
+            val intent = Intent(this, PopupResultadosUsuarioActivity::class.java)
+            intent.putExtra("livroId", item.livroId)
+            startActivity(intent)
+        }
+
+        rvFavoritos.adapter = adapterFavoritos
+
+        // ============================
+        // CARREGAR DADOS DO ALUNO
+        // ============================
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val matricula = prefs.getString("MATRICULA_USER", null)
+        val nome = prefs.getString("NOME_USER", null)
+
         val txtNome = findViewById<TextView>(R.id.leoOlaUsuario3)
         val txtMatricula = findViewById<TextView>(R.id.leoMatricula3)
         val imgFotoUser = findViewById<ImageView>(R.id.leoFotoUser3)
 
-        if (!nomeUser.isNullOrEmpty()) {
-            txtNome.text = "Olá, $nomeUser"
-        } else {
-            txtNome.text = "Olá, usuário"
+        txtNome.text = "Olá, ${nome ?: "Usuário"}"
+        txtMatricula.text = matricula ?: "—"
+
+        if (matricula != null) {
+            carregarFotoPerfilAluno(matricula, imgFotoUser)
+            carregarAvisos(matricula)
+            carregarHistorico(matricula)
+            carregarFavoritos(matricula)
         }
 
-        txtMatricula.text = matriculaUser ?: "—"
+        // ============================
+        // NAVEGAÇÃO
+        // ============================
 
-        // ==== Carrega foto de perfil do aluno logado ====
-        if (matriculaUser != null) {
-            carregarFotoPerfilAluno(matriculaUser, imgFotoUser)
-            carregarUltimosAvisos(matriculaUser)
-        } else {
-            Log.e("AVISOS", "⚠️ Nenhuma matrícula de usuário encontrada")
-        }
-
-        // ==== BOTÕES DE SEÇÕES ====
-        val btnHistorico = findViewById<LinearLayout>(R.id.btnHistorico)
-        val btnFavoritos = findViewById<LinearLayout>(R.id.btnFavoritos)
-        val btnAvisos = findViewById<LinearLayout>(R.id.btnAvisos)
-
-        btnHistorico.setOnClickListener {
-            startActivity(Intent(this, HistoricoEmprestimosUsuarioActivity::class.java))
-        }
-
-        btnFavoritos.setOnClickListener {
-            startActivity(Intent(this, FavoritosUsuarioActivity::class.java))
-        }
-
-        btnAvisos.setOnClickListener {
-            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
-        }
-
-        // ==== PERFIL ====
-        imgFotoUser.setOnClickListener {
-            startActivity(Intent(this, PerfilUsuarioActivity::class.java))
-        }
-
-        // ==== ACESSIBILIDADE ====
-        val imagemAcessibilidade = findViewById<ImageView>(R.id.leoAcessibilidade3)
-        val inputPesquisa = findViewById<EditText>(R.id.leoPesquisa3)
-
-        val textosParaAcessibilidade = listOf<TextView>(
-            findViewById(R.id.leotextViewUnifor3),
-            findViewById(R.id.leoOlaUsuario3),
-            findViewById(R.id.leoMatricula3),
-            findViewById(R.id.leoTituloHistorico3),
-            findViewById(R.id.leoLegendaEmaDeitada3),
-            findViewById(R.id.leoFavoritos3),
-            findViewById(R.id.leoUltimosAvisos3)
-        )
-
-        val coresOriginais = textosParaAcessibilidade.map { it to it.currentTextColor }
-        val corOriginalInput = inputPesquisa.currentTextColor
-        val corAcessivel = Color.parseColor("#FFFF00")
-
-        var acessibilidadeAtiva = false
-        imagemAcessibilidade.setOnClickListener {
-            if (!acessibilidadeAtiva) {
-                textosParaAcessibilidade.forEach { it.setTextColor(corAcessivel) }
-                inputPesquisa.setTextColor(corAcessivel)
-            } else {
-                coresOriginais.forEach { (view, color) -> view.setTextColor(color) }
-                inputPesquisa.setTextColor(corOriginalInput)
-            }
-            acessibilidadeAtiva = !acessibilidadeAtiva
-        }
-
-        // ==== NAVEGAÇÃO INFERIOR ====
-        findViewById<ImageView>(R.id.leoNotificacao3).setOnClickListener {
-            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
-        }
-
-        findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
-        }
+        // HOME — já estamos nela
+        findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener { }
 
         findViewById<ImageView>(R.id.leoImagemChatbot3).setOnClickListener {
             startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
@@ -148,71 +125,161 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
 
-        // ==== PESQUISA ====
-        val imagemLupa = findViewById<ImageView>(R.id.leoLupaPesquisa3)
-        // ==== PESQUISA INTELIGENTE REAL ====
-        imagemLupa.setOnClickListener {
-            val termo = inputPesquisa.text?.toString()?.trim().orEmpty()
-
-            if (termo.isBlank()) return@setOnClickListener
-
-            val intent = Intent(this, ResultadosPesquisaUsuarioActivity::class.java)
-            intent.putExtra("pesquisa", termo)
-            startActivity(intent)
+        // --- BOTÕES "VER MAIS" ---
+        findViewById<TextView>(R.id.btnVerMaisHistorico).setOnClickListener {
+            startActivity(Intent(this, HistoricoEmprestimosUsuarioActivity::class.java))
         }
 
+        findViewById<TextView>(R.id.btnVerMaisFavoritos).setOnClickListener {
+            startActivity(Intent(this, FavoritosUsuarioActivity::class.java))
+        }
+
+        findViewById<TextView>(R.id.btnVerMaisAvisos).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
+        }
     }
 
-    // ==== LER 3 ÚLTIMOS AVISOS ====
-    private fun carregarUltimosAvisos(matricula: String) {
+    // ======================================================
+    // HISTÓRICO
+    // ======================================================
+    private fun carregarHistorico(matricula: String) {
+
+        db.collection("alunos")
+            .document(matricula)
+            .collection("historicoEmprestimos")
+            .limit(3)
+            .get()
+            .addOnSuccessListener { result ->
+
+                listaHistorico.clear()
+
+                for (doc in result) {
+
+                    val titulo = doc.getString("nome") ?: "Sem título"
+                    val autor = doc.getString("autor") ?: ""
+                    val data =
+                        doc.getString("dataEmprestimo")
+                            ?: doc.getString("dataDevolucao")
+                            ?: ""
+
+                    listaHistorico.add(HistoricoEmprestimo("$titulo - $autor  $data"))
+                }
+
+                adapterHistorico.notifyDataSetChanged()
+
+                if (listaHistorico.isEmpty()) {
+                    emaHistorico.visibility = View.VISIBLE
+                    txtSemHistorico.visibility = View.VISIBLE
+                    rvHistorico.visibility = View.GONE
+                } else {
+                    emaHistorico.visibility = View.GONE
+                    txtSemHistorico.visibility = View.GONE
+                    rvHistorico.visibility = View.VISIBLE
+                }
+            }
+    }
+
+    // ======================================================
+    // FAVORITOS
+    // ======================================================
+    private fun carregarFavoritos(matricula: String) {
+
+        db.collection("alunos")
+            .document(matricula)
+            .collection("favoritos")
+            .whereEqualTo("favorito", true)
+            .get()
+            .addOnSuccessListener { favoritosDocs ->
+
+                if (favoritosDocs.isEmpty) {
+                    adapterFavoritos.updateList(emptyList())
+                    return@addOnSuccessListener
+                }
+
+                val listaFinal = mutableListOf<FavoritoItem>()
+                var total = favoritosDocs.size()
+                var processados = 0
+
+                for (favDoc in favoritosDocs) {
+
+                    val livroId = favDoc.id
+
+                    db.collection("livros").document(livroId)
+                        .get()
+                        .addOnSuccessListener { livro ->
+
+                            if (livro.exists()) {
+
+                                val titulo = livro.getString("Titulo") ?: livroId
+                                val disponibilidade = livro.getString("Disponibilidade") ?: "—"
+
+                                listaFinal.add(
+                                    FavoritoItem(
+                                        titulo = titulo,
+                                        disponibilidade = disponibilidade,
+                                        livroId = livroId
+                                    )
+                                )
+                            }
+                        }
+                        .addOnCompleteListener {
+                            processados++
+
+                            // Quando todos tiverem sido processados → atualizar lista
+                            if (processados == total) {
+                                adapterFavoritos.updateList(listaFinal)
+                            }
+                        }
+                }
+            }
+            .addOnFailureListener {
+                Log.e("FAVORITOS", "Erro ao buscar favoritos: ${it.localizedMessage}")
+            }
+    }
+
+
+    // ======================================================
+    // AVISOS
+    // ======================================================
+    private fun carregarAvisos(matricula: String) {
+
         db.collection("mensagens")
             .whereEqualTo("matricula", matricula)
             .orderBy("data", Query.Direction.DESCENDING)
             .limit(3)
             .get()
             .addOnSuccessListener { result ->
-                listaUltimosAvisos.clear()
+
+                listaAvisos.clear()
+
                 for (doc in result) {
-                    val aviso = Aviso(
-                        titulo = doc.getString("titulo") ?: "",
-                        mensagem = doc.getString("mensagem") ?: "",
-                        matricula = doc.getString("matricula") ?: "",
-                        matriculaAdm = doc.getString("matriculaAdm") ?: "",
-                        data = doc.getTimestamp("data")
+                    listaAvisos.add(
+                        Aviso(
+                            titulo = doc.getString("titulo") ?: "",
+                            mensagem = doc.getString("mensagem") ?: "",
+                            matricula = matricula,
+                            matriculaAdm = doc.getString("matriculaAdm") ?: "",
+                            data = doc.getTimestamp("data")
+                        )
                     )
-                    listaUltimosAvisos.add(aviso)
                 }
+
                 adapterAvisos.notifyDataSetChanged()
-            }
-            .addOnFailureListener { e ->
-                Log.e("AVISOS", "❌ Erro ao carregar avisos: ${e.localizedMessage}")
             }
     }
 
-    // ==== NOVO: carregar fotoPerfil do aluno logado ====
+    // ======================================================
+    // FOTO PERFIL
+    // ======================================================
     private fun carregarFotoPerfilAluno(matricula: String, imageView: ImageView) {
-        db.collection("alunos")
-            .document(matricula)
+        db.collection("alunos").document(matricula)
             .get()
             .addOnSuccessListener { doc ->
-                if (doc != null && doc.exists()) {
-                    val fotoBase64 = doc.getString("fotoPerfil")
-                    if (!fotoBase64.isNullOrEmpty()) {
-                        val bitmap = base64ToBitmap(fotoBase64)
-                        if (bitmap != null) {
-                            imageView.setImageBitmap(bitmap)
-                        } else {
-                            Log.e("FOTO_PERFIL", "Falha ao decodificar bitmap para $matricula")
-                        }
-                    } else {
-                        Log.d("FOTO_PERFIL", "fotoPerfil vazio para $matricula")
-                    }
-                } else {
-                    Log.e("FOTO_PERFIL", "Documento de aluno não encontrado para $matricula")
+                val foto = doc.getString("fotoPerfil")
+                if (!foto.isNullOrEmpty()) {
+                    val bitmap = base64ToBitmap(foto)
+                    if (bitmap != null) imageView.setImageBitmap(bitmap)
                 }
-            }
-            .addOnFailureListener { e ->
-                Log.e("FOTO_PERFIL", "Erro ao buscar foto: ${e.localizedMessage}")
             }
     }
 }

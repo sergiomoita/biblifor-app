@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#005BFF"
+    tools:context=".PopupResultadosAdministradorActivity">
+
+    <!-- BOTÃO VOLTAR -->
+    <ImageView
+        android:id="@+id/btnVoltarPopupAdm"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="30dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Voltar"
+        android:src="@drawable/seta"
+        android:tint="#FFFFFF" />
+
+    <!-- CARD CENTRAL -->
+    <LinearLayout
+        android:id="@+id/cardContainerPopupAdm"
+        android:layout_width="338dp"
+        android:layout_height="515dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_card"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- CAPA DO LIVRO -->
+        <ImageView
+            android:id="@+id/imgCapaPopupAdm"
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="Capa do livro"
+            android:src="@drawable/livro_rachelqueiroz" />
+
+        <!-- TÍTULO -->
+        <TextView
+            android:id="@+id/txtTituloPopupAdm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center"
+            android:text="Título do Livro"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- STATUS -->
+        <TextView
+            android:id="@+id/txtStatusPopupAdm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:gravity="center"
+            android:text="Disponível"
+            android:textColor="#00C853"
+            android:textSize="14sp" />
+
+        <!-- BOTÃO EDITAR LIVRO -->
+        <Button
+            android:id="@+id/btnEditarLivroPopupAdm"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:text="Editar Livro"
+            android:backgroundTint="#002C9B"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:paddingHorizontal="20dp" />
+
+    </LinearLayout>
+
+    <!-- BARRA INFERIOR -->
+    <LinearLayout
+        android:id="@+id/barraInferiorPopupAdm"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iconHomePopupAdm"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF"
+            android:layout_marginHorizontal="20dp" />
+
+        <ImageView
+            android:id="@+id/iconChatBotPopupAdm"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/chatbot_ema"
+            android:layout_marginHorizontal="20dp" />
+
+        <ImageView
+            android:id="@+id/iconMensagemPopupAdm"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/email"
+            android:layout_marginHorizontal="20dp" />
+
+        <ImageView
+            android:id="@+id/iconMenuPopupAdm"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/menu_hamb"
+            android:tint="#FFFFFF"
+            android:layout_marginHorizontal="20dp" />
+    </LinearLayout>
+
+</RelativeLayout>

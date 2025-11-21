@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="16dp"
+    android:background="#004AF7">
+
+    <!-- Linha superior: Título do livro e ícone de favorito -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/itemFavoritoTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Título do Livro"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:paddingEnd="8dp" />
+
+        <ImageView
+            android:id="@+id/itemFavoritoIcone"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/favoritado"
+             />
+    </LinearLayout>
+
+    <!-- Linha inferior: Disponibilidade -->
+    <TextView
+        android:id="@+id/itemFavoritoDisponibilidade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Disponível: físico + digital"
+        android:textSize="13sp"
+        android:textColor="#FFFFFF"
+        android:paddingTop="4dp"
+        android:lineSpacingExtra="2dp" />
+
+    <!-- Linha divisória -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#80FFFFFF" />
+
+</LinearLayout>

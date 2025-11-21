@@ -4,5 +4,4 @@
     <corners android:radius="16dp" />
     <stroke android:width="2dp" android:color="#000000" />
     <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp" />
-    <shadowColor>#55000000</shadowColor>
 </shape>
