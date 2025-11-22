@@ -1,120 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#004AF7"
-    tools:context=".RenovacaoConfirmadaUsuarioActivity">
+    android:background="#004AF7">
 
-    <TextView
-        android:id="@+id/lopesRenovacaoEmprestimoConfirmado34"
+    <!-- Logo UNIFOR -->
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logoUnifor"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/logo_unifor"/>
+
+        <TextView
+            android:id="@+id/textUnifor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Unifor Biblifor"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold"/>
+    </LinearLayout>
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tituloConfirmada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Renovação de empréstimo\nconfirmada"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Renovação de empréstimo confirmada"
-        android:textColor="#F8F8F8"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Capa do livro CENTRALIZADA -->
     <ImageView
-        android:id="@+id/lopesRomeuJulieta34"
-        android:layout_width="199dp"
-        android:layout_height="287dp"
-        android:layout_marginBottom="412dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/imagemLivroConfirmado"
+        android:layout_width="170dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/livro_romeu2"
+        app:layout_constraintTop_toBottomOf="@id/tituloConfirmada"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/livro_romeu2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:adjustViewBounds="true"/>
 
+    <!-- Botão -->
     <Button
         android:id="@+id/lopesBtnHistorico34"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="332dp"
-        android:backgroundTint="@color/white"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#FFFFFF"
         android:text="Histórico de Empréstimo"
-        android:textColor="@color/black"
-        app:cornerRadius="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/lopesLogoUnifor34"
-        android:layout_width="83dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_unifor" />
-
-    <TextView
-        android:id="@+id/lopesNomeUnifor34"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:textColor="#000000"
+        android:textSize="13sp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Unifor Biblifor"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintTop_toBottomOf="@id/imagemLivroConfirmado"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    <ImageView
-        android:id="@+id/leoLogoHome3"
-        android:layout_width="85dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="780dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
+    <!-- Barra inferior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="#004AF7"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/leoImagemChatbot3"
-        android:layout_width="57dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="780dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
+        <ImageView
+            android:id="@+id/leoLogoHome3"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/home"/>
 
-    <ImageView
-        android:id="@+id/leoImagemNotificacoes3"
-        android:layout_width="69dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="792dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/email" />
+        <ImageView
+            android:id="@+id/leoImagemChatbot3"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:src="@drawable/chatbot_ema"/>
 
-    <ImageView
-        android:id="@+id/leoImagemMenu3"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="788dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
+        <ImageView
+            android:id="@+id/leoImagemNotificacoes3"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/email"/>
+
+        <ImageView
+            android:id="@+id/leoImagemMenu3"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="36dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/menu_hamb"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

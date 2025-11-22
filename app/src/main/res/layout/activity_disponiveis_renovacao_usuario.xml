@@ -32,133 +32,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:fontFamily="sans-serif"
             android:text="Unifor Biblifor"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- BOTÃO DE VOLTAR ABAIXO DO LOGO -->
+    <!-- BOTÃO VOLTAR -->
     <ImageView
         android:id="@+id/lopesSetaVoltar32"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="Voltar"
         android:src="@drawable/seta"
         android:tint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/containerLogo"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerLogo" />
 
-    <!-- TÍTULO PRINCIPAL -->
+    <!-- TÍTULO -->
     <TextView
         android:id="@+id/lopesRenovacaoEmprestimo32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_semibold"
         android:text="Renovação de Empréstimo"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/lopesSetaVoltar32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- SUBTÍTULO -->
     <TextView
         android:id="@+id/lopesDisponiveisRenovacao32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_semibold"
         android:text="Disponíveis para renovação"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/lopesRenovacaoEmprestimo32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- CARD EXEMPLO (LIVRO DISPONÍVEL PARA RENOVAÇÃO) -->
-    <LinearLayout
-        android:id="@+id/cardLivroRomeu"
+
+    <!-- 🔥 AQUI AGORA É O RECYCLERVIEW 🔥 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDisponiveisRenovacao"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="12dp"
         app:layout_constraintTop_toBottomOf="@id/lopesDisponiveisRenovacao32"
+        app:layout_constraintBottom_toTopOf="@id/barraInferior"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_disponivel_renovacao"/>
 
-        <ImageView
-            android:id="@+id/lopesLivroRomeuJulieta32"
-            android:layout_width="90dp"
-            android:layout_height="140dp"
-            android:src="@drawable/livro_romeu2"
-            android:contentDescription="Capa do livro" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/lopesNomeRomeuJulieta32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Romeu e Julieta"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/lopesWilliamShakespeare32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/poppins_light"
-                android:text="W. Shakespeare"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/lopesDisponivel32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Disponível"
-                android:textColor="#32E60B"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/lopesFisicoDigital32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Físico + Digital"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/lopesData32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="13/09/2025"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- BARRA INFERIOR FIXA -->
+    <!-- BARRA INFERIOR -->
     <LinearLayout
         android:id="@+id/barraInferior"
         android:layout_width="0dp"

@@ -1,6 +1,5 @@
 package com.example.biblifor
 
-import com.example.biblifor.Book
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
@@ -26,6 +25,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.math.ceil
 import kotlin.math.min
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
@@ -38,7 +39,6 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
     private lateinit var adapter: FavoritosPagedAdapter
 
-    // Busca
     private lateinit var ivLupaHistorico: ImageView
     private lateinit var containerSearchHistorico: View
     private lateinit var etSearchHistorico: EditText
@@ -54,9 +54,7 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
         rootLayout = findViewById(R.id.main)
 
-        // ==============================
         // Barra inferior
-        // ==============================
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
@@ -82,9 +80,7 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         containerSearchHistorico = findViewById(R.id.containerSearchHistorico)
         etSearchHistorico = findViewById(R.id.etSearchHistorico)
 
-        // Usa o mesmo adapter das outras telas
         adapter = FavoritosPagedAdapter { book ->
-            // Se quiser abrir um popup específico de histórico, troque a Activity aqui
             val intent = Intent(this, PopupResultadosUsuarioActivity::class.java)
             intent.putExtra("livroId", book.livroId)
             intent.putExtra("titulo", book.tituloOriginal)
@@ -98,7 +94,6 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         rvHistorico.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvHistorico.adapter = adapter
-        rvHistorico.setHasFixedSize(true)
 
         configurarBuscaAnimada()
         carregarHistoricoDoFirebase()
@@ -106,15 +101,14 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         btnPagPrev.setOnClickListener {
             if (currentPage > 1) irParaPagina(currentPage - 1)
         }
-
         btnPagNext.setOnClickListener {
             if (currentPage < totalPages) irParaPagina(currentPage + 1)
         }
     }
 
-    // ==============================
-    //   CARREGAR HISTÓRICO DO ALUNO
-    // ==============================
+    // ===========================
+    //   🔥 CARREGAR HISTÓRICO
+    // ===========================
     private fun carregarHistoricoDoFirebase() {
         val db = Firebase.firestore
 
@@ -132,13 +126,21 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
 
                 allHistorico.clear()
 
+                if (result.isEmpty) {
+                    adapter.submitPage(emptyList())
+                    return@addOnSuccessListener
+                }
+
+                val totalDocs = result.size()
+                var loadedCount = 0
+
                 for (doc in result) {
 
                     val livroId = doc.getString("livroId") ?: doc.id
                     val titulo = doc.getString("titulo") ?: livroId
                     val autor = doc.getString("autor") ?: ""
+                    val dataDevolucao = doc.getString("dataDevolucao") ?: ""
 
-                    // Agora vamos buscar os dados reais do livro
                     db.collection("livros")
                         .document(livroId)
                         .get()
@@ -148,39 +150,49 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
                             val situacaoEmprest = livroDoc.getString("SituacaoEmprestimo") ?: ""
                             val disponibilidade = livroDoc.getString("Disponibilidade") ?: ""
 
-                            val tituloComAutor =
-                                if (autor.isNotBlank()) "$titulo - $autor" else titulo
-
-                            val emprestavel =
-                                situacaoEmprest.equals("Emprestável", ignoreCase = true)
-
                             val book = Book(
-                                title = tituloComAutor,
-                                coverRes = R.drawable.livro_socrates, // fallback
-                                emprestavel = emprestavel,
+                                title = if (autor.isNotBlank()) "$titulo - $autor" else titulo,
+                                coverRes = R.drawable.livro_socrates,
+                                emprestavel = situacaoEmprest.equals("Emprestável", true),
                                 imagemBase64 = imagemBase64,
                                 tituloOriginal = titulo,
                                 autor = autor,
                                 situacaoEmprestimo = situacaoEmprest,
                                 disponibilidade = disponibilidade,
-                                livroId = livroId
+                                livroId = livroId,
+                                dataDevolucao = dataDevolucao
                             )
 
                             allHistorico.add(book)
+                            loadedCount++
 
-                            prepararPaginacao()
-                            renderPage()
-                            aplicarEstiloBotoes()
+                            // Quando TUDO tiver carregado → ordenar
+                            if (loadedCount == totalDocs) {
 
+                                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR"))
+
+                                allHistorico.sortWith { a, b ->
+                                    try {
+                                        val dA = sdf.parse(a.dataDevolucao)?.time ?: 0L
+                                        val dB = sdf.parse(b.dataDevolucao)?.time ?: 0L
+                                        dB.compareTo(dA) // mais recente primeiro
+                                    } catch (e: Exception) {
+                                        0
+                                    }
+                                }
+
+                                prepararPaginacao()
+                                renderPage()
+                                aplicarEstiloBotoes()
+                            }
                         }
                 }
             }
     }
 
-
-    // ==============================
-    //   BUSCA + ANIMAÇÃO
-    // ==============================
+    // ===========================
+    //   BUSCA ANIMADA
+    // ===========================
     private fun configurarBuscaAnimada() {
         ivLupaHistorico.setOnClickListener {
             val mostrando = containerSearchHistorico.visibility == View.VISIBLE
@@ -203,7 +215,7 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val termo = s?.toString()?.trim()?.lowercase().orEmpty()
+                val termo = s.toString().trim().lowercase()
 
                 if (termo.isEmpty()) {
                     prepararPaginacao()
@@ -212,9 +224,9 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
                     return
                 }
 
-                val filtrados = allHistorico
-                    .filter { it.title.lowercase().contains(termo) }
-                    .sortedBy { it.title }
+                val filtrados = allHistorico.filter {
+                    it.title.lowercase().contains(termo)
+                }
 
                 adapter.submitPage(filtrados)
             }
@@ -248,13 +260,12 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
         imm.hideSoftInputFromWindow(etSearchHistorico.windowToken, 0)
     }
 
-    // ==============================
+    // ===========================
     //   PAGINAÇÃO
-    // ==============================
+    // ===========================
     private fun prepararPaginacao() {
         val n = allHistorico.size
-        val needed = ceil(n / pageSize.toDouble()).toInt()
-        totalPages = maxOf(needed, 1)
+        totalPages = ceil(n / pageSize.toDouble()).toInt().coerceAtLeast(1)
         currentPage = currentPage.coerceIn(1, totalPages)
     }
 
@@ -269,10 +280,7 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
     private fun renderPage() {
         val start = (currentPage - 1) * pageSize
         val end = min(start + pageSize, allHistorico.size)
-
-        val slice =
-            if (start in 0 until end) allHistorico.subList(start, end)
-            else emptyList()
+        val slice = if (start < end) allHistorico.subList(start, end) else emptyList()
 
         adapter.submitPage(slice)
         rvHistorico.scrollToPosition(0)
@@ -284,16 +292,8 @@ class HistoricoEmprestimosUsuarioActivity : BaseActivity() {
             isEnabled = habilitado
             typeface = if (atual) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
             alpha = if (habilitado) 1f else 0.35f
-            setTextColor(
-                ContextCompat.getColor(
-                    this@HistoricoEmprestimosUsuarioActivity,
-                    android.R.color.black
-                )
-            )
-            background = ContextCompat.getDrawable(
-                this@HistoricoEmprestimosUsuarioActivity,
-                R.drawable.bg_page_button_white
-            )
+            setTextColor(ContextCompat.getColor(this@HistoricoEmprestimosUsuarioActivity, android.R.color.black))
+            background = ContextCompat.getDrawable(this@HistoricoEmprestimosUsuarioActivity, R.drawable.bg_page_button_white)
         }
 
         btnPagPrev.estilizar("<", currentPage > 1, false)

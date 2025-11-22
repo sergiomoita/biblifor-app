@@ -1,91 +1,159 @@
 package com.example.biblifor
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class RenovacaoEmprestimoUsuarioActivity : BaseActivity() {
+
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_renovacao_emprestimo_usuario)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        // ------------------ RECEBENDO DADOS ------------------
+        val emprestimoId = intent.getStringExtra("emprestimoId") ?: return
+        val livroNome = intent.getStringExtra("nome") ?: ""
+        val livroAutor = intent.getStringExtra("autor") ?: ""
+        val dataEmp = intent.getStringExtra("dataEmprestimo") ?: ""
+        val dataDev = intent.getStringExtra("dataDevolucao") ?: ""
+        val livroId = intent.getStringExtra("livroId") ?: ""
+        val imagemBase64 = intent.getStringExtra("imagemBase64")
+
+        // ------------------ VIEWS ------------------
+        val imgLivro = findViewById<ImageView>(R.id.lopesLivroRomeuJulieta33)
+        val txtNome = findViewById<TextView>(R.id.lopesNomeRomeu33)
+        val txtAutor = findViewById<TextView>(R.id.lopesAutorRomeu33)
+        val txtDevAtual = findViewById<TextView>(R.id.lopesDataDevolucao33)
+        val txtNovaDev = findViewById<TextView>(R.id.lopesNovaData33)
+
+        // ------------------ CARREGAR CAPA ------------------
+        if (!imagemBase64.isNullOrEmpty()) {
+            try {
+                val bytes = Base64.decode(imagemBase64, Base64.DEFAULT)
+                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                imgLivro.setImageBitmap(bitmap)
+            } catch (e: Exception) {
+                imgLivro.setImageResource(R.drawable.livro_1984)
+            }
+        } else {
+            imgLivro.setImageResource(R.drawable.livro_1984)
         }
 
+        // ------------------ EXIBIR INFORMAÇÕES ------------------
+        txtNome.text = livroNome
+        txtAutor.text = livroAutor
+        txtDevAtual.text = "Data de devolução: $dataDev"
 
+        // ------------------ CALCULAR NOVA DATA (+7 DIAS) ------------------
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR"))
+        val calendario = Calendar.getInstance()
 
-        val imgSeta = findViewById<ImageView>(R.id.lopesSetaVoltar33)
-        imgSeta.setOnClickListener {
-            val navegarSeta = Intent(this, DisponiveisRenovacaoUsuarioActivity::class.java)
-            startActivity(navegarSeta)
-        }
+        val dataOriginal = sdf.parse(dataDev)
+        calendario.time = dataOriginal!!
 
-        val btnAceitar = findViewById<Button>(R.id.lopesBtnAceitar33)
-        btnAceitar.setOnClickListener {
-            val navegarAceitar = Intent(this, RenovacaoConfirmadaUsuarioActivity::class.java)
-            startActivity(navegarAceitar)
-        }
+        calendario.add(Calendar.DAY_OF_MONTH, 7)
+        val novaDataStr = sdf.format(calendario.time)
 
-        val btnRecusar = findViewById<Button>(R.id.lopesBtnRecusar33)
-        btnRecusar.setOnClickListener {
-            val navegarRecusar = Intent(this, DisponiveisRenovacaoUsuarioActivity::class.java)
-            startActivity(navegarRecusar)
-        }
+        txtNovaDev.text = "Nova devolução: $novaDataStr"
 
-
-        val imagemLogoHome3 = findViewById<ImageView>(R.id.leoLogoHome3)
-        imagemLogoHome3.setOnClickListener {
-            val navegarLogoHome3 = Intent(this, MenuPrincipalUsuarioActivity::class.java)
-            startActivity(navegarLogoHome3)
-        }
-
-        val imagemLogoChatBot3 = findViewById<ImageView>(R.id.leoImagemChatbot3)
-        imagemLogoChatBot3.setOnClickListener {
-            val navegarLogoChatBot3 = Intent(this, ChatbotUsuarioActivity::class.java)
-            startActivity(navegarLogoChatBot3)
-        }
-
-        val imagemLogoNotificacoes3 = findViewById<ImageView>(R.id.leoImagemNotificacoes3)
-        imagemLogoNotificacoes3.setOnClickListener {
-            val navegarLogoNotificacoes3 = Intent(this, AvisosUsuarioActivity::class.java)
-            startActivity(navegarLogoNotificacoes3)
-        }
-
-        val imagemLogoMenu3 = findViewById<ImageView>(R.id.leoImagemMenu3)
-        imagemLogoMenu3.setOnClickListener {
-            val navegarLogoMenu3 = Intent(this, MenuHamburguerUsuarioActivity::class.java)
-            startActivity(navegarLogoMenu3)
-        }
-
-
-        // ===== RecyclerView: termos e condições =====
+        // ------------------ TERMOS DA RENOVAÇÃO ------------------
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerTermos33)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val termos = listOf(
-            Termo("1. Cadastro — Apenas usuários devidamente cadastrados na biblioteca podem realizar empréstimos."),
-            Termo("2. Prazo de Empréstimo — Devolução em até 7 dias corridos; pode haver 1 renovação se não houver reserva."),
-            Termo("3. Renovação — Solicitar antes do vencimento do prazo, presencialmente ou pelos meios oficiais."),
-            Termo("4. Atrasos — Sujeito à suspensão de novos empréstimos até a regularização."),
-            Termo("5. Penalidades — Podem ser aplicadas conforme regulamento interno da biblioteca."),
-            Termo("6. Conservação — Materiais devem ser mantidos em bom estado; danos são de responsabilidade do usuário."),
-            Termo("7. Devolução — Realizar no balcão ou canais autorizados pela biblioteca."),
-            Termo("8. Reservas — Permitidas quando o título estiver emprestado."),
-            Termo("9. Comunicação — Avisos podem ser enviados pelo app/e-mail.")
+            Termo("1. Renovação disponível apenas quando faltarem 3 dias ou menos para o vencimento."),
+            Termo("2. A renovação adiciona +7 dias ao prazo atual."),
+            Termo("3. O livro não pode estar reservado por outro usuário."),
+            Termo("4. O atraso invalida a renovação automática."),
+            Termo("5. A devolução deve seguir as normas da biblioteca.")
         )
 
         recyclerView.adapter = TermosAdapter(termos)
-        // ============================================
+
+        // ----------------------------------------------------------
+        // 🔥 BOTÃO ACEITAR — ATUALIZAR FIRESTORE
+        // ----------------------------------------------------------
+        val btnAceitar = findViewById<Button>(R.id.lopesBtnAceitar33)
+        btnAceitar.setOnClickListener {
+
+            val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+            val matricula = prefs.getString("MATRICULA_USER", null)
+
+            if (matricula == null) {
+                Toast.makeText(this, "Erro: usuário não encontrado.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val novoMapa = mapOf(
+                "dataDevolucao" to novaDataStr,
+                "status" to "Renovado"
+            )
+
+            db.collection("alunos")
+                .document(matricula)
+                .collection("historicoEmprestimos")
+                .document(emprestimoId)
+                .update(novoMapa)
+                .addOnSuccessListener {
+
+                    val i = Intent(this, RenovacaoConfirmadaUsuarioActivity::class.java)
+
+                    // 🔥 AQUI ESTÁ A MÁGICA: reenviando a capa!
+                    i.putExtra("imagemBase64", imagemBase64)
+                    i.putExtra("nome", livroNome)
+                    i.putExtra("autor", livroAutor)
+                    i.putExtra("novaData", novaDataStr)
+
+                    startActivity(i)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Erro ao renovar empréstimo.", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+
+        // ----------------------------------------------------------
+        // BOTÃO RECUSAR
+        // ----------------------------------------------------------
+        val btnRecusar = findViewById<Button>(R.id.lopesBtnRecusar33)
+        btnRecusar.setOnClickListener {
+            finish()
+        }
+
+        // ----------------------------------------------------------
+        // SETA VOLTAR
+        // ----------------------------------------------------------
+        findViewById<ImageView>(R.id.lopesSetaVoltar33).setOnClickListener {
+            finish()
+        }
+
+        // ----------------------------------------------------------
+        // BARRA INFERIOR
+        // ----------------------------------------------------------
+        findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
+            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.leoImagemChatbot3).setOnClickListener {
+            startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.leoImagemNotificacoes3).setOnClickListener {
+            startActivity(Intent(this, AvisosUsuarioActivity::class.java))
+        }
+        findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
+            startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
+        }
     }
 }

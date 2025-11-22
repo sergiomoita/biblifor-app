@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="12dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="horizontal">
+
+        <!-- CAPA DO LIVRO -->
+        <ImageView
+            android:id="@+id/itemCapaLivroRenovacao"
+            android:layout_width="80dp"
+            android:layout_height="110dp"
+            android:scaleType="centerCrop"
+            android:background="#CCCCCC"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="Capa do livro" />
+
+        <!-- INFORMAÇÕES DO LIVRO -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- TÍTULO -->
+            <TextView
+                android:id="@+id/itemTituloRenovacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Romeu e Julieta"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- AUTOR -->
+            <TextView
+                android:id="@+id/itemAutorRenovacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="W. Shakespeare"
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:layout_marginTop="2dp" />
+
+            <!-- STATUS -->
+            <TextView
+                android:id="@+id/itemStatusRenovacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disponível"
+                android:textColor="#00C851"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- TIPO -->
+
+            <!-- DATA DEVOLUÇÃO -->
+            <TextView
+                android:id="@+id/itemDataFimRenovacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13/09/2025"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,6 +1,5 @@
 package com.example.biblifor
 
-
 data class Book(
     val title: String,
     val coverRes: Int,
@@ -14,5 +13,8 @@ data class Book(
     val disponibilidade: String = "",
 
     // ===== ID DO DOCUMENTO NO FIRESTORE =====
-    val livroId: String = ""
+    val livroId: String = "",
+
+    // ===== DATA PARA ORDENAR NO HISTÓRICO =====
+    val dataDevolucao: String = ""   // <-- ADICIONADO AQUI
 )
