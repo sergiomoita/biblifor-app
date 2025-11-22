@@ -90,22 +90,31 @@
             android:exported="false"
             android:theme="@style/Theme.BIBLIFOR" />
 
-        <!-- Administrador -->
+
+        <!-- =============== ADMINISTRADOR =============== -->
+
         <activity android:name=".StatusCapsulaAdministradorActivity" android:exported="false" />
         <activity android:name=".CapsulasAdministradorActivity" android:exported="false" />
         <activity android:name=".MenuHamburguerAdministradorActivity" android:exported="false" />
         <activity android:name=".EscreverMensagemAdministradorActivity" android:exported="false" />
         <activity android:name=".MensagensAdministradorActivity" android:exported="false" />
         <activity android:name=".EditarLivroAdministradorActivity" android:exported="false" />
+
+        <!-- 👇 ESTA ERA A QUE ESTAVA FALTANDO -->
+        <activity
+            android:name=".PopupResultadosAdministradorActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BIBLIFOR" />
+
         <activity android:name=".EmprestarLivroAdministradorActivity" android:exported="false" />
         <activity android:name=".LivrosEmprestaveisAdministradorActivity" android:exported="false" />
         <activity android:name=".PerfilAdministradorActivity" android:exported="false" />
-        <activity android:name=".ConfirmacaoCadastroAdministradorActivity" android:exported="false" />
-        <activity android:name=".LivroCadastrandoAdministradorActivity" android:exported="false" />
         <activity android:name=".MenuPrincipalAdministradorActivity" android:exported="false" />
         <activity android:name=".CadastrarLivroAdministradorActivity" android:exported="false" />
 
-        <!-- Usuário -->
+
+        <!-- =============== USUÁRIO =============== -->
+
         <activity android:name=".MenuPrincipalUsuarioActivity" android:exported="false" android:theme="@style/Theme.BIBLIFOR" />
         <activity android:name=".MenuHamburguerUsuarioActivity" android:exported="false" android:theme="@style/Theme.BIBLIFOR" />
         <activity android:name=".PerfilUsuarioActivity" android:exported="false" />
@@ -133,5 +142,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
+
 </manifest>

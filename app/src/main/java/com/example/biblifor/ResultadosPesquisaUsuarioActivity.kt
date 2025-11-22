@@ -44,15 +44,23 @@ class ResultadosPesquisaUsuarioActivity : BaseActivity() {
         // ====== Adapter ======
         rv.layoutManager = LinearLayoutManager(this)
         adapter = FavoritosPagedAdapter { livro ->
-            if (livro.title.contains("Romeu", ignoreCase = true)) {
-                startActivity(Intent(this, PopupResultadosUsuarioActivity::class.java))
-            }
+
+            // ESTE É O CLIQUE CORRETO DO LIVRO
+            val intent = Intent(this, PopupResultadosUsuarioActivity::class.java)
+
+            intent.putExtra("livroId", livro.livroId)
+            intent.putExtra("titulo", livro.tituloOriginal)
+            intent.putExtra("autor", livro.autor)
+            intent.putExtra("imagemBase64", livro.imagemBase64)
+            intent.putExtra("situacao", livro.situacaoEmprestimo)
+            intent.putExtra("disponibilidade", livro.disponibilidade)
+
+            startActivity(intent)
         }
         rv.adapter = adapter
 
         // ====== SETA VOLTAR ======
         findViewById<ImageView>(R.id.lopesSetaVoltar32).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
             finish()
         }
 
@@ -71,18 +79,13 @@ class ResultadosPesquisaUsuarioActivity : BaseActivity() {
             containerPesquisa.visibility =
                 if (visible) android.view.View.GONE else android.view.View.VISIBLE
 
-            if (!visible) {
-                // abrir → focar no campo
-                etPesquisa.requestFocus()
-            }
+            if (!visible) etPesquisa.requestFocus()
         }
 
-        // ====== Lupa interna (realiza a pesquisa) ======
+        // ====== Lupa interna ======
         lupaInterna.setOnClickListener {
             val texto = etPesquisa.text.toString().trim()
-            if (texto.isNotEmpty()) {
-                realizarPesquisa(texto)
-            }
+            if (texto.isNotEmpty()) realizarPesquisa(texto)
         }
 
         // ====== Navegação inferior ======
@@ -101,7 +104,7 @@ class ResultadosPesquisaUsuarioActivity : BaseActivity() {
     }
 
     // ======================================================
-    // 🔥 REALIZAR PESQUISA — SÓ DISPARA AQUI
+    // 🔥 REALIZAR PESQUISA (AGORA PASSA O livroId TOTALMENTE CORRETO)
     // ======================================================
     private fun realizarPesquisa(texto: String) {
         val db = Firebase.firestore
@@ -110,6 +113,7 @@ class ResultadosPesquisaUsuarioActivity : BaseActivity() {
         db.collection("livros")
             .get()
             .addOnSuccessListener { result ->
+
                 val pesquisaLower = texto.lowercase()
 
                 for (doc in result) {
@@ -117,22 +121,28 @@ class ResultadosPesquisaUsuarioActivity : BaseActivity() {
                     val autor = doc.getString("Autor") ?: ""
                     val imagem = doc.getString("Imagem")
                     val situacao = doc.getString("SituacaoEmprestimo") ?: ""
+                    val disponibilidade = doc.getString("Disponibilidade") ?: ""
 
                     val combinado = "$titulo $autor".lowercase()
 
                     if (!combinado.contains(pesquisaLower)) continue
 
+                    // 🔥 AGORA COM LIVRO-ID CORRETO (doc.id)
                     resultados.add(
                         Book(
                             title = "$titulo - $autor",
                             coverRes = R.drawable.livro_socrates,
                             emprestavel = situacao.equals("Emprestável", true),
-                            imagemBase64 = imagem
+                            imagemBase64 = imagem,
+                            tituloOriginal = titulo,
+                            autor = autor,
+                            situacaoEmprestimo = situacao,
+                            disponibilidade = disponibilidade,
+                            livroId = doc.id   // 🔥 ESSENCIAL!
                         )
                     )
                 }
 
-                // Se nada encontrado → vai para a tela sem resultado
                 if (resultados.isEmpty()) {
                     val intent = Intent(this, MensagemSemResultadoUsuarioActivity::class.java)
                     intent.putExtra("pesquisa", texto)

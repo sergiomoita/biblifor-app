@@ -1,9 +1,10 @@
 package com.example.biblifor
 
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,7 +24,7 @@ class PopupResultadosUsuarioActivity : BaseActivity() {
         // ============================
         // RECEBER DADOS DO INTENT
         // ============================
-        val livroId = intent.getStringExtra("livroId") ?: ""   // 👈 ID REAL DO DOCUMENTO
+        val livroId = intent.getStringExtra("livroId") ?: ""
         val titulo = intent.getStringExtra("titulo") ?: "Título indisponível"
         val autor = intent.getStringExtra("autor") ?: ""
         val situacao = intent.getStringExtra("situacao") ?: ""
@@ -32,17 +33,18 @@ class PopupResultadosUsuarioActivity : BaseActivity() {
         val matricula = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
             .getString("MATRICULA_USER", "") ?: ""
 
-
         // Views
         val txtTitulo = findViewById<TextView>(R.id.txtTituloPopupResultadosUsuario)
         val txtStatus = findViewById<TextView>(R.id.txtStatusPopupResultadosUsuario)
         val imgCapa = findViewById<ImageView>(R.id.imgCapaPopupResultadosUsuario)
         val iconFavorito = findViewById<ImageView>(R.id.iconFavoritoPopupResultadosUsuario)
+        val btnEmprestimo = findViewById<Button>(R.id.btnEmprestimoPopupResultadosUsuario)
+        val btnOnline = findViewById<Button>(R.id.btnOnlinePopupResultadosUsuario)
 
         // Nome do livro
         txtTitulo.text = if (autor.isNotEmpty()) "$titulo\n($autor)" else titulo
 
-        // Status
+        // Status geral de exibição
         val statusFinal = when {
             disponibilidade.contains("Físico") && disponibilidade.contains("Online") ->
                 "Disponível em mídia física e digital"
@@ -99,7 +101,6 @@ class PopupResultadosUsuarioActivity : BaseActivity() {
             isFavorito = !isFavorito
 
             if (isFavorito) {
-                // FAVORITAR
                 db.collection("alunos")
                     .document(matricula)
                     .collection("favoritos")
@@ -111,7 +112,6 @@ class PopupResultadosUsuarioActivity : BaseActivity() {
                     }
 
             } else {
-                // DESFAVORITAR
                 db.collection("alunos")
                     .document(matricula)
                     .collection("favoritos")
@@ -125,52 +125,102 @@ class PopupResultadosUsuarioActivity : BaseActivity() {
         }
 
         // ============================
+        // LÓGICA DE DISPONIBILIDADE / SITUAÇÃO
+        // ============================
+        val hasFisico = disponibilidade.contains("Físico", ignoreCase = true)
+        val hasOnline = disponibilidade.contains("Online", ignoreCase = true)
+        val situacaoEmprestimo = situacao // "Emprestável" ou "Não-emprestável"
+
+        // ----- CONFIGURAR BOTÃO EMPRÉSTIMO -----
+        var podeEmprestar = false
+        if (hasFisico && situacaoEmprestimo == "Emprestável") {
+            // pode emprestar normalmente
+            podeEmprestar = true
+            btnEmprestimo.isEnabled = true
+            btnEmprestimo.alpha = 1f
+            btnEmprestimo.text = "Empréstimo"
+        } else if (hasFisico && situacaoEmprestimo == "Não-emprestável") {
+            // tem mídia física, mas não é emprestável
+            btnEmprestimo.isEnabled = false
+            btnEmprestimo.alpha = 0.6f
+            btnEmprestimo.text = "Indisponível"
+        } else if (!hasFisico) {
+            // não tem mídia física
+            btnEmprestimo.isEnabled = false
+            btnEmprestimo.alpha = 0.6f
+            btnEmprestimo.text = "Indisponível"
+        } else {
+            // qualquer outra situação inesperada
+            btnEmprestimo.isEnabled = false
+            btnEmprestimo.alpha = 0.6f
+            btnEmprestimo.text = "Indisponível"
+        }
+
+        // Só configura o clique se REALMENTE puder emprestar
+        if (podeEmprestar) {
+            btnEmprestimo.setOnClickListener {
+
+                if (livroId.isEmpty()) {
+                    Toast.makeText(this, "Erro ao carregar o livro.", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                db.collection("livros")
+                    .document(livroId)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        val unidades = doc.getLong("quantidade")?.toInt() ?: 0
+
+                        val intent = Intent(this, EmprestimoUsuarioActivity::class.java)
+                        intent.putExtra("livroId", livroId)
+                        intent.putExtra("titulo", titulo)
+                        intent.putExtra("autor", autor)
+                        intent.putExtra("imagemBase64", imagemBase64)
+                        intent.putExtra("situacao", situacaoEmprestimo)
+                        intent.putExtra("disponibilidade", disponibilidade)
+                        intent.putExtra("unidades", unidades)
+                        startActivity(intent)
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            this,
+                            "Erro ao carregar dados do livro.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
+        } else {
+            // Garante que nenhum clique funcione se estiver desativado
+            btnEmprestimo.setOnClickListener { }
+        }
+
+        // ----- CONFIGURAR BOTÃO ONLINE -----
+        if (hasOnline) {
+            btnOnline.isEnabled = true
+            btnOnline.alpha = 1f
+            btnOnline.text = "Online"
+
+            btnOnline.setOnClickListener {
+                val uri = Uri.parse("https://biblioteca.sophia.com.br/terminal/9575")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
+            }
+        } else {
+            btnOnline.isEnabled = false
+            btnOnline.alpha = 0.6f
+            btnOnline.text = "Indisponível"
+            btnOnline.setOnClickListener { }
+        }
+
+        // ============================
         // BOTÃO VOLTAR
         // ============================
         findViewById<ImageView>(R.id.btnVoltarPopupResultadosUsuarioSergio)
             .setOnClickListener { finish() }
 
         // ============================
-        // BOTÕES PRINCIPAIS
+        // BOTÃO FAVORITOS
         // ============================
-        findViewById<Button>(R.id.btnEmprestimoPopupResultadosUsuario).setOnClickListener {
-
-            if (livroId.isEmpty()) {
-                Toast.makeText(this, "Erro ao carregar o livro.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            // Buscar unidades no Firestore ANTES de abrir a tela
-            db.collection("livros")
-                .document(livroId)
-                .get()
-                .addOnSuccessListener { doc ->
-
-                    val unidades = doc.getLong("quantidade")?.toInt() ?: 0
-
-                    val intent = Intent(this, EmprestimoUsuarioActivity::class.java)
-
-                    intent.putExtra("livroId", livroId)
-                    intent.putExtra("titulo", titulo)
-                    intent.putExtra("autor", autor)
-                    intent.putExtra("imagemBase64", imagemBase64)
-                    intent.putExtra("situacao", situacao)
-                    intent.putExtra("disponibilidade", disponibilidade)
-                    intent.putExtra("unidades", unidades)   // << AQUI!
-
-                    startActivity(intent)
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Erro ao carregar dados do livro.", Toast.LENGTH_SHORT).show()
-                }
-        }
-
-
-
-        findViewById<Button>(R.id.btnOnlinePopupResultadosUsuario).setOnClickListener {
-            Toast.makeText(this, "Abrindo versão online...", Toast.LENGTH_SHORT).show()
-        }
-
         findViewById<Button>(R.id.btnFavoritosPopupResultadosUsuario).setOnClickListener {
             startActivity(Intent(this, FavoritosUsuarioActivity::class.java))
         }
