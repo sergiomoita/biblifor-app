@@ -81,13 +81,12 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         }
 
         // ============================
-        // REFS DE ACESSIBILIDADE / PESQUISA
+        // ACESSIBILIDADE E PESQUISA
         // ============================
         imagemAcessibilidade = findViewById(R.id.leoAcessibilidade3)
         inputPesquisa = findViewById(R.id.leoPesquisa3)
         val imagemLupa = findViewById<ImageView>(R.id.leoLupaPesquisa3)
 
-        // Textos que mudam de cor na acessibilidade
         val textosParaAcessibilidade = listOf<TextView>(
             findViewById(R.id.leotextViewUnifor3),
             findViewById(R.id.leoOlaUsuario3),
@@ -115,21 +114,17 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         }
 
         // ============================
-        // BOTÕES DE SEÇÕES / "VER MAIS"
+        // BOTÕES DE SEÇÃO / VER MAIS
         // ============================
-        val btnHistorico = findViewById<LinearLayout>(R.id.btnHistorico)
-        val btnFavoritos = findViewById<LinearLayout>(R.id.btnFavoritos)
-        val btnAvisos = findViewById<LinearLayout>(R.id.btnAvisos)
-
-        btnHistorico.setOnClickListener {
+        findViewById<LinearLayout>(R.id.btnHistorico).setOnClickListener {
             startActivity(Intent(this, HistoricoEmprestimosUsuarioActivity::class.java))
         }
 
-        btnFavoritos.setOnClickListener {
+        findViewById<LinearLayout>(R.id.btnFavoritos).setOnClickListener {
             startActivity(Intent(this, FavoritosUsuarioActivity::class.java))
         }
 
-        btnAvisos.setOnClickListener {
+        findViewById<LinearLayout>(R.id.btnAvisos).setOnClickListener {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
@@ -149,7 +144,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         // NAVEGAÇÃO INFERIOR
         // ============================
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
-            // Reinicia / volta pra home
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
 
@@ -157,12 +151,10 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
 
-        // Ícone de email da barra inferior
         findViewById<ImageView>(R.id.leoImagemNotificacoes3).setOnClickListener {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
 
-        // Ícone de sino lá em cima
         findViewById<ImageView>(R.id.leoNotificacao3).setOnClickListener {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
@@ -184,7 +176,7 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         }
 
         // ============================
-        // CONFIGURA HISTÓRICO
+        // CONFIGURAR HISTÓRICO
         // ============================
         rvHistorico = findViewById(R.id.rvHistorico)
         emaHistorico = findViewById(R.id.leoEmaSemHistorico)
@@ -195,19 +187,16 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         rvHistorico.adapter = adapterHistorico
 
         // ============================
-        // CONFIGURA FAVORITOS + TEXTO "SEM FAVORITOS"
+        // CONFIGURAR FAVORITOS (SEM CLIQUE)
         // ============================
         rvFavoritos = findViewById(R.id.rvFavoritos)
         rvFavoritos.layoutManager = LinearLayoutManager(this)
 
-        adapterFavoritos = FavoritosAdapter(mutableListOf()) { item ->
-            val intent = Intent(this, PopupResultadosUsuarioActivity::class.java)
-            intent.putExtra("livroId", item.livroId)
-            startActivity(intent)
-        }
+        // 🔥 FAVORITOS SEM QUALQUER AÇÃO DE CLIQUE
+        adapterFavoritos = FavoritosAdapter(mutableListOf()) { /* clique desativado */ }
+
         rvFavoritos.adapter = adapterFavoritos
 
-        // Criar TextView "sem favoritos" logo abaixo do RecyclerView (via código)
         txtSemFavoritos = TextView(this).apply {
             text = "Você não possui livros favoritados"
             setTextColor(Color.WHITE)
@@ -215,7 +204,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             gravity = Gravity.CENTER_HORIZONTAL
             visibility = View.GONE
 
-            // distância do título
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -230,7 +218,7 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         }
 
         // ============================
-        // CONFIGURA AVISOS + TEXTO "SEM AVISOS"
+        // CONFIGURAR AVISOS
         // ============================
         rvUltimosAvisos = findViewById(R.id.rvUltimosAvisos)
         rvUltimosAvisos.layoutManager = LinearLayoutManager(this)
@@ -244,7 +232,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             gravity = Gravity.CENTER_HORIZONTAL
             visibility = View.GONE
 
-            // distância do título
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -259,15 +246,13 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
         }
 
         // ============================
-        // CARREGAR DADOS DO ALUNO
+        // CARREGAR DADOS DO USUÁRIO
         // ============================
         if (matricula != null) {
             carregarFotoPerfilAluno(matricula, imgFotoUser)
             carregarAvisos(matricula)
             carregarHistorico(matricula)
             carregarFavoritos(matricula)
-        } else {
-            Log.e("MENU_USUARIO", "Nenhuma matrícula encontrada nas prefs")
         }
     }
 
@@ -306,9 +291,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
                     txtSemHistorico.visibility = View.GONE
                     rvHistorico.visibility = View.VISIBLE
                 }
-            }
-            .addOnFailureListener {
-                Log.e("HISTORICO", "Erro ao carregar histórico: ${it.localizedMessage}")
             }
     }
 
@@ -369,11 +351,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
                         }
                 }
             }
-            .addOnFailureListener {
-                Log.e("FAVORITOS", "Erro ao buscar favoritos: ${it.localizedMessage}")
-                rvFavoritos.visibility = View.GONE
-                txtSemFavoritos.visibility = View.VISIBLE
-            }
     }
 
     // ======================================================
@@ -410,11 +387,6 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
                     txtSemAvisos.visibility = View.GONE
                 }
             }
-            .addOnFailureListener {
-                Log.e("AVISOS", "Erro ao buscar avisos: ${it.localizedMessage}")
-                rvUltimosAvisos.visibility = View.GONE
-                txtSemAvisos.visibility = View.VISIBLE
-            }
     }
 
     // ======================================================
@@ -429,15 +401,8 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
                     val bitmap = base64ToBitmap(foto)
                     if (bitmap != null) {
                         imageView.setImageBitmap(bitmap)
-                    } else {
-                        Log.e("FOTO_PERFIL", "Falha ao decodificar bitmap para $matricula")
                     }
-                } else {
-                    Log.d("FOTO_PERFIL", "fotoPerfil vazio para $matricula")
                 }
-            }
-            .addOnFailureListener {
-                Log.e("FOTO_PERFIL", "Erro ao buscar foto: ${it.localizedMessage}")
             }
     }
 }

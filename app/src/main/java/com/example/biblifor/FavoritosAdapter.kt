@@ -11,7 +11,7 @@ import com.example.biblifor.R
 
 class FavoritosAdapter(
     private val lista: MutableList<FavoritoItem>,
-    private val onItemClick: (FavoritoItem) -> Unit
+    private val onItemClick: (FavoritoItem) -> Unit // ← Mantido para compatibilidade
 ) : RecyclerView.Adapter<FavoritosAdapter.VH>() {
 
     class VH(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,7 +32,14 @@ class FavoritosAdapter(
         holder.titulo.text = item.titulo
         holder.disponibilidade.text = item.disponibilidade
 
-        holder.itemView.setOnClickListener { onItemClick(item) }
+        // 🔥 DESATIVAR COMPLETAMENTE QUALQUER TOQUE NO ITEM
+        holder.itemView.setOnClickListener(null)
+        holder.itemView.isClickable = false
+        holder.itemView.isFocusable = false
+        holder.itemView.isLongClickable = false
+
+        // 🔥 REMOVER RIPPLES / FOREGROUND DE CLIQUE
+        holder.itemView.foreground = null
     }
 
     override fun getItemCount(): Int = lista.size

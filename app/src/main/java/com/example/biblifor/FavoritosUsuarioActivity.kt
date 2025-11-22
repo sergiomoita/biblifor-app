@@ -66,6 +66,10 @@ class FavoritosUsuarioActivity : AppCompatActivity() {
         containerSearchFavoritos = findViewById(R.id.containerSearchFavoritos)
         etSearchFavoritos = findViewById(R.id.etSearchFavoritos)
 
+        // ✅ SETA DE VOLTAR (adição solicitada)
+        findViewById<ImageView>(R.id.btnVoltarFavoritos).setOnClickListener {
+            finish()
+        }
 
         // ➤ BARRA INFERIOR COMPLETA RESTAURADA
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {

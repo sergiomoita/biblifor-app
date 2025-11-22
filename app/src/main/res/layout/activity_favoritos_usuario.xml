@@ -32,19 +32,32 @@
         app:layout_constraintStart_toEndOf="@id/lopesLogoUnifor32"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Seta de voltar -->
+    <ImageView
+        android:id="@+id/btnVoltarFavoritos"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="Voltar"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/seta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lopesLogoUnifor32" />
+
     <!-- Título + Lupa -->
     <TextView
         android:id="@+id/lopesRenovacaoEmprestimo32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="12dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Favoritos"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/lopesLogoUnifor32"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnVoltarFavoritos"
         app:layout_constraintEnd_toStartOf="@id/ivLupaFavoritos" />
 
     <ImageView
@@ -56,7 +69,6 @@
         android:clickable="true"
         android:focusable="true"
         app:srcCompat="@drawable/lupa_pesquisar"
-        app:tint="#FFFFFF"
         app:layout_constraintTop_toTopOf="@id/lopesRenovacaoEmprestimo32"
         app:layout_constraintBottom_toBottomOf="@id/lopesRenovacaoEmprestimo32"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -120,7 +132,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/barraInferiorFavoritos">
 
-        <!-- Botão voltar (<) -->
         <TextView
             android:id="@+id/btnPag1Favoritos"
             android:layout_width="40dp"
@@ -134,7 +145,6 @@
             android:textColor="#000000"
             android:textSize="16sp" />
 
-        <!-- Número atual (dinâmico) -->
         <TextView
             android:id="@+id/btnPag2Favoritos"
             android:layout_width="40dp"
@@ -149,7 +159,6 @@
             android:textStyle="bold"
             android:textSize="16sp" />
 
-        <!-- Botão avançar (>) -->
         <TextView
             android:id="@+id/btnPag3Favoritos"
             android:layout_width="40dp"

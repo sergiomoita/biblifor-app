@@ -49,7 +49,6 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         val btnAceitar = findViewById<Button>(R.id.lopesBtnAceitar23)
         val btnRecusar = findViewById<Button>(R.id.lopesBtnRecusar23)
 
-        // Preenche título
         txtTitulo.text = if (autor.isNotEmpty()) "$titulo ($autor)" else titulo
         txtUnidades.text = "Unidades disponíveis: $unidadesDisponiveis"
 
@@ -69,7 +68,7 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         }
 
         // =====================================================================
-        // 4) BUSCAR LOCALIZAÇÃO DO LIVRO NO FIRESTORE
+        // 4) BUSCAR LOCALIZAÇÃO CORRETA DO FIRESTORE (CodigoAcervo)
         // =====================================================================
         var localizacaoDoLivro = "Carregando..."
 
@@ -78,12 +77,16 @@ class EmprestimoUsuarioActivity : BaseActivity() {
                 .document(livroId)
                 .get()
                 .addOnSuccessListener { doc ->
-                    localizacaoDoLivro = doc.getString("Localizacao") ?: "Não informado"
+                    val codigo = doc.getString("CodigoAcervo")
+                    localizacaoDoLivro = if (!codigo.isNullOrEmpty()) codigo else "Não informado"
+                }
+                .addOnFailureListener {
+                    localizacaoDoLivro = "Erro ao carregar"
                 }
         }
 
         // =====================================================================
-        // 5) DATE PICKER NO TEXTVIEW
+        // 5) DATE PICKER
         // =====================================================================
         fieldDataDevolucao.setOnClickListener {
 
@@ -106,17 +109,12 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         }
 
         // =====================================================================
-        // 6) BOTÃO ACEITAR — SALVA EM historicoEmprestimos
+        // 6) BOTÃO ACEITAR → SALVANDO E ENVIANDO PARA CONFIRMAÇÃO
         // =====================================================================
         btnAceitar.setOnClickListener {
 
             if (dataEscolhida.isEmpty()) {
                 Toast.makeText(this, "Selecione a data de devolução!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (livroId.isEmpty() || matricula.isEmpty()) {
-                Toast.makeText(this, "Erro ao processar o empréstimo.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -141,11 +139,12 @@ class EmprestimoUsuarioActivity : BaseActivity() {
 
                     val intent = Intent(this, ConfirmacaoEmprestimoUsuarioActivity::class.java)
                     intent.putExtra("titulo", titulo)
-                    intent.putExtra("localizacao", localizacaoDoLivro)
                     intent.putExtra("imagemBase64", imagemBase64)
                     intent.putExtra("dataDevolucao", dataEscolhida)
-                    startActivity(intent)
+                    intent.putExtra("livroId", livroId)
+                    intent.putExtra("localizacao", localizacaoDoLivro)
 
+                    startActivity(intent)
                     finish()
                 }
                 .addOnFailureListener {
@@ -177,7 +176,7 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         }
 
         // =====================================================================
-        // 9) LISTA DE TERMOS
+        // 9) LISTA DE TERMOS (RESTAURADA)
         // =====================================================================
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerTermos23)
         recyclerView.layoutManager = LinearLayoutManager(this)
