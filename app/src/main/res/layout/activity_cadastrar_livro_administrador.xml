@@ -121,28 +121,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lopesNome38" />
 
-    <!-- ========================================================= -->
-    <!--  AQUI COMEÇA A PARTE CORRIGIDA PARA POSIÇÃO CERTA         -->
-    <!-- ========================================================= -->
-
-    <EditText
-        android:id="@+id/lopesQtd38"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
-        android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:hint="Quantidade de exemplares"
-        android:inputType="text"
-        android:paddingLeft="6dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColor="#C92C2929"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesAutor40" />
+    <!-- ============================
+         CAMPO REMOVIDO (lopesQtd38)
+         ============================ -->
 
     <EditText
         android:id="@+id/lopesLocaliza38"
@@ -160,7 +141,7 @@
         android:textColor="#C92C2929"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesQtd38" />
+        app:layout_constraintTop_toBottomOf="@+id/lopesAutor40" />
 
     <TextView
         android:id="@+id/labelRecomendados"
@@ -210,10 +191,6 @@
             android:backgroundTint="#FFFFFF" />
 
     </LinearLayout>
-
-    <!-- ========================================================= -->
-    <!--  AQUI TERMINA A CORREÇÃO                                 -->
-    <!-- ========================================================= -->
 
     <TextView
         android:id="@+id/labelDisponibilidade"
@@ -328,7 +305,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <ImageView
         android:id="@+id/lopesEscrever38"

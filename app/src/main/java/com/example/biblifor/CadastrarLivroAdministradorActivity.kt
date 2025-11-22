@@ -32,13 +32,11 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
 
                 if (bitmap != null) {
                     imagemLivroBase64 = bitmapToBase64(bitmap)
-                    // feedback simples de que a imagem foi escolhida
                     btnImagemLivro.text = "Imagem selecionada"
                 }
             }
         }
 
-    // ========= FUNÇÕES AUXILIARES =========
     private fun validarCampo(et: EditText, label: String) {
         if (et.text.toString().trim().isEmpty())
             throw IllegalArgumentException("$label não pode estar vazio")
@@ -57,7 +55,6 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         }
     }
 
-    // ====== Estilização de seleção ======
     private fun selecionar(btn: Button) {
         btn.setBackgroundColor(Color.parseColor("#002C9B"))
         btn.setTextColor(Color.WHITE)
@@ -68,7 +65,6 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         btn.setTextColor(Color.parseColor("#002C9B"))
     }
 
-    // ====== Disponibilidade → múltipla ======
     private fun configurarDisponibilidade(btn: Button) {
         btn.setOnClickListener {
             val selecionado = (btn.currentTextColor == Color.WHITE)
@@ -78,7 +74,6 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         }
     }
 
-    // ====== Configuração exclusiva ======
     private fun configurarEmprestimoExclusivo(btnSim: Button, btnNao: Button) {
         btnSim.setOnClickListener {
             selecionar(btnSim)
@@ -90,7 +85,6 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         }
     }
 
-    // =========================================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar_livro_administrador)
@@ -128,10 +122,8 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         // ======= CAMPOS =======
         val etTitulo = findViewById<EditText>(R.id.lopesNome38)
         val etAutor = findViewById<EditText>(R.id.lopesAutor40)
-        val etQtd = findViewById<EditText>(R.id.lopesQtd38)
         val etCodigoAcervo = findViewById<EditText>(R.id.lopesLocaliza38)
 
-        // IMAGEM DO LIVRO
         btnImagemLivro = findViewById(R.id.lopesBtnImagem38)
         btnImagemLivro.setOnClickListener {
             seletorImagemLivro.launch("image/*")
@@ -143,75 +135,56 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
         val btnEmpSim = findViewById<Button>(R.id.btnEmprestarSim)
         val btnEmpNao = findViewById<Button>(R.id.btnEmprestarNao)
 
-        // NOVOS BOTÕES: RECOMENDADOS
         val btnRecSim = findViewById<Button>(R.id.btnRecomendarSim)
         val btnRecNao = findViewById<Button>(R.id.btnRecomendarNao)
 
-        // ====== Estilização inicial ======
         desselecionar(btnFisico)
         desselecionar(btnOnline)
         desselecionar(btnEmpSim)
         desselecionar(btnEmpNao)
-
-        // novos
         desselecionar(btnRecSim)
         desselecionar(btnRecNao)
 
-        // ====== Disponibilidade → múltipla ======
         configurarDisponibilidade(btnFisico)
         configurarDisponibilidade(btnOnline)
-
-        // ====== Empréstimo → exclusiva ======
         configurarEmprestimoExclusivo(btnEmpSim, btnEmpNao)
-
-        // ====== Recomendados → exclusiva ======
         configurarEmprestimoExclusivo(btnRecSim, btnRecNao)
 
-        // ====== BOTÃO CADASTRAR ======
         val btnCadastrar = findViewById<Button>(R.id.lopesBtnCadastrar38)
         btnCadastrar.setOnClickListener {
 
             try {
                 validarCampo(etTitulo, "Título")
                 validarCampo(etAutor, "Autor")
-                validarCampo(etQtd, "Quantidade de exemplares")
                 validarCampo(etCodigoAcervo, "Código de acervo")
 
-                // ====== DISPONIBILIDADE ======
                 val disponibilidade = when {
                     btnFisico.currentTextColor == Color.WHITE &&
                             btnOnline.currentTextColor == Color.WHITE -> "Físico e Online"
-
                     btnFisico.currentTextColor == Color.WHITE -> "Físico"
                     btnOnline.currentTextColor == Color.WHITE -> "Online"
                     else -> "Indisponível"
                 }
 
-                // ====== EMPRÉSTIMO ======
                 val situacaoEmprestimo = when {
                     btnEmpSim.currentTextColor == Color.WHITE -> "Emprestável"
                     btnEmpNao.currentTextColor == Color.WHITE -> "Não-emprestável"
                     else -> "Não informado"
                 }
 
-                // ====== RECOMENDAR ======
                 val recomendar = (btnRecSim.currentTextColor == Color.WHITE)
-
-                // IMAGEM DO LIVRO (base64)
                 val imagemString = imagemLivroBase64 ?: ""
 
                 val dadosLivro = mapOf(
                     "Titulo" to etTitulo.text.toString(),
                     "Autor" to etAutor.text.toString(),
-                    "QuantidadeExemplares" to etQtd.text.toString(),
                     "CodigoAcervo" to etCodigoAcervo.text.toString(),
                     "Disponibilidade" to disponibilidade,
                     "SituacaoEmprestimo" to situacaoEmprestimo,
                     "Imagem" to imagemString,
-                    "recomendar" to recomendar       // <<=== AQUI
+                    "recomendar" to recomendar
                 )
 
-                // ===== POP-UP CONFIRMAÇÃO =====
                 val nomeLivro = etTitulo.text.toString()
 
                 val builder = androidx.appcompat.app.AlertDialog.Builder(this)
@@ -252,6 +225,5 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
                 showErrorToast("Erro inesperado.")
             }
         }
-
     }
 }

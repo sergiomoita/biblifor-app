@@ -44,13 +44,12 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         // =====================================================================
         val imgCapa = findViewById<ImageView>(R.id.imgCapaEmprestimo)
         val txtTitulo = findViewById<TextView>(R.id.txtTituloEmprestimo)
-        val txtUnidades = findViewById<TextView>(R.id.txtUnidadesEmprestimo)
+
         val fieldDataDevolucao = findViewById<TextView>(R.id.fieldDataDevolucao)
         val btnAceitar = findViewById<Button>(R.id.lopesBtnAceitar23)
         val btnRecusar = findViewById<Button>(R.id.lopesBtnRecusar23)
 
         txtTitulo.text = if (autor.isNotEmpty()) "$titulo ($autor)" else titulo
-        txtUnidades.text = "Unidades disponíveis: $unidadesDisponiveis"
 
         // =====================================================================
         // 3) CARREGAR IMAGEM BASE64
