@@ -25,6 +25,7 @@ class PopupResultadosAdministradorActivity : BaseActivity() {
         val txtTitulo = findViewById<TextView>(R.id.txtTituloPopupAdm)
         val txtStatus = findViewById<TextView>(R.id.txtStatusPopupAdm)
         val btnEditar = findViewById<TextView>(R.id.btnEditarLivroPopupAdm)
+        val btnDeletar = findViewById<ImageView>(R.id.btnDeletarLivroPopupAdm)
 
         // ==== Barra inferior (SEM finish!!) ====
         findViewById<ImageView>(R.id.iconHomePopupAdm).setOnClickListener {
@@ -43,7 +44,7 @@ class PopupResultadosAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
         }
 
-        // ==== Botão voltar (somente fecha esta tela) ====
+        // ==== Botão voltar ====
         btnVoltar.setOnClickListener { finish() }
 
         if (livroId.isNotEmpty()) {
@@ -54,6 +55,11 @@ class PopupResultadosAdministradorActivity : BaseActivity() {
             val intent = Intent(this, EditarLivroAdministradorActivity::class.java)
             intent.putExtra("livroId", livroId)
             startActivity(intent)
+        }
+
+        // ==== Botão deletar ====
+        btnDeletar.setOnClickListener {
+            mostrarPopupConfirmacao(livroId)
         }
     }
 
@@ -90,6 +96,37 @@ class PopupResultadosAdministradorActivity : BaseActivity() {
                 } else {
                     imgCapa.setImageResource(R.drawable.livro_rachelqueiroz)
                 }
+            }
+    }
+
+    private fun mostrarPopupConfirmacao(livroId: String) {
+        val builder = android.app.AlertDialog.Builder(this)
+        builder.setTitle("Confirmar exclusão")
+        builder.setMessage("Você realmente deseja deletar este livro?")
+
+        builder.setPositiveButton("Sim") { _, _ ->
+            deletarLivro(livroId)
+        }
+
+        builder.setNegativeButton("Não") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.create().show()
+    }
+
+    private fun deletarLivro(livroId: String) {
+        db.collection("livros")
+            .document(livroId)
+            .delete()
+            .addOnSuccessListener {
+                val intent = Intent(this, LivrosEmprestaveisAdministradorActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                finish()
+            }
+            .addOnFailureListener {
+                android.widget.Toast.makeText(this, "Erro ao deletar o livro.", android.widget.Toast.LENGTH_SHORT).show()
             }
     }
 }

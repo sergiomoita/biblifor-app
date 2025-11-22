@@ -13,10 +13,9 @@
         android:layout_width="83dp"
         android:layout_height="74dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/logo_unifor" />
 
     <ImageView
@@ -25,24 +24,9 @@
         android:layout_height="33dp"
         android:layout_marginTop="92dp"
         android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta" />
-
-    <TextView
-        android:id="@+id/lopesNomeUnifor39"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Unifor Biblifor"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/seta" />
 
     <TextView
         android:id="@+id/lopesEditar46"
@@ -52,69 +36,52 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Editar"
         android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lopesPreencha46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Preencha as informações abaixo"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesEditar46" />
-
-    <ImageView
-        android:id="@+id/lopesEscrever46"
-        android:layout_width="29dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="199dp"
-        android:layout_marginTop="16dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/lopesNomeUnifor39"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/escrever_mensagem" />
-
-    <ImageView
-        android:id="@+id/lopesEdipoRei46"
-        android:layout_width="120dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="124dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- CAPA ATUAL DO LIVRO -->
+    <ImageView
+        android:id="@+id/lopesCapaEditar"
+        android:layout_width="144dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="120dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/livro_crime_e_castigo" />
+
+    <!-- ICONE EDITAR IMAGEM A BAIXO DA CAPA -->
+
+    <!-- Nome -->
+
+    <ImageView
+        android:id="@+id/btnEditarImagem"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/editar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lopesCapaEditar" />
 
     <EditText
         android:id="@+id/lopesNome46"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="504dp"
+        android:layout_marginTop="12dp"
         android:background="@color/white"
         android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:inputType="text"
-        android:paddingLeft="6dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="Crime e Castigo"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:padding="6dp"
+        android:hint="Título"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditarImagem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Autor -->
     <EditText
         android:id="@+id/lopesAutor46"
         android:layout_width="wrap_content"
@@ -122,54 +89,14 @@
         android:layout_marginTop="8dp"
         android:background="@color/white"
         android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:inputType="text"
-        android:paddingLeft="6dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="Dostoieviski"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="6dp"
+        android:hint="Autor"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/lopesNome46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesNome46" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/lopesTopicos46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
-        android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:inputType="text"
-        android:paddingLeft="6dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="Filosofia"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesAutor46" />
-
-    <EditText
-        android:id="@+id/lopesQtd46"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
-        android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:inputType="text"
-        android:paddingLeft="6dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="9"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesTopicos46" />
-
+    <!-- Localização -->
     <EditText
         android:id="@+id/lopesLocaliza46"
         android:layout_width="wrap_content"
@@ -177,38 +104,74 @@
         android:layout_marginTop="8dp"
         android:background="@color/white"
         android:ems="10"
-        android:fontFamily="@font/poppins_semibold"
-        android:inputType="text"
-        android:paddingLeft="6dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="RC-18"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="6dp"
+        android:hint="Localização no acervo"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/lopesAutor46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lopesQtd46" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ====== Disponibilidade ====== -->
+    <!-- RECOMENDAR -->
+    <TextView
+        android:id="@+id/labelRecomendados"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Recomendados:"
+        android:textColor="#FFFFFF"
+        android:paddingStart="6dp"
+        app:layout_constraintTop_toBottomOf="@id/lopesLocaliza46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/groupRec"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/labelRecomendados"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnRecomendarSim"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:text="Sim"
+            android:backgroundTint="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnRecomendarNao"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:text="Não"
+            android:backgroundTint="#FFFFFF" />
+    </LinearLayout>
+
+    <!-- DISPONIBILIDADE -->
     <TextView
         android:id="@+id/labelDisponibilidade46"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="Disponibilidade:"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/poppins_semibold"
-        app:layout_constraintTop_toBottomOf="@id/lopesLocaliza46"
+        android:paddingStart="6dp"
+        app:layout_constraintTop_toBottomOf="@id/groupRec"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingStart="6dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/groupDisponibilidade46"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
         app:layout_constraintTop_toBottomOf="@id/labelDisponibilidade46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -219,11 +182,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Físico"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:fontFamily="@font/poppins_semibold"
-            android:backgroundTint="#FFFFFF"
-            android:layout_marginEnd="8dp" />
+            android:backgroundTint="#FFFFFF" />
 
         <Button
             android:id="@+id/btnDispoOnline"
@@ -231,33 +190,30 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Online"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:fontFamily="@font/poppins_semibold"
             android:backgroundTint="#FFFFFF" />
+
     </LinearLayout>
 
-    <!-- ====== Emprestar ====== -->
+    <!-- EMPRESTAR -->
     <TextView
         android:id="@+id/labelEmprestar46"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:text="Emprestar:"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/poppins_semibold"
+        android:paddingStart="6dp"
         app:layout_constraintTop_toBottomOf="@id/groupDisponibilidade46"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingStart="6dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/groupEmprestar46"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
         app:layout_constraintTop_toBottomOf="@id/labelEmprestar46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -268,82 +224,30 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Sim"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:fontFamily="@font/poppins_semibold"
-            android:backgroundTint="#FFFFFF"
-            android:layout_marginEnd="8dp" />
+            android:backgroundTint="#FFFFFF" />
 
         <Button
             android:id="@+id/btnEmprestarNao"
             android:layout_width="0dp"
             android:layout_height="42dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
-            android:fontFamily="@font/poppins_semibold"
             android:text="Não"
-            android:textAllCaps="false"
-            android:textColor="#000000" />
+            android:backgroundTint="#FFFFFF" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/lopesBtnCadastrar46"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
-        android:backgroundTint="#FFFFFF"
-        android:fontFamily="@font/poppins_semibold"
         android:text="Atualizar"
-        android:textColor="#000000"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp"
+        android:backgroundTint="#FFFFFF"
+        android:textColor="#000"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/barraInferiorCapsulasAdmSergio"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
-
-        <ImageView
-            android:id="@+id/iconHomeCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Home"
-            android:src="@drawable/home"
-            android:tint="#FFFFFF" />
-
-        <ImageView
-            android:id="@+id/iconEscreverMsgCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="EnviarMsg"
-            android:src="@drawable/escrever_mensagem"
-            android:tint="#FFFFFF" />
-
-        <ImageView
-            android:id="@+id/iconMensagemCapsulasAdmSergio"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Mensagem"
-            android:src="@drawable/email" />
-
-        <ImageView
-            android:id="@+id/iconMenuInferiorCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Menu"
-            android:src="@drawable/menu_hamb"
-            android:tint="#FFFFFF" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

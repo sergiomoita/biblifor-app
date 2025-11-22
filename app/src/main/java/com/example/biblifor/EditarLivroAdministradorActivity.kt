@@ -1,130 +1,218 @@
 package com.example.biblifor
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Base64
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.biblifor.util.bitmapToBase64
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class EditarLivroAdministradorActivity : BaseActivity() {
 
-    private fun validarCampo(et: EditText, label: String) {
-        val valor = et.text.toString()
-        if (valor.isBlank()) {
-            throw IllegalArgumentException("$label não pode estar vazio.")
-        }
-        if (valor.contains("erro", ignoreCase = true)) {
-            throw IllegalArgumentException("$label não pode conter 'erro'.")
-        }
-    }
+    private val db = Firebase.firestore
 
-    private fun showErrorToast(message: String) {
-        val inflater: LayoutInflater = layoutInflater
-        val view = inflater.inflate(R.layout.toast_excecao_cadastro, null)
-        view.findViewById<TextView>(R.id.toast_message).text = message
+    private lateinit var imgCapa: ImageView
+    private lateinit var btnEditarImagem: ImageView
 
-        Toast(this).apply {
-            duration = Toast.LENGTH_LONG
-            setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 120)
-            this.view = view
-            show()
+    private lateinit var etNome: EditText
+    private lateinit var etAutor: EditText
+    private lateinit var etLocaliza: EditText
+
+    private lateinit var btnFisico: Button
+    private lateinit var btnOnline: Button
+    private lateinit var btnEmpSim: Button
+    private lateinit var btnEmpNao: Button
+    private lateinit var btnRecSim: Button
+    private lateinit var btnRecNao: Button
+
+    private var imagemLivroBase64: String? = null
+    private lateinit var livroId: String
+
+    // Seleção de nova imagem
+    private val seletorImagemLivro =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                val input = contentResolver.openInputStream(uri)
+                val bitmap = BitmapFactory.decodeStream(input)
+                input?.close()
+
+                if (bitmap != null) {
+                    imagemLivroBase64 = bitmapToBase64(bitmap)
+                    imgCapa.setImageBitmap(bitmap)
+                }
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_editar_livro_administrador)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // 🔙 Ícones superiores
+        livroId = intent.getStringExtra("livroId") ?: ""
+
+        imgCapa = findViewById(R.id.lopesCapaEditar)
+        btnEditarImagem = findViewById(R.id.btnEditarImagem)
+
+        etNome = findViewById(R.id.lopesNome46)
+        etAutor = findViewById(R.id.lopesAutor46)
+        etLocaliza = findViewById(R.id.lopesLocaliza46)
+
+        btnFisico = findViewById(R.id.btnDispoFisico)
+        btnOnline = findViewById(R.id.btnDispoOnline)
+        btnEmpSim = findViewById(R.id.btnEmprestarSim)
+        btnEmpNao = findViewById(R.id.btnEmprestarNao)
+        btnRecSim = findViewById(R.id.btnRecomendarSim)
+        btnRecNao = findViewById(R.id.btnRecomendarNao)
+
+        configurarDisponibilidade(btnFisico)
+        configurarDisponibilidade(btnOnline)
+        configurarEmprestimoExclusivo(btnEmpSim, btnEmpNao)
+        configurarEmprestimoExclusivo(btnRecSim, btnRecNao)
+
+        btnEditarImagem.setOnClickListener {
+            seletorImagemLivro.launch("image/*")
+        }
+
+        if (livroId.isNotEmpty()) carregarLivro(livroId)
+
+        findViewById<Button>(R.id.lopesBtnCadastrar46).setOnClickListener {
+            atualizarLivro()
+        }
+
         findViewById<ImageView>(R.id.lopesSetaVoltar39).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            finish()
         }
-        findViewById<ImageView>(R.id.lopesEscrever46).setOnClickListener {
-            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
-        }
+    }
 
-        // ⚙️ Barra inferior
-        findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
-        }
-        findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
-        }
-        findViewById<ImageView>(R.id.iconMensagemCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MensagensAdministradorActivity::class.java))
-        }
-        findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
-        }
+    // -------- CARREGAR DADOS ----------------------------------------------------------------------------
 
-        // ✏️ Campos editáveis
-        val etNome = findViewById<EditText>(R.id.lopesNome46)
-        val etAutor = findViewById<EditText>(R.id.lopesAutor46)
-        val etTopicos = findViewById<EditText>(R.id.lopesTopicos46)
-        val etQtd = findViewById<EditText>(R.id.lopesQtd46)
-        val etLocaliza = findViewById<EditText>(R.id.lopesLocaliza46)
+    private fun carregarLivro(id: String) {
+        db.collection("livros")
+            .document(id)
+            .get()
+            .addOnSuccessListener { doc ->
 
-        // ====== Função auxiliar: botão alternante ======
-        fun configurarBotaoAlternante(botao: Button, textoBase: String) {
-            var estado = 0 // 0 = ✓ vermelho | 1 = ✓ verde | 2 = X vermelho
+                etNome.setText(doc.getString("Titulo") ?: "")
+                etAutor.setText(doc.getString("Autor") ?: "")
+                etLocaliza.setText(doc.getString("CodigoAcervo") ?: "")
 
-            botao.text = "✓ $textoBase"
-            botao.setTextColor(Color.parseColor("#FF0000"))
+                when (doc.getString("Disponibilidade") ?: "") {
+                    "Físico e Online" -> {
+                        selecionar(btnFisico)
+                        selecionar(btnOnline)
+                    }
+                    "Físico" -> selecionar(btnFisico)
+                    "Online" -> selecionar(btnOnline)
+                }
 
-            botao.setOnClickListener {
-                estado = (estado + 1) % 3
-                when (estado) {
-                    0 -> { botao.text = "✓ $textoBase"; botao.setTextColor(Color.parseColor("#FF0000")) }
-                    1 -> { botao.text = "✓ $textoBase"; botao.setTextColor(Color.parseColor("#00C853")) }
-                    2 -> { botao.text = "X $textoBase"; botao.setTextColor(Color.parseColor("#FF0000")) }
+                when (doc.getString("SituacaoEmprestimo") ?: "") {
+                    "Emprestável" -> selecionar(btnEmpSim)
+                    "Não-emprestável" -> selecionar(btnEmpNao)
+                }
+
+                if (doc.getBoolean("recomendar") == true)
+                    selecionar(btnRecSim)
+                else
+                    selecionar(btnRecNao)
+
+                val imgBase64 = doc.getString("Imagem")
+                imagemLivroBase64 = imgBase64
+
+                if (!imgBase64.isNullOrEmpty()) {
+                    try {
+                        val bytes = Base64.decode(imgBase64, Base64.DEFAULT)
+                        val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        imgCapa.setImageBitmap(bmp)
+                    } catch (_: Exception) {}
                 }
             }
+    }
+
+    // -------- BOTÕES ----------------------------------------------------------------------------
+
+    private fun selecionar(btn: Button) {
+        btn.setBackgroundColor(Color.parseColor("#002C9B"))
+        btn.setTextColor(Color.WHITE)
+    }
+
+    private fun desselecionar(btn: Button) {
+        btn.setBackgroundColor(Color.WHITE)
+        btn.setTextColor(Color.parseColor("#002C9B"))
+    }
+
+    private fun configurarDisponibilidade(btn: Button) {
+        btn.setOnClickListener {
+            if (btn.currentTextColor == Color.WHITE) desselecionar(btn)
+            else selecionar(btn)
+        }
+    }
+
+    private fun configurarEmprestimoExclusivo(btnSim: Button, btnNao: Button) {
+        btnSim.setOnClickListener {
+            selecionar(btnSim)
+            desselecionar(btnNao)
         }
 
-        // ====== Botões de disponibilidade e emprestar ======
-        val btnFisico = findViewById<Button>(R.id.btnDispoFisico)
-        val btnOnline = findViewById<Button>(R.id.btnDispoOnline)
-        val btnEmpSim = findViewById<Button>(R.id.btnEmprestarSim)
-        val btnEmpNao = findViewById<Button>(R.id.btnEmprestarNao)
+        btnNao.setOnClickListener {
+            selecionar(btnNao)
+            desselecionar(btnSim)
+        }
+    }
 
-        configurarBotaoAlternante(btnFisico, "Físico")
-        configurarBotaoAlternante(btnOnline, "Online")
-        configurarBotaoAlternante(btnEmpSim, "Sim")
-        configurarBotaoAlternante(btnEmpNao, "Não")
+    // -------- ATUALIZAR ----------------------------------------------------------------------------
 
-        // ====== Botão Atualizar ======
-        val btnAtualizar = findViewById<Button>(R.id.lopesBtnCadastrar46)
-        btnAtualizar.setOnClickListener {
-            try {
-                validarCampo(etNome, "Nome")
-                validarCampo(etAutor, "Autor")
-                validarCampo(etTopicos, "Tópicos")
-                validarCampo(etQtd, "Quantidade de exemplares")
-                validarCampo(etLocaliza, "Localização no acervo")
+    private fun atualizarLivro() {
 
-                Toast.makeText(this, "Livro atualizado", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+        val disponibilidade = when {
+            btnFisico.currentTextColor == Color.WHITE &&
+                    btnOnline.currentTextColor == Color.WHITE -> "Físico e Online"
+            btnFisico.currentTextColor == Color.WHITE -> "Físico"
+            btnOnline.currentTextColor == Color.WHITE -> "Online"
+            else -> "Indisponível"
+        }
+
+        val emprestar = when {
+            btnEmpSim.currentTextColor == Color.WHITE -> "Emprestável"
+            btnEmpNao.currentTextColor == Color.WHITE -> "Não-emprestável"
+            else -> "Não informado"
+        }
+
+        val recomendar = (btnRecSim.currentTextColor == Color.WHITE)
+
+        val dados = mapOf(
+            "Titulo" to etNome.text.toString(),
+            "Autor" to etAutor.text.toString(),
+            "CodigoAcervo" to etLocaliza.text.toString(),
+            "Disponibilidade" to disponibilidade,
+            "SituacaoEmprestimo" to emprestar,
+            "recomendar" to recomendar,
+            "Imagem" to (imagemLivroBase64 ?: "")
+        )
+
+        db.collection("livros")
+            .document(livroId)
+            .update(dados)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Livro atualizado!", Toast.LENGTH_SHORT).show()
                 finish()
-            } catch (e: IllegalArgumentException) {
-                showErrorToast(e.message ?: "Erro de validação.")
-            } catch (e: Exception) {
-                showErrorToast("Erro inesperado.")
             }
-        }
+            .addOnFailureListener {
+                Toast.makeText(this, "Erro ao atualizar.", Toast.LENGTH_SHORT).show()
+            }
     }
 }
