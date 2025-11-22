@@ -11,17 +11,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.biblifor.model.Aviso
 import com.example.biblifor.util.base64ToBitmap
 import com.example.biblifor.util.bitmapToBase64
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class PerfilAdministradorActivity : BaseActivity() {
 
     private lateinit var db: FirebaseFirestore
     private var admIdForEdit: String? = null
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var historicoAdapter: HistoricoEmprestimoAdapter
+    private lateinit var rvEventos: RecyclerView
+    private lateinit var adapterEventos: HistoricoEmprestimoAdapter   // usa o mesmo adapter
 
     // ==== Selecionar nova foto ====
     private val pickImageLauncher =
@@ -64,6 +66,9 @@ class PerfilAdministradorActivity : BaseActivity() {
 
         db = FirebaseFirestore.getInstance()
 
+        // =========================
+        // 🔹 Cabeçalho
+        // =========================
         val nomeHeader = findViewById<TextView>(R.id.leoNomeAdmPADM42)
         val matriculaHeader = findViewById<TextView>(R.id.leoMatriculaAdmPADM42)
 
@@ -75,17 +80,17 @@ class PerfilAdministradorActivity : BaseActivity() {
         val btnEditarFoto = findViewById<ImageView>(R.id.leoBotaoEditarPerfilAdmNew)
 
         // =========================
-        // 🔹 RecyclerView do histórico REAL
+        // 🔹 RecyclerView — EXIBE EVENTOS DO ADM
         // =========================
-        recyclerView = findViewById(R.id.recyclerHistorico42)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
+        rvEventos = findViewById(R.id.rvEventosPerfilAdm)
+        rvEventos.layoutManager = LinearLayoutManager(this)
+        rvEventos.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
 
-        historicoAdapter = HistoricoEmprestimoAdapter(mutableListOf())
-        recyclerView.adapter = historicoAdapter
+        adapterEventos = HistoricoEmprestimoAdapter(mutableListOf())
+        rvEventos.adapter = adapterEventos
 
         // =========================
-        // 🔹 Dados do ADM logado
+        // 🔹 Dados do administrador logado
         // =========================
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
@@ -116,17 +121,16 @@ class PerfilAdministradorActivity : BaseActivity() {
                         }
                     }
                 }
-                .addOnFailureListener { e ->
-                    Log.e("PERFIL_ADM", "Erro: ${e.localizedMessage}")
-                }
         }
 
         // =========================
-        // 🔹 Carregar histórico REAL do Firestore
+        // 🔹 CARREGAR EVENTOS DO ADM
         // =========================
-        carregarHistorico()
+        carregarEventosDoAdministrador()
 
-        // ========= Botões =========
+        // =========================
+        // 🔹 Botões
+        // =========================
         btnEditarFoto.setOnClickListener { pickImageLauncher.launch("image/*") }
 
         findViewById<ImageView>(R.id.leoImagemSetaPADM42).setOnClickListener {
@@ -138,7 +142,8 @@ class PerfilAdministradorActivity : BaseActivity() {
         }
 
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            finish()
         }
 
         findViewById<ImageView>(R.id.iconEscreverMsgCapsulasAdmSergio).setOnClickListener {
@@ -150,36 +155,39 @@ class PerfilAdministradorActivity : BaseActivity() {
         }
 
         findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            finish()
         }
     }
 
     // =====================================================================
-    // 🔥 BUSCA HISTÓRICO REAL DO FIRESTORE
+    // 🔥 CARREGA EVENTOS DO ADMINISTRADOR (MESMO DO MENU PRINCIPAL)
     // =====================================================================
-    private fun carregarHistorico() {
+    private fun carregarEventosDoAdministrador() {
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaAdm = prefs.getString("MATRICULA_ADM", null)
 
         if (matriculaAdm.isNullOrEmpty()) return
 
-        db.collection("administrador")
-            .document(matriculaAdm)
-            .collection("historicoEmprestimos")
+        db.collection("mensagens")
+            .whereEqualTo("matriculaAdm", matriculaAdm)
+            .orderBy("data", Query.Direction.DESCENDING)
+            .limit(3)
             .get()
-            .addOnSuccessListener { lista ->
+            .addOnSuccessListener { result ->
 
-                val itens = lista.map { doc ->
-                    val titulo = doc.getString("nome") ?: "Sem título"
-                    val autor = doc.getString("autor") ?: ""
-                    val data = doc.getString("dataDevolucao") ?: ""
-                    HistoricoEmprestimo("$titulo - $autor   $data")
-                }.toMutableList()
+                val itensRV = result.map { doc ->
+                    val titulo = doc.getString("titulo") ?: "Sem título"
+                    val mensagem = doc.getString("mensagem") ?: ""
+                    val data = doc.getTimestamp("data")?.toDate().toString()
 
-                historicoAdapter.updateList(itens)
+                    HistoricoEmprestimo("$titulo • $mensagem\n$data")
+                }
+
+                adapterEventos.updateList(itensRV.toMutableList())
             }
-            .addOnFailureListener {
-                Log.e("HISTORICO_ADM", "Erro ao carregar histórico: ${it.localizedMessage}")
+            .addOnFailureListener { e ->
+                Log.e("EVENTOS_ADM", "Erro ao carregar eventos: ${e.localizedMessage}")
             }
     }
 }

@@ -8,6 +8,7 @@
     android:background="#004AF7"
     tools:context=".PerfilAdministradorActivity">
 
+    <!-- LOGO UNIFOR -->
     <ImageView
         android:id="@+id/leoLogoUniforPADM42"
         android:layout_width="90dp"
@@ -34,120 +35,89 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/barraInferiorCapsulasAdmSergio"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
-
-        <ImageView
-            android:id="@+id/iconHomeCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Home"
-            android:src="@drawable/home"
-            android:tint="#FFFFFF" />
-
-        <ImageView
-            android:id="@+id/iconEscreverMsgCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="EnviarMsg"
-            android:src="@drawable/enviar_msg"
-            android:tint="#FFFFFF" />
-
-        <ImageView
-            android:id="@+id/iconMensagemCapsulasAdmSergio"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Mensagem"
-            android:src="@drawable/email" />
-
-        <ImageView
-            android:id="@+id/iconMenuInferiorCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Menu"
-            android:src="@drawable/menu_hamb"
-            android:tint="#FFFFFF" />
-    </LinearLayout>
-
+    <!-- SETA VOLTAR -->
     <ImageView
         android:id="@+id/leoImagemSetaPADM42"
         android:layout_width="34dp"
         android:layout_height="40dp"
         android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
-        app:layout_constraintStart_toStartOf="parent"
+        android:tint="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/seta" />
 
+    <!-- ÍCONE NOTIFICAÇÃO -->
     <ImageView
         android:id="@+id/leoImagemNotificacaoSuperiorPADM42"
         android:layout_width="43dp"
         android:layout_height="31dp"
         android:layout_marginTop="108dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.997"
-        app:layout_constraintStart_toStartOf="parent"
+        android:tint="#FFFFFF"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/notificacao" />
 
+    <!-- FOTO PERFIL ADM (MANTENDO O ÍCONE ORIGINAL) -->
+    <ImageView
+        android:id="@+id/leoFotoPerfilAdmPADM42"
+        android:layout_width="118dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="152dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@drawable/foto_adm" />
+
+    <!-- NOME DO ADM -->
     <TextView
         android:id="@+id/leoNomeAdmPADM42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="268dp"
         android:text="Hugo Moura"
-        android:textColor="#F8F6F6"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- MATRÍCULA -->
     <TextView
         android:id="@+id/leoMatriculaAdmPADM42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:text="1020185"
-        android:textColor="#F8F6F6"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- BOTÃO EDITAR FOTO -->
+
+    <!-- CAIXA NOME COMPLETO -->
+    <ImageView
+        android:id="@+id/leoBotaoEditarPerfilAdmNew"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="148dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/editar" />
 
     <ImageView
         android:id="@+id/leoCampoNomePADM42"
         android:layout_width="699dp"
         android:layout_height="99dp"
         android:layout_marginTop="312dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/dialog_holo_light_frame" />
-
-    <ImageView
-        android:id="@+id/leoCampoFuncaoPADM42"
-        android:layout_width="699dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="392dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/dialog_holo_light_frame" />
 
     <TextView
@@ -156,63 +126,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="332dp"
         android:text="Nome Completo"
-        android:textColor="#1A1919"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.334"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoTituloFuncaoPADM42"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="416dp"
-        android:text="Função"
         android:textColor="#1A1919"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.291"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoTituloHistoricoMensagensPADM42"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
-        android:text="Histórico de Mensagens"
-        android:textColor="#1A1919"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.276"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/leoImagemCadeado1PADM42"
-        android:layout_width="21dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="348dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.71"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cadeado" />
-
-    <ImageView
-        android:id="@+id/leoImagemCadeado2PADM42"
-        android:layout_width="21dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="432dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.709"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cadeado" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/leoNomeCompletoAdmPADM42"
@@ -223,10 +142,33 @@
         android:textColor="#020202"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.339"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- CAIXA FUNÇÃO -->
+    <ImageView
+        android:id="@+id/leoCampoFuncaoPADM42"
+        android:layout_width="699dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="392dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/dialog_holo_light_frame" />
+
+    <TextView
+        android:id="@+id/leoTituloFuncaoPADM42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="416dp"
+        android:text="Função"
+        android:textColor="#1A1919"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/leoNomeFuncaoAdmPADM42"
@@ -237,47 +179,76 @@
         android:textColor="#020202"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- TÍTULO EVENTOS -->
+
+
+    <!-- RV EVENTOS (MESMO DO MENU PRINCIPAL) -->
+    <TextView
+        android:id="@+id/tituloEventosPerfilAdm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="488dp"
+        android:text="Eventos"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerHistorico42"
-        android:layout_width="260dp"
-        android:layout_height="209dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="#FFFFFF"
-        android:padding="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/rvEventosPerfilAdm"
+        android:layout_width="326dp"
+        android:layout_height="234dp"
+        android:clipToPadding="false"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tituloEventosPerfilAdm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.772"
-        tools:listitem="@layout/item_historico" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- FOTO DE PERFIL DO ADM (dinâmica via Firestore) -->
-    <ImageView
-        android:id="@+id/leoFotoPerfilAdmPADM42"
-        android:layout_width="107dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="152dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/foto_adm" />
+    <!-- BARRA INFERIOR -->
+    <LinearLayout
+        android:id="@+id/barraInferiorCapsulasAdmSergio"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <ImageView
-        android:id="@+id/leoBotaoEditarPerfilAdmNew"
-        android:layout_width="32dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="228dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/editar" />
+        <ImageView
+            android:id="@+id/iconHomeCapsulasAdmSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/home"
+            android:tint="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/iconEscreverMsgCapsulasAdmSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/enviar_msg"
+            android:tint="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/iconMensagemCapsulasAdmSergio"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+            android:src="@drawable/email" />
+
+        <ImageView
+            android:id="@+id/iconMenuInferiorCapsulasAdmSergio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="20dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/menu_hamb" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
