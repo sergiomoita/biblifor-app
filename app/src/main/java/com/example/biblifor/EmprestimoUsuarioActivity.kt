@@ -45,7 +45,6 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         // =====================================================================
         val imgCapa = findViewById<ImageView>(R.id.imgCapaEmprestimo)
         val txtTitulo = findViewById<TextView>(R.id.txtTituloEmprestimo)
-
         val fieldDataDevolucao = findViewById<TextView>(R.id.fieldDataDevolucao)
         val btnAceitar = findViewById<Button>(R.id.lopesBtnAceitar23)
         val btnRecusar = findViewById<Button>(R.id.lopesBtnRecusar23)
@@ -89,7 +88,6 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         // 5) DATE PICKER
         // =====================================================================
         fieldDataDevolucao.setOnClickListener {
-
             val c = Calendar.getInstance()
             val ano = c.get(Calendar.YEAR)
             val mes = c.get(Calendar.MONTH)
@@ -173,12 +171,15 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         findViewById<ImageView>(R.id.leoLogoHome3).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }
+
         findViewById<ImageView>(R.id.leoImagemChatbot3).setOnClickListener {
             startActivity(Intent(this, ChatbotUsuarioActivity::class.java))
         }
+
         findViewById<ImageView>(R.id.leoImagemNotificacoes3).setOnClickListener {
             startActivity(Intent(this, AvisosUsuarioActivity::class.java))
         }
+
         findViewById<ImageView>(R.id.leoImagemMenu3).setOnClickListener {
             startActivity(Intent(this, MenuHamburguerUsuarioActivity::class.java))
         }
@@ -205,21 +206,39 @@ class EmprestimoUsuarioActivity : BaseActivity() {
     // FUNÇÃO DE VERIFICAÇÃO DO LIMITE
     // ======================================================
     private fun verificarLimite(matricula: String, callback: (Boolean) -> Unit) {
-        db.collection("alunos")
+
+        val ref = db.collection("alunos")
             .document(matricula)
             .collection("historicoEmprestimos")
-            .whereEqualTo("status", "Ativo")
-            .get()
-            .addOnSuccessListener { docs ->
-                val quantidade = docs.size()
 
-                if (quantidade >= LIMITE_EMPRESTIMOS)
-                    callback(false)  // NÃO pode emprestar
-                else
-                    callback(true)   // pode emprestar
+        // Consulta 1: Ativos
+        ref.whereEqualTo("status", "Ativo")
+            .get()
+            .addOnSuccessListener { ativosDocs ->
+
+                val ativos = ativosDocs.size()
+
+                // Consulta 2: Renovados
+                ref.whereEqualTo("status", "Renovado")
+                    .get()
+                    .addOnSuccessListener { renovadosDocs ->
+
+                        val renovados = renovadosDocs.size()
+
+                        val total = ativos + renovados
+
+                        if (total >= LIMITE_EMPRESTIMOS)
+                            callback(false)
+                        else
+                            callback(true)
+                    }
+                    .addOnFailureListener {
+                        callback(true)
+                    }
             }
             .addOnFailureListener {
-                callback(true) // Em caso de erro → permite para não travar o usuário
+                callback(true)
             }
     }
+
 }
