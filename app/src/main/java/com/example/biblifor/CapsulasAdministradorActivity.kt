@@ -19,13 +19,11 @@ class CapsulasAdministradorActivity : BaseActivity() {
     private object CapsStatus {
         const val DISP  = "Disponível"
         const val INDISP = "Indisponível"
-        const val MANUT = "Em manutenção"   // novo texto solicitado
+        const val MANUT = "Manutenção"   // ← atualizado aqui
     }
 
-    // Estado das 12 cápsulas (1..12; índice 0 descartado) — valores: DISPONIVEL/INDISPONIVEL/MANUTENCAO
     private var statusCapsulas: MutableList<String> = MutableList(13) { "DISPONIVEL" }
 
-    // Recebe o novo status da tela de edição e persiste no Firestore
     private val statusLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -50,19 +48,16 @@ class CapsulasAdministradorActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_capsulas_administrador)
 
-        // Restaura estado em recriações
         if (savedInstanceState != null) {
             val arr = savedInstanceState.getStringArray("statusCapsulas")
             if (arr != null && arr.size == 13) statusCapsulas = arr.toMutableList()
         }
 
-        // 🔙 Voltar
         findViewById<ImageView>(R.id.btnVoltarCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
             finish()
         }
 
-        // ⚙️ Barra inferior
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
@@ -76,7 +71,6 @@ class CapsulasAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java)); finish()
         }
 
-        // 💊 Clique nas cápsulas → abre a tela de status atual
         val idsCapsulas = listOf(
             R.id.btnCapsula1AdmCapsulasAdmSergio,
             R.id.btnCapsula2AdmCapsulasAdmSergio,
@@ -98,7 +92,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
                 val statusBonito = when (statusCapsulas[numero]) {
                     "DISPONIVEL"   -> "Disponível"
                     "INDISPONIVEL" -> "Indisponível"
-                    "MANUTENCAO"   -> "Em manutenção"
+                    "MANUTENCAO"   -> "Manutenção"  // ← aqui atualizado
                     else           -> "Disponível"
                 }
                 val i = Intent(this, StatusCapsulaAdministradorActivity::class.java)
@@ -119,11 +113,8 @@ class CapsulasAdministradorActivity : BaseActivity() {
         outState.putStringArray("statusCapsulas", statusCapsulas.toTypedArray())
     }
 
-    // --------- Firestore (Adm) ---------
-
     private fun docId(n: Int) = "capsula$n"
 
-    /** Lê Firestore e reflete na UI (converte variações para o code interno) */
     private fun sincronizarComFirestore() {
         for (n in 1..12) {
             db.collection(CAPS).document(docId(n)).get()
@@ -138,18 +129,14 @@ class CapsulasAdministradorActivity : BaseActivity() {
                     statusCapsulas[n] = code
                     aplicarStatusNaUI(n, code)
                 }
-                .addOnFailureListener {
-                    // mantém estado anterior se falhar
-                }
         }
     }
 
-    /** Persiste no Firestore e atualiza UI local */
     private fun atualizarStatusNoFirestore(numero: Int, code: String) {
         val valor = when (code) {
             "DISPONIVEL"   -> CapsStatus.DISP
             "INDISPONIVEL" -> CapsStatus.INDISP
-            "MANUTENCAO"   -> CapsStatus.MANUT   // grava "Em manutenção"
+            "MANUTENCAO"   -> CapsStatus.MANUT   // ← atualizado aqui também
             else           -> CapsStatus.DISP
         }
 
@@ -165,10 +152,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
             }
     }
 
-    // --------- Helpers de UI ---------
-
     private fun aplicarStatusNaUI(numero: Int, code: String) {
-        // Botão (cor)
         val idBtn = when (numero) {
             1 -> R.id.btnCapsula1AdmCapsulasAdmSergio
             2 -> R.id.btnCapsula2AdmCapsulasAdmSergio
@@ -184,17 +168,16 @@ class CapsulasAdministradorActivity : BaseActivity() {
             12 -> R.id.btnCapsula12AdmCapsulasAdmSergio
             else -> null
         }
+
         idBtn?.let { id ->
             val btn = findViewById<ImageButton>(id)
             when (code) {
                 "DISPONIVEL"   -> btn.setColorFilter(getColor(android.R.color.holo_green_light))
                 "INDISPONIVEL" -> btn.setColorFilter(getColor(android.R.color.holo_red_light))
                 "MANUTENCAO"   -> btn.setColorFilter(getColor(android.R.color.holo_orange_light))
-                else           -> btn.clearColorFilter()
             }
         }
 
-        // Texto do status
         val idTxt = when (numero) {
             1 -> R.id.statusCapsula1AdmCapsulasAdmSergio
             2 -> R.id.statusCapsula2AdmCapsulasAdmSergio
@@ -210,14 +193,18 @@ class CapsulasAdministradorActivity : BaseActivity() {
             12 -> R.id.statusCapsula12AdmCapsulasAdmSergio
             else -> null
         }
+
         idTxt?.let { id ->
             val tv = findViewById<TextView>(id)
-            tv.maxLines = 2
+            tv.maxLines = 1
+            tv.isSingleLine = true
+
             when (code) {
                 "DISPONIVEL" -> { tv.text = "Status: Disponível";     tv.setTextColor(0xFF008000.toInt()) }
                 "INDISPONIVEL" -> { tv.text = "Status: Indisponível"; tv.setTextColor(0xFFFF0000.toInt()) }
-                "MANUTENCAO" -> { tv.text = "Status: Em manutenção";  tv.setTextColor(0xFFFFA500.toInt()) }
+                "MANUTENCAO" -> { tv.text = "Status: Manutenção";  tv.setTextColor(0xFFFFA500.toInt()) }
             }
+
         }
     }
 
