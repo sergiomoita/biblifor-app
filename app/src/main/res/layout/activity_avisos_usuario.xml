@@ -119,6 +119,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:tint="#FFFFFF"
             android:src="@drawable/menu_hamb" />
     </LinearLayout>
 

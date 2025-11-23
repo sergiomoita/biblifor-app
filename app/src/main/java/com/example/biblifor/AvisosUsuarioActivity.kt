@@ -34,7 +34,7 @@ class AvisosUsuarioActivity : BaseActivity() {
         adapter = AvisoAdapter(listaAvisos)
         rv.adapter = adapter
 
-        // ✅ Recupera matrícula e nome do usuário logado
+        // ===== Recupera matrícula e nome =====
         val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
         val matriculaUser = prefs.getString("MATRICULA_USER", "") ?: ""
         val nomeUser = prefs.getString("NOME_USER", null)
@@ -46,9 +46,7 @@ class AvisosUsuarioActivity : BaseActivity() {
         txtMatricula.text = matriculaUser
         txtNomeUsuario.text = if (!nomeUser.isNullOrEmpty()) "Olá, $nomeUser" else "Olá, Usuário"
 
-        // ============================================
-        // ✅ FOTO DO USUÁRIO LOGADO
-        // ============================================
+        // ===== FOTO DO USUÁRIO =====
         val imgUsuario = findViewById<ImageView>(R.id.imageView3)
 
         fb.collection("alunos")
@@ -73,19 +71,22 @@ class AvisosUsuarioActivity : BaseActivity() {
                     }
                 }
             }
-            .addOnFailureListener {
-                // mantém a imagem padrão se der erro
-            }
 
         // ===== Buscar avisos =====
         lerAvisos(matriculaUser)
 
+        // ===== Botões de navegação =====
         configurarBotoes()
+
+        // ====================================================
+        // 🟢 MARCAR QUE O USUÁRIO VIU OS AVISOS
+        // ====================================================
+        prefs.edit().putLong("ULTIMA_LEITURA_AVISOS", System.currentTimeMillis()).apply()
     }
 
 
     // =====================================================
-    // 🔵 Função principal que busca os avisos do Firestore
+    // 🔵 Carregar avisos do Firestore
     // =====================================================
     private fun lerAvisos(matricula: String) {
         fb.collection("mensagens")
@@ -117,11 +118,11 @@ class AvisosUsuarioActivity : BaseActivity() {
             }
     }
 
-
-    // ================================
+    // =====================================================
     // BOTÕES DA TELA
-    // ================================
+    // =====================================================
     private fun configurarBotoes() {
+
         findViewById<ImageView>(R.id.leoLogoHomeChatbotBF7).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalUsuarioActivity::class.java))
         }

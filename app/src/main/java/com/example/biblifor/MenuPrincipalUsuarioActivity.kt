@@ -50,10 +50,15 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
     private lateinit var inputPesquisa: EditText
     private lateinit var imagemAcessibilidade: ImageView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu_principal_usuario)
+
+        val bolinhaCima = findViewById<ImageView>(R.id.bolinhaCima)
+        val bolinhaBaixo = findViewById<ImageView>(R.id.bolinhaBaixo)
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -254,6 +259,11 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
             carregarHistorico(matricula)
             carregarFavoritos(matricula)
         }
+
+        if (matricula != null) {
+            verificarNovasMensagens(matricula, bolinhaCima, bolinhaBaixo)
+        }
+
     }
 
     // ======================================================
@@ -405,4 +415,31 @@ class MenuPrincipalUsuarioActivity : BaseActivity() {
                 }
             }
     }
+
+    private fun verificarNovasMensagens(
+        matricula: String,
+        bolinhaCima: ImageView,
+        bolinhaBaixo: ImageView
+    ) {
+        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+        val ultimaLeitura = prefs.getLong("ULTIMA_LEITURA_AVISOS", 0)
+
+        db.collection("mensagens")
+            .whereEqualTo("matricula", matricula)
+            .orderBy("data", Query.Direction.DESCENDING)
+            .limit(1)
+            .get()
+            .addOnSuccessListener { docs ->
+
+                if (!docs.isEmpty) {
+                    val msgNova = docs.first().getTimestamp("data")?.toDate()?.time ?: 0
+
+                    val temNova = msgNova > ultimaLeitura
+
+                    bolinhaCima.visibility = if (temNova) View.VISIBLE else View.GONE
+                    bolinhaBaixo.visibility = if (temNova) View.VISIBLE else View.GONE
+                }
+            }
+    }
+
 }
