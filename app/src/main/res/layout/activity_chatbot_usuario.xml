@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- CAIXA DE ENTRADA (mantendo ids) -->
+    <!-- CAIXA DE ENTRADA -->
     <LinearLayout
         android:id="@+id/boxInput"
         android:layout_width="0dp"
@@ -123,46 +123,46 @@
             app:srcCompat="@drawable/enviar_msg"/>
     </LinearLayout>
 
-    <!-- barra inferior existente (mantida) -->
-    <ImageView
-        android:id="@+id/leoLogoHomeChatbotBF7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:tint="#FFFFFF"
+    <!-- BARRA INFERIOR CENTRALIZADA -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="24dp"
-        app:srcCompat="@drawable/home"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/leoImagemChatbotBF7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoLogoHomeChatbotBF7"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="24dp"
-        app:srcCompat="@drawable/chatbot_ema"/>
+        <ImageView
+            android:id="@+id/leoLogoHomeChatbotBF7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tint="#FFFFFF"
+            android:layout_marginEnd="36dp"
+            app:srcCompat="@drawable/home"/>
 
-    <ImageView
-        android:id="@+id/leoImagemNotificacoesChatbotBF7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoImagemChatbotBF7"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="24dp"
-        app:srcCompat="@drawable/email"/>
+        <ImageView
+            android:id="@+id/leoImagemChatbotBF7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="36dp"
+            app:srcCompat="@drawable/chatbot_ema"/>
 
-    <ImageView
-        android:id="@+id/leoImagemMenuChatbotBF7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoImagemNotificacoesChatbotBF7"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="24dp"
-        app:srcCompat="@drawable/menu_hamb"/>
+        <ImageView
+            android:id="@+id/leoImagemNotificacoesChatbotBF7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="36dp"
+            app:srcCompat="@drawable/email"/>
+
+        <ImageView
+            android:id="@+id/leoImagemMenuChatbotBF7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tint="#FFFFFF"
+            app:srcCompat="@drawable/menu_hamb"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

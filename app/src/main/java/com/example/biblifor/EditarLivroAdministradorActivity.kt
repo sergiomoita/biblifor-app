@@ -178,22 +178,60 @@ class EditarLivroAdministradorActivity : BaseActivity() {
 
     private fun atualizarLivro() {
 
+        // ----------- VALIDAÇÃO DOS CAMPOS DE TEXTO -----------
+        if (etNome.text.toString().trim().isEmpty()) {
+            Toast.makeText(this, "O campo Título não pode ficar vazio.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (etAutor.text.toString().trim().isEmpty()) {
+            Toast.makeText(this, "O campo Autor não pode ficar vazio.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (etLocaliza.text.toString().trim().isEmpty()) {
+            Toast.makeText(this, "O Código de Acervo não pode ficar vazio.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // ----------- VALIDAÇÃO DA DISPONIBILIDADE -----------
+        val fisicoSelecionado = (btnFisico.currentTextColor == Color.WHITE)
+        val onlineSelecionado = (btnOnline.currentTextColor == Color.WHITE)
+
+        if (!fisicoSelecionado && !onlineSelecionado) {
+            Toast.makeText(this, "Selecione pelo menos um tipo de disponibilidade.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val disponibilidade = when {
-            btnFisico.currentTextColor == Color.WHITE &&
-                    btnOnline.currentTextColor == Color.WHITE -> "Físico e Online"
-            btnFisico.currentTextColor == Color.WHITE -> "Físico"
-            btnOnline.currentTextColor == Color.WHITE -> "Online"
-            else -> "Indisponível"
+            fisicoSelecionado && onlineSelecionado -> "Físico e Online"
+            fisicoSelecionado -> "Físico"
+            else -> "Online"
         }
 
-        val emprestar = when {
-            btnEmpSim.currentTextColor == Color.WHITE -> "Emprestável"
-            btnEmpNao.currentTextColor == Color.WHITE -> "Não-emprestável"
-            else -> "Não informado"
+        // ----------- VALIDAÇÃO DO EMPRESTÁVEL -----------
+        val podeEmprestarSim = (btnEmpSim.currentTextColor == Color.WHITE)
+        val podeEmprestarNao = (btnEmpNao.currentTextColor == Color.WHITE)
+
+        if (!podeEmprestarSim && !podeEmprestarNao) {
+            Toast.makeText(this, "Selecione se o livro é emprestável ou não.", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        val recomendar = (btnRecSim.currentTextColor == Color.WHITE)
+        val emprestar = if (podeEmprestarSim) "Emprestável" else "Não-emprestável"
 
+        // ----------- VALIDAÇÃO DE RECOMENDAR -----------
+        val recomendarSim = (btnRecSim.currentTextColor == Color.WHITE)
+        val recomendarNao = (btnRecNao.currentTextColor == Color.WHITE)
+
+        if (!recomendarSim && !recomendarNao) {
+            Toast.makeText(this, "Selecione se o livro deve ser recomendado ou não.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val recomendar = recomendarSim
+
+        // ----------- MONTAGEM DO OBJETO PARA SALVAR -----------
         val dados = mapOf(
             "Titulo" to etNome.text.toString(),
             "Autor" to etAutor.text.toString(),
@@ -215,4 +253,5 @@ class EditarLivroAdministradorActivity : BaseActivity() {
                 Toast.makeText(this, "Erro ao atualizar.", Toast.LENGTH_SHORT).show()
             }
     }
+
 }

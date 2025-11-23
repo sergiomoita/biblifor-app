@@ -73,7 +73,7 @@ class LivrosEmprestaveisAdministradorActivity : BaseActivity() {
         }
 
         findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
         }
 
         rvLivros = findViewById(R.id.rvLivros)

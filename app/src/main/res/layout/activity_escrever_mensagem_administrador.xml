@@ -23,17 +23,14 @@
             android:orientation="vertical">
 
 
-
-
-
+            <ImageView
+                android:id="@+id/btnVoltarEscreverMensagemAdministradorSergio"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/seta"
+                android:tint="@android:color/white" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/btnVoltarEscreverMensagemAdministradorSergio"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/seta"
-            android:tint="@android:color/white" />
     </LinearLayout>
 
     <!-- Título -->

@@ -32,7 +32,7 @@ class PopupResultadosAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
         }
 
-        findViewById<ImageView>(R.id.iconChatBotPopupAdm).setOnClickListener {
+        findViewById<ImageView>(R.id.iconEscreverMensagemPopupAdm).setOnClickListener {
             startActivity(Intent(this, EscreverMensagemAdministradorActivity::class.java))
         }
 

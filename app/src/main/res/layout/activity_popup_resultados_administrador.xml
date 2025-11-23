@@ -108,10 +108,11 @@
             android:layout_marginHorizontal="20dp" />
 
         <ImageView
-            android:id="@+id/iconChatBotPopupAdm"
+            android:id="@+id/iconEscreverMensagemPopupAdm"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/chatbot_ema"
+            android:tint="#FFFFFF"
+            android:src="@drawable/escrever_mensagem"
             android:layout_marginHorizontal="20dp" />
 
         <ImageView

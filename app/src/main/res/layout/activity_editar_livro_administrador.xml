@@ -141,6 +141,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Sim"
+            android:textColor="#002C9B"
             android:backgroundTint="#FFFFFF" />
 
         <Button
@@ -149,6 +150,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Não"
+            android:textColor="#002C9B"
             android:backgroundTint="#FFFFFF" />
     </LinearLayout>
 
@@ -182,6 +184,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Físico"
+            android:textColor="#002C9B"
             android:backgroundTint="#FFFFFF" />
 
         <Button
@@ -190,6 +193,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Online"
+            android:textColor="#002C9B"
             android:backgroundTint="#FFFFFF" />
 
     </LinearLayout>
@@ -224,6 +228,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Sim"
+            android:textColor="#002C9B"
             android:backgroundTint="#FFFFFF" />
 
         <Button
@@ -232,6 +237,7 @@
             android:layout_height="42dp"
             android:layout_weight="1"
             android:text="Não"
+            android:textColor="#002C9B"
             android:backgroundTint="#FFFFFF" />
 
     </LinearLayout>
