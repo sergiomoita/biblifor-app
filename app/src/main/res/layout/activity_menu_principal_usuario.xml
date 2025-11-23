@@ -297,30 +297,30 @@
 
         <ImageView
             android:id="@+id/leoLogoHome3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="57dp"
+            android:layout_height="55dp"
             android:tint="#FFFFFF"
             android:src="@drawable/home"
             android:layout_marginHorizontal="16dp" />
 
         <ImageView
             android:id="@+id/leoImagemChatbot3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/chatbot_ema"
             android:layout_marginHorizontal="16dp" />
 
         <ImageView
             android:id="@+id/leoImagemNotificacoes3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@drawable/email"
             android:layout_marginHorizontal="16dp" />
 
         <ImageView
             android:id="@+id/leoImagemMenu3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:tint="#FFFFFF"
             android:src="@drawable/menu_hamb"
             android:layout_marginHorizontal="16dp" />

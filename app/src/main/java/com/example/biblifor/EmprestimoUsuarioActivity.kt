@@ -22,6 +22,7 @@ class EmprestimoUsuarioActivity : BaseActivity() {
 
     private var dataEscolhida: String = ""
     private val db = Firebase.firestore
+    private val LIMITE_EMPRESTIMOS = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +109,7 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         }
 
         // =====================================================================
-        // 6) BOTÃO ACEITAR → SALVANDO E ENVIANDO PARA CONFIRMAÇÃO
+        // 6) BOTÃO ACEITAR → VERIFICA LIMITE E EMPRÉSTA SE PERMITIDO
         // =====================================================================
         btnAceitar.setOnClickListener {
 
@@ -117,38 +118,46 @@ class EmprestimoUsuarioActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            val dataHoje = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+            verificarLimite(matricula) { podeEmprestar ->
 
-            val dadosEmprestimo = mapOf(
-                "nome" to titulo,
-                "autor" to autor,
-                "dataEmprestimo" to dataHoje,
-                "dataDevolucao" to dataEscolhida,
-                "status" to "Ativo",
-                "livroId" to livroId,
-                "localizacao" to localizacaoDoLivro
-            )
-
-            db.collection("alunos")
-                .document(matricula)
-                .collection("historicoEmprestimos")
-                .document(livroId)
-                .set(dadosEmprestimo)
-                .addOnSuccessListener {
-
-                    val intent = Intent(this, ConfirmacaoEmprestimoUsuarioActivity::class.java)
-                    intent.putExtra("titulo", titulo)
-                    intent.putExtra("imagemBase64", imagemBase64)
-                    intent.putExtra("dataDevolucao", dataEscolhida)
-                    intent.putExtra("livroId", livroId)
-                    intent.putExtra("localizacao", localizacaoDoLivro)
-
-                    startActivity(intent)
-                    finish()
+                if (!podeEmprestar) {
+                    startActivity(Intent(this, LimiteEmprestimosActivity::class.java))
+                    return@verificarLimite
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Erro ao registrar empréstimo.", Toast.LENGTH_SHORT).show()
-                }
+
+                val dataHoje = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+                val dadosEmprestimo = mapOf(
+                    "nome" to titulo,
+                    "autor" to autor,
+                    "dataEmprestimo" to dataHoje,
+                    "dataDevolucao" to dataEscolhida,
+                    "status" to "Ativo",
+                    "livroId" to livroId,
+                    "localizacao" to localizacaoDoLivro
+                )
+
+                db.collection("alunos")
+                    .document(matricula)
+                    .collection("historicoEmprestimos")
+                    .document(livroId)
+                    .set(dadosEmprestimo)
+                    .addOnSuccessListener {
+
+                        val intent = Intent(this, ConfirmacaoEmprestimoUsuarioActivity::class.java)
+                        intent.putExtra("titulo", titulo)
+                        intent.putExtra("imagemBase64", imagemBase64)
+                        intent.putExtra("dataDevolucao", dataEscolhida)
+                        intent.putExtra("livroId", livroId)
+                        intent.putExtra("localizacao", localizacaoDoLivro)
+
+                        startActivity(intent)
+                        finish()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Erro ao registrar empréstimo.", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
 
         // =====================================================================
@@ -175,7 +184,7 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         }
 
         // =====================================================================
-        // 9) LISTA DE TERMOS (RESTAURADA)
+        // 9) LISTA DE TERMOS
         // =====================================================================
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerTermos23)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -190,5 +199,27 @@ class EmprestimoUsuarioActivity : BaseActivity() {
         )
 
         recyclerView.adapter = TermosAdapter(termos)
+    }
+
+    // ======================================================
+    // FUNÇÃO DE VERIFICAÇÃO DO LIMITE
+    // ======================================================
+    private fun verificarLimite(matricula: String, callback: (Boolean) -> Unit) {
+        db.collection("alunos")
+            .document(matricula)
+            .collection("historicoEmprestimos")
+            .whereEqualTo("status", "Ativo")
+            .get()
+            .addOnSuccessListener { docs ->
+                val quantidade = docs.size()
+
+                if (quantidade >= LIMITE_EMPRESTIMOS)
+                    callback(false)  // NÃO pode emprestar
+                else
+                    callback(true)   // pode emprestar
+            }
+            .addOnFailureListener {
+                callback(true) // Em caso de erro → permite para não travar o usuário
+            }
     }
 }

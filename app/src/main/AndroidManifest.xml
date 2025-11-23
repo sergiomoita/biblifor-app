@@ -130,7 +130,7 @@
         <activity android:name=".PopupLivroOnlineUsuarioActivity" android:exported="false" />
         <activity android:name=".ConfirmacaoEmprestimoUsuarioActivity" android:exported="false" />
         <activity android:name=".AvaliacaoUsuarioActivity" android:exported="false" />
-        <activity android:name=".LimiteEmprestimosUsuarioActivity" android:exported="false" />
+        <activity android:name=".LimiteEmprestimosActivity" android:exported="false" />
         <activity android:name=".PopupEmprestimoProibidoUsuarioActivity" android:exported="false" />
         <activity android:name=".LivroDesfavoritadoUsuarioActivity" android:exported="false" />
         <activity android:name=".PopupFavoritosUsuarioActivity" android:exported="false" />

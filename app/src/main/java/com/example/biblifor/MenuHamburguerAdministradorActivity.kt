@@ -46,8 +46,7 @@ class MenuHamburguerAdministradorActivity : BaseActivity() {
         }
         val leoBotaoMenuSuperior49 = findViewById<ImageView>(R.id.leoImagemMenuSuperior49)
         leoBotaoMenuSuperior49.setOnClickListener {
-            val navegarMenuSuperior49 = Intent (this, MenuPrincipalAdministradorActivity::class.java)
-            startActivity(navegarMenuSuperior49)
+            finish()
         }
     }
 }
