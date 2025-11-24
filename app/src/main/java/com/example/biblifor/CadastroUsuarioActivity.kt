@@ -70,7 +70,6 @@ class CadastroUsuarioActivity : BaseActivity() {
         imgFotoPerfilAluno = findViewById(R.id.imgFotoPerfilAluno)
         imgFotoPerfilAdmin = findViewById(R.id.imgFotoPerfilAdmin)
 
-        // SETA DE VOLTAR PARA LOGIN
         val btnVoltarCadastro: ImageView = findViewById(R.id.btnVoltarCadastro)
         btnVoltarCadastro.setOnClickListener {
             val intent = Intent(this, LoginUsuarioActivity::class.java)
@@ -95,7 +94,6 @@ class CadastroUsuarioActivity : BaseActivity() {
             destacarSelecionado(btnAdmin, btnAluno)
         }
 
-        // DESATIVAR AUTOFILL NOS CAMPOS DE SENHA
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             findViewById<EditText>(R.id.inputSenhaAluno).importantForAutofill =
                 View.IMPORTANT_FOR_AUTOFILL_NO
@@ -107,15 +105,14 @@ class CadastroUsuarioActivity : BaseActivity() {
             when (tipoSelecionado) {
                 Tipo.ALUNO -> cadastrarAluno()
                 Tipo.ADMIN -> cadastrarAdmin()
-                null -> {
-                    // aqui NÃO lança exceção, só avisa o usuário
-                    toast("Selecione Aluno ou Administrador.")
-                }
+                null -> toast("Selecione Aluno ou Administrador.")
             }
         }
     }
 
-    // ====== ALUNO ======
+    // ============================================================
+    // ========================   ALUNO   =========================
+    // ============================================================
     private fun cadastrarAluno() {
         val curso = findViewById<EditText>(R.id.inputCursoAluno).text.toString()
         val matricula = findViewById<EditText>(R.id.inputMatriculaAluno).text.toString()
@@ -124,6 +121,26 @@ class CadastroUsuarioActivity : BaseActivity() {
 
         if (curso.isEmpty() || matricula.isEmpty() || nome.isEmpty() || senha.isEmpty()) {
             toast("Preencha todos os campos do Aluno.")
+            return
+        }
+
+        // ===== VALIDAÇÃO: MATRÍCULA =====
+        if (!matricula.all { it.isDigit() }) {
+            toast("A matrícula deve conter apenas números.")
+            return
+        }
+        if (matricula.length != 7) {
+            toast("A matrícula do aluno deve ter exatamente 7 dígitos.")
+            return
+        }
+
+        // ===== VALIDAÇÃO: SENHA =====
+        if (!senha.all { it.isDigit() }) {
+            toast("A senha deve conter apenas números.")
+            return
+        }
+        if (senha.length != 8) {
+            toast("A senha deve ter exatamente 8 dígitos.")
             return
         }
 
@@ -147,7 +164,9 @@ class CadastroUsuarioActivity : BaseActivity() {
             }
     }
 
-    // ====== ADMIN ======
+    // ============================================================
+    // =====================   ADMINISTRADOR   ====================
+    // ============================================================
     private fun cadastrarAdmin() {
         val cargo = findViewById<EditText>(R.id.inputCargoAdmin).text.toString()
         val matricula = findViewById<EditText>(R.id.inputMatriculaAdmin).text.toString()
@@ -156,6 +175,26 @@ class CadastroUsuarioActivity : BaseActivity() {
 
         if (cargo.isEmpty() || matricula.isEmpty() || nome.isEmpty() || senha.isEmpty()) {
             toast("Preencha todos os campos do Administrador.")
+            return
+        }
+
+        // ===== VALIDAÇÃO: MATRÍCULA =====
+        if (!matricula.all { it.isDigit() }) {
+            toast("A matrícula deve conter apenas números.")
+            return
+        }
+        if (matricula.length != 8) {
+            toast("A matrícula do administrador deve ter exatamente 8 dígitos.")
+            return
+        }
+
+        // ===== VALIDAÇÃO: SENHA =====
+        if (!senha.all { it.isDigit() }) {
+            toast("A senha deve conter apenas números.")
+            return
+        }
+        if (senha.length != 8) {
+            toast("A senha deve ter exatamente 8 dígitos.")
             return
         }
 

@@ -18,7 +18,6 @@ class EsqueceuSenhaUsuarioActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_esqueceu_senha_usuario)
 
-        // Referência do Firestore (bem no estilo do código do Narak)
         fb = FirebaseFirestore.getInstance()
 
         val btnVoltar = findViewById<ImageView>(R.id.btnVoltarEsqueceuSenhaUsuarioSergio)
@@ -44,14 +43,36 @@ class EsqueceuSenhaUsuarioActivity : BaseActivity() {
                     "Preencha matrícula e nova senha",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
-                recuperarSenha(matricula, novaSenha)
+                return@setOnClickListener
             }
+
+            // =============================
+            // VALIDAÇÃO DA NOVA SENHA
+            // =============================
+            if (!novaSenha.all { it.isDigit() }) {
+                Toast.makeText(
+                    this,
+                    "A nova senha deve conter apenas números.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            if (novaSenha.length != 8) {
+                Toast.makeText(
+                    this,
+                    "A nova senha deve ter exatamente 8 dígitos.",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            // Continua fluxo normal
+            recuperarSenha(matricula, novaSenha)
         }
     }
 
     private fun recuperarSenha(matricula: String, novaSenha: String) {
-        // 1) Tenta na coleção "alunos" usando a matrícula como ID do documento
         fb.collection("alunos")
             .document(matricula)
             .get()
@@ -59,7 +80,6 @@ class EsqueceuSenhaUsuarioActivity : BaseActivity() {
                 if (docAluno.exists()) {
                     atualizarSenhaEmColecao("alunos", matricula, novaSenha)
                 } else {
-                    // 2) Se não achou aluno, tenta em "administrador"
                     fb.collection("administrador")
                         .document(matricula)
                         .get()
@@ -67,7 +87,6 @@ class EsqueceuSenhaUsuarioActivity : BaseActivity() {
                             if (docAdm.exists()) {
                                 atualizarSenhaEmColecao("administrador", matricula, novaSenha)
                             } else {
-                                // Não achou em nenhuma coleção
                                 mostrarToastMatriculaInvalida()
                             }
                         }
