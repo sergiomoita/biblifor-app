@@ -128,79 +128,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/notificacao" />
 
-    <TextView
-        android:id="@+id/leoTextoSuperiorPF31"
-        android:layout_width="394dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="116dp"
-        android:text="Tudo é novo e empolgante quando você começa a explorar a nossa biblioteca. Queremos que você se sinta bem-vindo e aproveite ao máximo todos os serviços. Por isso, respondemos aqui às principais dúvidas de quem está começando a utilizar o aplicativo ou visitar a Biblioteca."
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- SETAS DAS PERGUNTAS -->
 
-    <ImageView
-        android:id="@+id/leoSetaDuvida1PF31"
-        android:layout_width="30dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="180dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_cabeca"
-        app:tint="#FFFFFF" />
-
-    <ImageView
-        android:id="@+id/leoSetaDuvida2PF31"
-        android:layout_width="30dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="312dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_cabeca"
-        app:tint="#FFFFFF" />
-
-    <ImageView
-        android:id="@+id/leoSetaDuvida4PF31"
-        android:layout_width="30dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="548dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_cabeca"
-        app:tint="#FFFFFF" />
-
-    <ImageView
-        android:id="@+id/leoSetaDuvida5PF31"
-        android:layout_width="30dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="652dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_cabeca"
-        app:tint="#FFFFFF" />
-
-    <ImageView
-        android:id="@+id/leoSetaDuvida3PF31"
-        android:layout_width="30dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="436dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_cabeca"
-        app:tint="#FFFFFF" />
-
+    <!-- TITULOS -->
     <TextView
         android:id="@+id/leoTituloDuvida1PF31"
         android:layout_width="wrap_content"
@@ -242,71 +172,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/leoRespostaDuvida1PF31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:text="Para usar os serviços da Biblioteca Unifor, é preciso estar vinculado à universidade como aluno, professor ou colaborador. O acesso é gerado automaticamente pelas informações institucionais e pode ser feito com o número de matrícula (RA) e a senha padrão. Em caso de esquecimento ou dificuldade, a senha pode ser recuperada no aplicativo ou com o suporte da biblioteca."
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoRespostaDuvida2PF31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="348dp"
-        android:text="O empréstimo de livros da Biblioteca Unifor é exclusivo para alunos, professores e colaboradores. Para retirar, apresente o cartão institucional. O prazo é de 7 dias, com renovação online se não houver reserva. O acesso usa matrícula (RA) e senha. Em caso de dúvidas, o suporte da biblioteca está disponível."
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoRespostaDuvida3PF31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="472dp"
-        android:text="O atraso na devolução de livros gera multa de R$ 2,50 por dia e exemplar. O prazo é de 7 dias para alunos e 14 para professores. A renovação só é permitida sem reserva. As multas devem ser quitadas no balcão antes de novos empréstimos."
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoRespostaDuvida4PF31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="584dp"
-        android:text="A pesquisa do acervo pode ser feita online com matrícula e senha. É possível buscar livros e periódicos por título, autor ou assunto, além de verificar reservas e disponibilidade. Para mais orientações, o suporte está disponível no balcão da biblioteca."
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoRespostaDuvida5PF31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="688dp"
-        android:text="A biblioteca oferece serviços de apoio acadêmico, como análise de normas da ABNT, auxílio no currículo Lattes e empréstimo de livros. Os usuários contam com orientações presenciais e online, garantindo suporte à produção e à pesquisa científica."
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/leoTituloDuvida4PF31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -330,6 +195,74 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- RESPOSTAS REDUZIDAS -->
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida1PF31"
+        android:layout_width="401dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="212dp"
+        android:text="O acesso é feito com sua matrícula e senha institucional. Caso tenha problemas, é possível recuperar a senha pelo app ou com o suporte da biblioteca."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida2PF31"
+        android:layout_width="400dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="348dp"
+        android:text="Alunos e colaboradores podem solicitar livros por 7 dias, renovando online se não houver reserva. Basta estar logado com matrícula e senha."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida3PF31"
+        android:layout_width="402dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="472dp"
+        android:text="Atrasos geram multa diária. A renovação só é permitida quando não há reserva. Multas devem ser quitadas antes de novos empréstimos."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida4PF31"
+        android:layout_width="395dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="584dp"
+        android:text="A busca do acervo pode ser feita online por título, autor ou assunto. Também é possível verificar reservas e disponibilidade."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leoRespostaDuvida5PF31"
+        android:layout_width="388dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="688dp"
+        android:text="A biblioteca oferece apoio acadêmico, como normas ABNT, auxílio no Lattes e outros serviços úteis para estudantes e pesquisadores."
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

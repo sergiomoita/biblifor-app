@@ -167,12 +167,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="332dp"
-        android:text="Nome Completo"
+        android:text="Nome"
         android:textColor="#1A1919"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.334"
+        app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

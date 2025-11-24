@@ -124,7 +124,6 @@ class CadastroUsuarioActivity : BaseActivity() {
             return
         }
 
-        // ===== VALIDAÇÃO: MATRÍCULA =====
         if (!matricula.all { it.isDigit() }) {
             toast("A matrícula deve conter apenas números.")
             return
@@ -134,7 +133,6 @@ class CadastroUsuarioActivity : BaseActivity() {
             return
         }
 
-        // ===== VALIDAÇÃO: SENHA =====
         if (!senha.all { it.isDigit() }) {
             toast("A senha deve conter apenas números.")
             return
@@ -144,6 +142,19 @@ class CadastroUsuarioActivity : BaseActivity() {
             return
         }
 
+        // ===== NOVO: VERIFICAR SE A MATRÍCULA JÁ EXISTE =====
+        db.collection("alunos").document(matricula).get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    toast("Matrícula já existente.")
+                    return@addOnSuccessListener
+                } else {
+                    salvarAluno(curso, matricula, nome, senha)
+                }
+            }
+    }
+
+    private fun salvarAluno(curso: String, matricula: String, nome: String, senha: String) {
         val dados = mapOf(
             "tipo" to "aluno",
             "curso" to curso,
@@ -178,7 +189,6 @@ class CadastroUsuarioActivity : BaseActivity() {
             return
         }
 
-        // ===== VALIDAÇÃO: MATRÍCULA =====
         if (!matricula.all { it.isDigit() }) {
             toast("A matrícula deve conter apenas números.")
             return
@@ -188,7 +198,6 @@ class CadastroUsuarioActivity : BaseActivity() {
             return
         }
 
-        // ===== VALIDAÇÃO: SENHA =====
         if (!senha.all { it.isDigit() }) {
             toast("A senha deve conter apenas números.")
             return
@@ -198,6 +207,19 @@ class CadastroUsuarioActivity : BaseActivity() {
             return
         }
 
+        // ===== NOVO: VERIFICAR SE A MATRÍCULA JÁ EXISTE =====
+        db.collection("administrador").document(matricula).get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    toast("Matrícula já existente.")
+                    return@addOnSuccessListener
+                } else {
+                    salvarAdmin(cargo, matricula, nome, senha)
+                }
+            }
+    }
+
+    private fun salvarAdmin(cargo: String, matricula: String, nome: String, senha: String) {
         val dados = mapOf(
             "tipo" to "administrador",
             "cargo" to cargo,
