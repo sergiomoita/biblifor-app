@@ -2,7 +2,6 @@ package com.example.biblifor
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,11 +16,12 @@ class CapsulasAdministradorActivity : BaseActivity() {
     private val CAPS = "capsulas"
 
     private object CapsStatus {
-        const val DISP  = "Disponível"
+        const val DISP = "Disponível"
         const val INDISP = "Indisponível"
-        const val MANUT = "Manutenção"   // ← atualizado aqui
+        const val MANUT = "Manutenção"
     }
 
+    // índice 0 não usa, então lista com 13 posições
     private var statusCapsulas: MutableList<String> = MutableList(13) { "DISPONIVEL" }
 
     private val statusLauncher =
@@ -32,10 +32,10 @@ class CapsulasAdministradorActivity : BaseActivity() {
                 val novoStatus = (data.getStringExtra("novoStatus") ?: return@registerForActivityResult).normalizado()
 
                 val code = when (novoStatus) {
-                    "disponivel"   -> "DISPONIVEL"
+                    "disponivel" -> "DISPONIVEL"
                     "indisponivel" -> "INDISPONIVEL"
                     "manutencao", "emmanutencao" -> "MANUTENCAO"
-                    else           -> "DISPONIVEL"
+                    else -> "DISPONIVEL"
                 }
 
                 if (numero in 1..12) {
@@ -58,6 +58,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
             finish()
         }
 
+        // BARRA INFERIOR
         findViewById<ImageView>(R.id.iconHomeCapsulasAdmSergio).setOnClickListener {
             startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
         }
@@ -71,6 +72,7 @@ class CapsulasAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java)); finish()
         }
 
+        // IDs dos botões das cápsulas
         val idsCapsulas = listOf(
             R.id.btnCapsula1AdmCapsulasAdmSergio,
             R.id.btnCapsula2AdmCapsulasAdmSergio,
@@ -87,14 +89,15 @@ class CapsulasAdministradorActivity : BaseActivity() {
         )
 
         idsCapsulas.forEachIndexed { index, idBtn ->
-            findViewById<ImageButton>(idBtn).setOnClickListener {
+            findViewById<ImageView>(idBtn).setOnClickListener {
                 val numero = index + 1
                 val statusBonito = when (statusCapsulas[numero]) {
-                    "DISPONIVEL"   -> "Disponível"
+                    "DISPONIVEL" -> "Disponível"
                     "INDISPONIVEL" -> "Indisponível"
-                    "MANUTENCAO"   -> "Manutenção"  // ← aqui atualizado
-                    else           -> "Disponível"
+                    "MANUTENCAO" -> "Manutenção"
+                    else -> "Disponível"
                 }
+
                 val i = Intent(this, StatusCapsulaAdministradorActivity::class.java)
                 i.putExtra("numeroCapsula", numero)
                 i.putExtra("statusAtual", statusBonito)
@@ -121,11 +124,12 @@ class CapsulasAdministradorActivity : BaseActivity() {
                 .addOnSuccessListener { snap ->
                     val disp = snap.getString("disponibilidade")
                     val code = when (disp?.normalizado()) {
-                        "disponivel"     -> "DISPONIVEL"
-                        "indisponivel"   -> "INDISPONIVEL"
+                        "disponivel" -> "DISPONIVEL"
+                        "indisponivel" -> "INDISPONIVEL"
                         "manutencao", "emmanutencao" -> "MANUTENCAO"
                         else -> "DISPONIVEL"
                     }
+
                     statusCapsulas[n] = code
                     aplicarStatusNaUI(n, code)
                 }
@@ -134,10 +138,10 @@ class CapsulasAdministradorActivity : BaseActivity() {
 
     private fun atualizarStatusNoFirestore(numero: Int, code: String) {
         val valor = when (code) {
-            "DISPONIVEL"   -> CapsStatus.DISP
+            "DISPONIVEL" -> CapsStatus.DISP
             "INDISPONIVEL" -> CapsStatus.INDISP
-            "MANUTENCAO"   -> CapsStatus.MANUT   // ← atualizado aqui também
-            else           -> CapsStatus.DISP
+            "MANUTENCAO" -> CapsStatus.MANUT
+            else -> CapsStatus.DISP
         }
 
         db.collection(CAPS).document(docId(numero))
@@ -153,6 +157,8 @@ class CapsulasAdministradorActivity : BaseActivity() {
     }
 
     private fun aplicarStatusNaUI(numero: Int, code: String) {
+
+        // BUSCA O BOTÃO (ÍCONE DE EDITAR)
         val idBtn = when (numero) {
             1 -> R.id.btnCapsula1AdmCapsulasAdmSergio
             2 -> R.id.btnCapsula2AdmCapsulasAdmSergio
@@ -169,15 +175,14 @@ class CapsulasAdministradorActivity : BaseActivity() {
             else -> null
         }
 
+        // ÍCONE DE EDITAR SEMPRE BRANCO
         idBtn?.let { id ->
-            val btn = findViewById<ImageButton>(id)
-            when (code) {
-                "DISPONIVEL"   -> btn.setColorFilter(getColor(android.R.color.holo_green_light))
-                "INDISPONIVEL" -> btn.setColorFilter(getColor(android.R.color.holo_red_light))
-                "MANUTENCAO"   -> btn.setColorFilter(getColor(android.R.color.holo_orange_light))
-            }
+            val btn = findViewById<ImageView>(id)
+            btn.clearColorFilter() // remove cor antiga
+            btn.setColorFilter(getColor(android.R.color.white)) // deixa sempre branco
         }
 
+        // BUSCA O TEXTO DO STATUS
         val idTxt = when (numero) {
             1 -> R.id.statusCapsula1AdmCapsulasAdmSergio
             2 -> R.id.statusCapsula2AdmCapsulasAdmSergio
@@ -194,17 +199,26 @@ class CapsulasAdministradorActivity : BaseActivity() {
             else -> null
         }
 
+        // APLICA COR + EXPANDE SE NECESSÁRIO
         idTxt?.let { id ->
             val tv = findViewById<TextView>(id)
-            tv.maxLines = 1
-            tv.isSingleLine = true
+            tv.maxLines = 2
+            tv.isSingleLine = false
 
             when (code) {
-                "DISPONIVEL" -> { tv.text = "Status: Disponível";     tv.setTextColor(0xFF008000.toInt()) }
-                "INDISPONIVEL" -> { tv.text = "Status: Indisponível"; tv.setTextColor(0xFFFF0000.toInt()) }
-                "MANUTENCAO" -> { tv.text = "Status: Manutenção";  tv.setTextColor(0xFFFFA500.toInt()) }
+                "DISPONIVEL" -> {
+                    tv.text = "Disponível"
+                    tv.setTextColor(0xFF008000.toInt())
+                }
+                "INDISPONIVEL" -> {
+                    tv.text = "Indisponível"
+                    tv.setTextColor(0xFFFF0000.toInt())
+                }
+                "MANUTENCAO" -> {
+                    tv.text = "Manutenção"
+                    tv.setTextColor(0xFFFFA500.toInt())
+                }
             }
-
         }
     }
 

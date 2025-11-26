@@ -116,7 +116,7 @@ class CadastrarLivroAdministradorActivity : BaseActivity() {
             startActivity(Intent(this, MensagensAdministradorActivity::class.java))
         }
         findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java)); finish()
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java)); finish()
         }
 
         // ======= CAMPOS =======

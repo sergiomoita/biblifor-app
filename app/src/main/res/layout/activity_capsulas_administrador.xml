@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0A3FCC"
     tools:context=".CapsulasAdministradorActivity">
 
@@ -63,9 +64,9 @@
 
             <LinearLayout
                 android:id="@+id/areaCapsulasAdmSergio"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:layout_marginHorizontal="52dp"
                 android:background="#FFFFFF"
                 android:elevation="6dp"
                 android:gravity="center"
@@ -81,340 +82,570 @@
                     android:gravity="center"
                     android:useDefaultMargins="true">
 
-                    <!-- CÁPSULA 1 -->
                     <LinearLayout
-                        android:layout_width="107dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula1AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula1AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS -->
                         <TextView
                             android:id="@+id/statusCapsula1AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Disponível"
-                            android:textColor="#008000"
+                            android:text="Disponível"
+                            android:textColor="#6BFF6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
+
+
 
                     <!-- CÁPSULA 2 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula2AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula2AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (INDISPONÍVEL) -->
                         <TextView
                             android:id="@+id/statusCapsula2AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Indisponível"
-                            android:textColor="#FF0000"
+                            android:text="Indisponível"
+                            android:textColor="#FF6B6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 3 -->
                     <LinearLayout
-                        android:layout_width="109dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula3AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula3AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS -->
                         <TextView
                             android:id="@+id/statusCapsula3AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Disponível"
-                            android:textColor="#008000"
+                            android:text="Disponível"
+                            android:textColor="#6BFF6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 4 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula4AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula4AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (INDISPONÍVEL) -->
                         <TextView
                             android:id="@+id/statusCapsula4AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Indisponível"
-                            android:textColor="#FF0000"
+                            android:text="Indisponível"
+                            android:textColor="#FF6B6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 5 -->
                     <LinearLayout
-                        android:layout_width="111dp"
-                        android:layout_height="97dp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula5AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula5AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (INDISPONÍVEL) -->
                         <TextView
                             android:id="@+id/statusCapsula5AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Indisponível"
-                            android:textColor="#FF0000"
+                            android:text="Indisponível"
+                            android:textColor="#FF6B6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 6 -->
                     <LinearLayout
-                        android:layout_width="108dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula6AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula6AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS -->
                         <TextView
                             android:id="@+id/statusCapsula6AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Disponível"
-                            android:textColor="#008000"
+                            android:text="Disponível"
+                            android:textColor="#6BFF6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 7 -->
                     <LinearLayout
-                        android:layout_width="110dp"
-                        android:layout_height="99dp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula7AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula7AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (INDISPONÍVEL) -->
                         <TextView
                             android:id="@+id/statusCapsula7AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Indisponível"
-                            android:textColor="#FF0000"
+                            android:text="Indisponível"
+                            android:textColor="#FF6B6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 8 -->
                     <LinearLayout
-                        android:layout_width="108dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula8AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula8AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (INDISPONÍVEL) -->
                         <TextView
                             android:id="@+id/statusCapsula8AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Indisponível"
-                            android:textColor="#FF0000"
+                            android:text="Indisponível"
+                            android:textColor="#FF6B6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 9 -->
                     <LinearLayout
-                        android:layout_width="107dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula9AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula9AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS -->
                         <TextView
                             android:id="@+id/statusCapsula9AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Disponível"
-                            android:textColor="#008000"
+                            android:text="Disponível"
+                            android:textColor="#6BFF6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 10 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula10AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula10AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (INDISPONÍVEL) -->
                         <TextView
                             android:id="@+id/statusCapsula10AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Indisponível"
-                            android:textColor="#FF0000"
+                            android:text="Indisponível"
+                            android:textColor="#FF6B6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <!-- CÁPSULA 11 -->
                     <LinearLayout
-                        android:layout_width="109dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula11AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL (EDITAR) -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula11AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS (MANUTENÇÃO) -->
                         <TextView
                             android:id="@+id/statusCapsula11AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Em manutenção"
-                            android:textColor="#FFA500"
+                            android:text="Manutenção"
+                            android:textColor="#FFC107"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
+
 
                     <!-- CÁPSULA 12 -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:paddingTop="2dp">
 
-                        <ImageButton
-                            android:id="@+id/btnCapsula12AdmCapsulasAdmSergio"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/bg_capsula_azul"
-                            android:padding="45dp"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/editar"
-                            android:tint="@android:color/white" />
+                        <!-- CARD MODERNO REDUZIDO -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginTop="4dp"
+                            app:cardCornerRadius="16dp"
+                            app:cardElevation="4dp"
+                            app:cardBackgroundColor="@color/biblifor_blue"
+                            android:foreground="?attr/selectableItemBackgroundBorderless">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <!-- ÍCONE CENTRAL -->
+                                <ImageView
+                                    android:id="@+id/btnCapsula12AdmCapsulasAdmSergio"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/editar"
+                                    android:tint="@android:color/white" />
+
+                            </FrameLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- STATUS -->
                         <TextView
                             android:id="@+id/statusCapsula12AdmCapsulasAdmSergio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Status: Disponível"
-                            android:textColor="#008000"
+                            android:text="Disponível"
+                            android:textColor="#6BFF6B"
+                            android:textStyle="bold"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                 </GridLayout>
