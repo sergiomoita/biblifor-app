@@ -5,289 +5,246 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#004AF7"
+    android:background="#0A3FCC"
     tools:context=".PerfilUsuarioActivity">
 
+    <!-- LOGO -->
     <ImageView
         android:id="@+id/leoLogoUniforPU5"
         android:layout_width="90dp"
         android:layout_height="62dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/logo_unifor" />
 
     <TextView
         android:id="@+id/leotextViewUniforPU5"
-        android:layout_width="168dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="36dp"
-        android:fontFamily="sans-serif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Unifor Biblifor"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.311"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/leoLogoUniforPU5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/leoLogoHome3"
-        android:layout_width="85dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="780dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/home" />
-
-    <ImageView
-        android:id="@+id/leoImagemChatbot3"
-        android:layout_width="57dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="780dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatbot_ema" />
-
-    <ImageView
-        android:id="@+id/leoImagemNotificacoes3"
-        android:layout_width="69dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="792dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/email" />
-
-    <ImageView
-        android:id="@+id/leoImagemMenu3"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="788dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
-
+    <!-- ÍCONE VOLTAR -->
     <ImageView
         android:id="@+id/leoImagemSetaPU5"
         android:layout_width="34dp"
         android:layout_height="40dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
-        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/seta"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta" />
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- ÍCONE NOTIFICAÇÃO -->
     <ImageView
         android:id="@+id/leoImagemNotificacaoSuperiorPU5"
-        android:layout_width="43dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp"
         android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/notificacao"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificacao" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- FOTO DO PERFIL -->
+
+    <!-- FOTO PERFIL -->
     <ImageView
         android:id="@+id/leoFotoPerfilUsuarioPU5"
         android:layout_width="118dp"
         android:layout_height="112dp"
         android:layout_marginTop="152dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@drawable/foto_user" />
 
+    <!-- BOTÃO EDITAR FOTO -->
+    <ImageView
+        android:id="@+id/leoBotaoEditarFotoPerfilNew"
+        android:layout_width="32dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="148dp"
+        android:tint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/editar" />
+    <!-- NOME EXIBIDO -->
     <TextView
         android:id="@+id/leoNomeUserPU5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="268dp"
+        android:layout_marginTop="16dp"
         android:text="Maria Luísa"
-        android:textColor="#F8F6F6"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leoBotaoEditarFotoPerfilNew"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- MATRÍCULA -->
     <TextView
         android:id="@+id/leoMatriculaUserPU5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
         android:text="2120347"
-        android:textColor="#F8F6F6"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:textColor="#EAEAEA"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/leoNomeUserPU5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/leoCampoNomePU5"
-        android:layout_width="699dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="312dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/dialog_holo_light_frame" />
 
-    <ImageView
-        android:id="@+id/leoCampoCursoPU5"
-        android:layout_width="699dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="392dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/dialog_holo_light_frame" />
+    <!-- ================================ -->
+    <!--  NOVOS CARDS MODERNOS - NOME     -->
+    <!-- ================================ -->
 
-    <TextView
-        android:id="@+id/leoTituloNomeCompletoPU5"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/cardNomePU5"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="332dp"
-        android:text="Nome"
-        android:textColor="#1A1919"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.301"
+        android:background="@drawable/bg_card_moderno"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintTop_toBottomOf="@id/leoMatriculaUserPU5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/leoTituloCursoPU5"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tituloNomePU5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textColor="#A5B4FF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/valorNomePU5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maria Luísa"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+
+    <!-- ================================ -->
+    <!--  NOVO CARD MODERNO - CURSO       -->
+    <!-- ================================ -->
+
+    <LinearLayout
+        android:id="@+id/cardCursoPU5"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="416dp"
-        android:text="Curso"
-        android:textColor="#1A1919"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
+        android:background="@drawable/bg_card_moderno"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@id/cardNomePU5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <TextView
+            android:id="@+id/tituloCursoPU5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Curso"
+            android:textColor="#A5B4FF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/valorCursoPU5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ciência da Computação"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+
+    <!-- TÍTULO HISTÓRICO -->
     <TextView
         android:id="@+id/leoTituloHistoricoEmprestimoPU5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="488dp"
         android:text="Histórico de Empréstimos"
         android:textColor="#FFFFFF"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.276"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/cardCursoPU5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/leoImagemCadeado1PU5"
-        android:layout_width="21dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="348dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.71"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cadeado" />
-
-    <ImageView
-        android:id="@+id/leoImagemCadeado2PU5"
-        android:layout_width="21dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="432dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.709"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cadeado" />
-
-    <TextView
-        android:id="@+id/leoNomeCompletoUserPU5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="352dp"
-        android:text="Maria Luísa"
-        android:textColor="#020202"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.323"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/leoNomeCursoUserPU5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="436dp"
-        android:text="Ciência da Computação"
-        android:textColor="#020202"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!-- ================================ -->
-    <!-- NOVO RECYCLER VIEW PADRONIZADO   -->
-    <!-- ================================ -->
-
-
+    <!-- RECYCLER VIEW HISTÓRICO -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHistorico5"
-        android:layout_width="326dp"
-        android:layout_height="194dp"
+        android:layout_width="330dp"
+        android:layout_height="195dp"
+        android:padding="8dp"
         android:clipToPadding="false"
-        android:paddingStart="8dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/leoLogoHome3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/leoTituloHistoricoEmprestimoPU5"
-        app:layout_constraintVertical_bias="0.084" />
-
-    <ImageView
-        android:id="@+id/leoBotaoEditarFotoPerfilNew"
-        android:layout_width="37dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="232dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.622"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#FFFFFF"
-        app:srcCompat="@drawable/editar" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- BARRA INFERIOR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <ImageView
+            android:id="@+id/leoLogoHome3"
+            android:layout_width="60dp"
+            android:layout_height="58dp"
+            android:tint="#FFFFFF"
+            android:layout_marginHorizontal="20dp"
+            app:srcCompat="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/leoImagemChatbot3"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_marginHorizontal="20dp"
+            app:srcCompat="@drawable/chatbot_ema" />
+
+        <ImageView
+            android:id="@+id/leoImagemNotificacoes3"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="20dp"
+            app:srcCompat="@drawable/email" />
+
+        <ImageView
+            android:id="@+id/leoImagemMenu3"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:tint="#FFFFFF"
+            android:layout_marginHorizontal="20dp"
+            app:srcCompat="@drawable/menu_hamb" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

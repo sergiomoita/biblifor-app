@@ -25,7 +25,7 @@ class PopupResultadosAdministradorActivity : BaseActivity() {
         val txtTitulo = findViewById<TextView>(R.id.txtTituloPopupAdm)
         val txtStatus = findViewById<TextView>(R.id.txtStatusPopupAdm)
         val btnEditar = findViewById<TextView>(R.id.btnEditarLivroPopupAdm)
-        val btnDeletar = findViewById<ImageView>(R.id.btnDeletarLivroPopupAdm)
+        val btnDeletar = findViewById<TextView>(R.id.btnDeletarLivroPopupAdm)
 
         // ==== Barra inferior (SEM finish!!) ====
         findViewById<ImageView>(R.id.iconHomePopupAdm).setOnClickListener {

@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#004AF7"
+    android:background="#0A3FCC"
     android:animateLayoutChanges="true"
     tools:context=".HistoricoEmprestimosUsuarioActivity">
 
@@ -40,32 +40,33 @@
     </LinearLayout>
 
     <!-- BOTÃO DE VOLTAR -->
+    <!-- BOTÃO DE VOLTAR -->
     <ImageView
         android:id="@+id/btnVoltarHistorico"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="Voltar"
-        android:src="@drawable/seta"
         android:tint="#FFFFFF"
+        android:src="@drawable/seta"
         app:layout_constraintTop_toBottomOf="@id/containerLogo"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- TÍTULO + LUPA -->
+    <!-- TÍTULO + LUPA (MESMO EIXO VERTICAL DA SETA) -->
     <TextView
         android:id="@+id/lopesEmprestar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Histórico de Empréstimos"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/btnVoltarHistorico"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerLogo"
+        app:layout_constraintStart_toEndOf="@id/btnVoltarHistorico"
         app:layout_constraintEnd_toStartOf="@id/ivLupaHistorico" />
 
     <ImageView
@@ -80,6 +81,7 @@
         app:layout_constraintTop_toTopOf="@id/lopesEmprestar"
         app:layout_constraintBottom_toBottomOf="@id/lopesEmprestar"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
     <!-- SUBTÍTULO -->
     <TextView
@@ -203,7 +205,7 @@
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="#004AF7"
+        android:background="#0A3FCC"
         android:paddingHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

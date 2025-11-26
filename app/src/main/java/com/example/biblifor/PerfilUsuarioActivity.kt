@@ -61,8 +61,8 @@ class PerfilUsuarioActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil_usuario)
 
-        val nomeBoxTextView = findViewById<TextView>(R.id.leoNomeCompletoUserPU5)
-        val cursoTextView   = findViewById<TextView>(R.id.leoNomeCursoUserPU5)
+        val nomeBoxTextView = findViewById<TextView>(R.id.valorNomePU5)
+        val cursoTextView   = findViewById<TextView>(R.id.valorCursoPU5)
         val matriculaBoxTv  = findViewById<TextView>(R.id.leoMatriculaUserPU5)
 
         val nomeHeaderTextView = findViewById<TextView>(R.id.leoNomeUserPU5)
