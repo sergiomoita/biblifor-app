@@ -155,8 +155,7 @@ class PerfilAdministradorActivity : BaseActivity() {
         }
 
         findViewById<ImageView>(R.id.iconMenuInferiorCapsulasAdmSergio).setOnClickListener {
-            startActivity(Intent(this, MenuPrincipalAdministradorActivity::class.java))
-            finish()
+            startActivity(Intent(this, MenuHamburguerAdministradorActivity::class.java))
         }
     }
 
