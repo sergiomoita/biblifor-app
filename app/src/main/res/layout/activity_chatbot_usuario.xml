@@ -17,7 +17,6 @@
         android:layout_height="62dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_unifor" />
@@ -31,20 +30,19 @@
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/leoImagemSetaVoltarChatbot7"
         android:layout_width="37dp"
         android:layout_height="39dp"
-        app:tint="#FFFFFF"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:tint="#FFFFFF"
         android:layout_marginStart="16dp"
         android:layout_marginTop="92dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/seta" />
 
     <TextView
@@ -55,10 +53,10 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="96dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="96dp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/leoTituloChatChatbot7"
@@ -68,10 +66,10 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="128dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="128dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- LISTA DE MENSAGENS -->
     <androidx.recyclerview.widget.RecyclerView
@@ -94,13 +92,12 @@
         android:layout_width="0dp"
         android:layout_height="66dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="84dp"
         android:background="@android:drawable/button_onoff_indicator_off"
         android:orientation="horizontal"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -123,7 +120,7 @@
             app:srcCompat="@drawable/enviar_msg"/>
     </LinearLayout>
 
-    <!-- BARRA INFERIOR CENTRALIZADA -->
+    <!-- BARRA INFERIOR -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="wrap_content"
