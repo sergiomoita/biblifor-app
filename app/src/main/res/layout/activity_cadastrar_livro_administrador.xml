@@ -322,49 +322,66 @@
     <LinearLayout
         android:id="@+id/barraInferiorCapsulasAdmSergio"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
+        android:layout_height="45dp"
+        android:background="#0A3FCC"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:paddingHorizontal="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
+        <!-- HOME (ADM) -->
         <ImageView
             android:id="@+id/iconHomeCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Home"
+            android:layout_width="57dp"
+            android:layout_height="55dp"
+            android:tint="#FFFFFF"
             android:src="@drawable/home"
-            android:tint="#FFFFFF" />
+            android:layout_marginHorizontal="16dp" />
 
+        <!-- ESCREVER MENSAGEM (ADM) -->
         <ImageView
             android:id="@+id/iconEscreverMsgCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="EnviarMsg"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:tint="#FFFFFF"
             android:src="@drawable/escrever_mensagem"
-            android:tint="#FFFFFF" />
+            android:layout_marginHorizontal="16dp" />
 
-        <ImageView
-            android:id="@+id/iconMensagemCapsulasAdmSergio"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Mensagem"
-            android:src="@drawable/email" />
+        <!-- NOTIFICAÇÕES + BOLINHA -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/iconMensagemCapsulasAdmSergio"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/email"
+                android:layout_marginHorizontal="16dp" />
+
+            <ImageView
+                android:id="@+id/bolinhaBaixo"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/bola_notificacao"
+                android:visibility="gone"
+                android:layout_gravity="end|top"
+                android:translationX="3dp"
+                android:translationY="-3dp" />
+
+        </FrameLayout>
+
+        <!-- MENU (ADM) -->
         <ImageView
             android:id="@+id/iconMenuInferiorCapsulasAdmSergio"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:contentDescription="Menu"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:tint="#FFFFFF"
             android:src="@drawable/menu_hamb"
-            android:tint="#FFFFFF" />
+            android:layout_marginHorizontal="16dp" />
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

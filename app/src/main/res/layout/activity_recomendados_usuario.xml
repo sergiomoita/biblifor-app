@@ -193,12 +193,12 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- BARRA INFERIOR -->
+    <!-- BARRA INFERIOR PADRONIZADA -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="#004AF7"
+        android:background="#0A3FCC"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="32dp"
@@ -206,33 +206,50 @@
 
         <ImageView
             android:id="@+id/leoLogoHome3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="57dp"
+            android:layout_height="55dp"
             android:tint="#FFFFFF"
             android:src="@drawable/home"
             android:layout_marginHorizontal="16dp" />
 
         <ImageView
             android:id="@+id/leoImagemChatbot3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/chatbot_ema"
             android:layout_marginHorizontal="16dp" />
 
-        <ImageView
-            android:id="@+id/leoImagemNotificacoes3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/email"
-            android:layout_marginHorizontal="16dp" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/leoImagemNotificacoes3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/email"
+                android:layout_marginHorizontal="16dp" />
+
+            <ImageView
+                android:id="@+id/bolinhaBaixo"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/bola_notificacao"
+                android:visibility="gone"
+                android:layout_gravity="end|top"
+                android:translationX="3dp"
+                android:translationY="-3dp"/>
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/leoImagemMenu3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:tint="#FFFFFF"
             android:src="@drawable/menu_hamb"
             android:layout_marginHorizontal="16dp" />
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

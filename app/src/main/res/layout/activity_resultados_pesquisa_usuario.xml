@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/seta"/>
 
-    <!-- ÍCONE DE LUPA SUPERIOR (abre/fecha barra) -->
+    <!-- ÍCONE DE LUPA SUPERIOR -->
     <ImageView
         android:id="@+id/ivLupaResultados"
         android:layout_width="28dp"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- BARRA DE PESQUISA (AGORA COM LUPA INTERNA) -->
+    <!-- BARRA DE PESQUISA -->
     <androidx.cardview.widget.CardView
         android:id="@+id/containerPesquisaResultados"
         android:layout_width="0dp"
@@ -122,13 +122,11 @@
                 android:textColor="#000000"
                 android:textColorHint="#808080"/>
 
-            <!-- LUPA INTERNA (AÇÃO REAL DE PESQUISA) -->
             <ImageView
                 android:id="@+id/ivLupaInternaResultados"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
-                android:src="@drawable/lupa_pesquisar"
-                android:contentDescription="Pesquisar"/>
+                android:src="@drawable/lupa_pesquisar"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -160,60 +158,66 @@
         app:layout_constraintTop_toBottomOf="@id/lopesDisponiveisRenovacao32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/leoLogoHome3"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"/>
 
-    <!-- BARRA INFERIOR -->
-    <!-- BARRA INFERIOR -->
-    <ImageView
-        android:id="@+id/leoLogoHome3"
-        android:layout_width="85dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:tint="#FFFFFF"
+    <!-- BARRA INFERIOR PADRONIZADA -->
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="#0A3FCC"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/leoImagemChatbot3"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:srcCompat="@drawable/home" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/leoImagemChatbot3"
-        android:layout_width="57dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoLogoHome3"
-        app:layout_constraintEnd_toStartOf="@id/leoImagemNotificacoes3"
-        app:srcCompat="@drawable/chatbot_ema" />
+        <ImageView
+            android:id="@+id/leoLogoHome3"
+            android:layout_width="57dp"
+            android:layout_height="55dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/home"
+            android:layout_marginHorizontal="16dp" />
 
-    <ImageView
-        android:id="@+id/leoImagemNotificacoes3"
-        android:layout_width="69dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoImagemChatbot3"
-        app:layout_constraintEnd_toStartOf="@id/leoImagemMenu3"
-        app:srcCompat="@drawable/email" />
+        <ImageView
+            android:id="@+id/leoImagemChatbot3"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/chatbot_ema"
+            android:layout_marginHorizontal="16dp" />
 
-    <ImageView
-        android:id="@+id/leoImagemMenu3"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="8dp"
-        android:tint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/leoImagemNotificacoes3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/menu_hamb" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/leoImagemNotificacoes3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/email"
+                android:layout_marginHorizontal="16dp" />
 
+            <ImageView
+                android:id="@+id/bolinhaBaixo"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/bola_notificacao"
+                android:visibility="gone"
+                android:layout_gravity="end|top"
+                android:translationX="3dp"
+                android:translationY="-3dp"/>
+        </FrameLayout>
 
+        <ImageView
+            android:id="@+id/leoImagemMenu3"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:tint="#FFFFFF"
+            android:src="@drawable/menu_hamb"
+            android:layout_marginHorizontal="16dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -102,48 +102,62 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Barra inferior -->
+    <!-- Barra inferior padronizada -->
     <LinearLayout
         android:id="@+id/barraInferiorLivroDesfavoritadoUsuario"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="72dp"
+        android:background="#0A3FCC"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:paddingHorizontal="32dp"
+        android:layout_alignParentBottom="true">
 
         <ImageView
             android:id="@+id/iconHomeLivroDesfavoritadoUsuario"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_width="57dp"
+            android:layout_height="55dp"
             android:src="@drawable/home"
             android:tint="#FFFFFF"
-            android:contentDescription="Home" />
+            android:layout_marginHorizontal="16dp" />
 
         <ImageView
             android:id="@+id/iconChatbotLivroDesfavoritadoUsuario"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/chatbot_ema"
-            android:contentDescription="Mascote" />
+            android:layout_marginHorizontal="16dp" />
 
-        <ImageView
-            android:id="@+id/iconMensagemLivroDesfavoritadoUsuario"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginHorizontal="20dp"
-            android:src="@drawable/email"
-            android:contentDescription="Mensagem" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iconMensagemLivroDesfavoritadoUsuario"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/email"
+                android:layout_marginHorizontal="16dp" />
+
+            <ImageView
+                android:id="@+id/bolinhaBaixo"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/bola_notificacao"
+                android:visibility="gone"
+                android:layout_gravity="end|top"
+                android:translationX="3dp"
+                android:translationY="-3dp"/>
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/iconMenuLivroDesfavoritadoUsuario"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/menu_hamb"
             android:tint="#FFFFFF"
-            android:contentDescription="Menu" />
+            android:layout_marginHorizontal="16dp" />
     </LinearLayout>
+
 
 </RelativeLayout>
