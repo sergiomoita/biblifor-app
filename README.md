@@ -87,7 +87,7 @@ biblifor/
 ├── AUTHORS.md
 ├── README.md
 └── .gitignore
-
+```
 ---
 
 ## 🔧 Como Executar o Projeto
