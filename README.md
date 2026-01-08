@@ -1,60 +1,178 @@
-# Biblifor 📚
-Aplicativo Android (Kotlin) para apoiar a experiência de alunos e administradores em um sistema de biblioteca: autenticação, pesquisa de acervo, empréstimos/renovação, favoritos, avisos e funcionalidades administrativas.
+📚 Biblifor
 
-> Projeto acadêmico desenvolvido em equipe.  
-> Este repositório é uma cópia pública para fins de portfólio, com créditos e documentação.
+Biblifor é um aplicativo Android desenvolvido em Kotlin que simula um sistema digital de biblioteca, permitindo a gestão de acervo, empréstimos, renovações, favoritos e comunicação entre usuários e administradores.
+O projeto foi desenvolvido em equipe, no contexto acadêmico, e posteriormente organizado neste repositório para fins educacionais e de portfólio.
 
-## ✨ Principais funcionalidades
-### 👤 Aluno
-- Login por **matrícula e senha**
-- Menu principal e navegação por módulos
-- Pesquisa de livros no acervo
-- Favoritos e conteúdos recomendados
-- Avisos e notificações
-- Fluxo de empréstimo e confirmação
-- Histórico de empréstimos (listagem/paginação)
-- Acesso a conteúdo online quando disponível
+🎯 Objetivo do Projeto
 
-### 🛠️ Administrador
-- Cadastro e manutenção de livros (informações e disponibilidade)
-- Gerenciamento de avisos/eventos
-- Gerenciamento de “cápsulas”/salas e seus status (quando aplicável)
+O objetivo do Biblifor é oferecer uma solução mobile para bibliotecas acadêmicas, centralizando em um único aplicativo:
 
-## 🧱 Tecnologias
-- **Kotlin** + **Android Studio**
-- Interface com **XML Layouts**
-- (Período de teste) **Firebase** — configuração local
-- Emulador recomendado: **Pixel 6a – API 33 (Android 13)**
+Consulta ao acervo
 
-## ▶️ Como executar o projeto
-### Pré-requisitos
-- Android Studio instalado
-- Android SDK configurado (API 33 recomendado)
-- Um emulador (AVD) ou celular físico com depuração USB
+Empréstimos e renovações de livros
 
-### Rodando
-1. Clone este repositório
-2. Abra a pasta do projeto no Android Studio
-3. Aguarde o **Gradle Sync**
-4. Inicie um emulador (ex.: Pixel 6a API 33)
-5. Clique em **Run (▶)**
+Organização de favoritos
 
-## 🔐 Firebase (observação importante)
-Este repositório **não inclui** `google-services.json` por ser um arquivo de configuração local.
-Para executar com Firebase:
-1. Crie um projeto no Firebase (ou use um para testes)
-2. Adicione um app Android com o mesmo `applicationId`
-3. Baixe o `google-services.json` e coloque em:
-   `app/google-services.json`
-4. Faça Sync e rode novamente
+Avisos e mensagens
 
-## 📄 Documentação
-- Requisitos e modelagem do projeto: ver a pasta [`docs/`](./docs)
+Separação clara de papéis entre usuário e administrador
 
-## 🤝 Créditos
-Projeto desenvolvido em equipe por:
-- Sergio Moita
-- Mateus Lopes Pinheiro
-- Davi Ribeiro
-- Leonardo Enzo Pinheiro Diógenes
-- Gustavo Andrade Ferreira de Medeiros
+🛠️ Tecnologias Utilizadas
+
+Kotlin – linguagem principal
+
+Android SDK
+
+Firebase Firestore – banco de dados NoSQL
+
+Firebase Authentication – autenticação de usuários
+
+Android Studio
+
+Gradle (KTS)
+
+RecyclerView / Adapters
+
+Arquitetura baseada em Activities
+
+Git & GitHub
+
+⚠️ O projeto utilizou o período de testes do Firebase.
+O arquivo google-services.json não é versionado, conforme boas práticas de segurança.
+
+👥 Perfis de Usuário
+👤 Usuário (Aluno)
+
+Login e cadastro
+
+Visualização do acervo
+
+Empréstimo de livros
+
+Renovação de empréstimos
+
+Favoritar livros
+
+Acesso a recomendações
+
+Visualização de avisos
+
+Histórico de empréstimos
+
+🛡️ Administrador
+
+Cadastro e edição de livros
+
+Controle de empréstimos
+
+Gerenciamento de cápsulas/status
+
+Envio de avisos e mensagens
+
+Visualização de resultados e estatísticas
+
+🧩 Principais Funcionalidades
+
+📖 Acervo digital pesquisável
+
+🔄 Renovação de empréstimos
+
+⭐ Sistema de favoritos
+
+🔔 Avisos para usuários
+
+💬 Mensagens entre sistema e usuários
+
+📊 Histórico de empréstimos
+
+🔐 Autenticação com Firebase
+
+🧭 Menus separados para usuário e administrador
+
+🗂️ Estrutura do Projeto
+biblifor/
+├── app/
+│   ├── src/main/java/com/example/biblifor/
+│   │   ├── activities (telas do app)
+│   │   ├── adapters (RecyclerViews)
+│   │   ├── models (Book, Emprestimo, Aviso, etc.)
+│   │   └── util
+│   ├── res/
+│   │   ├── layout/
+│   │   ├── drawable/
+│   │   └── values/
+├── docs/
+│   ├── Documento_Requisitos_Modelagem_Sistemas_.pdf
+│   └── BIBLIFOR_Narak.pdf
+├── AUTHORS.md
+├── README.md
+└── .gitignore
+
+🔧 Como Executar o Projeto
+Pré-requisitos
+
+Android Studio instalado
+
+Emulador Android (recomendado: Pixel 6a – API 33)
+
+Conta Firebase (caso queira rodar com backend próprio)
+
+Passos
+
+Clone o repositório:
+
+git clone https://github.com/sergiomoita/biblifor-app.git
+
+
+Abra no Android Studio
+
+Configure seu próprio Firebase
+
+Adicione o google-services.json em:
+
+app/google-services.json
+
+
+Execute o app no emulador
+
+📄 Documentação
+
+Os documentos de requisitos e modelagem utilizados no desenvolvimento estão disponíveis na pasta:
+
+/docs
+
+
+Eles descrevem:
+
+Requisitos funcionais e não funcionais
+
+Modelagem do sistema
+
+Fluxos principais do aplicativo
+
+👨‍💻 Autoria e Créditos
+
+Este projeto foi desenvolvido em equipe como trabalho acadêmico.
+
+A organização, manutenção do repositório e documentação para portfólio foram realizadas por:
+
+➡️ Sérgio Moita
+GitHub: https://github.com/sergiomoita
+
+Os demais colaboradores estão listados no arquivo AUTHORS.md
+.
+
+⚠️ Observações Importantes
+
+Projeto de caráter educacional
+
+Não destinado a uso em produção
+
+Firebase configurado apenas para testes
+
+Estrutura baseada em Activities (não MVVM)
+
+📌 Status do Projeto
+
+✔️ Concluído
+📦 Versão estável para fins acadêmicos e portfólio
